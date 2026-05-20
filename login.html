@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Login - City Choice Bakery</title>
+
+<link rel="stylesheet" href="login.css">
+<link rel="stylesheet" href="alert.css">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+<script src="supabase.js"></script>
+</head>
+
+<body>
+
+<!-- TOP ALERT -->
+
+<div class="top-alert"
+id="topAlert">
+
+<div class="alert-icon"
+id="alertIcon">
+
+<i class="fa-solid fa-check"></i>
+
+</div>
+
+<div class="alert-content">
+
+<div class="alert-title"
+id="alertTitle">
+
+Success
+
+</div>
+
+<div class="alert-text"
+id="alertText">
+
+Message here
+
+</div>
+
+</div>
+
+<div class="alert-close"
+onclick="closeTopAlert()">
+
+<i class="fa-solid fa-xmark"></i>
+
+</div>
+
+</div>
+
+
+<!-- VIDEO -->
+<div class="video-hero" id="videoHero">
+
+  <video autoplay muted loop playsinline>
+    <source src="https://cdn.coverr.co/videos/coverr-pizza-being-prepared-5776/1080p.mp4">
+  </video>
+
+  <div class="overlay">
+    <h1>City Choice Bakery</h1>
+    <p>Fresh • Fast • Delicious</p>
+
+    <div class="btns">
+      <button onclick="showLogin()">Login</button>
+      <button onclick="showSignup()">Signup</button>
+    </div>
+  </div>
+</div>
+
+<!-- LOGIN -->
+<div class="form-box hidden" id="loginBox">
+
+  <div class="top-bar">
+    <h2>Login</h2>
+    <span onclick="closeForms()">✖</span>
+  </div>
+
+  <input type="email" id="loginEmail" placeholder="Email">
+  <input type="password" id="loginPassword" placeholder="Password">
+
+  <button onclick="loginUser()">Login</button>
+</div>
+
+<!-- SIGNUP -->
+<div class="form-box hidden" id="signupBox">
+
+  <div class="top-bar">
+    <h2>Signup</h2>
+    <span onclick="closeForms()">✖</span>
+  </div>
+
+  <input type="text" id="name" placeholder="Full Name">
+  <input type="text" id="phone" placeholder="Phone Number">
+  <input type="email" id="email" placeholder="Email">
+  <input type="password" id="password" placeholder="Create Password">
+
+  <!-- PINCODE -->
+  <div class="pin-box">
+    <input type="text" id="pinSearch" placeholder="Search Pincode..." oninput="filterPincodes()">
+
+    <select id="pincodeSelect">
+      <option value="">Select Pincode</option>
+    </select>
+  </div>
+
+  <button onclick="getLocation()">📍 Use Current Location</button>
+
+  <input type="text" id="location" placeholder="Location will appear here" readonly>
+
+  <button onclick="signupUser()">Create Account</button>
+</div>
+
+<script>
+
+/* ================= UI CONTROLS ================= */
+
+function showLogin(){
+  document.getElementById("videoHero").style.display="none";
+  document.getElementById("loginBox").classList.remove("hidden");
+}
+
+function showSignup(){
+  document.getElementById("videoHero").style.display="none";
+  document.getElementById("signupBox").classList.remove("hidden");
+}
+
+function closeForms(){
+  document.getElementById("loginBox").classList.add("hidden");
+  document.getElementById("signupBox").classList.add("hidden");
+  document.getElementById("videoHero").style.display="block";
+}
+
+/* ================= LOCATION (FIXED) ================= */
+
+function getLocation(){
+
+  if(!navigator.geolocation){
+    showTopAlert(
+  "error",
+  "Unsupported Device",
+  "Location not supported"
+);
+    return;
+  }
+
+  navigator.geolocation.getCurrentPosition(
+    async (pos)=>{
+
+      let lat = pos.coords.latitude;
+      let lng = pos.coords.longitude;
+
+      try {
+
+        let res = await fetch(
+          `https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}`
+        );
+
+        let data = await res.json();
+
+        let area =
+          data.address.city ||
+          data.address.town ||
+          data.address.village ||
+          data.address.county ||
+          data.display_name;
+
+        document.getElementById("location").value = area;
+
+      } catch (e) {
+        showTopAlert(
+  "error",
+  "Location Error",
+  "Location fetch failed"
+);
+      }
+
+    },
+    (err)=>{
+      showTopAlert(
+  "error",
+  "Location Error",
+  "Permission denied or GPS OFF ❌"
+);
+    }
+  );
+}
+
+/* ================= SIGNUP ================= */
+
+async function signupUser(){
+
+  let user = {
+    name: document.getElementById("name").value,
+    phone: document.getElementById("phone").value,
+    email: document.getElementById("email").value,
+    pincode: document.getElementById("pincodeSelect").value,
+    location: document.getElementById("location").value
+  };
+
+  let password = document.getElementById("password").value;
+
+  if(!user.pincode){
+    showTopAlert(
+  "error",
+  "Pincode Required",
+  "Please select pincode"
+);
+    return;
+  }
+
+let { data: pinData, error: pinError } = await supabaseClient
+  .from("pincodes")
+  .select("code");
+
+if(pinError){
+  console.log(pinError);
+  return;
+}
+
+let allowed = pinData.map(p => p.code);
+
+if(!allowed.includes(user.pincode)){
+  showTopAlert(
+  "error",
+  "Delivery Not Available",
+  "Sorry! is area me delivery available nahi hai"
+);
+  return;
+}
+
+  let { error } = await supabaseClient.auth.signUp({
+    email: user.email,
+    password: password
+  });
+
+  if(error){
+    showTopAlert(
+  "error",
+  "Error",
+  error?.message || "Something went wrong"
+);
+    return;
+  }
+
+  await supabaseClient.from("users").insert([user]);
+
+  showTopAlert(
+  "success",
+  "Signup Successful",
+  "Your account has been created ✔"
+);
+  window.location.href="index.html";
+}
+
+/* ================= LOGIN ================= */
+
+async function loginUser(){
+
+  let email = document.getElementById("loginEmail").value.trim();
+  let pass = document.getElementById("loginPassword").value.trim();
+
+  // ✅ MISSING VALIDATION (ADD THIS)
+  if(!email || !pass){
+    showTopAlert(
+      "error",
+      "Missing Fields",
+      "Please enter email and password"
+    );
+    return;
+  }
+
+  let { error } = await supabaseClient.auth.signInWithPassword({
+    email: email,
+    password: pass
+  });
+
+  if(error){
+    showTopAlert(
+      "error",
+      "Login Failed",
+      error.message
+    );
+  } else {
+    showTopAlert(
+      "success",
+      "Login Successful",
+      "Welcome back ✔"
+    );
+
+    setTimeout(()=>{
+      window.location.href="account.html";
+    }, 1200);
+  }
+}
+
+/* ================= PINCODES ================= */
+
+let allPincodes = [];
+
+async function loadPincodes(){
+
+  let { data, error } = await supabaseClient
+    .from("pincodes")
+    .select("*");
+
+  if(error){
+    console.log(error);
+    return;
+  }
+
+  allPincodes = data;
+
+  let select = document.getElementById("pincodeSelect");
+
+  data.forEach(pin=>{
+    let option = document.createElement("option");
+    option.value = pin.code;
+    option.textContent = `${pin.code} - ${pin.area}`;
+    select.appendChild(option);
+  });
+}
+
+loadPincodes();
+
+function filterPincodes(){
+
+  let value = document.getElementById("pinSearch").value.toLowerCase();
+
+  let select = document.getElementById("pincodeSelect");
+
+  select.innerHTML = `<option value="">Select Pincode</option>`;
+
+  allPincodes
+    .filter(p => p.code.includes(value))
+    .forEach(pin=>{
+
+      let option = document.createElement("option");
+      option.value = pin.code;
+      option.textContent = `${pin.code} - ${pin.area}`;
+
+      select.appendChild(option);
+    });
+}
+
+// =========================
+// TOP ALERT
+// =========================
+
+function showTopAlert(type,title,message){
+
+const alertBox =
+document.getElementById("topAlert");
+
+const alertIcon =
+document.getElementById("alertIcon");
+
+document.getElementById("alertTitle")
+.innerText = title;
+
+document.getElementById("alertText")
+.innerText = message;
+
+// RESET
+alertBox.classList.remove(
+"success",
+"error"
+);
+
+// TYPE
+if(type === "success"){
+
+alertBox.classList.add("success");
+
+alertIcon.innerHTML = `
+<i class="fa-solid fa-check"></i>
+`;
+
+}else{
+
+alertBox.classList.add("error");
+
+alertIcon.className = "alert-icon success-icon";
+
+}
+
+// SHOW
+alertBox.classList.add("show");
+
+// AUTO HIDE
+setTimeout(()=>{
+
+closeTopAlert();
+
+},3000);
+
+}
+
+// CLOSE
+function closeTopAlert(){
+
+document.getElementById("topAlert")
+.classList.remove("show");
+
+}
+
+
+</script>
+
+</body>
+</html>

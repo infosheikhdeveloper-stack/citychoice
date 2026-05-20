@@ -1,0 +1,984 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>City Choice Bakers - Payment</title>
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+   <link rel="stylesheet" href="back.css">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Inter,sans-serif;
+}
+
+body{
+background:#f4f6f9;
+padding:14px;
+color:#111827;
+}
+
+.container{
+max-width:650px;
+margin:auto;
+display:flex;
+flex-direction:column;
+gap:16px;
+padding-bottom:100px;
+}
+
+.card{
+background:#fff;
+border-radius:20px;
+padding:18px;
+box-shadow:0 4px 14px rgba(0,0,0,0.06);
+}
+
+.page-title{
+font-size:24px;
+font-weight:700;
+margin-bottom:5px;
+}
+
+.sub-title{
+font-size:14px;
+color:#64748b;
+}
+
+h3{
+font-size:17px;
+margin-bottom:16px;
+display:flex;
+align-items:center;
+gap:8px;
+}
+
+.payment-option{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:15px;
+border:2px solid #e2e8f0;
+border-radius:16px;
+margin-bottom:12px;
+cursor:pointer;
+transition:0.3s;
+background:#fff;
+}
+
+.payment-option.active{
+border-color:#111827;
+background:#f8fafc;
+}
+
+.payment-option.disabled{
+opacity:0.5;
+pointer-events:none;
+}
+
+.payment-left{
+display:flex;
+align-items:center;
+gap:12px;
+}
+
+.payment-left i{
+font-size:22px;
+}
+
+.payment-option label{
+font-size:15px;
+font-weight:600;
+cursor:pointer;
+}
+
+.address-box{
+background:#f8fafc;
+padding:15px;
+border-radius:16px;
+line-height:1.7;
+font-size:14px;
+border:1px solid #e2e8f0;
+}
+
+.item{
+display:flex;
+justify-content:space-between;
+align-items:center;
+gap:12px;
+margin-bottom:14px;
+}
+
+.item-left{
+display:flex;
+align-items:center;
+gap:12px;
+flex:1;
+}
+
+.item img{
+width:60px;
+height:60px;
+border-radius:12px;
+object-fit:cover;
+border:1px solid #e2e8f0;
+}
+
+.item-name{
+font-size:15px;
+font-weight:600;
+margin-bottom:3px;
+}
+
+.item-qty{
+font-size:13px;
+color:#64748b;
+}
+
+.item-price{
+font-size:15px;
+font-weight:700;
+}
+
+.bill{
+margin-top:20px;
+border-top:1px dashed #cbd5e1;
+padding-top:16px;
+}
+
+.bill-row{
+display:flex;
+justify-content:space-between;
+margin-bottom:12px;
+font-size:15px;
+}
+
+.total{
+font-size:20px;
+font-weight:700;
+margin-top:10px;
+}
+
+.confirm-btn{
+width:100%;
+padding:16px;
+border:none;
+border-radius:16px;
+background:#111827;
+color:#fff;
+font-size:17px;
+font-weight:700;
+cursor:pointer;
+transition:0.3s;
+}
+
+.confirm-btn:hover{
+background:#000;
+}
+
+.confirm-btn:disabled{
+background:#94a3b8;
+cursor:not-allowed;
+}
+
+.overlay{
+position:fixed;
+inset:0;
+background:rgba(0,0,0,0.45);
+opacity:0;
+visibility:hidden;
+transition:0.3s;
+z-index:998;
+}
+
+.overlay.show{
+opacity:1;
+visibility:visible;
+}
+
+.bottom-sheet{
+position:fixed;
+left:0;
+bottom:-100%;
+width:100%;
+background:#fff;
+border-radius:28px 28px 0 0;
+padding:28px 20px 40px;
+transition:0.4s ease;
+z-index:999;
+text-align:center;
+max-height:90vh;
+overflow:auto;
+}
+
+.bottom-sheet.show{
+bottom:0;
+}
+
+.tick{
+width:100px;
+height:100px;
+margin:auto;
+margin-bottom:18px;
+}
+
+.tick circle{
+stroke:#22c55e;
+stroke-width:5;
+fill:none;
+stroke-dasharray:300;
+stroke-dashoffset:300;
+animation:circleAnim .7s forwards;
+}
+
+.tick path{
+stroke:#22c55e;
+stroke-width:5;
+fill:none;
+stroke-dasharray:100;
+stroke-dashoffset:100;
+animation:tickAnim .5s .6s forwards;
+}
+
+@keyframes circleAnim{
+to{
+stroke-dashoffset:0;
+}
+}
+
+@keyframes tickAnim{
+to{
+stroke-dashoffset:0;
+}
+}
+
+.error-icon{
+font-size:85px;
+color:#ef4444;
+margin-bottom:14px;
+}
+
+.sheet-title{
+font-size:24px;
+font-weight:700;
+margin-bottom:10px;
+}
+
+.sheet-text{
+font-size:15px;
+line-height:1.7;
+color:#475569;
+}
+
+.code-box{
+margin-top:18px;
+background:#f8fafc;
+padding:14px;
+border-radius:14px;
+border:1px solid #e2e8f0;
+}
+
+.code-box p{
+margin-bottom:8px;
+font-size:15px;
+}
+
+.loader{
+width:24px;
+height:24px;
+border:3px solid #fff;
+border-top:3px solid transparent;
+border-radius:50%;
+animation:spin 1s linear infinite;
+margin:auto;
+}
+
+@keyframes spin{
+100%{
+transform:rotate(360deg);
+}
+}
+
+@media(max-width:600px){
+
+body{
+padding:10px;
+}
+
+.card{
+padding:15px;
+border-radius:18px;
+}
+
+.item img{
+width:52px;
+height:52px;
+}
+
+.confirm-btn{
+position:fixed;
+bottom:12px;
+left:12px;
+right:12px;
+width:calc(100% - 24px);
+z-index:50;
+box-shadow:0 8px 25px rgba(0,0,0,0.15);
+}
+
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<div>
+<div class="page-title">
+Payment
+</div>
+
+<div class="sub-title">
+Secure checkout for City Choice Bakers
+</div>
+</div>
+
+<!-- PAYMENT METHODS -->
+
+<div class="card">
+
+<h3>
+<i class="fa-solid fa-wallet"></i>
+Payment Method
+</h3>
+
+<div class="payment-option active"
+onclick="selectPayment('WhatsApp Payment',this)">
+
+<div class="payment-left">
+<i class="fa-brands fa-whatsapp"></i>
+
+<label>
+WhatsApp Payment
+</label>
+</div>
+
+<input type="radio"
+checked
+name="payment">
+</div>
+
+<div class="payment-option"
+onclick="selectPayment('Cash on Delivery',this)">
+
+<div class="payment-left">
+<i class="fa-solid fa-money-bill-wave"></i>
+
+<label>
+Cash on Delivery
+</label>
+</div>
+
+<input type="radio"
+name="payment">
+</div>
+
+<div class="payment-option disabled">
+
+<div class="payment-left">
+<i class="fa-brands fa-google-pay"></i>
+
+<label>
+Google Pay
+</label>
+</div>
+
+<input type="radio"
+disabled>
+</div>
+
+<div class="payment-option disabled">
+
+<div class="payment-left">
+<i class="fa-solid fa-mobile-screen"></i>
+
+<label>
+PhonePe
+</label>
+</div>
+
+<input type="radio"
+disabled>
+</div>
+
+<div class="payment-option disabled">
+
+<div class="payment-left">
+<i class="fa-solid fa-qrcode"></i>
+
+<label>
+UPI
+</label>
+</div>
+
+<input type="radio"
+disabled>
+</div>
+
+<div class="payment-option disabled">
+
+<div class="payment-left">
+<i class="fa-regular fa-credit-card"></i>
+
+<label>
+Credit Card
+</label>
+</div>
+
+<input type="radio"
+disabled>
+</div>
+
+</div>
+
+<!-- ADDRESS -->
+
+<div class="card">
+
+<h3>
+<i class="fa-solid fa-location-dot"></i>
+Delivery Address
+</h3>
+
+<div class="address-box"
+id="addressBox">
+
+Loading address...
+
+</div>
+
+</div>
+
+<!-- INVOICE -->
+
+<div class="card">
+
+<h3>
+<i class="fa-solid fa-file-invoice"></i>
+Invoice
+</h3>
+
+<div id="invoiceItems"></div>
+
+<div class="bill">
+
+<div class="bill-row">
+<span>Subtotal</span>
+<span id="subtotal">₹0</span>
+</div>
+
+<div class="bill-row">
+<span>Tax Charges</span>
+<span id="tax">₹0</span>
+</div>
+
+<div class="bill-row">
+<span>Delivery</span>
+<span id="deliveryCharge">
+₹0
+</span>
+</div>
+
+<div class="bill-row">
+<span>Platform Charge</span>
+<span id="platformCharge">
+₹0
+</span>
+</div>
+
+<div class="bill-row total">
+<span>Grand Total</span>
+<span id="grandTotal">₹0</span>
+</div>
+
+</div>
+
+</div>
+
+<button class="confirm-btn"
+id="confirmBtn"
+onclick="confirmOrder()">
+
+Confirm Order
+
+</button>
+
+</div>
+
+<!-- OVERLAY -->
+
+<div class="overlay"
+id="overlay"></div>
+
+<!-- BOTTOM SHEET -->
+
+<div class="bottom-sheet"
+id="bottomSheet">
+
+<div id="sheetContent"></div>
+
+</div>
+
+<script>
+
+// ================= SUPABASE =================
+
+const SUPABASE_URL =
+"https://ftuchilcswtnnldrugir.supabase.co";
+
+const SUPABASE_ANON_KEY =
+"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZ0dWNoaWxjc3d0bm5sZHJ1Z2lyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzkxNjAyNDQsImV4cCI6MjA5NDczNjI0NH0.88SWE5lvsJD0Fw8x7h4pgAmq1WFRN1qMvmXHCXeDqsU";
+
+const supabaseClient =
+window.supabase.createClient(
+SUPABASE_URL,
+SUPABASE_ANON_KEY
+);
+
+// ================= PAYMENT =================
+
+let selectedPayment =
+"WhatsApp Payment";
+
+function selectPayment(method,element){
+
+selectedPayment = method;
+
+document.querySelectorAll(".payment-option")
+.forEach(box=>{
+
+box.classList.remove("active");
+
+});
+
+element.classList.add("active");
+
+document.querySelectorAll(
+'.payment-option input[type="radio"]'
+).forEach(r=>r.checked=false);
+
+element.querySelector("input").checked=true;
+
+}
+
+// ================= ORDER DATA =================
+
+const order =
+JSON.parse(localStorage.getItem("order")) || {};
+
+const cart =
+order.cart || [];
+
+let subtotal = 0;
+
+// ================= ADDRESS =================
+
+document.getElementById("addressBox")
+.innerHTML = `
+
+<b>${order.name || "Customer"}</b><br>
+
+${order.phone || ""}<br><br>
+
+${order.address1 || ""}<br>
+
+${order.address2 || ""}<br>
+
+${order.district || ""}<br>
+
+${order.state || ""} - ${order.pincode || ""}
+
+`;
+
+// ================= INVOICE =================
+
+const invoiceItems =
+document.getElementById("invoiceItems");
+
+cart.forEach(item=>{
+
+subtotal += item.price * item.qty;
+
+invoiceItems.innerHTML += `
+
+<div class="item">
+
+<div class="item-left">
+
+<img src="${item.image}">
+
+<div>
+
+<div class="item-name">
+${item.title}
+</div>
+
+<div class="item-qty">
+Qty : ${item.qty}
+</div>
+
+</div>
+
+</div>
+
+<div class="item-price">
+₹${item.price * item.qty}
+</div>
+
+</div>
+
+`;
+
+});
+
+// ================= SETTINGS =================
+
+let settings = null;
+
+async function loadSettings(){
+
+const { data, error } =
+await supabaseClient
+.from("settings")
+.select("*")
+.eq("id",1)
+.single();
+
+if(error){
+
+console.log("SETTINGS ERROR:", error);
+
+return;
+
+}
+
+settings = data;
+
+calculateBill();
+
+}
+
+// ================= BILL CALCULATION =================
+
+function calculateBill(){
+
+// TAX
+let tax =
+Math.round(
+subtotal * (settings.tax_percent / 100)
+);
+
+// DELIVERY
+let delivery =
+subtotal >= settings.free_delivery_limit
+? 0
+: settings.delivery_charge;
+
+// PLATFORM
+let platform =
+settings.platform_charge;
+
+// GRAND TOTAL
+let grandTotal =
+subtotal + tax + delivery + platform;
+
+// ================= UPDATE UI =================
+
+// ================= UPDATE UI =================
+
+document.getElementById("subtotal")
+.innerText = `₹${subtotal}`;
+
+document.getElementById("tax")
+.innerText = `₹${tax}`;
+
+document.getElementById("deliveryCharge")
+.innerText =
+delivery === 0
+? "FREE"
+: `₹${delivery}`;
+
+document.getElementById("platformCharge")
+.innerText = `₹${platform}`;
+
+document.getElementById("grandTotal")
+.innerText = `₹${grandTotal}`;
+
+// SAVE GLOBAL VALUES
+window.finalTax = tax;
+
+window.finalDelivery = delivery;
+
+window.finalPlatform = platform;
+
+window.finalGrandTotal = grandTotal;
+
+}
+
+// LOAD SETTINGS
+loadSettings();
+
+// ================= RANDOM CODES =================
+
+function generatePackageCode(){
+
+const random =
+Math.floor(1000 + Math.random() * 9000);
+
+return `CCB${random}`;
+
+}
+
+function generateOrderId(){
+
+return "ORD" + Date.now();
+
+}
+
+// ================= ALERT SHEET =================
+
+function showSheet(html){
+
+document.getElementById("sheetContent")
+.innerHTML = html;
+
+document.getElementById("overlay")
+.classList.add("show");
+
+document.getElementById("bottomSheet")
+.classList.add("show");
+
+}
+
+// ================= CONFIRM ORDER =================
+
+async function confirmOrder(){
+
+if(cart.length === 0){
+
+showSheet(`
+
+<div class="error-icon">
+❌
+</div>
+
+<div class="sheet-title">
+Cart Empty
+</div>
+
+<div class="sheet-text">
+Please add products before placing order.
+</div>
+
+`);
+
+return;
+
+}
+
+const btn =
+document.getElementById("confirmBtn");
+
+btn.disabled = true;
+
+btn.innerHTML = `
+<div class="loader"></div>
+`;
+
+const { data:{ user } } =
+await supabaseClient.auth.getUser();
+
+const orderId =
+generateOrderId();
+
+const packageCode =
+generatePackageCode();
+
+const orderData = {
+
+order_id: String(orderId),
+
+package_code: String(packageCode),
+
+user_id: user?.id || null,
+
+customer_name: String(order.name || ""),
+
+phone: String(order.phone || ""),
+
+pincode: String(order.pincode || ""),
+
+state: String(order.state || ""),
+
+district: String(order.district || ""),
+
+address1: String(order.address1 || ""),
+
+address2: String(order.address2 || ""),
+
+payment_method: String(selectedPayment),
+
+items: cart || [],
+
+subtotal: Number(subtotal || 0),
+
+tax: Number(window.finalTax || 0),
+delivery_charge: Number(window.finalDelivery || 0),
+
+platform_charge: Number(window.finalPlatform || 0),
+
+grand_total: Number(window.finalGrandTotal || 0),
+
+status: "Pending"
+
+};
+
+// ================= SAVE ORDER =================
+
+const { data, error } =
+await supabaseClient
+.from("orders")
+.insert([orderData])
+.select();
+
+console.log("ORDER DATA:", orderData);
+
+console.log("SUPABASE DATA:", data);
+
+console.log("SUPABASE ERROR:", error);
+
+if(error){
+
+btn.disabled = false;
+
+btn.innerHTML = `Confirm Order`;
+
+showSheet(`
+
+<div class="error-icon">
+❌
+</div>
+
+<div class="sheet-title">
+Order Failed
+</div>
+
+<div class="sheet-text">
+
+${error.message}
+
+</div>
+
+`);
+
+return;
+
+}
+
+// ================= SUCCESS =================
+
+showSheet(`
+
+<svg class="tick"
+viewBox="0 0 100 100">
+
+<circle cx="50"
+cy="50"
+r="45"/>
+
+<path d="M28 52 L45 67 L72 38"/>
+
+</svg>
+
+<div class="sheet-title">
+
+Order Sent Successfully
+
+</div>
+
+<div class="sheet-text">
+
+Your order has been placed successfully.
+
+</div>
+
+<div class="code-box">
+
+<p>
+Package Code :
+<b>${packageCode}</b>
+</p>
+
+<p>
+Order ID :
+<b>${orderId}</b>
+</p>
+
+<p>
+Payment :
+<b>${selectedPayment}</b>
+</p>
+
+</div>
+
+`);
+
+// ================= WHATSAPP =================
+
+const message = `
+
+*City Choice Bakers Order*
+
+Order ID: ${orderId}
+
+Package Code: ${packageCode}
+
+Customer: ${order.name}
+
+Phone: ${order.phone}
+
+Pincode: ${order.pincode}
+
+Location: ${order.address1}
+
+Payment: ${selectedPayment}
+
+Total: ₹${window.finalGrandTotal}
+
+`;
+
+localStorage.removeItem("cart");
+
+setTimeout(()=>{
+
+window.location.href =
+`https://wa.me/917051932522?text=${encodeURIComponent(message)}`;
+
+},3000);
+
+}
+
+</script>
+<script src="back.js"></script>
+</body>
+</html>

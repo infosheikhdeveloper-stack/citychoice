@@ -1,0 +1,565 @@
+<!-- =========================
+     CART PAGE
+========================= -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta name="viewport"
+  content="width=device-width, initial-scale=1.0">
+
+  <title>Cart - City Choice Bakers</title>
+
+  <!-- FONT -->
+
+  <link rel="preconnect"
+  href="https://fonts.googleapis.com">
+
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Pacifico&display=swap"
+  rel="stylesheet">
+
+  <!-- FONT AWESOME -->
+
+  <link rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <link rel="stylesheet" href="cart.css">
+   <link rel="stylesheet" href="back.css">
+   
+   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script>
+const SUPABASE_URL = "https://ftuchilcswtnnldrugir.supabase.co";
+
+const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZ0dWNoaWxjc3d0bm5sZHJ1Z2lyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzkxNjAyNDQsImV4cCI6MjA5NDczNjI0NH0.88SWE5lvsJD0Fw8x7h4pgAmq1WFRN1qMvmXHCXeDqsU";
+
+const supabaseClient = window.supabase.createClient(
+  SUPABASE_URL,
+  SUPABASE_ANON_KEY
+);
+</script>
+   
+   
+</head>
+
+<body>
+
+<!-- =========================
+     HEADER
+========================= -->
+
+<header class="cart-header">
+
+  <div class="header-left">
+
+   
+
+    <div>
+      <h2>Cart</h2>
+      <p>Your selected items</p>
+    </div>
+
+  </div>
+
+  <div class="cart-tag">
+    <i class="fa-solid fa-cart-shopping"></i>
+  </div>
+
+</header>
+
+<!-- =========================
+     EMPTY CART
+========================= -->
+
+<section class="empty-cart">
+
+  <i class="fa-solid fa-cart-shopping"></i>
+
+  <h3>Your Cart is Empty</h3>
+
+  <p>Add delicious items now</p>
+
+</section>
+
+<!-- =========================
+     CART PRODUCTS
+========================= -->
+
+<section class="cart-products"
+id="cartProducts"></section>
+
+<!-- =========================
+     COUPON BOX
+========================= -->
+
+<section class="coupon-box"
+onclick="openCouponSheet()">
+
+  <div class="coupon-left">
+
+    <div class="coupon-icon">
+      <i class="fa-solid fa-ticket"></i>
+    </div>
+
+    <div>
+      <h3>Apply Best Offer</h3>
+      <p id="saveAmount">
+        You Save ₹0
+      </p>
+    </div>
+
+  </div>
+
+  <i class="fa-solid fa-angle-right"></i>
+
+</section>
+
+<!-- =========================
+     BILL DETAILS
+========================= -->
+
+<section class="bill-box">
+
+  <h2>Bill Details</h2>
+
+  <div class="bill-row">
+    <span>Item Total</span>
+    <strong id="itemTotal">
+      ₹0
+    </strong>
+  </div>
+
+  <div class="bill-row">
+    <span>Tax (2%)</span>
+    <strong id="taxAmount">
+      ₹0
+    </strong>
+  </div>
+
+  <div class="bill-row">
+    <span>Delivery Charge</span>
+    <strong id="deliveryCharge">
+      ₹0
+    </strong>
+  </div>
+
+  <div class="bill-row">
+    <span>Platform Charge</span>
+<strong id="platformCharge">₹0</strong>
+  </div>
+
+  <div class="bill-total">
+    <span>Amount Payable</span>
+    <strong id="grandTotal">
+      ₹0
+    </strong>
+  </div>
+
+</section>
+
+<!-- =========================
+     CHECKOUT BUTTON
+========================= -->
+
+<div class="checkout-bar">
+
+  <div>
+    <small>Grand Total</small>
+
+    <h3 id="checkoutTotal">
+      ₹0
+    </h3>
+  </div>
+
+<button onclick="goToCheckout()">
+  Checkout
+</button>
+
+</div>
+
+<!-- =========================
+     COUPON SHEET
+========================= -->
+
+<section class="coupon-sheet"
+id="couponSheet">
+
+  <!-- TOP -->
+
+  <div class="coupon-top">
+
+    <div class="coupon-back"
+    onclick="closeCouponSheet()">
+
+      <i class="fa-solid fa-arrow-left"></i>
+
+    </div>
+
+    <div>
+
+      <h2>Coupons & Offers</h2>
+
+      <p>
+        Apply the best deal for this order
+      </p>
+
+    </div>
+
+  </div>
+
+  <!-- PROMO -->
+
+  <div class="promo-box">
+
+    <input type="text"
+    placeholder="Enter Promo Code">
+
+    <button>
+      Apply
+    </button>
+
+  </div>
+
+  <!-- SELECTION -->
+
+  <div class="selection-box">
+
+    <h3>Your Selection</h3>
+
+    <p id="couponStatus">
+      No coupon applied
+    </p>
+
+  </div>
+
+  <!-- COUPONS -->
+
+  <div class="offer-card">
+
+    <div class="offer-icon">
+      <i class="fa-solid fa-tags"></i>
+    </div>
+
+    <div class="offer-info">
+      <h3>Save ₹100</h3>
+      <p>On orders above ₹999</p>
+    </div>
+
+    <button onclick="applyCoupon(100)">
+      Apply
+    </button>
+
+  </div>
+
+  <div class="offer-card">
+
+    <div class="offer-icon">
+      <i class="fa-solid fa-tags"></i>
+    </div>
+
+    <div class="offer-info">
+      <h3>Save ₹200</h3>
+      <p>On orders above ₹1499</p>
+    </div>
+
+    <button onclick="applyCoupon(200)">
+      Apply
+    </button>
+
+  </div>
+
+</section>
+
+<!-- =========================
+     SCRIPT
+========================= -->
+
+
+
+
+<script>
+let settings = null;
+
+async function loadSettings() {
+
+  let { data, error } = await supabaseClient.from("settings")
+    .select("*")
+    .eq("id", 1)
+    .single();
+
+  console.log(data, error);
+
+  if (error) {
+    alert("Supabase error check console");
+    return;
+  }
+
+  settings = data;
+
+  renderCart();
+}
+
+window.addEventListener("DOMContentLoaded", () => {
+  loadSettings();
+});
+
+
+
+let cart =
+JSON.parse(localStorage.getItem("cart"))
+|| [];
+
+let discount = 0;
+
+const cartProducts =
+document.getElementById("cartProducts");
+
+const emptyCart =
+document.querySelector(".empty-cart");
+
+/* =========================
+   RENDER CART
+========================= */
+
+function renderCart(){
+
+  if(!settings){
+    emptyCart.innerHTML = "Loading...";
+    return;
+  }
+
+
+  cartProducts.innerHTML = "";
+
+  let total = 0;
+
+  if(cart.length === 0){
+
+    emptyCart.style.display = "block";
+
+  }else{
+
+    emptyCart.style.display = "none";
+
+  }
+
+  cart.forEach((item,index)=>{
+
+    total += item.price * item.qty;
+
+    cartProducts.innerHTML += `
+
+    <div class="cart-item">
+
+      <img src="${item.image}">
+
+      <div class="cart-info">
+
+        <h3>${item.title}</h3>
+
+        <p>${item.desc}</p>
+
+        <span>
+          ₹${item.price}
+        </span>
+
+        <div class="qty-box">
+
+          <button
+          onclick="decreaseQty(${index})">
+          -
+          </button>
+
+          <strong>
+            ${item.qty}
+          </strong>
+
+          <button
+          onclick="increaseQty(${index})">
+          +
+          </button>
+
+        </div>
+
+      </div>
+
+      <div class="delete-btn"
+      onclick="deleteItem(${index})">
+
+        <i class="fa-solid fa-trash"></i>
+
+      </div>
+
+    </div>
+
+    `;
+
+  });
+
+  /* =========================
+     BILL CALCULATION
+  ========================= */
+
+  let tax = settings
+  ? Math.round(total * (settings.tax_percent / 100))
+  : 0;
+
+let delivery = settings
+  ? (total >= settings.free_delivery_limit
+      ? 0
+      : settings.delivery_charge)
+  : 0;
+
+let platform = settings
+  ? settings.platform_charge
+  : 0;
+
+  let grandTotal =
+  total + tax + delivery + platform - discount;
+
+  if(grandTotal < 0){
+    grandTotal = 0;
+  }
+
+  /* =========================
+     UPDATE BILL
+  ========================= */
+
+  document.getElementById("itemTotal")
+  .innerText = `₹${total}`;
+
+  document.getElementById("taxAmount")
+  .innerText = `₹${tax}`;
+
+  document.getElementById("deliveryCharge")
+  .innerText =
+  delivery === 0
+  ? "FREE"
+  : `₹${delivery}`;
+
+  document.getElementById("platformCharge")
+  .innerText = `₹${platform}`;
+
+  document.getElementById("grandTotal")
+  .innerText = `₹${grandTotal}`;
+
+  document.getElementById("checkoutTotal")
+  .innerText = `₹${grandTotal}`;
+
+  document.getElementById("saveAmount")
+  .innerText =
+  `You Save ₹${discount}`;
+
+}
+
+/* =========================
+   SAVE CART
+========================= */
+
+function saveCart(){
+
+  localStorage.setItem(
+    "cart",
+    JSON.stringify(cart)
+  );
+
+  renderCart();
+
+}
+
+/* =========================
+   INCREASE QTY
+========================= */
+
+function increaseQty(index){
+
+  cart[index].qty++;
+
+  saveCart();
+
+}
+
+/* =========================
+   DECREASE QTY
+========================= */
+
+function decreaseQty(index){
+
+  if(cart[index].qty > 1){
+
+    cart[index].qty--;
+
+  }else{
+
+    cart.splice(index,1);
+
+  }
+
+  saveCart();
+
+}
+
+/* =========================
+   DELETE ITEM
+========================= */
+
+function deleteItem(index){
+
+  cart.splice(index,1);
+
+  saveCart();
+
+}
+
+/* =========================
+   COUPON SHEET
+========================= */
+
+function openCouponSheet(){
+
+  document.getElementById("couponSheet")
+  .classList.add("show-coupon");
+
+}
+
+function closeCouponSheet(){
+
+  document.getElementById("couponSheet")
+  .classList.remove("show-coupon");
+
+}
+
+/* =========================
+   APPLY COUPON
+========================= */
+
+function applyCoupon(amount){
+
+  discount = amount;
+
+  document.getElementById("couponStatus")
+  .innerText =
+  `Coupon Applied - ₹${amount} OFF`;
+
+  closeCouponSheet();
+
+  renderCart();
+
+}
+
+/* =========================
+   START
+========================= */
+
+renderCart();
+function goToCheckout() {
+  window.location.href = "checkout.html";
+}
+
+</script>
+<script src="back.js"></script>
+</body>
+</html>

@@ -1,0 +1,342 @@
+/* =========================
+   CITY CHOICE BAKERY
+   PREMIUM STYLE CSS
+========================= */
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:'Poppins',sans-serif;
+}
+
+body{
+  background:#ffffff;
+  padding-bottom:95px;
+  color:#111;
+}
+
+/* =========================
+   HERO SLIDER
+========================= */
+
+.hero-slider{
+  width:100%;
+  height:240px;
+  overflow:hidden;
+  margin-top:10px;
+  border-radius:28px;
+  padding:0 12px;
+}
+
+.slides{
+  width:100%;
+  height:240px;
+  background-size:cover;
+  background-position:center;
+  border-radius:28px;
+  position:relative;
+  animation:zoom 6s linear infinite;
+}
+
+@keyframes zoom{
+  0%{
+    transform:scale(1);
+  }
+
+  50%{
+    transform:scale(1.06);
+  }
+
+  100%{
+    transform:scale(1);
+  }
+}
+
+.overlay{
+  position:absolute;
+  inset:0;
+  background:linear-gradient(to top,
+  rgba(0,0,0,0.85),
+  rgba(0,0,0,0.2));
+  border-radius:28px;
+  display:flex;
+  flex-direction:column;
+  justify-content:flex-end;
+  padding:22px;
+  color:white;
+}
+
+.overlay h2{
+  font-size:30px;
+  font-weight:700;
+}
+
+.overlay p{
+  font-size:14px;
+  color:#ddd;
+  margin-top:4px;
+}
+
+/* =========================
+   FAST DELIVERY
+========================= */
+
+.delivery-box{
+  margin:0 15px 18px;
+  background:#fff;
+  border-radius:18px;
+  padding:12px 14px;
+  display:flex;
+  align-items:center;
+  gap:12px;
+  border:1.5px solid #ff2b2b;
+  box-shadow:0 5px 15px rgba(0,0,0,0.06);
+  animation:deliveryGlow 2s infinite alternate;
+}
+
+.delivery-icon{
+  width:48px;
+  height:48px;
+  border-radius:14px;
+  background:linear-gradient(135deg,#111,#ff2b2b);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  animation:bounce 2s infinite;
+}
+
+.delivery-icon i{
+  font-size:21px;
+  color:#fff;
+}
+
+.delivery-text h3{
+  color:#111;
+  font-size:15px;
+  font-weight:700;
+}
+
+.delivery-text p{
+  color:#666;
+  font-size:11px;
+  margin-top:2px;
+}
+
+@keyframes bounce{
+  0%{
+    transform:translateY(0);
+  }
+
+  50%{
+    transform:translateY(-4px);
+  }
+
+  100%{
+    transform:translateY(0);
+  }
+}
+
+@keyframes deliveryGlow{
+  from{
+    box-shadow:0 0 5px rgba(255,43,43,0.1);
+  }
+
+  to{
+    box-shadow:0 0 15px rgba(255,43,43,0.25);
+  }
+}
+
+
+/* =========================
+   PRODUCTS
+========================= */
+.horizontal-products{
+  display:flex;
+  gap:14px;
+  overflow-x:auto;
+  padding:10px 15px 20px;
+  scroll-behavior:smooth;
+}
+
+.horizontal-products::-webkit-scrollbar{
+  display:none;
+}
+
+.product-card{
+  min-width:180px;
+  background:linear-gradient(145deg,#ffffff,#fff8f1);
+  border-radius:22px;
+  padding:12px;
+  box-shadow:0 8px 18px rgba(0,0,0,0.06);
+}
+
+.product-card img{
+  width:100%;
+  height:140px;
+  object-fit:cover;
+  border-radius:18px;
+}
+
+.product-card h3{
+  font-size:16px;
+  margin-top:10px;
+}
+
+.product-card p{
+  font-size:12px;
+  color:#777;
+  margin-top:4px;
+}
+
+.price-row{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-top:12px;
+}
+
+.price-row span{
+  font-weight:700;
+  color:#ff2b2b;
+}
+
+.price-row button{
+  border:none;
+  background:#111;
+  color:#fff;
+  padding:8px 14px;
+  border-radius:12px;
+}
+
+.title-row{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:0 15px;
+}
+
+.title-row h2{
+  font-size:18px;
+}
+
+.title-row span{
+  color:#ff2b2b;
+  font-weight:600;
+}
+
+.desc{
+  font-size:12px;
+  color:#777;
+  margin-top:4px;
+}
+
+.more{
+  color:#ff2b2b;
+  font-weight:600;
+  cursor:pointer;
+}
+/* =========================
+   PREMIUM SEARCH BAR
+========================= */
+
+.search-section{
+  padding:20px 15px;
+}
+
+/* SEARCH BOX */
+
+.search-box{
+  position:relative;
+  background:#ffffff;
+  border-radius:22px;
+  padding:16px 18px;
+  display:flex;
+  align-items:center;
+  gap:12px;
+  border:1px solid #f0f0f0;
+  box-shadow:
+  0 8px 22px rgba(0,0,0,0.06);
+  overflow:hidden;
+}
+
+/* TOP SHINE EFFECT */
+
+.search-box::before{
+  content:"";
+  position:absolute;
+  top:0;
+  left:-100%;
+  width:60%;
+  height:100%;
+  background:linear-gradient(
+    90deg,
+    transparent,
+    rgba(255,255,255,0.7),
+    transparent
+  );
+  animation:searchShine 3s infinite;
+}
+
+/* ICON */
+
+.search-box i{
+  color:#ff2b2b;
+  font-size:20px;
+  z-index:2;
+}
+
+/* INPUT */
+
+.search-box input{
+  border:none;
+  outline:none;
+  width:100%;
+  font-size:15px;
+  font-weight:500;
+  background:none;
+  color:#111;
+  z-index:2;
+}
+
+/* PLACEHOLDER ANIMATION */
+
+.search-box input::placeholder{
+  color:#888;
+  animation:placeholderMove 2s infinite alternate;
+}
+
+/* =========================
+   ANIMATIONS
+========================= */
+
+/* SHINE */
+
+@keyframes searchShine{
+
+  0%{
+    left:-100%;
+  }
+
+  100%{
+    left:130%;
+  }
+
+}
+
+/* TEXT EFFECT */
+
+@keyframes placeholderMove{
+
+  0%{
+    letter-spacing:0px;
+    opacity:0.7;
+  }
+
+  100%{
+    letter-spacing:1px;
+    opacity:1;
+  }
+
+}
+

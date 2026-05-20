@@ -1,0 +1,145 @@
+/* =========================
+   MENU BOOK ICON
+========================= */
+
+.menu-book-btn{
+  position:fixed;
+  right:18px;
+  bottom:95px;
+  width:58px;
+  height:58px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:28px;
+  color: #ff0000;
+  z-index:1000;
+  border-radius:50%;
+  cursor:pointer;
+}
+/* =========================
+   BOOK STYLE MENU
+========================= */
+
+.menu-book{
+  position:fixed;
+  left:0;
+  bottom:-100%;
+  width:100%;
+  height:82vh;
+  background:#fdfbf7;
+  border-top-left-radius:35px;
+  border-top-right-radius:35px;
+  padding:22px 18px;
+  z-index:2000;
+  transition:0.45s ease;
+  overflow-y:auto;
+  box-shadow:0 -10px 40px rgba(0,0,0,0.18);
+  
+  /* BOOK STYLE */
+  background-image:
+  linear-gradient(to right,#e8dfcf 0px,#fdfbf7 18px);
+}
+
+/* OPEN */
+
+.show-menu{
+  bottom:0;
+}
+
+/* =========================
+   TOP AREA
+========================= */
+
+.menu-top{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:25px;
+  padding-bottom:14px;
+  border-bottom:2px dashed #d9c7a3;
+}
+
+/* TITLE */
+
+.menu-top h2{
+  font-size:28px;
+  color:#111;
+  font-family:'Pacifico',cursive;
+  letter-spacing:1px;
+}
+
+/* CLOSE */
+
+.menu-top i{
+  font-size:22px;
+  color: #ff0000;
+  cursor:pointer;
+}
+
+/* =========================
+   MENU ITEM
+========================= */
+
+.menu-item{
+  display:flex;
+  align-items:center;
+  gap:14px;
+  padding:14px 0;
+  border-bottom:1px dashed #d8c8a7;
+}
+
+/* IMAGE */
+
+.menu-item img{
+  width:75px;
+  height:75px;
+  border-radius:18px;
+  object-fit:cover;
+  border:3px solid #fff;
+  box-shadow:0 4px 10px rgba(0,0,0,0.08);
+}
+
+/* INFO */
+
+.menu-info{
+  flex:1;
+}
+
+.menu-info h3{
+  font-size:17px;
+  color:#111;
+  font-weight:700;
+}
+
+.menu-info p{
+  font-size:12px;
+  color:#111;
+  margin-top:4px;
+  line-height:1.4;
+}
+
+/* PRICE */
+
+.menu-item span{
+  background:#111;
+  color:#fff;
+  padding:8px 13px;
+  border-radius:12px;
+  font-size:13px;
+  font-weight:600;
+  white-space:nowrap;
+}
+
+/* =========================
+   SCROLLBAR
+========================= */
+
+.menu-book::-webkit-scrollbar{
+  width:4px;
+}
+
+.menu-book::-webkit-scrollbar-thumb{
+  background:#d7c29a;
+  border-radius:20px;
+}

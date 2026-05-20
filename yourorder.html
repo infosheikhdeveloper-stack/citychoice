@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Your Orders</title>
+
+<link rel="stylesheet" href="header.css">
+<link rel="stylesheet" href="yourorder.css">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+</head>
+
+<body>
+
+<!-- HEADER -->
+<header class="top-header">
+
+  <div class="logo-section" style="justify-content:center; width:100%;">
+
+    <div class="logo-text-box" style="text-align:center;">
+
+      <h1 class="logo-text" style="display:flex; align-items:center; gap:10px; justify-content:center; font-size:22px;">
+
+        <i class="fa-solid fa-bag-shopping"></i>
+        Your Orders
+
+      </h1>
+
+      <div class="location-anim" style="justify-content:center;">
+        <i class="fa-solid fa-location-dot"></i>
+        <span id="headerLocation">Loading...</span>
+      </div>
+
+    </div>
+
+  </div>
+
+</header>
+
+<!-- PAGE -->
+
+<div class="orders-container">
+
+<div class="page-title">
+<i class="fa-solid fa-bag-shopping"></i>
+Your Orders
+</div>
+
+<div id="ordersBox"></div>
+
+</div>
+
+<script>
+
+// ================= SUPABASE =================
+
+const SUPABASE_URL =
+"https://ftuchilcswtnnldrugir.supabase.co";
+
+const SUPABASE_ANON_KEY =
+"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZ0dWNoaWxjc3d0bm5sZHJ1Z2lyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzkxNjAyNDQsImV4cCI6MjA5NDczNjI0NH0.88SWE5lvsJD0Fw8x7h4pgAmq1WFRN1qMvmXHCXeDqsU";
+
+const supabaseClient =
+window.supabase.createClient(
+SUPABASE_URL,
+SUPABASE_ANON_KEY
+);
+
+// ================= LOCATION =================
+
+document.getElementById("headerLocation")
+.innerText = "Jammu & Kashmir";
+
+// ================= LOAD ORDERS =================
+
+async function loadOrders(){
+
+const ordersBox =
+document.getElementById("ordersBox");
+
+// GET USER
+const { data:{ user } } =
+await supabaseClient.auth.getUser();
+
+if(!user){
+
+ordersBox.innerHTML = `
+
+<div class="empty-box">
+
+<img src="logo.png" class="empty-logo">
+
+<div class="cart-3d">
+<i class="fa-solid fa-cart-shopping"></i>
+</div>
+
+<h2>No Order Yet</h2>
+
+<p>
+Login and place your first order
+</p>
+
+</div>
+
+`;
+
+return;
+
+}
+
+// GET ORDERS
+// GET ORDERS
+const { data, error } =
+await supabaseClient
+.from("orders")
+.select("*")
+.eq("user_id", user.id)
+.order("created_at", { ascending:false });
+
+console.log("ORDERS:", data);
+console.log("ERROR:", error);
+
+if(error){
+
+ordersBox.innerHTML = `
+<p style="color:red;">
+${error.message}
+</p>
+`;
+
+return;
+
+}
+
+// EMPTY
+if(!data || data.length === 0){
+
+ordersBox.innerHTML = `
+
+<div class="empty-box">
+
+<img src="logo.png" class="empty-logo">
+
+<div class="cart-3d">
+<i class="fa-solid fa-cart-shopping"></i>
+</div>
+
+<h2>No Order Yet</h2>
+
+<p>
+Your delicious orders will appear here
+</p>
+
+</div>
+
+`;
+
+return;
+
+}
+
+// SHOW ORDERS
+ordersBox.innerHTML = "";
+
+data.forEach(order=>{
+
+let itemsHTML = "";
+
+let items = order.items;
+
+if(typeof items === "string"){
+items = JSON.parse(items);
+}
+
+(items || []).forEach(item=>{
+
+itemsHTML += `
+
+<div class="item-row">
+
+<img src="${item.image}">
+
+<div class="item-info">
+
+<div class="item-name">
+${item.title}
+</div>
+
+<div class="item-qty">
+Qty : ${item.qty}
+</div>
+
+</div>
+
+<div class="item-price">
+₹${item.price * item.qty}
+</div>
+
+</div>
+
+`;
+
+});
+
+ordersBox.innerHTML += `
+
+<div class="order-card">
+
+<div class="order-top">
+
+<div>
+<h3>${order.customer_name}</h3>
+
+<p>${order.phone}</p>
+
+<p>${user.email}</p>
+</div>
+
+<div class="status">
+${order.status}
+</div>
+
+</div>
+
+<div class="order-meta">
+
+<div>
+<span>Order ID</span>
+<b>${order.order_id}</b>
+</div>
+
+<div>
+<span>Package Code</span>
+<b>${order.package_code}</b>
+</div>
+
+</div>
+
+<div class="items-box">
+
+${itemsHTML}
+
+</div>
+
+<div class="total-row">
+
+<span>Grand Total</span>
+
+<b>
+₹${order.grand_total}
+</b>
+
+</div>
+
+<a href="viewdetail.html?id=${order.id}"
+class="view-btn">
+
+View Details
+
+</a>
+
+</div>
+
+`;
+
+});
+
+}
+
+loadOrders();
+
+</script>
+<script src="back.js"></script>
+</body>
+</html>

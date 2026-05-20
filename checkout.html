@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modern Checkout</title>
+    <link rel="stylesheet" href="checkout.css">
+       <link rel="stylesheet" href="back.css">
+       <link rel="stylesheet" href="alert.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+<!-- TOP ALERT -->
+
+<div class="top-alert"
+id="topAlert">
+
+<div class="alert-icon"
+id="alertIcon">
+
+<i class="fa-solid fa-check"></i>
+
+</div>
+
+<div class="alert-content">
+
+<div class="alert-title"
+id="alertTitle">
+
+Success
+
+</div>
+
+<div class="alert-text"
+id="alertText">
+
+Message here
+
+</div>
+
+</div>
+
+<div class="alert-close"
+onclick="closeTopAlert()">
+
+<i class="fa-solid fa-xmark"></i>
+
+</div>
+
+</div>
+
+
+
+<div class="checkout-container">
+    
+    <div class="main-content">
+        <h2><i class="fa-solid fa-bag-shopping"></i> Checkout Details</h2>
+
+        <div class="checkout-card">
+            <h3><i class="fa-solid fa-user"></i> User Information</h3>
+            <div class="user-profile-info" id="userProfileBox">
+                <p>Loading user profile...</p>
+            </div>
+        </div>
+
+        <div class="checkout-card">
+            <h3><i class="fa-solid fa-address-book"></i> Saved Addresses</h3>
+            <div class="saved-addresses-list" id="savedAddressesList">
+                <p class="no-data">Loading saved addresses...</p>
+            </div>
+        </div>
+
+        <div class="checkout-card">
+            <h3><i class="fa-solid fa-truck"></i> Add Delivery Address</h3>
+            <form id="addressForm" onsubmit="event.preventDefault();">
+                <div class="form-grid">
+                    <div class="input-group">
+                        <label>Receiver Name</label>
+                        <input type="text" id="receiverName" placeholder="Enter receiver's name" required>
+                    </div>
+                    <div class="input-group">
+                        <label>Receiver Phone</label>
+                        <input type="tel" id="receiverPhone" placeholder="Enter phone number" required>
+                    </div>
+                    <div class="input-group">
+                        <label>State</label>
+                        <input type="text" id="state" value="Jammu & Kashmir" readonly class="readonly-input">
+                    </div>
+                    <div class="input-group">
+                        <label>District</label>
+                        <select id="district" required>
+                            <option value="">Select District</option>
+                            <option value="Baramulla">Baramulla</option>
+                            <option value="Budgam">Budgam</option>
+                            <option value="Srinagar">Srinagar</option>
+                            <option value="Anantnag">Anantnag</option>
+                        </select>
+                    </div>
+                    <div class="input-group full-width">
+                        <label>Address Line 1 (House No, Building, Street)</label>
+                        <input type="text" id="address1" placeholder="Flat/House No., Colony" required>
+                    </div>
+                    <div class="input-group full-width">
+                        <label>Address Line 2 (Landmark, Area)</label>
+                        <input type="text" id="address2" placeholder="Near Temple, Landmark etc.">
+                    </div>
+                    <div class="input-group">
+                        <label>Pincode (6-Digits)</label>
+                        <div class="pincode-container">
+                            <input type="text" id="pincode" maxlength="6" placeholder="e.g., 190001" required>
+                            <button type="button" id="verifyPinBtn" onclick="validatePincode()">Verify</button>
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <label>Address Type</label>
+                        <select id="addressType">
+                            <option value="Home">Home (All day delivery)</option>
+                            <option value="Office">Office (10 AM - 5 PM)</option>
+                        </select>
+                    </div>
+                </div>
+                <button type="button" class="btn-secondary" onclick="saveAddress()">Save Address</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="sidebar">
+        <div class="checkout-card summary-card">
+            <h3><i class="fa-solid fa-receipt"></i> Order Summary</h3>
+            
+            <div id="cartItemsList" class="cart-items-list">
+                </div>
+
+            <hr class="divider">
+
+<div class="bill-details">
+
+    <div class="bill-row">
+        <span>Subtotal</span>
+        <span id="subtotalPrice">₹0.00</span>
+    </div>
+
+    <div class="bill-row">
+        <span>Delivery Charges</span>
+        <span id="deliveryCharge">₹0</span>
+    </div>
+
+    <div class="bill-row">
+        <span>Tax</span>
+        <span id="taxAmount">₹0</span>
+    </div>
+
+    <div class="bill-row">
+        <span>Platform Charge</span>
+        <span id="platformCharge">₹0</span>
+    </div>
+
+
+</div>
+
+                <hr class="divider">
+                <div class="bill-row total-row">
+                    <span>Grand Total</span>
+                    <span id="grandTotal">₹0.00</span>
+                </div>
+            </div>
+
+            <button id="nextBtn" class="btn-primary" disabled onclick="nextStep()">
+                PROCEED TO PAYMENT <i class="fa-solid fa-arrow-right"></i>
+            </button>
+        </div>
+    </div>
+
+</div>
+
+<script>
+// ================= SUPABASE =================
+const SUPABASE_URL = "https://ftuchilcswtnnldrugir.supabase.co";
+const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZ0dWNoaWxjc3d0bm5sZHJ1Z2lyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzkxNjAyNDQsImV4cCI6MjA5NDczNjI0NH0.88SWE5lvsJD0Fw8x7h4pgAmq1WFRN1qMvmXHCXeDqsU";
+
+const supabaseClient = window.supabase.createClient(
+  SUPABASE_URL,
+  SUPABASE_ANON_KEY
+);
+
+
+// State Variables
+let selectedAddressId = null;
+let currentUserId = null;
+let isPincodeVerified = false;
+// SETTINGS
+let settings = null;
+
+
+// 2. LOAD APPLICATION DATA ON START
+async function initCheckout() {
+
+    await loadSettings();
+
+    await checkUserSession();
+
+    renderOrderSummary();
+
+}
+
+
+// ================= SETTINGS =================
+
+async function loadSettings(){
+
+const { data, error } =
+await supabaseClient
+.from("settings")
+.select("*")
+.eq("id",1)
+.single();
+
+if(error){
+
+console.log("SETTINGS ERROR:", error);
+
+return;
+
+}
+
+settings = data;
+
+}
+
+
+// 3. CHECK USER SESSION & FETCH PROFILE INFO
+async function checkUserSession() {
+    const userProfileBox = document.getElementById("userProfileBox");
+    
+    // Get logged-in user details from Supabase Auth
+    const { data: { user }, error: authError } = await supabaseClient.auth.getUser();
+
+    if (authError || !user) {
+        userProfileBox.innerHTML = `
+            <div style="color: #ef4444; font-weight: 600;">
+                <i class="fa-solid fa-triangle-exclamation"></i> You are not logged in.
+            </div>`;
+        return;
+    }
+
+    currentUserId = user.id;
+
+    // Fetch Profile data from custom profiles table if needed
+    userProfileBox.innerHTML = `
+        <div class="user-meta-info">
+            <p><strong>Email:</strong> ${user.email}</p>
+            <p style="font-size: 12px; color: #64748b;">User ID: ${user.id}</p>
+        </div>
+    `;
+
+    // Load addresses for this authenticated user
+    await loadSavedAddresses();
+}
+
+// 4. FETCH SAVED ADDRESSES FROM SUPABASE
+async function loadSavedAddresses() {
+    const savedAddressesList = document.getElementById("savedAddressesList");
+    
+    if (!currentUserId) return;
+
+    let { data: addresses, error } = await supabaseClient .from("addresses") // Make sure your Supabase table name matches 'addresses'
+        .select("*")
+        .eq("user_id", currentUserId);
+
+    if (error) {
+        console.error("Error fetching addresses:", error);
+        savedAddressesList.innerHTML = `<p class="no-data">Failed to load addresses.</p>`;
+        return;
+    }
+
+    if (!addresses || addresses.length === 0) {
+        savedAddressesList.innerHTML = `<p class="no-data">No saved addresses found. Add a new one below.</p>`;
+        togglePaymentButton();
+        return;
+    }
+
+    let addressHTML = "";
+    addresses.forEach((addr, idx) => {
+        // Automatically pre-select first saved address if none is chosen yet
+        if (idx === 0 && !selectedAddressId) {
+            selectedAddressId = addr.id;
+        }
+
+        const isChecked = selectedAddressId == addr.id ? "checked" : "";
+
+        addressHTML += `
+            <div class="address-item-card ${isChecked ? 'active-select' : ''}" style="border: 1px solid ${isChecked ? '#0e7490' : '#e2e8f0'}; padding: 12px; border-radius: 8px; margin-bottom: 10px; display: flex; gap: 10px; align-items: flex-start;">
+                <input type="radio" name="selected_address" value="${addr.id}" ${isChecked} onchange="selectAddress(${addr.id})" style="margin-top: 4px;">
+                <div style="flex-grow: 1;">
+                    <span style="background: #f1f5f9; font-size: 11px; padding: 2px 6px; border-radius: 4px; font-weight: bold; text-transform: uppercase;">${addr.address_type || 'Home'}</span>
+                    <p style="margin: 6px 0 2px 0; font-weight: 600;">${addr.receiver_name} &nbsp;•&nbsp; ${addr.receiver_phone}</p>
+                    <p style="margin: 0; font-size: 13px; color: #475569;">${addr.address_line1}, ${addr.address_line2 ? addr.address_line2 + ',' : ''} ${addr.district}, ${addr.state} - <strong>${addr.pincode}</strong></p>
+                </div>
+            </div>
+        `;
+    });
+
+    savedAddressesList.innerHTML = addressHTML;
+    togglePaymentButton();
+}
+
+// Select an address manually via Radio Button
+function selectAddress(id) {
+    selectedAddressId = id;
+    loadSavedAddresses(); // Renders highlighting border color updates
+}
+
+// 5. VALIDATE PINCODE
+async function validatePincode() {
+
+    const pinVal = document.getElementById("pincode").value.trim();
+
+    if(pinVal.length !== 6){
+        showTopAlert(
+  "error",
+  "Invalid Pincode",
+  "Please enter valid 6-digit pincode"
+);
+        isPincodeVerified = false;
+        return;
+    }
+
+    // Supabase table check
+    const { data, error } = await supabaseClient
+        .from("pincodes")
+        .select("*")
+        .eq("code", pinVal);
+
+    if(error){
+        console.log(error);
+        showTopAlert(
+  "error",
+  "Pincode Check Failed",
+  "Error checking pincode."
+);
+        return;
+    }
+
+    if(data.length > 0){
+
+        isPincodeVerified = true;
+
+showTopAlert(
+  "success",
+  "Pincode Verified",
+  "Delivery is available in this area!"
+);
+
+    }else{
+
+        isPincodeVerified = false;
+
+        showTopAlert(
+  "error",
+  "Pincode Not Serviceable",
+  "Sorry, we don't deliver to this location yet."
+);
+
+    }
+}
+
+// 6. SAVE NEW ADDRESS TO SUPABASE
+async function saveAddress() {
+    if (!currentUserId) {
+        showTopAlert(
+  "error",
+  "Login Required",
+  "Please login to save delivery address."
+);
+        return;
+    }
+
+    const name = document.getElementById("receiverName").value.trim();
+    const phone = document.getElementById("receiverPhone").value.trim();
+    const state = document.getElementById("state").value.trim();
+    const district = document.getElementById("district").value;
+    const addr1 = document.getElementById("address1").value.trim();
+    const addr2 = document.getElementById("address2").value.trim();
+    const pincode = document.getElementById("pincode").value.trim();
+    const type = document.getElementById("addressType").value;
+
+    if (!name || !phone || !district || !addr1 || !pincode) {
+        showTopAlert(
+  "error",
+  "Missing Fields",
+  "Please fill all required fields."
+);
+        return;
+    }
+
+    if (!isPincodeVerified) {
+        showTopAlert(
+  "error",
+  "Pincode Not Verified",
+  "Please verify the pincode before submitting your address."
+);
+        return;
+    }
+
+    // Insert payload mapping to remote database structure schema table
+const { data, error } = await supabaseClient
+        .from("addresses")
+        .insert([
+            {
+                user_id: currentUserId,
+                receiver_name: name,
+                receiver_phone: phone,
+                state: state,
+                district: district,
+                address_line1: addr1,
+                address_line2: addr2,
+                pincode: pincode,
+                address_type: type
+            }
+        ])
+        .select();
+
+    if (error) {
+        console.error("Insertion error object:", error);
+        showTopAlert(
+  "error",
+  "Save Failed",
+  "An error occurred while saving the address. Please try again."
+);
+        return;
+    }
+
+    showTopAlert(
+"success",
+"Address Saved",
+"New delivery address saved successfully!"
+);
+    document.getElementById("addressForm").reset();
+    isPincodeVerified = false;
+    
+    // Select newly configured unique identification row reference node index automatically
+    if(data && data.length > 0) {
+        selectedAddressId = data[0].id;
+    }
+
+    await loadSavedAddresses();
+}
+
+// 7. RENDER LOCAL STORAGE CART ITEMS & BILL SUMMARY
+function renderOrderSummary() {
+    const cartItemsList = document.getElementById("cartItemsList");
+    const cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+    if (cart.length === 0) {
+        cartItemsList.innerHTML = `<p class="no-data" style="padding:15px 0;">Your shopping basket is empty.</p>`;
+        document.getElementById("subtotalPrice").innerText = "₹0.00";
+        document.getElementById("grandTotal").innerText = "₹0.00";
+        return;
+    }
+
+    let itemsHTML = "";
+    let subtotal = 0;
+
+    cart.forEach(item => {
+        let costSum = item.price * item.qty;
+        subtotal += costSum;
+
+        itemsHTML += `
+            <div class="cart-summary-item" style="display:flex; align-items:center; justify-content:space-between; margin-bottom:12px; font-size:14px;">
+                <div style="display:flex; align-items:center; gap:10px;">
+                    <img src="${item.image}" style="width:40px; height:40px; object-fit:cover; border-radius:6px;" alt="">
+                    <div>
+                        <span style="font-weight:600; display:block;">${item.title}</span>
+                        <span style="font-size:12px; color:#64748b;">Qty: ${item.qty}</span>
+                    </div>
+                </div>
+                <span style="font-weight:600;">₹${costSum}</span>
+            </div>
+        `;
+    });
+
+    cartItemsList.innerHTML = itemsHTML;
+
+// ================= BILL =================
+
+// TAX
+let tax =
+Math.round(
+subtotal * (settings.tax_percent / 100)
+);
+
+// DELIVERY
+let delivery =
+subtotal >= settings.free_delivery_limit
+? 0
+: settings.delivery_charge;
+
+// PLATFORM
+let platform =
+settings.platform_charge;
+
+// GRAND TOTAL
+let grandTotal =
+subtotal + tax + delivery + platform;
+
+// SAVE ORDER VALUES
+window.finalSubtotal = subtotal;
+
+window.finalTax = tax;
+
+window.finalDelivery = delivery;
+
+window.finalPlatform = platform;
+
+window.finalGrandTotal = grandTotal;
+
+// UPDATE UI
+// UPDATE UI
+// UPDATE UI
+document.getElementById("subtotalPrice")
+.innerText = `₹${subtotal}`;
+
+document.getElementById("deliveryCharge")
+.innerText =
+delivery === 0
+? "FREE"
+: `₹${delivery}`;
+
+document.getElementById("taxAmount")
+.innerText = `₹${tax}`;
+
+document.getElementById("platformCharge")
+.innerText = `₹${platform}`;
+
+document.getElementById("grandTotal")
+.innerText = `₹${grandTotal}`;
+    
+    togglePaymentButton();
+}
+
+// Enable/Disable checkout operational action trigger
+function togglePaymentButton() {
+    const cart = JSON.parse(localStorage.getItem("cart")) || [];
+    const btn = document.getElementById("nextBtn");
+    
+    if (cart.length > 0 && selectedAddressId !== null && currentUserId !== null) {
+        btn.removeAttribute("disabled");
+    } else {
+        btn.setAttribute("disabled", "true");
+    }
+}
+
+// 8. FINAL PAYMENT GATEWAY REDIRECT PROCEED STEP
+// 8. GO TO PAYMENT PAGE
+async function nextStep() {
+
+if (!selectedAddressId) {
+
+showTopAlert(
+"error",
+"Select Address",
+"Please select delivery address"
+);
+
+return;
+
+}
+
+// GET SELECTED ADDRESS
+const { data: address, error } =
+await supabaseClient
+.from("addresses")
+.select("*")
+.eq("id", selectedAddressId)
+.single();
+
+if(error || !address){
+
+showTopAlert(
+"error",
+"Address Missing",
+"Address not found"
+);
+
+return;
+
+}
+
+// GET CART
+const cart =
+JSON.parse(localStorage.getItem("cart")) || [];
+
+// SAVE ORDER DATA
+const orderData = {
+
+name: address.receiver_name,
+
+phone: address.receiver_phone,
+
+address1: address.address_line1,
+
+address2: address.address_line2,
+
+district: address.district,
+
+state: address.state,
+
+pincode: address.pincode,
+
+cart: cart,
+
+subtotal: window.finalSubtotal,
+
+tax: window.finalTax,
+
+delivery_charge: window.finalDelivery,
+
+platform_charge: window.finalPlatform,
+
+grand_total: window.finalGrandTotal
+
+};
+
+localStorage.setItem(
+"order",
+JSON.stringify(orderData)
+);
+
+// REDIRECT
+window.location.href = "payment.html";
+
+}
+
+// Initialize on runtime compilation loading phases
+initCheckout();
+
+// =========================
+// TOP ALERT
+// =========================
+
+function showTopAlert(type,title,message){
+
+const alertBox =
+document.getElementById("topAlert");
+
+const alertIcon =
+document.getElementById("alertIcon");
+
+document.getElementById("alertTitle")
+.innerText = title;
+
+document.getElementById("alertText")
+.innerText = message;
+
+// RESET
+alertBox.classList.remove(
+"success",
+"error"
+);
+
+// TYPE
+if(type === "success"){
+
+alertBox.classList.add("success");
+
+alertIcon.innerHTML = `
+<i class="fa-solid fa-check"></i>
+`;
+
+}else{
+
+alertBox.classList.add("error");
+
+alertIcon.innerHTML = `
+<i class="fa-solid fa-xmark"></i>
+`;
+
+}
+
+// SHOW
+alertBox.classList.add("show");
+
+// AUTO HIDE
+setTimeout(()=>{
+
+closeTopAlert();
+
+},3000);
+
+}
+
+// CLOSE
+function closeTopAlert(){
+
+document.getElementById("topAlert")
+.classList.remove("show");
+
+}
+
+</script>
+<script src="back.js"></script>
+</body>
+</html>

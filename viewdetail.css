@@ -1,0 +1,710 @@
+/* =========================
+   viewdetail.css
+========================= */
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+-webkit-tap-highlight-color:transparent;
+}
+
+body{
+background:#f4f6f9;
+font-family:Inter,sans-serif;
+padding:12px;
+color:#111827;
+overflow-x:hidden;
+}
+
+/* =========================
+   CONTAINER
+========================= */
+
+.detail-container{
+width:100%;
+max-width:850px;
+margin:auto;
+display:flex;
+flex-direction:column;
+gap:16px;
+padding-bottom:120px;
+}
+
+/* =========================
+   TITLE
+========================= */
+
+.page-title{
+font-size:24px;
+font-weight:800;
+display:flex;
+align-items:center;
+gap:10px;
+padding:5px 2px;
+}
+
+.page-title i{
+color:#111827;
+}
+
+/* =========================
+   CARD
+========================= */
+
+.detail-card{
+background:#fff;
+padding:16px;
+border-radius:22px;
+box-shadow:0 4px 15px rgba(0,0,0,0.05);
+border:1px solid #edf2f7;
+}
+
+/* =========================
+   TOP FLEX
+========================= */
+
+.top-flex{
+display:flex;
+justify-content:space-between;
+gap:14px;
+flex-wrap:wrap;
+}
+
+.top-flex > div{
+flex:1;
+min-width:240px;
+}
+
+/* =========================
+   MINI BOX
+========================= */
+
+.mini-box{
+background:#f8fafc;
+padding:13px 14px;
+border-radius:16px;
+margin-bottom:12px;
+display:flex;
+align-items:center;
+gap:10px;
+font-size:14px;
+font-weight:600;
+border:1px solid #e2e8f0;
+word-break:break-word;
+}
+
+.mini-box i{
+font-size:15px;
+color:#0f172a;
+min-width:18px;
+}
+
+/* =========================
+   CUSTOMER BOX
+========================= */
+
+.customer-box{
+margin-top:10px;
+display:flex;
+flex-direction:column;
+gap:12px;
+}
+
+.customer-item{
+display:flex;
+align-items:flex-start;
+gap:12px;
+font-size:14px;
+background:#f8fafc;
+padding:12px;
+border-radius:14px;
+border:1px solid #e2e8f0;
+word-break:break-word;
+}
+
+.customer-item i{
+margin-top:2px;
+font-size:14px;
+color:#111827;
+min-width:16px;
+}
+
+/* =========================
+   STATUS ALERT
+========================= */
+
+.status-alert{
+padding:15px;
+border-radius:18px;
+font-weight:600;
+display:flex;
+align-items:center;
+gap:10px;
+font-size:14px;
+line-height:1.5;
+}
+
+.status-alert i{
+font-size:18px;
+}
+
+.waiting{
+background:#fff7ed;
+color:#ea580c;
+border:1px solid #fed7aa;
+}
+
+.success{
+background:#ecfdf5;
+color:#16a34a;
+border:1px solid #bbf7d0;
+}
+
+.cancel{
+background:#fef2f2;
+color:#dc2626;
+border:1px solid #fecaca;
+}
+
+/* =========================
+   SECTION TITLE
+========================= */
+
+.section-title{
+font-size:18px;
+font-weight:700;
+margin-bottom:18px;
+display:flex;
+align-items:center;
+gap:10px;
+}
+
+.section-title i{
+font-size:18px;
+}
+
+/* =========================
+   ITEM CARD
+========================= */
+
+.item-card{
+display:flex;
+gap:12px;
+margin-bottom:14px;
+background:#f8fafc;
+padding:12px;
+border-radius:18px;
+border:1px solid #e2e8f0;
+}
+
+.item-card:last-child{
+margin-bottom:0;
+}
+
+.item-card img{
+width:78px;
+height:78px;
+border-radius:16px;
+object-fit:cover;
+flex-shrink:0;
+border:1px solid #dbe4ee;
+}
+
+.item-content{
+flex:1;
+min-width:0;
+}
+
+.item-content h3{
+font-size:15px;
+margin-bottom:5px;
+font-weight:700;
+line-height:1.4;
+}
+
+.item-content p{
+font-size:12px;
+color:#64748b;
+margin-bottom:12px;
+line-height:1.5;
+}
+
+.item-bottom{
+display:flex;
+justify-content:space-between;
+align-items:center;
+gap:10px;
+flex-wrap:wrap;
+}
+
+.item-bottom span{
+font-size:13px;
+font-weight:600;
+color:#475569;
+}
+
+.item-bottom b{
+font-size:15px;
+}
+
+/* =========================
+   TRACK LINE
+========================= */
+
+.track-line{
+display:flex;
+align-items:flex-start;
+gap:0;
+overflow-x:auto;
+padding-bottom:6px;
+scrollbar-width:none;
+}
+
+.track-line::-webkit-scrollbar{
+display:none;
+}
+
+.track-step{
+display:flex;
+flex-direction:column;
+align-items:center;
+min-width:85px;
+position:relative;
+flex-shrink:0;
+}
+
+.circle{
+width:42px;
+height:42px;
+border-radius:50%;
+background:#cbd5e1;
+display:flex;
+align-items:center;
+justify-content:center;
+color:#fff;
+font-size:15px;
+z-index:2;
+}
+
+.track-step.active .circle{
+background:#16a34a;
+box-shadow:0 0 0 5px rgba(34,197,94,0.12);
+}
+
+.line{
+height:4px;
+width:45px;
+background:#cbd5e1;
+border-radius:20px;
+margin-top:19px;
+flex-shrink:0;
+}
+
+.active-line{
+background:#16a34a;
+}
+
+.track-step p{
+font-size:11px;
+margin-top:10px;
+font-weight:600;
+text-align:center;
+line-height:1.4;
+color:#475569;
+}
+
+/* =========================
+   BILL
+========================= */
+
+.bill-row{
+display:flex;
+justify-content:space-between;
+align-items:flex-start;
+gap:15px;
+margin-bottom:16px;
+font-size:14px;
+}
+
+.bill-row span{
+display:flex;
+align-items:center;
+gap:9px;
+font-weight:500;
+color:#334155;
+}
+
+.bill-row span i{
+font-size:14px;
+width:16px;
+}
+
+.bill-row b{
+font-size:15px;
+word-break:break-word;
+}
+
+.grand{
+font-size:18px;
+font-weight:800;
+border-top:1px dashed #cbd5e1;
+padding-top:16px;
+margin-top:5px;
+margin-bottom:0;
+}
+
+.grand b{
+font-size:22px;
+}
+
+/* =========================
+   PAYMENT STATUS
+========================= */
+
+.payment-status{
+display:flex;
+gap:12px;
+margin-top:20px;
+flex-wrap:wrap;
+}
+
+.paid,
+.due{
+flex:1;
+min-width:130px;
+padding:14px;
+border-radius:16px;
+font-weight:700;
+display:flex;
+align-items:center;
+justify-content:center;
+gap:10px;
+font-size:14px;
+}
+
+.paid{
+background:#ecfdf5;
+color:#16a34a;
+border:1px solid #bbf7d0;
+}
+
+.due{
+background:#eff6ff;
+color:#2563eb;
+border:1px solid #bfdbfe;
+}
+
+/* =========================
+   BUTTON
+========================= */
+
+.invoice-btn{
+width:100%;
+padding:17px;
+border:none;
+border-radius:18px;
+background:#111827;
+color:#fff;
+font-size:16px;
+font-weight:700;
+cursor:pointer;
+display:flex;
+align-items:center;
+justify-content:center;
+gap:10px;
+transition:.3s;
+box-shadow:0 10px 25px rgba(17,24,39,0.15);
+}
+
+.invoice-btn:hover{
+transform:translateY(-2px);
+}
+
+.invoice-btn:active{
+transform:scale(.98);
+}
+
+/* =========================
+   OVERLAY
+========================= */
+
+.overlay{
+position:fixed;
+inset:0;
+background:rgba(0,0,0,0.55);
+opacity:0;
+visibility:hidden;
+transition:.3s;
+z-index:999;
+backdrop-filter:blur(2px);
+}
+
+.overlay.show{
+opacity:1;
+visibility:visible;
+}
+
+/* =========================
+   BOTTOM SHEET
+========================= */
+
+.bottom-sheet{
+position:fixed;
+left:0;
+bottom:-100%;
+width:100%;
+background:#fff;
+padding:30px 22px 38px;
+border-radius:28px 28px 0 0;
+transition:.4s ease;
+z-index:1000;
+text-align:center;
+max-height:90vh;
+overflow:auto;
+box-shadow:0 -10px 30px rgba(0,0,0,0.12);
+}
+
+.bottom-sheet.show{
+bottom:0;
+}
+
+.sheet-icon{
+width:82px;
+height:82px;
+border-radius:50%;
+display:flex;
+align-items:center;
+justify-content:center;
+margin:auto;
+margin-bottom:18px;
+font-size:38px;
+color:#fff;
+}
+
+.success-icon{
+background:#16a34a;
+}
+
+.cancel-icon{
+background:#dc2626;
+}
+
+.bottom-sheet h2{
+font-size:24px;
+margin-bottom:12px;
+font-weight:800;
+}
+
+.bottom-sheet p{
+font-size:14px;
+line-height:1.7;
+color:#64748b;
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media(max-width:700px){
+
+body{
+padding:10px;
+}
+
+.detail-container{
+gap:14px;
+padding-bottom:120px;
+}
+
+.page-title{
+font-size:22px;
+}
+
+.detail-card{
+padding:14px;
+border-radius:20px;
+}
+
+.top-flex{
+flex-direction:column;
+gap:4px;
+}
+
+.top-flex > div{
+min-width:100%;
+}
+
+.mini-box{
+font-size:13px;
+padding:12px;
+border-radius:14px;
+}
+
+.customer-item{
+font-size:13px;
+padding:11px;
+}
+
+.section-title{
+font-size:17px;
+margin-bottom:15px;
+}
+
+.item-card{
+padding:10px;
+gap:10px;
+border-radius:16px;
+}
+
+.item-card img{
+width:72px;
+height:72px;
+border-radius:14px;
+}
+
+.item-content h3{
+font-size:14px;
+}
+
+.item-content p{
+font-size:11px;
+margin-bottom:10px;
+}
+
+.item-bottom b{
+font-size:14px;
+}
+
+.track-line{
+padding-top:5px;
+padding-bottom:8px;
+}
+
+.track-step{
+min-width:78px;
+}
+
+.circle{
+width:38px;
+height:38px;
+font-size:13px;
+}
+
+.line{
+width:38px;
+margin-top:17px;
+}
+
+.track-step p{
+font-size:10px;
+}
+
+.bill-row{
+font-size:13px;
+margin-bottom:14px;
+}
+
+.bill-row b{
+font-size:14px;
+}
+
+.grand{
+font-size:17px;
+}
+
+.grand b{
+font-size:20px;
+}
+
+.payment-status{
+flex-direction:column;
+gap:10px;
+}
+
+.paid,
+.due{
+width:100%;
+font-size:13px;
+padding:13px;
+}
+
+.invoice-btn{
+position:fixed;
+left:10px;
+right:10px;
+bottom:12px;
+width:calc(100% - 20px);
+z-index:100;
+border-radius:18px;
+padding:16px;
+font-size:15px;
+}
+
+.bottom-sheet{
+padding:26px 18px 35px;
+border-radius:24px 24px 0 0;
+}
+
+.sheet-icon{
+width:75px;
+height:75px;
+font-size:34px;
+}
+
+.bottom-sheet h2{
+font-size:22px;
+}
+
+.bottom-sheet p{
+font-size:13px;
+}
+
+}
+
+/* =========================
+   SMALL MOBILE
+========================= */
+
+@media(max-width:380px){
+
+.page-title{
+font-size:20px;
+}
+
+.mini-box{
+font-size:12px;
+}
+
+.customer-item{
+font-size:12px;
+}
+
+.track-step{
+min-width:72px;
+}
+
+.line{
+width:28px;
+}
+
+.circle{
+width:34px;
+height:34px;
+font-size:12px;
+}
+
+.track-step p{
+font-size:9px;
+}
+
+.item-card img{
+width:65px;
+height:65px;
+}
+
+.grand b{
+font-size:18px;
+}
+
+}

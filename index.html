@@ -1,0 +1,809 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>City Choice Bakery</title>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Icons -->
+  <link rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="header.css">
+  <link rel="stylesheet" href="nav.css">
+  <link rel="stylesheet" href="catagory.css">
+  <link rel="stylesheet" href="icon-cat.css">
+  <link rel="stylesheet" href="menu.css">
+  <link rel="stylesheet" href="3D.css">
+    <link rel="stylesheet" href="alert.css">
+  
+  
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+<script src="supabase.js"></script>
+  
+</head>
+<body>
+  
+  
+  <!-- TOP ALERT -->
+
+<div class="top-alert"
+id="topAlert">
+
+<div class="alert-icon"
+id="alertIcon">
+
+<i class="fa-solid fa-check"></i>
+
+</div>
+
+<div class="alert-content">
+
+<div class="alert-title"
+id="alertTitle">
+
+Success
+
+</div>
+
+<div class="alert-text"
+id="alertText">
+
+Message here
+
+</div>
+
+</div>
+
+<div class="alert-close"
+onclick="closeTopAlert()">
+
+<i class="fa-solid fa-xmark"></i>
+
+</div>
+
+</div>
+  
+  
+  
+
+  <!-- HEADER -->
+<header class="top-header">
+
+  <div class="logo-section">
+
+    <div class="logo-circle">
+      <img src="logo.png">
+    </div>
+
+    <div class="logo-text-box">
+      <h1 class="logo-text">City Choice Bakery</h1>
+
+      <div class="location-anim">
+        <i class="fa-solid fa-location-dot"></i>
+        <span id="headerLocation">Loading...</span>
+      </div>
+
+    </div>
+
+  </div>
+
+  <div class="menu-btn">
+    <i class="fa-solid fa-bars"></i>
+  </div>
+
+</header>
+
+  <!-- HERO SLIDER -->
+  <section class="hero-slider">
+
+    <div class="slides fade"
+    style="background-image:url('https://images.unsplash.com/photo-1509440159596-0249088772ff?q=80&w=1200');">
+      <div class="overlay">
+        <h2>Fresh Bakery Items</h2>
+        <p>Cakes • Pastries • Fast Food</p>
+      </div>
+    </div>
+
+    <div class="slides fade"
+    style="background-image:url('https://images.unsplash.com/photo-1559620192-032c4bc4674e?q=80&w=1200');">
+      <div class="overlay">
+        <h2>Premium Birthday Cakes</h2>
+        <p>Freshly Made Everyday</p>
+      </div>
+    </div>
+
+    <div class="slides fade"
+    style="background-image:url('https://images.unsplash.com/photo-1519869325930-281384150729?q=80&w=1200');">
+      <div class="overlay">
+        <h2>Fast Food & Sweets</h2>
+        <p>Order Online Easily</p>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- SEARCH -->
+  <section class="search-section">
+    <div class="search-box">
+      <i class="fa-solid fa-magnifying-glass"></i>
+      <input type="text" placeholder="Search cakes, pizza, sweets...">
+    </div>
+  </section>
+
+<!-- CATEGORY -->
+<section class="category-section">
+
+  <div class="category-grid">
+
+    <div class="category-card" data-cat="Biryani">
+      <img src="https://images.unsplash.com/photo-1563379091339-03246963d96c?q=80&w=800">
+      <span>Biryani</span>
+    </div>
+
+    <div class="category-card" data-cat="Bread">
+      <img src="https://images.unsplash.com/photo-1509440159596-0249088772ff?q=80&w=800">
+      <span>Bread</span>
+    </div>
+
+    <div class="category-card" data-cat="Cake">
+      <img src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?q=80&w=800">
+      <span>Cake</span>
+    </div>
+
+    <div class="category-card" data-cat="Rice">
+      <img src="https://images.unsplash.com/photo-1512058564366-18510be2db19?q=80&w=800">
+      <span>Rice</span>
+    </div>
+
+    <div class="category-card" data-cat="Pastry">
+      <img src="https://images.unsplash.com/photo-1551024601-bec78aea704b?q=80&w=800">
+      <span>Pastry</span>
+    </div>
+
+    <div class="category-card" data-cat="Pizza">
+      <img src="https://images.unsplash.com/photo-1513104890138-7c749659a591?q=80&w=800">
+      <span>Pizza</span>
+    </div>
+
+    <div class="category-card" data-cat="Snacks">
+      <img src="https://images.unsplash.com/photo-1482049016688-2d3e1b311543?q=80&w=800">
+      <span>Snacks</span>
+    </div>
+
+    <div class="category-card" data-cat="Yum">
+      <img src="https://images.unsplash.com/photo-1525351484163-7529414344d8?q=80&w=800">
+      <span>Yum</span>
+    </div>
+
+    <div class="category-card" data-cat="Momos">
+      <img src="https://images.unsplash.com/photo-1589301760014-d929f3979dbc?q=80&w=800">
+      <span>Momos</span>
+    </div>
+
+    <div class="category-card" data-cat="Breakfast">
+      <img src="https://images.unsplash.com/photo-1490645935967-10de6ba17061?q=80&w=800">
+      <span>Breakfast</span>
+    </div>
+
+    <div class="category-card" data-cat="Lunch">
+      <img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?q=80&w=800">
+      <span>Lunch</span>
+    </div>
+<div class="category-card" data-cat="Burgur">
+  <img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?q=80&w=800">
+  <span>Burgur</span>
+</div>
+
+  </div>
+
+</section>
+
+
+<!-- FAST DELIVERY BOX -->
+
+<div class="delivery-box">
+
+  <div class="delivery-icon">
+    <i class="fa-solid fa-motorcycle"></i>
+  </div>
+
+  <div class="delivery-text">
+    <h3>Fast Delivery</h3>
+    <p>30-45 Min Delivery</p>
+  </div>
+
+</div>
+<!-- AUTO SLIDE CATEGORY -->
+
+<section class="mini-category-slider">
+
+  <div class="mini-category-track">
+
+    <!-- ITEM -->
+
+    <div class="mini-category">
+      <i class="fa-solid fa-cake-candles"></i>
+      <span>Bakery</span>
+    </div>
+
+    <div class="mini-category">
+      <i class="fa-solid fa-candy-cane"></i>
+      <span>Sweet</span>
+    </div>
+
+    <div class="mini-category">
+      <i class="fa-solid fa-burger"></i>
+      <span>FastFood</span>
+    </div>
+
+    <div class="mini-category">
+      <i class="fa-solid fa-utensils"></i>
+      <span>Restaurant</span>
+    </div>
+
+    <div class="mini-category">
+      <i class="fa-solid fa-box"></i>
+      <span>Disposal</span>
+    </div>
+
+    <div class="mini-category">
+      <i class="fa-solid fa-glass-water"></i>
+      <span>Cold Drink</span>
+    </div>
+
+    <!-- DUPLICATE FOR SMOOTH SLIDE -->
+
+    <div class="mini-category">
+      <i class="fa-solid fa-cake-candles"></i>
+      <span>Bakery</span>
+    </div>
+
+    <div class="mini-category">
+      <i class="fa-solid fa-candy-cane"></i>
+      <span>Sweet</span>
+    </div>
+
+    <div class="mini-category">
+      <i class="fa-solid fa-burger"></i>
+      <span>FastFood</span>
+    </div>
+
+    <div class="mini-category">
+      <i class="fa-solid fa-utensils"></i>
+      <span>Restaurant</span>
+    </div>
+
+    <div class="mini-category">
+      <i class="fa-solid fa-box"></i>
+      <span>Disposal</span>
+    </div>
+
+    <div class="mini-category">
+      <i class="fa-solid fa-glass-water"></i>
+      <span>Cold Drink</span>
+    </div>
+
+  </div>
+
+</section>
+
+
+
+
+
+
+
+<!-- PRODUCTS -->
+
+<section class="product-section">
+
+  <div class="section-head">
+    <h2>Popular Products</h2>
+  </div>
+
+  <div class="horizontal-products"
+  id="popularProducts"></div>
+
+  <!-- AUTO CATEGORY -->
+
+  <div id="allCategories"></div>
+
+</section>
+
+  <!-- BOTTOM NAV -->
+  <nav class="bottom-nav">
+
+    <a href="#" class="active">
+      <i class="fa-solid fa-house"></i>
+      <span>Home</span>
+    </a>
+
+<a href="cart.html">
+  <i class="fa-solid fa-cart-shopping"></i>
+  <span>Cart</span>
+</a>
+
+<a href="#" class="shop-btn">
+  <i class="fa-solid fa-store"></i>
+  <span>Shop</span>
+</a>
+
+    <a href="yourorder">
+      <i class="fa-solid fa-bag-shopping"></i>
+      <span>Order</span>
+    </a>
+
+    <a href="account.html">
+      <i class="fa-solid fa-user"></i>
+      <span>Account</span>
+    </a>
+
+  </nav>
+  
+    <!-- MENU BOOK ICON -->
+
+<div class="menu-book-btn" onclick="openMenuBook()">
+  <i class="fa-solid fa-book-open"></i>
+</div>
+
+<!-- MENU BOOK SHEET -->
+
+<div class="menu-book" id="menuBook">
+
+  <div class="menu-top">
+    <h2>Menu Book</h2>
+
+    <i class="fa-solid fa-xmark"
+    onclick="closeMenuBook()"></i>
+  </div>
+
+  <!-- ITEM -->
+
+  <div class="menu-item">
+
+    <img src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?q=80&w=800">
+
+    <div class="menu-info">
+      <h3>Chocolate Cake</h3>
+      <p>Fresh creamy cake</p>
+    </div>
+
+    <span>₹799</span>
+
+  </div>
+
+  <!-- ITEM -->
+
+  <div class="menu-item">
+
+    <img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?q=80&w=800">
+
+    <div class="menu-info">
+      <h3>Cheese Pizza</h3>
+      <p>Extra cheesy pizza</p>
+    </div>
+
+    <span>₹399</span>
+
+  </div>
+
+  <!-- ITEM -->
+
+  <div class="menu-item">
+
+    <img src="https://images.unsplash.com/photo-1585238342024-78d387f4a707?q=80&w=800">
+
+    <div class="menu-info">
+      <h3>Zinger Burger</h3>
+      <p>Hot crispy burger</p>
+    </div>
+
+    <span>₹249</span>
+
+  </div>
+
+</div>
+
+<!-- SCRIPT -->
+
+
+  
+  <!-- =========================
+     3D FOOTER BRAND SECTION
+========================= -->
+
+<section class="footer-3d">
+
+  <!-- STORE ICON -->
+
+  <div class="footer-store-icon">
+    <i class="fa-solid fa-store"></i>
+  </div>
+
+  <!-- BRAND NAME -->
+
+  <h2 class="footer-logo-text">
+    City Choice Bakers
+  </h2>
+
+  <!-- STARS -->
+
+  <div class="footer-stars">
+    <i class="fa-solid fa-star"></i>
+    <i class="fa-solid fa-star"></i>
+    <i class="fa-solid fa-star"></i>
+    <i class="fa-solid fa-star"></i>
+    <i class="fa-solid fa-star"></i>
+  </div>
+
+  <!-- DELIVERY -->
+
+  <div class="footer-delivery">
+
+    <div class="delivery-bike">
+      <i class="fa-solid fa-motorcycle"></i>
+    </div>
+
+    <span>Fast Delivery</span>
+
+  </div>
+
+</section>
+  
+<script>
+  let locationList = [];
+let index = 0;
+
+async function loadHeaderLocation(){
+
+  let { data: { user } } = await supabaseClient.auth.getUser();
+
+  let el = document.getElementById("headerLocation");
+
+  // ❌ NOT LOGIN
+  if(!user){
+    el.innerText = "Please Login";
+    return;
+  }
+
+  // ✅ GET USER DATA
+  let { data } = await supabaseClient
+    .from("users")
+    .select("location, pincode")
+    .eq("email", user.email)
+    .single();
+
+  if(!data){
+    el.innerText = "No Location Found";
+    return;
+  }
+
+  // 👉 LIST FOR ANIMATION
+  locationList = [
+    data.location,
+    "Pincode: " + data.pincode
+  ];
+
+  // START ANIMATION LOOP
+  rotateLocation();
+}
+
+function rotateLocation(){
+
+  let el = document.getElementById("headerLocation");
+
+  if(locationList.length === 0) return;
+
+  el.innerText = locationList[index];
+
+  index = (index + 1) % locationList.length;
+
+  setTimeout(rotateLocation, 3000); // 3 sec change
+}
+
+loadHeaderLocation();
+  
+  
+  
+/* =========================
+   MENU BOOK
+========================= */
+function openMenuBook() {
+  document.getElementById("menuBook")?.classList.add("show-menu");
+}
+
+function closeMenuBook() {
+  document.getElementById("menuBook")?.classList.remove("show-menu");
+}
+
+/* =========================
+   HERO SLIDER
+========================= */
+let slideIndex = 0;
+
+function showSlides() {
+  let slides = document.getElementsByClassName("slides");
+
+  if (!slides.length) return;
+
+  for (let i = 0; i < slides.length; i++) {
+    slides[i].style.display = "none";
+  }
+
+  slideIndex++;
+  if (slideIndex > slides.length) slideIndex = 1;
+
+  slides[slideIndex - 1].style.display = "block";
+
+  setTimeout(showSlides, 3000);
+}
+
+showSlides();
+
+/* =========================
+   OPEN PRODUCT PAGE
+========================= */
+function openProduct(id) {
+  if (!id) return;
+  window.location.href = "product.html?id=" + id;
+}
+
+/* =========================
+   ADD TO CART
+========================= */
+function addCart(event, item) {
+  event.stopPropagation();
+
+  let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+  let existing = cart.find(p => p.id === item.id);
+
+  if (existing) {
+    existing.qty += 1;
+  } else {
+    cart.push({
+      id: item.id,
+      title: item.title,
+      desc: item.description,
+      price: item.price,
+      image: item.image,
+      qty: 1
+    });
+  }
+
+  localStorage.setItem("cart", JSON.stringify(cart));
+
+  showTopAlert(
+"success",
+"Cart Updated",
+item.title + " Added To Cart"
+);
+}
+
+/* =========================
+   SHOW PRODUCTS
+========================= */
+function showProducts(products, id) {
+  const box = document.getElementById(id);
+  if (!box) return;
+
+  box.innerHTML = "";
+
+  products.forEach(item => {
+    const card = document.createElement("div");
+    card.className = "product-card";
+
+    // OPEN PRODUCT PAGE
+    card.onclick = (e) => {
+  if (e.target.classList.contains("add-btn")) return;
+  openProduct(item.id);
+};
+
+    card.innerHTML = `
+      <img src="${item.image}">
+      <h3>${item.title}</h3>
+      <p>
+        ${item.description
+          ? item.description.length > 45
+            ? item.description.substring(0, 45) + "..."
+            : item.description
+          : ""}
+      </p>
+
+      <div class="price-row">
+        <span>₹${item.price}</span>
+        <button class="add-btn">Add</button>
+      </div>
+    `;
+
+    // ADD BUTTON ONLY
+    card.querySelector(".add-btn").addEventListener("click", (e) => {
+      e.stopPropagation();
+      addCart(e, item);
+    });
+
+    box.appendChild(card);
+  });
+}
+
+/* =========================
+   LOAD PRODUCTS (FIXED)
+========================= */
+async function loadProducts() {
+  try {
+
+    /* POPULAR PRODUCTS */
+    let { data: popular, error: popErr } =
+      await supabaseClient
+        .from("products")
+        .select("*")
+        .eq("popular", true);
+
+    if (!popErr) {
+      showProducts(popular || [], "popularProducts");
+    }
+
+/* =========================
+   CATEGORIES FIX (FINAL)
+========================= */
+
+let { data: categories, error: catErr } =
+  await supabaseClient
+    .from("products")
+    .select("category");
+
+if (catErr) {
+  console.log("Category Error:", catErr);
+  return;
+}
+
+// CLEAN + UNIQUE
+let uniqueCategories = [
+  ...new Set(
+    (categories || [])
+      .map(i => (i.category || "").trim().toLowerCase())
+      .filter(Boolean)
+  )
+];
+
+const allCategories = document.getElementById("allCategories");
+allCategories.innerHTML = "";
+
+for (let category of uniqueCategories) {
+
+  let title = category.charAt(0).toUpperCase() + category.slice(1);
+
+  // SAFE ID (IMPORTANT FIX)
+  let categoryId = "cat_" + category.replace(/\s+/g, "_");
+
+  allCategories.insertAdjacentHTML("beforeend", `
+    <div class="section-head">
+      <div class="title-row">
+        <h2>
+          <i class="fa-solid fa-utensils"></i>
+          ${title}
+        </h2>
+<span class="view-all" data-cat="${category}">View All</span>
+      </div>
+    </div>
+
+    <div class="horizontal-products" id="${categoryId}"></div>
+  `);
+
+  let { data: items, error: itemErr } =
+    await supabaseClient
+      .from("products")
+      .select("*")
+.ilike("category", `%${category}%`)
+
+  if (!itemErr && items) {
+    showProducts(items, categoryId);
+  }
+}
+
+  } catch (err) {
+    console.log("Load error:", err);
+  }
+  
+  document.querySelectorAll(".view-all").forEach(btn => {
+  btn.addEventListener("click", (e) => {
+    let cat = e.target.getAttribute("data-cat");
+    window.location.href = "category.html?cat=" + encodeURIComponent(cat);
+  });
+});
+  
+  
+}
+
+/* =========================
+   START APP
+========================= */
+loadProducts();
+function openCategory(category) {
+  window.location.href = "category.html?cat=" + category;
+}
+
+document.querySelectorAll(".category-card").forEach(card => {
+  card.addEventListener("click", () => {
+    let cat = card.getAttribute("data-cat");
+    window.location.href = "category.html?cat=" + encodeURIComponent(cat);
+  });
+});
+
+// =========================
+// TOP ALERT
+// =========================
+
+function showTopAlert(type,title,message){
+
+const alertBox =
+document.getElementById("topAlert");
+
+const alertIcon =
+document.getElementById("alertIcon");
+
+document.getElementById("alertTitle")
+.innerText = title;
+
+document.getElementById("alertText")
+.innerText = message;
+
+// RESET
+alertBox.classList.remove(
+"success",
+"error"
+);
+
+// TYPE
+if(type === "success"){
+
+alertBox.classList.add("success");
+
+alertIcon.innerHTML = `
+<i class="fa-solid fa-check"></i>
+`;
+
+}else{
+
+alertBox.classList.add("error");
+
+alertIcon.innerHTML = `
+<i class="fa-solid fa-xmark"></i>
+`;
+
+}
+
+// SHOW
+alertBox.classList.add("show");
+
+// AUTO HIDE
+setTimeout(()=>{
+
+closeTopAlert();
+
+},3000);
+
+}
+
+// CLOSE
+function closeTopAlert(){
+
+document.getElementById("topAlert")
+.classList.remove("show");
+
+}
+
+</script>
+
+
+
+</body>
+</html>

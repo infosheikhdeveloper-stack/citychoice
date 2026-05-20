@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Category Page</title>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="stylesheet" href="category1.css">
+<link rel="stylesheet" href="back.css">
+
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="supabase.js"></script>
+</head>
+
+<body>
+
+<!-- HERO HEADER -->
+<div class="hero" id="hero">
+  <div class="hero-content">
+    <h2 id="catName">Category</h2>
+    <p id="count">0 Items</p>
+  </div>
+</div>
+
+<!-- FIXED HEADER (after scroll) -->
+<div class="fixed-header" id="fixedHeader">
+  <i class="fa-solid fa-arrow-left"></i>
+  <h3 id="titleSmall">Category</h3>
+  <i class="fa-solid fa-cart-shopping"></i>
+</div>
+
+<!-- PRODUCTS -->
+<div class="products" id="productList"></div>
+
+<!-- CART BAR -->
+<div class="cart-bar" onclick="toggleCart()">
+
+  <div class="cart-left">
+    <i class="fa-solid fa-bag-shopping"></i>
+    <span id="cartInfo">0 Items | ₹0</span>
+  </div>
+
+  <button class="cart-btn">
+    View Cart
+  </button>
+
+</div>
+
+<div class="cart-drawer" id="cartDrawer">
+
+  <div class="cart-header">
+    <h3>Your Cart</h3>
+    <i class="fa-solid fa-xmark" onclick="toggleCart()"></i>
+  </div>
+
+  <div id="cartItems"></div>
+
+  <div class="cart-footer">
+    <button onclick="goToCart()">Go to Cart</button>
+  </div>
+
+</div>
+
+<script>
+let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+/* CATEGORY */
+let params = new URLSearchParams(window.location.search);
+let category = decodeURIComponent(params.get("cat") || "");
+
+document.getElementById("catName").innerText = category;
+document.getElementById("titleSmall").innerText = category;
+
+/* LOAD */
+async function loadCategory(){
+
+  let { data } = await supabaseClient
+    .from("products")
+    .select("*")
+    .ilike("category", category);
+
+  let products = data || [];
+
+  document.getElementById("count").innerText = products.length + " Items";
+
+  showProducts(products);
+
+  if(products.length > 0){
+    document.getElementById("hero").style.backgroundImage =
+      `url('${products[0].image}')`;
+  }
+}
+
+/* PRODUCTS GRID */
+function showProducts(products){
+
+  let box = document.getElementById("productList");
+  box.innerHTML = "";
+
+  products.forEach(p=>{
+
+    let div = document.createElement("div");
+    div.className = "card";
+
+    div.innerHTML = `
+      <img src="${p.image}">
+      <h4>${p.title}</h4>
+      <p>${p.description || ""}</p>
+
+      <div class="price-row">
+        <span>₹${p.price}</span>
+        <button>Add</button>
+      </div>
+    `;
+
+    div.querySelector("button").onclick = () => addCart(p);
+
+    box.appendChild(div);
+  });
+}
+
+/* CART */
+function addCart(item){
+
+  let exist = cart.find(c=>c.id===item.id);
+
+  if(exist){
+    exist.qty++;
+  }else{
+    cart.push({...item, qty:1});
+  }
+
+  localStorage.setItem("cart",JSON.stringify(cart));
+  updateCart();
+}
+
+function updateCart(){
+
+  let totalItems = cart.reduce((a,b)=>a+b.qty,0);
+  let totalPrice = cart.reduce((a,b)=>a+b.qty*b.price,0);
+
+  document.getElementById("cartInfo").innerText =
+    `${totalItems} Items | ₹${totalPrice}`;
+
+  renderCart();
+}
+
+function renderCart(){
+
+  let box = document.getElementById("cartItems");
+  box.innerHTML = "";
+
+  if(cart.length === 0){
+    box.innerHTML = "<p style='text-align:center'>Cart is empty</p>";
+    return;
+  }
+
+  cart.forEach((c, index)=>{
+
+    box.innerHTML += `
+      <div class="cart-item">
+
+        <img src="${c.image}" />
+
+        <div class="cart-info">
+          <h4>${c.title}</h4>
+          <p>₹${c.price}</p>
+
+          <div class="qty-box">
+            <button onclick="decreaseQty(${index})">-</button>
+            <span>${c.qty}</span>
+            <button onclick="increaseQty(${index})">+</button>
+          </div>
+
+        </div>
+
+        <i class="fa-solid fa-trash delete"
+           onclick="removeItem(${index})"></i>
+
+      </div>
+    `;
+  });
+}
+
+function increaseQty(i){
+  cart[i].qty++;
+  saveCart();
+}
+
+function decreaseQty(i){
+  if(cart[i].qty > 1){
+    cart[i].qty--;
+  }else{
+    cart.splice(i,1);
+  }
+  saveCart();
+}
+
+function removeItem(i){
+  cart.splice(i,1);
+  saveCart();
+}
+
+function saveCart(){
+  localStorage.setItem("cart", JSON.stringify(cart));
+  updateCart();
+}
+
+function toggleCart(){
+
+  let cartDrawer = document.getElementById("cartDrawer");
+
+  cartDrawer.classList.toggle("show");
+
+  // BODY LOCK
+  document.body.classList.toggle("cart-open");
+}
+
+function goToCart(){
+  window.location.href = "cart.html";
+}
+
+/* SCROLL EFFECT */
+let lastScroll = 0;
+
+window.addEventListener("scroll", () => {
+
+  let hero = document.querySelector(".hero");
+  let fixed = document.getElementById("fixedHeader");
+
+  let current = window.scrollY;
+
+  // DOWN SCROLL
+  if (current > 120) {
+    hero.classList.add("hide");
+    fixed.classList.add("show");
+  }
+
+  // UP SCROLL
+  else {
+    hero.classList.remove("hide");
+    fixed.classList.remove("show");
+  }
+
+  lastScroll = current;
+});
+
+updateCart();
+loadCategory();
+</script>
+<script src="back.js"></script>
+</body>
+</html>
+

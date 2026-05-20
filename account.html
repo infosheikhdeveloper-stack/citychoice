@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Account - City Choice Bakery</title>
+
+<link rel="stylesheet" href="account.css">
+<link rel="stylesheet" href="back.css">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+<script src="supabase.js"></script>
+</head>
+
+<body>
+
+<!-- HEADER -->
+<header class="top-header">
+  <div class="logo">
+    <i class="fa-solid fa-store"></i>
+    <span>City Choice Bakery</span>
+  </div>
+
+  <button onclick="logout()" class="logout-btn">
+    <i class="fa-solid fa-right-from-bracket"></i>
+  </button>
+</header>
+
+<!-- USER LOCATION ANIMATION -->
+<div class="location-box">
+  <i class="fa-solid fa-location-dot pulse"></i>
+  <div>
+    <h4>Your Location</h4>
+    <p id="userLocation">Loading...</p>
+  </div>
+</div>
+
+<!-- ACCOUNT CARD -->
+<section class="card">
+
+  <div class="profile">
+    <i class="fa-solid fa-user-circle"></i>
+    <h2 id="userName">User Name</h2>
+  </div>
+
+  <div class="info">
+    <p><i class="fa-solid fa-phone"></i> <span id="userPhone"></span></p>
+    <p><i class="fa-solid fa-envelope"></i> <span id="userEmail"></span></p>
+    <p><i class="fa-solid fa-location-pin"></i> <span id="userPincode"></span></p>
+    <p><i class="fa-solid fa-map"></i> <span id="userLoc"></span></p>
+  </div>
+
+</section>
+
+<!-- SETTINGS -->
+<section class="box">
+
+  <h3><i class="fa-solid fa-gear"></i> Settings</h3>
+
+  <div class="item"><i class="fa-solid fa-file"></i> Terms & Conditions</div>
+  <div class="item"><i class="fa-solid fa-circle-info"></i> Info</div>
+  <div class="item"><i class="fa-solid fa-headset"></i> Contact Help</div>
+<footer>
+  <p>info.sheikhdeveloper@gmail.com</p>
+  <p>+91 7051932522</p>
+</footer>
+</section>
+
+
+
+<script>
+
+async function loadUser(){
+
+  let { data: { user } } = await supabaseClient.auth.getUser();
+
+  if(!user){
+    window.location.href = "login.html";
+    return;
+  }
+
+  // get profile from DB
+  let { data } = await supabaseClient
+    .from("users")
+    .select("*")
+    .eq("email", user.email)
+    .single();
+
+  if(data){
+
+    document.getElementById("userName").innerText = data.name;
+    document.getElementById("userPhone").innerText = data.phone;
+    document.getElementById("userEmail").innerText = data.email;
+    document.getElementById("userPincode").innerText = data.pincode;
+    document.getElementById("userLoc").innerText = data.location;
+    document.getElementById("userLocation").innerText = data.pincode + " - Active";
+
+  }
+}
+
+loadUser();
+
+// LOGOUT
+async function logout(){
+  await supabaseClient.auth.signOut();
+  window.location.href = "login.html";
+}
+
+</script>
+<script src="back.js"></script>
+</body>
+</html>

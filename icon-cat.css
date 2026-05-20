@@ -1,0 +1,66 @@
+/* =========================
+   MINI CATEGORY SLIDER
+========================= */
+
+.mini-category-slider{
+  width:100%;
+  overflow:hidden;
+  padding:10px 0 18px;
+  background:#fff;
+}
+
+/* TRACK */
+
+.mini-category-track{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  width:max-content;
+  animation:autoSlide 18s linear infinite;
+}
+
+/* ITEM */
+
+.mini-category{
+  min-width:95px;
+  height:42px;
+  background:#fff;
+  border:1px solid #f0f0f0;
+  border-radius:14px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+  padding:0 12px;
+  box-shadow:0 3px 10px rgba(0,0,0,0.04);
+}
+
+/* ICON */
+
+.mini-category i{
+  font-size:15px;
+  color:#111;
+}
+
+/* TEXT */
+
+.mini-category span{
+  font-size:12px;
+  font-weight:600;
+  color:#111;
+  white-space:nowrap;
+}
+
+/* AUTO ANIMATION */
+
+@keyframes autoSlide{
+
+  0%{
+    transform:translateX(0);
+  }
+
+  100%{
+    transform:translateX(-50%);
+  }
+
+}
