@@ -943,6 +943,13 @@ Payment :
 
 `);
 
+// PLAY SUCCESS SOUND
+const sound = document.getElementById("orderSound");
+sound.currentTime = 0;
+sound.play().catch(err => {
+  console.log("Sound blocked:", err);
+});
+
 // ================= WHATSAPP =================
 
 const message = `
@@ -980,5 +987,6 @@ window.location.href =
 
 </script>
 <script src="back.js"></script>
+<audio id="orderSound" src="order.mp3" preload="auto"></audio>
 </body>
 </html>
