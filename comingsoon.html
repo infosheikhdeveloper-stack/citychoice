@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <link rel="stylesheet" href="back.css">
+<title>Coming Soon</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:"Poppins", sans-serif;
+}
+
+body{
+height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+background: linear-gradient(135deg,#0f172a,#1e3a8a,#38bdf8);
+overflow:hidden;
+color:white;
+}
+
+/* FLOAT ANIMATION BACKGROUND CIRCLES */
+.circle{
+position:absolute;
+border-radius:50%;
+background:rgba(255,255,255,0.08);
+animation: float 6s infinite ease-in-out;
+}
+
+.circle1{
+width:200px;
+height:200px;
+top:10%;
+left:10%;
+}
+
+.circle2{
+width:300px;
+height:300px;
+bottom:10%;
+right:10%;
+}
+
+.circle3{
+width:120px;
+height:120px;
+top:60%;
+left:20%;
+}
+
+@keyframes float{
+0%{transform:translateY(0px);}
+50%{transform:translateY(-30px);}
+100%{transform:translateY(0px);}
+}
+
+/* MAIN CARD */
+.box{
+text-align:center;
+padding:40px;
+border-radius:25px;
+background:rgba(255,255,255,0.08);
+backdrop-filter:blur(15px);
+box-shadow:0 20px 50px rgba(0,0,0,0.4);
+transform-style:preserve-3d;
+animation: rotate 6s infinite ease-in-out;
+}
+
+@keyframes rotate{
+0%{transform:rotateY(0deg);}
+50%{transform:rotateY(10deg);}
+100%{transform:rotateY(0deg);}
+}
+
+/* ICON */
+.icon{
+font-size:80px;
+margin-bottom:20px;
+animation: bounce 2s infinite;
+}
+
+@keyframes bounce{
+0%,100%{transform:translateY(0);}
+50%{transform:translateY(-15px);}
+}
+
+/* TEXT */
+h1{
+font-size:40px;
+font-weight:900;
+letter-spacing:2px;
+}
+
+p{
+margin-top:10px;
+font-size:16px;
+opacity:0.9;
+}
+
+/* TAG */
+.tag{
+margin-top:20px;
+display:inline-block;
+padding:8px 15px;
+background:rgba(255,255,255,0.15);
+border-radius:20px;
+font-size:12px;
+font-weight:700;
+}
+
+.owner{
+margin-top:15px;
+font-size:14px;
+opacity:0.8;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<!-- BACKGROUND EFFECT -->
+<div class="circle circle1"></div>
+<div class="circle circle2"></div>
+<div class="circle circle3"></div>
+
+<!-- MAIN BOX -->
+<div class="box">
+
+<div class="icon">🚧</div>
+
+<h1>COMING SOON</h1>
+
+<p>Sheikh Developer</p>
+
+<div class="tag">
+Development in progress<br>
+Feature will be live very soon
+</div>
+
+<div class="owner">
+Sheikh Aamir Nisar 👑
+</div>
+
+</div>
+<script src="back.js"></script>
+</body>
+</html>
