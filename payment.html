@@ -596,7 +596,7 @@ let subtotal = 0;
 document.getElementById("addressBox")
 .innerHTML = `
 
-<b>${order.name || "Customer"}</b><br>
+<b>${order.customer_name || "Customer"}</b><br>
 
 ${order.phone || ""}<br><br>
 
@@ -822,34 +822,46 @@ package_code: String(packageCode),
 
 user_id: user?.id || null,
 
-customer_name: String(order.name || ""),
-
+// USER INFO
+customer_name: String(order.customer_name || ""),
 phone: String(order.phone || ""),
+email: String(user?.email || ""),
 
-pincode: String(order.pincode || ""),
+// ADDRESS INFO
+receiver_name: String(order.receiver_name || order.customer_name || ""),
+receiver_phone: String(order.receiver_phone || order.phone || ""),
 
 state: String(order.state || ""),
-
 district: String(order.district || ""),
 
 address1: String(order.address1 || ""),
-
 address2: String(order.address2 || ""),
 
+pincode: String(order.pincode || ""),
+
+address_type: String(order.address_type || "Home"),
+
+// PAYMENT
 payment_method: String(selectedPayment),
 
+// PRODUCTS
 items: cart || [],
 
+// BILL
 subtotal: Number(subtotal || 0),
 
 tax: Number(window.finalTax || 0),
+
 delivery_charge: Number(window.finalDelivery || 0),
 
 platform_charge: Number(window.finalPlatform || 0),
 
 grand_total: Number(window.finalGrandTotal || 0),
 
-status: "Pending"
+// STATUS
+status: "Pending",
+
+created_at: new Date().toISOString()
 
 };
 
@@ -960,13 +972,13 @@ Order ID: ${orderId}
 
 Package Code: ${packageCode}
 
-Customer: ${order.name}
+Customer: ${order.receiver_name || order.customer_name}
 
 Phone: ${order.phone}
 
 Pincode: ${order.pincode}
 
-Location: ${order.address1}
+Location: ${order.address1}, ${order.district}
 
 Payment: ${selectedPayment}
 
