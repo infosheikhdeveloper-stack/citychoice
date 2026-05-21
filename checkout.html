@@ -593,11 +593,23 @@ const cart =
 JSON.parse(localStorage.getItem("cart")) || [];
 
 // SAVE ORDER DATA
+const {
+data: { user }
+} = await supabaseClient.auth.getUser();
+
 const orderData = {
 
 name: address.receiver_name,
 
+customer_name: address.receiver_name,
+
 phone: address.receiver_phone,
+
+email: user?.email || "",
+
+receiver_name: address.receiver_name,
+
+receiver_phone: address.receiver_phone,
 
 address1: address.address_line1,
 
@@ -608,6 +620,8 @@ district: address.district,
 state: address.state,
 
 pincode: address.pincode,
+
+address_type: address.address_type,
 
 cart: cart,
 
