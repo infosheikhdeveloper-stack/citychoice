@@ -9,7 +9,7 @@
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-
+<link rel="manifest" href="manifest.json">
   <!-- Icons -->
   <link rel="stylesheet"
   href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
@@ -31,7 +31,7 @@
 </head>
 <body>
   
-  
+
   <!-- TOP ALERT -->
 
 <div class="top-alert"
@@ -71,9 +71,6 @@ onclick="closeTopAlert()">
 
 </div>
   
-  
-  
-
   <!-- HEADER -->
 <header class="top-header">
 
@@ -95,9 +92,9 @@ onclick="closeTopAlert()">
 
   </div>
 
-  <div class="menu-btn">
-    <i class="fa-solid fa-bars"></i>
-  </div>
+<div class="menu-btn">
+  <i class="fa-solid fa-bars"></i>
+</div>
 
 </header>
 
@@ -205,6 +202,32 @@ onclick="closeTopAlert()">
   </div>
 
 </section>
+
+<!-- SIDE MENU -->
+<div id="sideMenu" class="side-menu">
+
+  <a href="about.html">
+    <i class="fa-solid fa-circle-info"></i> About
+  </a>
+
+  <a href="contact.html">
+    <i class="fa-solid fa-phone"></i> Contact
+  </a>
+
+  <a href="terms.html">
+    <i class="fa-solid fa-file-contract"></i> Terms & Conditions
+  </a>
+
+  <a href="location.html">
+    <i class="fa-solid fa-location-dot"></i> Location
+  </a>
+
+</div>
+
+<!-- overlay -->
+<div id="overlay" onclick="closeMenu()"></div>
+
+
 
 
 <!-- FAST DELIVERY BOX -->
@@ -803,6 +826,60 @@ document.getElementById("topAlert")
 
 </script>
 
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+
+  const menuBtn = document.querySelector(".menu-btn");
+  const sideMenu = document.getElementById("sideMenu");
+  const overlay = document.getElementById("overlay");
+
+  if (!menuBtn || !sideMenu || !overlay) return;
+
+  menuBtn.addEventListener("click", () => {
+    sideMenu.classList.add("show");
+    overlay.style.display = "block";
+  });
+
+  overlay.addEventListener("click", () => {
+    sideMenu.classList.remove("show");
+    overlay.style.display = "none";
+  });
+
+});
+</script>
+<script>
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('sw.js');
+}
+</script>
+<script>
+let deferredPrompt;
+
+window.addEventListener("beforeinstallprompt", (e) => {
+  e.preventDefault();
+  deferredPrompt = e;
+
+  let btn = document.createElement("button");
+  btn.innerText = "Install App";
+  btn.style.position = "fixed";
+  btn.style.bottom = "100px";
+  btn.style.right = "20px";
+  btn.style.padding = "12px";
+  btn.style.background = "#ff2b2b";
+  btn.style.color = "white";
+  btn.style.border = "none";
+  btn.style.borderRadius = "10px";
+  btn.style.zIndex = "9999";
+
+  document.body.appendChild(btn);
+
+  btn.onclick = async () => {
+    btn.remove();
+    deferredPrompt.prompt();
+    deferredPrompt = null;
+  };
+});
+</script>
 
 
 </body>
