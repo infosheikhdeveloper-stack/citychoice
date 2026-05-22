@@ -108,3 +108,20 @@
   50%{ transform: translateY(-32px) scale(1.05); }
   100%{ transform: translateY(-28px) scale(1); }
 }
+
+/* SHOP BUTTON ALWAYS SAME COLOR */
+
+.shop-btn,
+.shop-btn:visited,
+.shop-btn:hover,
+.shop-btn:focus,
+.shop-btn:active{
+  color: #fff !important;
+  background: linear-gradient(135deg, #ff2b2b, #111) !important;
+}
+
+/* ICON & TEXT WHITE */
+.shop-btn i,
+.shop-btn span{
+  color: #fff !important;
+}
