@@ -1,117 +1,110 @@
-/* =========================
-   PREMIUM BOTTOM NAVBAR
-========================= */
-
 .bottom-nav{
-  position:fixed;
-  bottom:0;
-  left:0;
-  width:100%;
-  height:78px;
-  background:#ffffff;
-  display:flex;
-  justify-content:space-around;
-  align-items:center;
-  padding:10px 8px;
-  border-top-left-radius:28px;
-  border-top-right-radius:28px;
-  box-shadow:0 -5px 25px rgba(0,0,0,0.08);
-  z-index:1000;
-  border-top:1px solid #efefef;
+  position: fixed;
+  bottom: 14px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 92%;
+  height: 72px;
+
+  background: rgba(255,255,255,0.75);
+  backdrop-filter: blur(14px);
+
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+
+  border-radius: 22px;
+
+  box-shadow: 0 10px 35px rgba(0,0,0,0.12);
+
+  z-index: 1000;
+  border: 1px solid rgba(255,255,255,0.6);
 }
 
-/* NAV ITEMS */
-
+/* ITEMS */
 .bottom-nav a{
-  text-decoration:none;
-  color:#777;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:center;
-  font-size:11px;
-  font-weight:500;
-  gap:5px;
-  transition:0.3s;
-  position:relative;
+  text-decoration: none;
+  color: #777;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  font-weight: 500;
+  gap: 4px;
+  transition: 0.25s ease;
+  position: relative;
+  padding: 6px 10px;
+  border-radius: 12px;
 }
 
+/* ICON */
 .bottom-nav a i{
-  font-size:20px;
-  transition:0.3s;
+  font-size: 20px;
+  transition: 0.25s;
 }
 
-/* ACTIVE BUTTON */
-
+/* ACTIVE */
 .bottom-nav a.active{
-  color:#ff2b2b;
+  color: #ff2b2b;
+  background: rgba(255,43,43,0.08);
 }
 
 .bottom-nav a.active i{
-  transform:translateY(-2px);
+  transform: translateY(-2px);
 }
 
-/* HOVER EFFECT */
-
+/* HOVER */
 .bottom-nav a:hover{
-  color:#ff2b2b;
+  color: #ff2b2b;
+  background: rgba(255,43,43,0.06);
 }
 
 .bottom-nav a:hover i{
-  transform:scale(1.1);
+  transform: scale(1.1);
 }
 
 /* =========================
-   SHOP BUTTON SPECIAL
+   FLOATING SHOP BUTTON
 ========================= */
 
 .shop-btn{
-  width:74px;
-  height:74px;
-  background:linear-gradient(135deg,#111,#ff2b2b);
-  border-radius:50%;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:center;
-  color:#fff !important;
-  transform:translateY(-28px);
-  box-shadow:
-  0 10px 25px rgba(255,43,43,0.35),
-  0 0 18px rgba(255,43,43,0.25);
-  animation:pulse 2s infinite;
-  border:4px solid #fff;
+  width: 68px;
+  height: 68px;
+
+  background: linear-gradient(135deg, #ff2b2b, #111);
+  border-radius: 50%;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  color: #fff !important;
+
+  transform: translateY(-28px);
+
+  box-shadow: 0 12px 30px rgba(255,43,43,0.35);
+
+  border: 4px solid #fff;
+
+  animation: floatBtn 2.5s ease-in-out infinite;
 }
 
-/* SHOP ICON */
-
+/* ICON */
 .shop-btn i{
-  font-size:25px !important;
-  margin-bottom:2px;
+  font-size: 22px !important;
 }
 
-/* SHOP TEXT */
-
+/* TEXT */
 .shop-btn span{
-  font-size:11px;
-  font-weight:700;
-  letter-spacing:0.3px;
+  font-size: 10px;
+  font-weight: 700;
 }
 
-/* PULSE ANIMATION */
-
-@keyframes pulse{
-
-  0%{
-    transform:translateY(-28px) scale(1);
-  }
-
-  50%{
-    transform:translateY(-28px) scale(1.08);
-  }
-
-  100%{
-    transform:translateY(-28px) scale(1);
-  }
-
+/* FLOAT ANIMATION */
+@keyframes floatBtn{
+  0%{ transform: translateY(-28px) scale(1); }
+  50%{ transform: translateY(-32px) scale(1.05); }
+  100%{ transform: translateY(-28px) scale(1); }
 }
