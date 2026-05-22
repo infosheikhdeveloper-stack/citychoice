@@ -131,7 +131,7 @@ onclick="closeTopAlert()">
   <section class="search-section">
     <div class="search-box">
       <i class="fa-solid fa-magnifying-glass"></i>
-      <input type="text" placeholder="Search cakes, pizza, sweets...">
+<input type="text" id="searchInput" placeholder="Search cakes, pizza, sweets...">
     </div>
   </section>
 
@@ -880,6 +880,26 @@ window.addEventListener("beforeinstallprompt", (e) => {
   };
 });
 </script>
+<script>
+document.getElementById("searchInput").addEventListener("keyup", function(){
+
+let search = this.value.toLowerCase();
+
+document.querySelectorAll(".product-card").forEach(card => {
+
+let title = card.querySelector("h3").innerText.toLowerCase();
+
+if(title.includes(search)){
+card.style.display = "";
+}else{
+card.style.display = "none";
+}
+
+});
+
+});
+</script>
+
 
 
 </body>
