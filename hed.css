@@ -1,0 +1,336 @@
+/* =========================
+   HERO WRAPPER
+========================= */
+
+.hero-bg{
+  position:relative;
+  overflow:hidden;
+
+  padding-top:95px;   /* FIX */
+  padding-bottom:80px;
+
+  background:linear-gradient(
+    -45deg,
+    #120000,
+    #3d0000,
+    #7a0000,
+    #1a0000,
+    #120000
+  );
+
+  background-size:400% 400%;
+  animation:bgMove 10s ease infinite;
+}
+
+/* =========================
+   BOTTOM CENTER CURVE
+========================= */
+
+.hero-bg::before{
+  content:"";
+  position:absolute;
+
+  bottom:-70px;
+  left:50%;
+
+  transform:translateX(-50%);
+
+  width:100%;
+  height:140px;
+
+  background:#fff;
+
+  border-radius:100% 100% 0 0;
+
+  z-index:1;
+}
+
+/* Content curve ke upar */
+
+.top-header,
+.hero-slider,
+.search-section{
+  position:relative;
+  z-index:2;
+}
+
+.hero-bg::after{
+  content:"";
+  position:absolute;
+
+  width:300px;
+  height:300px;
+
+  background:rgba(255,80,80,.15);
+  border-radius:50%;
+
+  right:-120px;
+  top:50px;
+
+  filter:blur(70px);
+
+  animation:floatGlow2 10s infinite alternate;
+}
+
+/* =========================
+   PREMIUM HEADER FIXED
+========================= */
+
+.top-header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+
+  padding:12px 16px;
+
+  background:rgba(20,0,0,.85);
+  backdrop-filter:blur(18px);
+
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+
+  z-index:999;
+
+  border-bottom:1px solid rgba(255,255,255,.08);
+
+  box-shadow:
+  0 8px 25px rgba(0,0,0,.25);
+
+  box-sizing:border-box;
+}
+/* =========================
+   LEFT SECTION
+========================= */
+
+.logo-section{
+  display:flex;
+  align-items:center;
+  gap:14px;
+  min-width:0;
+  flex:1;
+}
+
+/* =========================
+   LOGO
+========================= */
+
+.logo-circle{
+  width:72px;
+  height:72px;
+
+  border-radius:50%;
+  overflow:hidden;
+
+  background:#fff;
+
+  border:3px solid #ff2b2b;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  flex-shrink:0;
+
+  box-shadow:
+  0 0 15px rgba(255,43,43,.5),
+  0 0 35px rgba(255,43,43,.3);
+
+  animation:logoPulse 3s ease-in-out infinite;
+}
+
+.logo-circle img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:block;
+}
+
+/* =========================
+   TEXT AREA
+========================= */
+
+.logo-text-box{
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  min-width:0;
+}
+
+/* APP NAME */
+
+.logo-text{
+  font-family:'Pacifico',cursive;
+  font-size:22px;
+  line-height:1.2;
+
+  margin:0;
+
+  background:linear-gradient(
+    90deg,
+    #ffffff,
+    #ffb3b3,
+    #ffffff
+  );
+
+  background-size:200% auto;
+
+  color:transparent;
+  -webkit-background-clip:text;
+  background-clip:text;
+
+  animation:textFlow 4s linear infinite;
+
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+
+/* LOCATION */
+
+.location-anim{
+  display:flex;
+  align-items:center;
+  gap:6px;
+
+  margin-top:4px;
+
+  font-size:12px;
+  color:#eee;
+}
+
+.location-anim i{
+  color:#ff4d4d;
+  font-size:12px;
+}
+
+#headerLocation{
+  color:#f5f5f5;
+
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+
+/* =========================
+   MENU BUTTON
+========================= */
+
+.menu-btn{
+  width:48px;
+  height:48px;
+
+  border-radius:14px;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  background:rgba(255,255,255,.10);
+
+  color:#fff;
+  font-size:22px;
+
+  cursor:pointer;
+
+  flex-shrink:0;
+
+  transition:.3s;
+}
+
+.menu-btn:hover{
+  background:#ff2b2b;
+  transform:scale(1.08);
+}
+
+/* =========================
+   SEARCH BAR
+========================= */
+
+.search-section{
+  position:relative;
+  z-index:2;
+  padding:15px;
+}
+
+.search-box{
+  background:rgba(255,255,255,.12);
+  backdrop-filter:blur(10px);
+
+  border:1px solid rgba(255,255,255,.15);
+
+  border-radius:15px;
+
+  padding:12px 15px;
+
+  color:#fff;
+}
+
+.search-box input{
+  background:transparent;
+  border:none;
+  outline:none;
+
+  color:#fff;
+  width:100%;
+}
+
+.search-box input::placeholder{
+  color:#ddd;
+}
+
+/* =========================
+   ANIMATIONS
+========================= */
+
+@keyframes bgMove{
+  0%{
+    background-position:0% 50%;
+  }
+  50%{
+    background-position:100% 50%;
+  }
+  100%{
+    background-position:0% 50%;
+  }
+}
+
+@keyframes floatGlow1{
+  from{
+    transform:translateY(0);
+  }
+  to{
+    transform:translateY(120px);
+  }
+}
+
+@keyframes floatGlow2{
+  from{
+    transform:translateY(0);
+  }
+  to{
+    transform:translateY(-100px);
+  }
+}
+
+@keyframes logoPulse{
+  0%{
+    transform:scale(1);
+  }
+  50%{
+    transform:scale(1.05);
+  }
+  100%{
+    transform:scale(1);
+  }
+}
+
+@keyframes textFlow{
+  0%{
+    background-position:0% center;
+  }
+  100%{
+    background-position:200% center;
+  }
+}
