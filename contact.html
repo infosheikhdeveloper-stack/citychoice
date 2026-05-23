@@ -1,458 +1,466 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Contact Us - City Choice Bakers</title>
-
-<link rel="stylesheet"
-href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-
-<style>
-
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:'Poppins',sans-serif;
-}
-
-body{
-  background:#f8f8f8;
-  padding-top:120px; /* Header ki height ke hisab se */
-  padding-bottom:30px;
-}
-
-/* HEADER */
-
-.contact-header{
-  position:fixed;
-  top:0;
-  left:0;
-  width:100%;
-
-  background:linear-gradient(135deg,#ff2b2b,#111);
-  color:#fff;
-  padding:20px;
-  border-radius:0 0 30px 30px;
-
-  box-shadow:0 10px 25px rgba(0,0,0,.15);
-
-  z-index:999;
-}
-
-.logo-area{
-display:flex;
-align-items:center;
-gap:15px;
-}
-
-.logo-area img{
-width:65px;
-height:65px;
-border-radius:50%;
-background:#fff;
-padding:4px;
-}
-
-.logo-text h1{
-font-size:22px;
-}
-
-.logo-text p{
-font-size:13px;
-opacity:.9;
-margin-top:3px;
-}
-
-/* TITLE */
-
-.page-title{
-text-align:center;
-margin-top:20px;
-font-size:24px;
-font-weight:700;
-color:#111;
-}
-
-/* CARD */
-
-.contact-card{
-background:#fff;
-margin:15px;
-padding:18px;
-border-radius:20px;
-box-shadow:0 5px 20px rgba(0,0,0,.08);
-}
-
-.contact-card h3{
-font-size:18px;
-margin-bottom:12px;
-color:#111;
-}
-
-.contact-row{
-display:flex;
-align-items:center;
-justify-content:space-between;
-padding:12px 0;
-border-bottom:1px solid #eee;
-}
-
-.contact-row:last-child{
-border:none;
-}
-
-.left{
-display:flex;
-align-items:center;
-gap:12px;
-}
-
-.left i{
-width:40px;
-height:40px;
-background:#ffebeb;
-color:#ff2b2b;
-border-radius:50%;
-display:flex;
-align-items:center;
-justify-content:center;
-font-size:18px;
-}
-
-.info h4{
-font-size:15px;
-color:#111;
-}
-
-.info p{
-font-size:13px;
-color:#666;
-}
-
-.call-btn{
-width:45px;
-height:45px;
-border-radius:50%;
-background:#25D366;
-color:#fff;
-display:flex;
-align-items:center;
-justify-content:center;
-text-decoration:none;
-font-size:18px;
-}
-
-/* SOCIAL */
-
-.social-box{
-display:flex;
-justify-content:center;
-gap:15px;
-margin-top:25px;
-}
-
-.social-box a{
-width:55px;
-height:55px;
-border-radius:50%;
-background:#fff;
-display:flex;
-align-items:center;
-justify-content:center;
-font-size:22px;
-text-decoration:none;
-color:#111;
-box-shadow:0 5px 15px rgba(0,0,0,.1);
-transition:.3s;
-}
-
-.social-box a:hover{
-transform:translateY(-5px);
-}
-
-.footer{
-text-align:center;
-margin-top:25px;
-font-size:13px;
-color:#777;
-}
-
-.back-btn{
-  position:fixed;
-  top:40px;   /* 👈 neeche shift */
-  right:15px;
-  width:44px;
-  height:44px;
-  border-radius:50%;
-
-  /* 🔥 TRANSPARENT GLASS EFFECT */
-  background:rgba(255,255,255,0.25);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-
-  border:1px solid rgba(255,255,255,0.4);
-
-  display:flex;
-  align-items:center;
-  justify-content:center;
-
-  box-shadow:0 4px 12px rgba(0,0,0,0.10);
-  cursor:pointer;
-  z-index:999;
-  transition:0.3s;
-}
-
-/* ICON */
-.back-btn i{
-  font-size:18px;
-  color:#ff2b2b;
-}
-
-/* HOVER EFFECT */
-.back-btn:hover{
-  transform:scale(1.1);
-  background:#ff2b2b;
-  border-color:#ff2b2b;
-}
-
-.back-btn:hover i{
-  color:#fff;
-}
-
-
-</style>
-</head>
-<body>
-
-<!-- HEADER -->
-
-<div class="contact-header">
-
-<div class="logo-area">
-
-<img src="logo.png">
-
-<div class="logo-text">
-<h1>City Choice Bakers</h1>
-<p>
-<i class="fa-solid fa-address-book"></i>
- Contact Information
-</p>
-</div>
-
-</div>
-
-</div>
-
-<h2 class="page-title">
-<i class="fa-solid fa-phone-volume"></i>
- Contact Us
-</h2>
-
-<!-- SALESMAN -->
-
-<div class="contact-card">
-
-<h3>
-<i class="fa-solid fa-user-tie"></i>
- Sales Team
-</h3>
-
-<div class="contact-row">
-
-<div class="left">
-<i class="fa-solid fa-user"></i>
-
-<div class="info">
-<h4>Lateef Lone</h4>
-<p>+91 8899090745</p>
-</div>
-
-</div>
-
-<a href="tel:+918899090745"
-class="call-btn">
-<i class="fa-solid fa-phone"></i>
-</a>
-
-</div>
-
-<div class="contact-row">
-
-<div class="left">
-<i class="fa-solid fa-user"></i>
-
-<div class="info">
-<h4>Sahil Khan</h4>
-<p>+91 6006390925</p>
-</div>
-
-</div>
-
-<a href="tel:+919797488873"
-class="call-btn">
-<i class="fa-solid fa-phone"></i>
-</a>
-
-<div class="contact-row">
-
-<div class="left">
-<i class="fa-solid fa-user"></i>
-
-<div class="info">
-<h4>Muhammad Wasib</h4>
-<p>+91 7889844396</p>
-</div>
-
-</div>
-
-<a href="tel:+919797488873"
-class="call-btn">
-<i class="fa-solid fa-phone"></i>
-</a>
-
-  
-
-
-  
-</div>
-
-</div>
-
-<!-- OWNER -->
-
-<div class="contact-card">
-
-<h3>
-<i class="fa-solid fa-building"></i>
- City Choice Bakers
-</h3>
-
-<div class="contact-row">
-
-<div class="left">
-<i class="fa-solid fa-user"></i>
-
-<div class="info">
-<h4>Nisar Ahmad Sheikh</h4>
-<p>Owner</p>
-</div>
-
-</div>
-
-</div>
-
-<div class="contact-row">
-
-<div class="left">
-<i class="fa-solid fa-phone"></i>
-
-<div class="info">
-<h4>Main Contact</h4>
-<p>+91 7006592704</p>
-</div>
-
-</div>
-
-<a href="tel:+917006592704"
-class="call-btn">
-<i class="fa-solid fa-phone"></i>
-</a>
-
-</div>
-
-<div class="contact-row">
-
-<div class="left">
-<i class="fa-brands fa-whatsapp"></i>
-
-<div class="info">
-<h4>WhatsApp</h4>
-<p>+91 7006592704</p>
-</div>
-
-</div>
-
-<a href="https://wa.me/917006592704"
-class="call-btn">
-<i class="fa-brands fa-whatsapp"></i>
-</a>
-
-</div>
-
-<div class="contact-row">
-
-<div class="left">
-<i class="fa-solid fa-phone"></i>
-
-<div class="info">
-<h4>Support Contact</h4>
-<p>+91 9622578770</p>
-</div>
-
-</div>
-
-<a href="tel:+919622578770"
-class="call-btn">
-<i class="fa-solid fa-phone"></i>
-</a>
-
-</div>
-
-<div class="contact-row">
-
-<div class="left">
-<i class="fa-solid fa-envelope"></i>
-
-<div class="info">
-<h4>Email</h4>
-<p>contact.citychoice@gmail.com</p>
-</div>
-
-</div>
-
-<a href="mailto:contact.citychoice@gmail.com"
-class="call-btn">
-<i class="fa-solid fa-envelope"></i>
-</a>
-
-</div>
-
-</div>
-
-<!-- SOCIAL -->
-
-<div class="contact-card">
-
-<h3>
-<i class="fa-solid fa-share-nodes"></i>
- Follow Us
-</h3>
-
-<div class="social-box">
-
-<a href="#">
-<i class="fa-brands fa-instagram"></i>
-</a>
-
-<a href="#">
-<i class="fa-brands fa-youtube"></i>
-</a>
-
-<a href="#">
-<i class="fa-brands fa-facebook-f"></i>
-</a>
-
-</div>
-
-</div>
-
-<div class="footer">
-© 2026 City Choice Bakers • Fast Delivery • Premium Quality
-</div>
-<script src="back.js"></script>
-</body>
+<!DOCTYPE html>    
+<html lang="en">    
+<head>    
+<meta charset="UTF-8">    
+<meta name="viewport" content="width=device-width, initial-scale=1.0">    
+    
+<title>Contact Us - City Choice Bakers</title>    
+    
+<link rel="stylesheet"    
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">    
+    
+<style>    
+    
+*{    
+margin:0;    
+padding:0;    
+box-sizing:border-box;    
+font-family:'Poppins',sans-serif;    
+}    
+    
+body{    
+  background:#f8f8f8;    
+  padding-top:120px;    
+  padding-bottom:30px;    
+}    
+    
+/* HEADER */    
+    
+.contact-header{    
+  position:fixed;    
+  top:0;    
+  left:0;    
+  width:100%;    
+  background:linear-gradient(135deg,#ff2b2b,#111);    
+  color:#fff;    
+  padding:20px;    
+  border-radius:0 0 30px 30px;    
+  box-shadow:0 10px 25px rgba(0,0,0,.15);    
+  z-index:999;    
+}    
+    
+.logo-area{    
+display:flex;    
+align-items:center;    
+gap:15px;    
+}    
+    
+.logo-area img{    
+width:65px;    
+height:65px;    
+border-radius:50%;    
+background:#fff;    
+padding:4px;    
+object-fit:cover;    
+}    
+    
+.logo-text h1{    
+font-size:22px;    
+}    
+    
+.logo-text p{    
+font-size:13px;    
+opacity:.9;    
+margin-top:3px;    
+}    
+    
+/* TITLE */    
+    
+.page-title{    
+text-align:center;    
+margin-top:20px;    
+font-size:24px;    
+font-weight:700;    
+color:#111;    
+}    
+    
+/* CARD */    
+    
+.contact-card{    
+background:#fff;    
+margin:15px;    
+padding:18px;    
+border-radius:20px;    
+box-shadow:0 5px 20px rgba(0,0,0,.08);    
+}    
+    
+.contact-card h3{    
+font-size:18px;    
+margin-bottom:12px;    
+color:#111;    
+}    
+    
+.contact-row{    
+display:flex;    
+align-items:center;    
+justify-content:space-between;    
+padding:14px 0;    
+border-bottom:1px solid #eee;    
+gap:10px;    
+}    
+    
+.contact-row:last-child{    
+border:none;    
+}    
+    
+.left{    
+display:flex;    
+align-items:center;    
+gap:12px;    
+}    
+    
+.left i{    
+width:40px;    
+height:40px;    
+background:#ffebeb;    
+color:#ff2b2b;    
+border-radius:50%;    
+display:flex;    
+align-items:center;    
+justify-content:center;    
+font-size:18px;    
+flex-shrink:0;    
+}    
+    
+.info h4{    
+font-size:15px;    
+color:#111;    
+margin-bottom:3px;    
+}    
+    
+.info p{    
+font-size:13px;    
+color:#666;    
+}    
+    
+.call-btn{    
+width:45px;    
+height:45px;    
+border-radius:50%;    
+background:#25D366;    
+color:#fff;    
+display:flex;    
+align-items:center;    
+justify-content:center;    
+text-decoration:none;    
+font-size:18px;    
+flex-shrink:0;    
+transition:.3s;    
+}    
+    
+.call-btn:hover{    
+transform:scale(1.08);    
+}    
+    
+/* SOCIAL */    
+    
+.social-box{    
+display:flex;    
+justify-content:center;    
+gap:15px;    
+margin-top:25px;    
+}    
+    
+.social-box a{    
+width:55px;    
+height:55px;    
+border-radius:50%;    
+background:#fff;    
+display:flex;    
+align-items:center;    
+justify-content:center;    
+font-size:22px;    
+text-decoration:none;    
+color:#111;    
+box-shadow:0 5px 15px rgba(0,0,0,.1);    
+transition:.3s;    
+}    
+    
+.social-box a:hover{    
+transform:translateY(-5px);    
+}    
+    
+.footer{    
+text-align:center;    
+margin-top:25px;    
+font-size:13px;    
+color:#777;    
+padding:0 15px;    
+}    
+    
+/* BACK BUTTON */    
+    
+.back-btn{    
+  position:fixed;    
+  top:40px;    
+  right:15px;    
+  width:44px;    
+  height:44px;    
+  border-radius:50%;    
+  background:rgba(255,255,255,0.25);    
+  backdrop-filter: blur(10px);    
+  -webkit-backdrop-filter: blur(10px);    
+  border:1px solid rgba(255,255,255,0.4);    
+  display:flex;    
+  align-items:center;    
+  justify-content:center;    
+  box-shadow:0 4px 12px rgba(0,0,0,0.10);    
+  cursor:pointer;    
+  z-index:999;    
+  transition:0.3s;    
+  text-decoration:none;    
+}    
+    
+.back-btn i{    
+  font-size:18px;    
+  color:#ff2b2b;    
+}    
+    
+.back-btn:hover{    
+  transform:scale(1.1);    
+  background:#ff2b2b;    
+  border-color:#ff2b2b;    
+}    
+    
+.back-btn:hover i{    
+  color:#fff;    
+}    
+    
+</style>    
+</head>    
+<body>    
+    
+<!-- HEADER -->    
+    
+<div class="contact-header">    
+    
+<div class="logo-area">    
+    
+<img src="logo.png" alt="Logo">    
+    
+<div class="logo-text">    
+<h1>City Choice Bakers</h1>    
+<p>    
+<i class="fa-solid fa-address-book"></i>    
+ Contact Information    
+</p>    
+</div>    
+    
+</div>    
+    
+</div>    
+    
+<!-- BACK BUTTON -->    
+    
+<a href="javascript:history.back()" class="back-btn">    
+<i class="fa-solid fa-arrow-left"></i>    
+</a>    
+    
+<h2 class="page-title">    
+<i class="fa-solid fa-phone-volume"></i>    
+ Contact Us    
+</h2>    
+    
+<!-- SALES TEAM -->    
+    
+<div class="contact-card">    
+    
+<h3>    
+<i class="fa-solid fa-user-tie"></i>    
+ Sales Team    
+</h3>    
+    
+<!-- PERSON 1 -->    
+    
+<div class="contact-row">    
+    
+<div class="left">    
+<i class="fa-solid fa-user"></i>    
+    
+<div class="info">    
+<h4>Lateef Lone</h4>    
+<p>+91 8899090745</p>    
+</div>    
+    
+</div>    
+    
+<a href="tel:+918899090745" class="call-btn">    
+<i class="fa-solid fa-phone"></i>    
+</a>    
+    
+</div>    
+    
+<!-- PERSON 2 -->    
+    
+<div class="contact-row">    
+    
+<div class="left">    
+<i class="fa-solid fa-user"></i>    
+    
+<div class="info">    
+<h4>Sahil Khan</h4>    
+<p>+91 6006390925</p>    
+</div>    
+    
+</div>    
+    
+<a href="tel:+916006390925" class="call-btn">    
+<i class="fa-solid fa-phone"></i>    
+</a>    
+    
+</div>    
+    
+<!-- PERSON 3 -->    
+    
+<div class="contact-row">    
+    
+<div class="left">    
+<i class="fa-solid fa-user"></i>    
+    
+<div class="info">    
+<h4>Muhammad Wasib</h4>    
+<p>+91 7889844396</p>    
+</div>    
+    
+</div>    
+    
+<a href="tel:+917889844396" class="call-btn">    
+<i class="fa-solid fa-phone"></i>    
+</a>    
+    
+</div>    
+    
+</div>    
+    
+<!-- OWNER -->    
+    
+<div class="contact-card">    
+    
+<h3>    
+<i class="fa-solid fa-building"></i>    
+ City Choice Bakers    
+</h3>    
+    
+<div class="contact-row">    
+    
+<div class="left">    
+<i class="fa-solid fa-user"></i>    
+    
+<div class="info">    
+<h4>Nisar Ahmad Sheikh</h4>    
+<p>Owner</p>    
+</div>    
+    
+</div>    
+    
+</div>    
+    
+<div class="contact-row">    
+    
+<div class="left">    
+<i class="fa-solid fa-phone"></i>    
+    
+<div class="info">    
+<h4>Main Contact</h4>    
+<p>+91 7006592704</p>    
+</div>    
+    
+</div>    
+    
+<a href="tel:+917006592704" class="call-btn">    
+<i class="fa-solid fa-phone"></i>    
+</a>    
+    
+</div>    
+    
+<div class="contact-row">    
+    
+<div class="left">    
+<i class="fa-brands fa-whatsapp"></i>    
+    
+<div class="info">    
+<h4>WhatsApp</h4>    
+<p>+91 7006592704</p>    
+</div>    
+    
+</div>    
+    
+<a href="https://wa.me/917006592704" class="call-btn">    
+<i class="fa-brands fa-whatsapp"></i>    
+</a>    
+    
+</div>    
+    
+<div class="contact-row">    
+    
+<div class="left">    
+<i class="fa-solid fa-phone"></i>    
+    
+<div class="info">    
+<h4>Support Contact</h4>    
+<p>+91 9622578770</p>    
+</div>    
+    
+</div>    
+    
+<a href="tel:+919622578770" class="call-btn">    
+<i class="fa-solid fa-phone"></i>    
+</a>    
+    
+</div>    
+    
+<div class="contact-row">    
+    
+<div class="left">    
+<i class="fa-solid fa-envelope"></i>    
+    
+<div class="info">    
+<h4>Email</h4>    
+<p>contact.citychoice@gmail.com</p>    
+</div>    
+    
+</div>    
+    
+<a href="mailto:contact.citychoice@gmail.com" class="call-btn">    
+<i class="fa-solid fa-envelope"></i>    
+</a>    
+    
+</div>    
+    
+</div>    
+    
+<!-- SOCIAL -->    
+    
+<div class="contact-card">    
+    
+<h3>    
+<i class="fa-solid fa-share-nodes"></i>    
+ Follow Us    
+</h3>    
+    
+<div class="social-box">    
+    
+<a href="#">    
+<i class="fa-brands fa-instagram"></i>    
+</a>    
+    
+<a href="#">    
+<i class="fa-brands fa-youtube"></i>    
+</a>    
+    
+<a href="#">    
+<i class="fa-brands fa-facebook-f"></i>    
+</a>    
+    
+</div>    
+    
+</div>    
+    
+<div class="footer">    
+© 2026 City Choice Bakers • Fast Delivery • Premium Quality    
+</div>    
+    
+<script src="back.js"></script>    
+    
+</body>    
 </html>
