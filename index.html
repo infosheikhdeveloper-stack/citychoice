@@ -146,9 +146,9 @@ onclick="closeTopAlert()">
 
   <div class="category-grid">
 
-    <div class="category-card" data-cat="Dryfruit">
-      <img src="https://i.ibb.co/Lz5LJxPv/E5-A4789-optimized-4000.jpg">
-      <span>Dryfruit</span>
+    <div class="category-card" data-cat="Biryani">
+      <img src="https://images.unsplash.com/photo-1563379091339-03246963d96c?q=80&w=800">
+      <span>Biryani</span>
     </div>
 
     <div class="category-card" data-cat="Bread">
@@ -522,7 +522,7 @@ onclick="openShopSheet()">
         Gulmarg Road, Magam
       </div>
 
-      <p>🟢 Open Now</p>
+<p id="magamStatus">Loading...</p>
     </div>
 
   </div>
@@ -543,7 +543,7 @@ onclick="openShopSheet()">
         Main Market, Kunzer
       </div>
 
-      <p>🟢 Open Now</p>
+<p id="kunzerStatus">Loading...</p>
     </div>
 
   </div>
@@ -983,6 +983,48 @@ function closeShopSheet(){
   .getElementById("shopSheet")
   .classList.remove("show");
 }
+</script>
+
+
+<script>
+
+async function loadShopStatus(){
+
+  let { data, error } = await supabaseClient
+    .from("shops")
+    .select("*");
+
+  if(error){
+    console.log(error);
+    return;
+  }
+
+  data.forEach(shop => {
+
+    if(shop.shop_name === "City Choice Bakers Magam"){
+
+      document.getElementById("magamStatus").innerHTML =
+        shop.status === "Open"
+        ? '<i class="fa-solid fa-store" style="color:#22c55e;"></i>  Open Now'
+        : '<i class="fa-solid fa-store-slash" style="color:#ef4444;"></i>  Closed';
+
+    }
+
+    if(shop.shop_name === "City Choice Bakers Kunzer"){
+
+      document.getElementById("kunzerStatus").innerHTML =
+        shop.status === "Open"
+        ? '<i class="fa-solid fa-store" style="color:#22c55e;"></i> Open Now'
+        : '<i class="fa-solid fa-store-slash" style="color:#ef4444;"></i> Closed';
+
+    }
+
+  });
+
+}
+
+loadShopStatus();
+
 </script>
 
 
