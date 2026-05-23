@@ -4,196 +4,426 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>About - City Choice Bakers</title>
+<title>About Us - City Choice Bakers</title>
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-   <link rel="stylesheet" href="back.css">
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+<link rel="stylesheet" href="back.css">
+
 <style>
 
 *{
 margin:0;
 padding:0;
 box-sizing:border-box;
-font-family:"Poppins", sans-serif;
+font-family:'Poppins',sans-serif;
 }
 
 body{
-background:linear-gradient(135deg,#f1f5f9,#e2e8f0);
-color:#0f172a;
+background:#f8f8f8;
+padding-top:120px;
+padding-bottom:30px;
 }
 
-/* TOP HEADER */
-.header{
-background:linear-gradient(90deg,#0f172a,#1e3a8a,#38bdf8);
-color:white;
+/* HEADER */
+
+.contact-header{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+
+background:linear-gradient(135deg,#ff2b2b,#111);
+color:#fff;
 padding:20px;
-text-align:center;
+
+border-radius:0 0 30px 30px;
+box-shadow:0 10px 25px rgba(0,0,0,.15);
+
+z-index:999;
+}
+
+.logo-area{
+display:flex;
+align-items:center;
+gap:15px;
+}
+
+.logo-area img{
+width:65px;
+height:65px;
+border-radius:50%;
+background:#fff;
+padding:4px;
+}
+
+.logo-text h1{
 font-size:22px;
-font-weight:800;
-box-shadow:0 10px 25px rgba(0,0,0,0.2);
 }
 
-/* CONTAINER */
-.container{
-max-width:900px;
-margin:30px auto;
-padding:20px;
+.logo-text p{
+font-size:13px;
+opacity:.9;
+margin-top:3px;
 }
 
-/* OWNER CARD */
-.owner{
-background:white;
-padding:25px;
-border-radius:20px;
-box-shadow:0 10px 25px rgba(0,0,0,0.1);
+/* TITLE */
+
+.page-title{
 text-align:center;
+font-size:26px;
+font-weight:700;
+color:#111;
 margin-bottom:20px;
 }
 
-/* CIRCLE IMAGE */
-.owner img{
+/* CARD */
+
+.about-card{
+background:#fff;
+margin:15px;
+padding:20px;
+border-radius:20px;
+box-shadow:0 5px 20px rgba(0,0,0,.08);
+}
+
+.about-card h3{
+font-size:18px;
+margin-bottom:15px;
+color:#111;
+}
+
+.about-card p{
+font-size:14px;
+line-height:1.8;
+color:#555;
+}
+
+/* OWNER */
+
+.owner-box{
+text-align:center;
+}
+
+.owner-img{
 width:120px;
 height:120px;
 border-radius:50%;
+background:#fff;
+padding:5px;
+border:4px solid #ff2b2b;
+margin:auto;
+margin-bottom:12px;
+}
+
+.owner-img img{
+width:100%;
+height:100%;
+border-radius:50%;
 object-fit:cover;
-border:4px solid #38bdf8;
-margin-bottom:10px;
 }
 
-/* NAME */
-.owner h2{
+.owner-box h2{
 font-size:22px;
-font-weight:900;
+color:#111;
 }
 
-.owner p{
-color:#64748b;
+.owner-box span{
+display:inline-block;
 margin-top:5px;
+background:#ffebeb;
+color:#ff2b2b;
+padding:8px 15px;
+border-radius:50px;
+font-size:13px;
+font-weight:600;
 }
 
-/* ABOUT BOX */
-.about-box{
-background:white;
-padding:25px;
-border-radius:20px;
-box-shadow:0 10px 25px rgba(0,0,0,0.1);
-line-height:1.7;
+/* FEATURES */
+
+.feature{
+display:flex;
+align-items:center;
+gap:12px;
+padding:12px 0;
+border-bottom:1px solid #eee;
 }
 
-.about-box h3{
-font-size:20px;
-margin-bottom:10px;
-color:#1e3a8a;
+.feature:last-child{
+border:none;
+}
+
+.feature i{
+width:45px;
+height:45px;
+background:#ffebeb;
+color:#ff2b2b;
+border-radius:50%;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:18px;
+}
+
+.feature span{
+font-size:15px;
+font-weight:500;
+}
+
+/* BRANCH */
+
+.branch-card{
+display:flex;
+align-items:center;
+gap:15px;
+padding:15px;
+background:#fff5f5;
+border-radius:15px;
+margin-bottom:15px;
+}
+
+.branch-card img{
+width:70px;
+height:70px;
+border-radius:50%;
+background:#fff;
+padding:4px;
+}
+
+.branch-info h4{
+font-size:17px;
+color:#111;
+margin-bottom:5px;
+}
+
+.branch-info p{
+font-size:13px;
+color:#666;
+}
+
+/* BADGES */
+
+.badges{
+display:flex;
+flex-wrap:wrap;
+gap:10px;
+margin-top:15px;
 }
 
 .badge{
-display:inline-block;
-background:#e2e8f0;
-padding:5px 12px;
-border-radius:20px;
-font-size:12px;
-margin:5px 5px 0 0;
-}
-
-/* BRANCH BOX */
-.branch{
-margin-top:20px;
-display:grid;
-gap:10px;
-}
-
-.branch div{
-background:#f8fafc;
-padding:12px;
-border-radius:12px;
-border-left:4px solid #38bdf8;
-}
-
-footer{
-text-align:center;
-padding:15px;
-margin-top:30px;
-color:#64748b;
+background:#ffebeb;
+color:#ff2b2b;
+padding:8px 14px;
+border-radius:50px;
 font-size:13px;
+font-weight:600;
+}
+
+/* FOOTER */
+
+.footer{
+text-align:center;
+margin-top:25px;
+font-size:13px;
+color:#777;
 }
 
 </style>
-
 </head>
 
 <body>
 
-<div class="header">
-CITY CHOICE BAKERS
+<!-- HEADER -->
+
+<div class="contact-header">
+
+<div class="logo-area">
+
+<img src="logo.png">
+
+<div class="logo-text">
+<h1>City Choice Bakers</h1>
+<p>
+<i class="fa-solid fa-circle-info"></i>
+ About Our Company
+</p>
 </div>
 
-<div class="container">
+</div>
+
+</div>
+
+<!-- TITLE -->
+
+<h2 class="page-title">
+<i class="fa-solid fa-store"></i>
+ About Us
+</h2>
 
 <!-- OWNER -->
-<div class="owner">
-<img src="logo.png" alt="Owner Image">
+
+<div class="about-card">
+
+<div class="owner-box">
+
+<div class="owner-img">
+<img src="logo.png">
+</div>
+
 <h2>Nisar Ahmad Sheikh</h2>
-<p>Owner • City Choice Bakers</p>
+
+<span>
+<i class="fa-solid fa-crown"></i>
+ Owner - City Choice Bakers
+</span>
+
+</div>
+
 </div>
 
 <!-- ABOUT -->
-<div class="about-box">
 
-<h3><i class="fa fa-store"></i> About Our Shop</h3>
+<div class="about-card">
 
-<p>
-City Choice Bakers is a premium bakery, sweets, restaurant and disposable items shop.
-We provide fresh bakery items, delicious sweets, fast food, and daily essentials at best quality and affordable rates.
-</p>
-
-<br>
-
-<span class="badge">Bakery</span>
-<span class="badge">Sweets</span>
-<span class="badge">Restaurant</span>
-<span class="badge">Disposable Items</span>
-
-<br><br>
+<h3>
+<i class="fa-solid fa-building"></i>
+ Our Story
+</h3>
 
 <p>
-We are located at <b>Gulmarg Road Magam</b> and also have a branch in <b>Kunzer Main Market</b>.
-We always focus on quality, hygiene, and customer satisfaction.
+City Choice Bakers is a trusted bakery, restaurant, sweets and disposable items store dedicated to delivering fresh, hygienic and premium quality products.
+
+We proudly serve our customers with delicious cakes, pastries, breads, fast food, sweets and restaurant items prepared with quality ingredients and professional standards.
+
+Customer satisfaction, food safety and freshness remain our highest priorities.
 </p>
 
-<br>
+<div class="badges">
 
-<p>
-✔ Food License Approved  
-<br>
-✔ Updated Rate List Available  
-<br>
-✔ Fresh Daily Products  
-<br>
-✔ Home Delivery Service (Optional)
-</p>
+<div class="badge">Bakery</div>
+
+<div class="badge">Restaurant</div>
+
+<div class="badge">Sweets</div>
+
+<div class="badge">Fast Food</div>
+
+<div class="badge">Disposable Items</div>
+
+</div>
+
+</div>
+
+<!-- FEATURES -->
+
+<div class="about-card">
+
+<h3>
+<i class="fa-solid fa-award"></i>
+ Why Choose Us
+</h3>
+
+<div class="feature">
+<i class="fa-solid fa-certificate"></i>
+<span>Food License Approved</span>
+</div>
+
+<div class="feature">
+<i class="fa-solid fa-shield-heart"></i>
+<span>Quality & Hygiene Guaranteed</span>
+</div>
+
+<div class="feature">
+<i class="fa-solid fa-cake-candles"></i>
+<span>Fresh Bakery Products Daily</span>
+</div>
+
+<div class="feature">
+<i class="fa-solid fa-motorcycle"></i>
+<span>Fast Home Delivery Service</span>
+</div>
+
+<div class="feature">
+<i class="fa-solid fa-users"></i>
+<span>Trusted By Hundreds Of Customers</span>
+</div>
 
 </div>
 
 <!-- BRANCHES -->
-<div class="about-box branch">
 
-<h3><i class="fa fa-location-dot"></i> Our Branches</h3>
+<div class="about-card">
 
-<div>
-<b>Main Branch:</b> Gulmarg Road Magam
+<h3>
+<i class="fa-solid fa-location-dot"></i>
+ Our Branches
+</h3>
+
+<div class="branch-card">
+
+<img src="logo.png">
+
+<div class="branch-info">
+
+<h4>City Choice Bakers Magam</h4>
+
+<p>
+📍 Gulmarg Road, Magam
+</p>
+
+<p>
+🏪 Main Branch
+</p>
+
 </div>
 
-<div>
-<b>Second Branch:</b> Kunzer Main Market
 </div>
+
+<div class="branch-card">
+
+<img src="logo2.png">
+
+<div class="branch-info">
+
+<h4>City Choice Bakers Kunzer</h4>
+
+<p>
+📍 Main Market, Kunzer
+</p>
+
+<p>
+🏪 Second Branch
+</p>
 
 </div>
 
 </div>
 
-<footer>
-© 2026 City Choice Bakers | All Rights Reserved
-</footer>
+</div>
+
+<!-- MISSION -->
+
+<div class="about-card">
+
+<h3>
+<i class="fa-solid fa-bullseye"></i>
+ Our Mission
+</h3>
+
+<p>
+Our mission is to provide fresh, delicious and affordable food products while maintaining the highest standards of quality, hygiene and customer satisfaction.
+
+We aim to make City Choice Bakers the most trusted bakery and restaurant brand in the region.
+</p>
+
+</div>
+
+<div class="footer">
+© 2026 City Choice Bakers • Premium Quality • Fast Delivery
+</div>
+
 <script src="back.js"></script>
+
 </body>
 </html>
