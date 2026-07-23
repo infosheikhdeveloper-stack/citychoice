@@ -31,18 +31,148 @@
   </div>
 </div>
 
-<!-- HERO BACKGROUND SECTION -->
+<!-- HERO BACKGROUND SECTION WITH ANIMATED 3D BAKERY SHOP & DELIVERY SCENE -->
 <div class="app-hero" id="videoHero">
   <div class="hero-header">
     <div class="app-logo">
       <i class="fa-solid fa-store"></i>
     </div>
     <h1>City Choice Bakery</h1>
-    <p>One app for fresh bakery, sweets & food in minutes!</p>
+    <p>Freshly Baked Goodness & Express Delivery in Minutes!</p>
   </div>
 
-  <div class="hero-banner-img">
-    <img src="https://images.unsplash.com/photo-1509440159596-0249088772ff?q=80&w=800&auto=format&fit=crop" alt="Bakery Items">
+  <!-- ANIMATED SVG SHOP + CAKE + DELIVERY SCENE -->
+  <div class="hero-scene-container">
+    <svg viewBox="0 0 900 480" class="hero-scene-svg" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <!-- Gradients -->
+        <linearGradient id="wallGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#ffffff"/>
+          <stop offset="100%" stop-color="#f1f5f9"/>
+        </linearGradient>
+        <linearGradient id="redGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#ff3b3b"/>
+          <stop offset="100%" stop-color="#cc0000"/>
+        </linearGradient>
+        <linearGradient id="goldGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%" stop-color="#d4af37"/>
+          <stop offset="50%" stop-color="#fff2a8"/>
+          <stop offset="100%" stop-color="#d4af37"/>
+        </linearGradient>
+        <linearGradient id="glassGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="rgba(255,255,255,0.85)"/>
+          <stop offset="100%" stop-color="rgba(224,242,254,0.3)"/>
+        </linearGradient>
+        
+        <!-- Filters -->
+        <filter id="shadow3D" x="-10%" y="-10%" width="130%" height="130%">
+          <feDropShadow dx="0" dy="10" stdDeviation="8" flood-color="#000" flood-opacity="0.15"/>
+        </filter>
+      </defs>
+
+      <!-- GROUND SHADOW & ROAD -->
+      <ellipse cx="450" cy="430" rx="420" ry="20" fill="rgba(0,0,0,0.08)"/>
+      <line x1="30" y1="430" x2="870" y2="430" stroke="#cbd5e1" stroke-width="4" stroke-dasharray="12 10"/>
+
+      <!-- ================= 1. COMPLETE 3D BAKERY SHOP ================= -->
+      <g id="bakery-shop" filter="url(#shadow3D)">
+        <!-- Main Shop Building -->
+        <rect x="200" y="110" width="500" height="280" rx="20" fill="url(#wallGradient)" stroke="#e2e8f0" stroke-width="3"/>
+        
+        <!-- Awning Canopy (Stripped Roof) -->
+        <path d="M 180 150 L 720 150 L 700 110 L 200 110 Z" fill="url(#redGradient)"/>
+        <path d="M 180 150 Q 200 170 220 150 Q 240 170 260 150 Q 280 170 300 150 Q 320 170 340 150 Q 360 170 380 150 Q 400 170 420 150 Q 440 170 460 150 Q 480 170 500 150 Q 520 170 540 150 Q 560 170 580 150 Q 600 170 620 150 Q 640 170 660 150 Q 680 170 700 150 Q 720 170 720 150" fill="#990000"/>
+
+        <!-- 3D Main Branding Board -->
+        <g id="main-board">
+          <rect x="260" y="45" width="380" height="70" rx="14" fill="#0f172a" stroke="url(#goldGradient)" stroke-width="3"/>
+          <text x="450" y="88" font-family="'Poppins', sans-serif" font-weight="900" font-size="24" fill="url(#goldGradient)" text-anchor="middle" letter-spacing="1">
+            CITY CHOICE BAKERS
+          </text>
+        </g>
+
+        <!-- Glass Display Windows -->
+        <rect x="230" y="190" width="200" height="170" rx="12" fill="url(#glassGradient)" stroke="#cbd5e1" stroke-width="2"/>
+        <rect x="470" y="190" width="200" height="170" rx="12" fill="url(#glassGradient)" stroke="#cbd5e1" stroke-width="2"/>
+
+        <!-- CAKES INSIDE WINDOW DISPLAY -->
+        <!-- Layered Strawberry Cake (Left Window) -->
+        <g id="cake-left">
+          <ellipse cx="330" cy="330" rx="50" ry="10" fill="#d4af37" opacity="0.3"/>
+          <rect x="295" y="290" width="70" height="35" rx="6" fill="#ff2b2b"/>
+          <rect x="305" y="265" width="50" height="28" rx="5" fill="#ffffff"/>
+          <circle cx="330" cy="258" r="7" fill="#ff2b2b"/>
+        </g>
+
+        <!-- Rich Chocolate Cake (Right Window) -->
+        <g id="cake-right">
+          <ellipse cx="570" cy="330" rx="50" ry="10" fill="#000" opacity="0.15"/>
+          <rect x="535" y="280" width="70" height="45" rx="8" fill="#4a2c11"/>
+          <path d="M 535 295 Q 570 310 605 295" stroke="#ffffff" stroke-width="3" fill="none"/>
+          <circle cx="550" cy="272" r="5" fill="#d4af37"/>
+          <circle cx="570" cy="270" r="5" fill="#d4af37"/>
+          <circle cx="590" cy="272" r="5" fill="#d4af37"/>
+        </g>
+      </g>
+
+      <!-- ================= 2. ANIMATED DELIVERY VAN ================= -->
+      <g id="van-group" class="animated-van" filter="url(#shadow3D)">
+        <path d="M 50 410 L 50 320 C 50 295 70 285 90 285 L 210 285 C 230 285 245 300 255 315 L 280 345 Q 295 360 295 385 L 295 410 Z" fill="url(#redGradient)"/>
+        
+        <!-- Windshield & Branding -->
+        <path d="M 220 298 L 250 330 L 210 330 Z" fill="#e0f2fe" opacity="0.85"/>
+        <rect x="70" y="305" width="120" height="45" rx="8" fill="#ffffff"/>
+        <text x="130" y="328" font-family="'Poppins', sans-serif" font-weight="900" font-size="12" fill="#ff2b2b" text-anchor="middle">CITY CHOICE</text>
+        <text x="130" y="342" font-family="'Poppins', sans-serif" font-weight="700" font-size="8" fill="#111" text-anchor="middle">EXPRESS DELIVERY</text>
+        
+        <!-- Wheels -->
+               <!-- Wheels (Fixed Alignment) -->
+        <g class="van-wheels">
+          <circle cx="100" cy="380" r="18" fill="#111"/>
+          <circle cx="100" cy="380" r="8" fill="#fff" stroke="#ff2b2b" stroke-width="3"/>
+          
+          <circle cx="235" cy="380" r="18" fill="#111"/>
+          <circle cx="235" cy="380" r="8" fill="#fff" stroke="#ff2b2b" stroke-width="3"/>
+        </g>
+
+      </g>
+
+      <!-- ================= 3. RUNNING DELIVERY MAN WITH CAKE ================= -->
+      <g class="animated-delivery-man" filter="url(#shadow3D)">
+        <circle cx="360" cy="325" r="12" fill="#fca5a5"/>
+        <path d="M 350 318 C 350 308 370 308 370 318 Z" fill="#ff2b2b"/> <!-- Cap -->
+        <rect x="352" y="337" width="16" height="34" rx="5" fill="#0f172a"/>
+        
+        <!-- Legs -->
+        <line x1="356" y1="371" x2="345" y2="410" stroke="#0f172a" stroke-width="6" stroke-linecap="round" class="leg-left"/>
+        <line x1="364" y1="371" x2="375" y2="410" stroke="#0f172a" stroke-width="6" stroke-linecap="round" class="leg-right"/>
+        
+        <!-- Arms carrying floating cake -->
+        <path d="M 352 345 L 338 358 L 345 368" stroke="#fca5a5" stroke-width="5" fill="none"/>
+      </g>
+
+      <!-- ================= 4. CAKE & SHOPPING BAG PURCHASE ACTION ================= -->
+      <g class="animated-cake-bag" filter="url(#shadow3D)">
+        <!-- City Choice Shopping Bag -->
+        <path d="M 720 330 L 780 330 L 790 410 L 710 410 Z" fill="url(#goldGradient)" rx="6"/>
+        <path d="M 735 330 C 735 310 765 310 765 330" stroke="#111" stroke-width="4" fill="none"/>
+        <text x="750" y="375" font-family="'Poppins', sans-serif" font-weight="900" font-size="10" fill="#111" text-anchor="middle">CITY CHOICE</text>
+        
+        <!-- Transfer Cake -->
+        <g class="floating-cake">
+          <rect x="320" y="335" width="45" height="24" rx="5" fill="#ff2b2b"/>
+          <rect x="327" y="322" width="31" height="15" rx="4" fill="#ffffff"/>
+          <circle cx="342" cy="317" r="4" fill="#d4af37"/>
+        </g>
+      </g>
+
+      <!-- CUSTOMER RECEIVING HANDS -->
+      <g filter="url(#shadow3D)">
+        <circle cx="820" cy="320" r="14" fill="#fca5a5"/>
+        <path d="M 810 334 C 810 320 830 320 830 334 L 830 400" stroke="#0284c7" stroke-width="12"/>
+        <path d="M 810 350 L 775 360" stroke="#fca5a5" stroke-width="6" stroke-linecap="round"/>
+      </g>
+    </svg>
   </div>
 
   <div class="hero-actions">
@@ -135,9 +265,7 @@
 </div>
 
 <script>
-
 /* ================= UI CONTROLS ================= */
-
 function showLogin(){
   document.getElementById("modalOverlay").classList.remove("hidden");
   document.getElementById("signupBox").classList.add("hidden");
@@ -171,64 +299,34 @@ function closeForms(){
 }
 
 /* ================= LOCATION (FIXED) ================= */
-
 function getLocation(){
-
   if(!navigator.geolocation){
-    showTopAlert(
-      "error",
-      "Unsupported Device",
-      "Location not supported"
-    );
+    showTopAlert("error", "Unsupported Device", "Location not supported");
     return;
   }
 
   navigator.geolocation.getCurrentPosition(
     async (pos)=>{
-
       let lat = pos.coords.latitude;
       let lng = pos.coords.longitude;
 
       try {
-
-        let res = await fetch(
-          `https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}`
-        );
-
+        let res = await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}`);
         let data = await res.json();
-
-        let area =
-          data.address.city ||
-          data.address.town ||
-          data.address.village ||
-          data.address.county ||
-          data.display_name;
-
+        let area = data.address.city || data.address.town || data.address.village || data.address.county || data.display_name;
         document.getElementById("location").value = area;
-
       } catch (e) {
-        showTopAlert(
-          "error",
-          "Location Error",
-          "Location fetch failed"
-        );
+        showTopAlert("error", "Location Error", "Location fetch failed");
       }
-
     },
     (err)=>{
-      showTopAlert(
-        "error",
-        "Location Error",
-        "Permission denied or GPS OFF ❌"
-      );
+      showTopAlert("error", "Location Error", "Permission denied or GPS OFF ❌");
     }
   );
 }
 
 /* ================= SIGNUP ================= */
-
 async function signupUser(){
-
   let user = {
     name: document.getElementById("name").value,
     phone: document.getElementById("phone").value,
@@ -240,17 +338,11 @@ async function signupUser(){
   let password = document.getElementById("password").value;
 
   if(!user.pincode){
-    showTopAlert(
-      "error",
-      "Pincode Required",
-      "Please select pincode"
-    );
+    showTopAlert("error", "Pincode Required", "Please select pincode");
     return;
   }
 
-  let { data: pinData, error: pinError } = await supabaseClient
-    .from("pincodes")
-    .select("code");
+  let { data: pinData, error: pinError } = await supabaseClient.from("pincodes").select("code");
 
   if(pinError){
     console.log(pinError);
@@ -260,11 +352,7 @@ async function signupUser(){
   let allowed = pinData.map(p => p.code);
 
   if(!allowed.includes(user.pincode)){
-    showTopAlert(
-      "error",
-      "Delivery Not Available",
-      "Sorry! is area me delivery available nahi hai"
-    );
+    showTopAlert("error", "Delivery Not Available", "Sorry! Is area me delivery available nahi hai");
     return;
   }
 
@@ -274,37 +362,23 @@ async function signupUser(){
   });
 
   if(error){
-    showTopAlert(
-      "error",
-      "Error",
-      error?.message || "Something went wrong"
-    );
+    showTopAlert("error", "Error", error?.message || "Something went wrong");
     return;
   }
 
   await supabaseClient.from("users").insert([user]);
 
-  showTopAlert(
-    "success",
-    "Signup Successful",
-    "Your account has been created ✔"
-  );
+  showTopAlert("success", "Signup Successful", "Your account has been created ✔");
   window.location.href="index.html";
 }
 
 /* ================= LOGIN ================= */
-
 async function loginUser(){
-
   let email = document.getElementById("loginEmail").value.trim();
   let pass = document.getElementById("loginPassword").value.trim();
 
   if(!email || !pass){
-    showTopAlert(
-      "error",
-      "Missing Fields",
-      "Please enter email and password"
-    );
+    showTopAlert("error", "Missing Fields", "Please enter email and password");
     return;
   }
 
@@ -314,18 +388,9 @@ async function loginUser(){
   });
 
   if(error){
-    showTopAlert(
-      "error",
-      "Login Failed",
-      error.message
-    );
+    showTopAlert("error", "Login Failed", error.message);
   } else {
-    showTopAlert(
-      "success",
-      "Login Successful",
-      "Welcome back ✔"
-    );
-
+    showTopAlert("success", "Login Successful", "Welcome back ✔");
     setTimeout(()=>{
       window.location.href="account.html";
     }, 1200);
@@ -333,22 +398,16 @@ async function loginUser(){
 }
 
 /* ================= PINCODES ================= */
-
 let allPincodes = [];
 
 async function loadPincodes(){
-
-  let { data, error } = await supabaseClient
-    .from("pincodes")
-    .select("*");
-
+  let { data, error } = await supabaseClient.from("pincodes").select("*");
   if(error){
     console.log(error);
     return;
   }
 
   allPincodes = data;
-
   let select = document.getElementById("pincodeSelect");
 
   data.forEach(pin=>{
@@ -362,9 +421,7 @@ async function loadPincodes(){
 loadPincodes();
 
 function filterPincodes(){
-
   let value = document.getElementById("pinSearch").value.toLowerCase();
-
   let select = document.getElementById("pincodeSelect");
 
   select.innerHTML = `<option value="">Select Pincode</option>`;
@@ -372,21 +429,15 @@ function filterPincodes(){
   allPincodes
     .filter(p => p.code.includes(value))
     .forEach(pin=>{
-
       let option = document.createElement("option");
       option.value = pin.code;
       option.textContent = `${pin.code} - ${pin.area}`;
-
       select.appendChild(option);
     });
 }
 
-// =========================
-// TOP ALERT
-// =========================
-
+/* ================= TOP ALERT ================= */
 function showTopAlert(type,title,message){
-
   const alertBox = document.getElementById("topAlert");
   const alertIcon = document.getElementById("alertIcon");
 
@@ -413,7 +464,6 @@ function showTopAlert(type,title,message){
 function closeTopAlert(){
   document.getElementById("topAlert").classList.remove("show");
 }
-
 </script>
 </body>
 </html>
