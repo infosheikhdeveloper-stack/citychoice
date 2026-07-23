@@ -399,6 +399,7 @@ onclick="closeTopAlert()">
 
 </section>
 
+
   <!-- BOTTOM NAV -->
   <nav class="bottom-nav">
 
@@ -505,47 +506,145 @@ onclick="openShopSheet()">
 </a>
 
   
-  <!-- =========================
-     3D FOOTER BRAND SECTION
-========================= -->
 
-<section class="footer-3d">
 
-  <!-- STORE ICON -->
 
-  <div class="footer-store-icon">
-    <i class="fa-solid fa-store"></i>
+
+<!-- PREMIUM 3D BAKERY FOOTER -->
+<footer class="footer-3d-wrapper">
+  
+  <div class="footer-3d-scene">
+    <!-- SVG SCENE (3D SHOP + CAKES + DELIVERY VAN) -->
+    <svg viewBox="0 0 1000 450" class="scene-svg" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <!-- Gradients for 3D Depth -->
+        <linearGradient id="wallGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#ffffff" />
+          <stop offset="100%" stop-color="#f3f3f3" />
+        </linearGradient>
+        <linearGradient id="redGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#ff3b3b" />
+          <stop offset="100%" stop-color="#cc0000" />
+        </linearGradient>
+        <linearGradient id="goldGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%" stop-color="#d4af37" />
+          <stop offset="50%" stop-color="#fff2a8" />
+          <stop offset="100%" stop-color="#d4af37" />
+        </linearGradient>
+        <linearGradient id="glassGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="rgba(255,255,255,0.8)" />
+          <stop offset="100%" stop-color="rgba(230,245,255,0.3)" />
+        </linearGradient>
+        
+        <!-- Drop Shadow Filter -->
+        <filter id="3dShadow" x="-10%" y="-10%" width="130%" height="130%">
+          <feDropShadow dx="0" dy="12" stdDeviation="10" flood-color="#000" flood-opacity="0.15" />
+        </filter>
+        <filter id="vanShadow" x="-10%" y="-10%" width="130%" height="130%">
+          <feDropShadow dx="0" dy="10" stdDeviation="8" flood-color="#000" flood-opacity="0.25" />
+        </filter>
+      </defs>
+
+      <!-- GROUND SHADOW -->
+      <ellipse cx="500" cy="400" rx="460" ry="25" fill="rgba(0,0,0,0.06)" />
+
+      <!-- ================= 3D BAKERY SHOP ================= -->
+      <g id="bakery-shop" filter="url(#3dShadow)">
+        <!-- Main Building Base -->
+        <rect x="250" y="100" width="500" height="280" rx="20" fill="url(#wallGradient)" stroke="#e2e2e2" stroke-width="2"/>
+        
+        <!-- Shop Roof / Canopy (Stripes) -->
+        <path d="M 230 140 L 770 140 L 750 100 L 250 100 Z" fill="url(#redGradient)" />
+        <path d="M 230 140 Q 250 160 270 140 Q 290 160 310 140 Q 330 160 350 140 Q 370 160 390 140 Q 410 160 430 140 Q 450 160 470 140 Q 490 160 510 140 Q 530 160 550 140 Q 570 160 590 140 Q 610 160 630 140 Q 650 160 670 140 Q 690 160 710 140 Q 730 160 750 140 Q 770 160 770 140" fill="#cc0000" />
+
+        <!-- 3D MAIN BRANDING BOARD -->
+        <g id="main-board">
+          <rect x="300" y="35" width="400" height="70" rx="14" fill="#111111" stroke="url(#goldGradient)" stroke-width="3" filter="url(#3dShadow)"/>
+          <text x="500" y="78" font-family="'Poppins', sans-serif" font-weight="900" font-size="28" fill="url(#goldGradient)" text-anchor="middle" letter-spacing="1">
+            CITY CHOICE BAKERS
+          </text>
+        </g>
+
+        <!-- Glass Display Windows -->
+        <rect x="280" y="180" width="200" height="170" rx="12" fill="url(#glassGradient)" stroke="#dbe5ed" stroke-width="2"/>
+        <rect x="520" y="180" width="200" height="170" rx="12" fill="url(#glassGradient)" stroke="#dbe5ed" stroke-width="2"/>
+
+        <!-- CAKES DISPLAY (Inside Glass) -->
+        <!-- Cake 1 (3D Layered Cake Left) -->
+        <g id="cake-1">
+          <ellipse cx="380" cy="320" rx="55" ry="12" fill="#d4af37" opacity="0.3"/>
+          <rect x="340" y="280" width="80" height="35" rx="6" fill="#ff2b2b"/>
+          <rect x="350" y="255" width="60" height="28" rx="5" fill="#ffffff"/>
+          <circle cx="380" cy="250" r="8" fill="#ff2b2b"/> <!-- Cherry -->
+        </g>
+
+        <!-- Cake 2 (3D Chocolate Cake Right) -->
+        <g id="cake-2">
+          <ellipse cx="620" cy="320" rx="55" ry="12" fill="#000" opacity="0.15"/>
+          <rect x="580" y="270" width="80" height="45" rx="8" fill="#4a2c11"/>
+          <path d="M 580 285 Q 620 300 660 285" stroke="#ffffff" stroke-width="4" fill="none"/>
+          <circle cx="600" cy="262" r="6" fill="#d4af37"/>
+          <circle cx="620" cy="260" r="6" fill="#d4af37"/>
+          <circle cx="640" cy="262" r="6" fill="#d4af37"/>
+        </g>
+      </g>
+
+      <!-- ================= 3D DELIVERY VAN ================= -->
+      <g id="delivery-van" filter="url(#vanShadow)">
+        <!-- Van Body -->
+        <path d="M 100 360 L 100 270 C 100 250 120 240 140 240 L 260 240 C 280 240 295 255 305 270 L 330 300 C 340 310 345 325 345 340 L 345 360 Z" fill="url(#redGradient)"/>
+        
+        <!-- Van Windshield Glass -->
+        <path d="M 270 252 L 300 285 L 260 285 Z" fill="#e0f2fe" opacity="0.8"/>
+        
+        <!-- CITY CHOICE BRANDING ON VAN -->
+        <rect x="115" y="260" width="130" height="50" rx="8" fill="#ffffff" opacity="0.95"/>
+        <text x="180" y="285" font-family="'Poppins', sans-serif" font-weight="900" font-size="14" fill="#ff2b2b" text-anchor="middle">
+          CITY CHOICE
+        </text>
+        <text x="180" y="300" font-family="'Poppins', sans-serif" font-weight="700" font-size="9" fill="#111" text-anchor="middle" letter-spacing="1">
+          EXPRESS DELIVERY
+        </text>
+
+        <!-- 3D Wheels -->
+        <g id="wheels">
+          <!-- Back Wheel -->
+          <circle cx="150" cy="360" r="24" fill="#111"/>
+          <circle cx="150" cy="360" r="12" fill="#e2e2e2"/>
+          <!-- Front Wheel -->
+          <circle cx="295" cy="360" r="24" fill="#111"/>
+          <circle cx="295" cy="360" r="12" fill="#e2e2e2"/>
+        </g>
+
+        <!-- Headlight -->
+        <path d="M 340 330 L 348 330 L 348 342 L 340 342 Z" fill="#fff2a8" filter="drop-shadow(4px 0px 8px #fff2a8)"/>
+      </g>
+
+    </svg>
   </div>
 
-  <!-- BRAND NAME -->
-
-  <h2 class="footer-logo-text">
-    City Choice Bakers
-  </h2>
-
-  <!-- STARS -->
-
-  <div class="footer-stars">
-    <i class="fa-solid fa-star"></i>
-    <i class="fa-solid fa-star"></i>
-    <i class="fa-solid fa-star"></i>
-    <i class="fa-solid fa-star"></i>
-    <i class="fa-solid fa-star"></i>
-  </div>
-
-  <!-- DELIVERY -->
-
-  <div class="footer-delivery">
-
-    <div class="delivery-bike">
-      <i class="fa-solid fa-motorcycle"></i>
+  <!-- FOOTER BOTTOM CREDITS / LINKS -->
+  <div class="footer-bottom-content">
+    <div class="footer-info">
+      <h3>City Choice Bakers</h3>
+      <p>Freshly Baked Goodness Delivered To Your Doorstep.</p>
     </div>
-
-    <span>Fast Delivery</span>
-
+    <div class="footer-copyright">
+      &copy; 2026 City Choice Bakers. All Rights Reserved.
+    </div>
   </div>
 
-</section>
+</footer>
+
+
+
+
+
+
+
+
+
+
 
 
 <div class="shop-sheet" id="shopSheet">
