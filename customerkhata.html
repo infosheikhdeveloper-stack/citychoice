@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>City Choice — Official Customer Khata Portal</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&family=Fraunces:opsz,wght@9..144,600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 <style>
@@ -28,85 +28,158 @@
 * { margin:0; padding:0; box-sizing:border-box; font-family:'Inter', sans-serif; -webkit-tap-highlight-color: transparent; }
 body { 
     background: linear-gradient(135deg, #3A0912 0%, #6B1220 50%, #2A050B 100%); 
-    padding: 16px; 
     color: var(--ink); 
     display: flex; 
     flex-direction: column;
     justify-content: center; 
     align-items: center; 
     min-height: 100vh; 
+    overflow-x: hidden;
 }
 
-.wrapper { width: 100%; max-width: 680px; }
+/* ================= FULL SCREEN SPLASH SCREEN ================= */
+#splashScreen {
+    position: fixed;
+    top: 0; left: 0; width: 100vw; height: 100vh;
+    background: #FFFFFF;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    transition: opacity 0.6s ease, visibility 0.6s ease;
+}
+.splash-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.splash-icon {
+    width: 95px; height: 95px;
+    object-fit: contain;
+    margin-bottom: 16px;
+    animation: floatIcon 2s infinite ease-in-out;
+    filter: drop-shadow(0 10px 15px rgba(107, 18, 32, 0.15));
+}
+@keyframes floatIcon {
+    0%, 100% { transform: translateY(0) scale(1); }
+    50% { transform: translateY(-8px) scale(1.04); }
+}
 
-.login-card, .dashboard-card { 
-    background: var(--paper); 
-    width: 100%; 
-    padding: 26px 20px; 
-    border-radius: 20px; 
-    border: 2px solid rgba(212, 175, 55, 0.3); 
-    box-shadow: var(--shadow); 
-    position: relative;
+/* Typewriter animation styling for "City Choice Khata" */
+.splash-title-container {
+    display: inline-block;
     overflow: hidden;
+    white-space: nowrap;
+    border-right: 3px solid var(--gold);
+    animation: typing 2.2s steps(18, end) forwards, blink-caret 0.75s step-end infinite;
+    font-family: 'Caveat', cursive;
+    color: var(--burgundy);
+    font-size: 38px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    max-width: fit-content;
 }
-.dashboard-card { display: none; }
 
-.brand-container { text-align: center; margin-bottom: 20px; }
+@keyframes typing {
+    from { width: 0; }
+    to { width: 100%; }
+}
+
+@keyframes blink-caret {
+    from, to { border-color: transparent; }
+    50% { border-color: var(--gold); }
+}
+
+/* ================= FULL SCREEN APP LAYOUT ================= */
+.app-container {
+    width: 100vw;
+    height: 100vh;
+    max-width: 100%;
+    background: var(--paper);
+    display: none;
+    flex-direction: column;
+    position: relative;
+    overflow-y: auto;
+}
+
+.auth-fullscreen-wrapper {
+    width: 100%;
+    max-width: 520px;
+    margin: auto;
+    padding: 30px 24px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: 100vh;
+}
+
+.dashboard-fullscreen-wrapper {
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px 16px 40px;
+    display: none;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.brand-container { text-align: center; margin-bottom: 24px; }
 .brand-logo { 
-    width: 75px; height: 75px; object-fit: cover; border-radius: 50%; 
+    width: 85px; height: 85px; object-fit: cover; border-radius: 50%; 
     border: 2.5px solid var(--gold); box-shadow: 0 6px 16px rgba(107,18,32,0.25);
-    margin-bottom: 8px; background: var(--cream);
+    margin-bottom: 10px; background: var(--cream);
 }
-h2 { font-family: 'Fraunces', serif; color: var(--burgundy-deep); font-size: 21px; margin-bottom: 2px; text-align: center; }
-.location-tag { font-size: 11.5px; color: var(--gold); font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px; }
-.subtitle { font-size: 10.5px; color: var(--ink-soft); margin-bottom: 20px; text-transform: uppercase; letter-spacing: 1.2px; text-align: center; font-weight: 600; }
+h2 { font-family: 'Fraunces', serif; color: var(--burgundy-deep); font-size: 24px; margin-bottom: 4px; text-align: center; }
+.location-tag { font-size: 12px; color: var(--gold); font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px; }
+.subtitle { font-size: 11px; color: var(--ink-soft); margin-bottom: 24px; text-transform: uppercase; letter-spacing: 1.2px; text-align: center; font-weight: 600; }
 
-.form-group { margin-bottom: 14px; }
-.form-group label { display: block; font-size: 11px; font-weight: 700; color: var(--burgundy); text-transform: uppercase; margin-bottom: 6px; }
-.form-group input { width: 100%; padding: 12px 14px; border: 1.5px solid var(--line); border-radius: 10px; font-size: 14px; background: var(--cream); outline: none; }
+.form-group { margin-bottom: 16px; }
+.form-group label { display: block; font-size: 11.5px; font-weight: 700; color: var(--burgundy); text-transform: uppercase; margin-bottom: 6px; }
+.form-group input { width: 100%; padding: 14px 16px; border: 1.5px solid var(--line); border-radius: 12px; font-size: 15px; background: var(--cream); outline: none; }
 .form-group input:focus { border-color: var(--gold); background: #fff; box-shadow: 0 0 0 3px rgba(212,175,55,0.15); }
 
 .btn-primary { 
     background: linear-gradient(135deg, var(--burgundy) 0%, var(--burgundy-deep) 100%); 
-    color: #fff; border: 1px solid var(--gold); width: 100%; padding: 13px; 
-    border-radius: 10px; font-weight: 700; cursor: pointer; text-transform: uppercase; font-size: 13px; 
-    margin-top: 8px; box-shadow: 0 6px 20px rgba(107,18,32,0.3);
+    color: #fff; border: 1px solid var(--gold); width: 100%; padding: 15px; 
+    border-radius: 12px; font-weight: 700; cursor: pointer; text-transform: uppercase; font-size: 14px; 
+    margin-top: 10px; box-shadow: 0 6px 20px rgba(107,18,32,0.3);
 }
 
-.summary-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 14px; }
+.summary-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 16px; }
 .summary-box { 
     background: linear-gradient(135deg, #FAF6EF 0%, #F3E5AB 100%); 
-    padding: 14px; border-radius: 12px; border: 1.5px solid var(--gold); 
+    padding: 16px; border-radius: 14px; border: 1.5px solid var(--gold); 
 }
-.summary-box h3 { font-size: 10.5px; color: var(--burgundy-deep); text-transform: uppercase; font-weight: 700; margin-bottom: 2px; }
-.summary-box .val { font-size: 17px; font-weight: 700; font-family: 'Fraunces', serif; color: var(--burgundy); }
+.summary-box h3 { font-size: 11px; color: var(--burgundy-deep); text-transform: uppercase; font-weight: 700; margin-bottom: 4px; }
+.summary-box .val { font-size: 19px; font-weight: 700; font-family: 'Fraunces', serif; color: var(--burgundy); }
 
-.months-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 14px; }
-.month-badge { background: var(--cream); border: 1.5px solid var(--line); padding: 8px; border-radius: 8px; text-align: center; font-size: 11px; font-weight: 600; cursor: pointer; transition: all 0.2s ease; }
+.months-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 16px; }
+.month-badge { background: var(--cream); border: 1.5px solid var(--line); padding: 10px; border-radius: 10px; text-align: center; font-size: 12px; font-weight: 600; }
 .month-badge.cleared { background: #f0fdf4; border-color: var(--green-success); color: var(--green-success); }
 .month-badge.running { background: var(--gold-light); border-color: var(--gold); color: var(--burgundy-deep); }
 
 .invoice-status-banner {
-    background: var(--cream); border: 1.5px dashed var(--burgundy); padding: 12px 14px;
-    border-radius: 12px; margin-bottom: 14px; display: flex; align-items: center; justify-content: space-between; gap: 10px;
+    background: var(--cream); border: 1.5px dashed var(--burgundy); padding: 14px 16px;
+    border-radius: 14px; margin-bottom: 16px; display: flex; align-items: center; justify-content: space-between; gap: 12px;
 }
 .invoice-status-banner.ready { background: #f0fdf4; border: 1.5px solid var(--green-success); }
 
-.table-container { overflow-x: auto; margin-top: 8px; max-height: 220px; overflow-y: auto; border-radius: 10px; border: 1.5px solid var(--line); }
-table { width: 100%; border-collapse: collapse; font-size: 12px; background: #fff; }
-th { background: var(--burgundy-deep); color: #fff; text-align: left; padding: 10px; font-size: 10px; text-transform: uppercase; position: sticky; top: 0; z-index: 2; }
-td { padding: 10px; border-bottom: 1px solid var(--line); }
+.table-container { overflow-x: auto; margin-top: 8px; max-height: 280px; overflow-y: auto; border-radius: 12px; border: 1.5px solid var(--line); }
+table { width: 100%; border-collapse: collapse; font-size: 13px; background: #fff; }
+th { background: var(--burgundy-deep); color: #fff; text-align: left; padding: 12px; font-size: 11px; text-transform: uppercase; position: sticky; top: 0; z-index: 2; }
+td { padding: 12px; border-bottom: 1px solid var(--line); }
 
 .owner-footer-card {
-    margin-top: 16px; background: linear-gradient(145deg, #2A050B, #4A0C17); color: #fff;
-    padding: 14px 18px; border-radius: 14px; border: 1px solid rgba(212, 175, 55, 0.4);
+    margin-top: 20px; background: linear-gradient(145deg, #2A050B, #4A0C17); color: #fff;
+    padding: 16px 20px; border-radius: 16px; border: 1px solid rgba(212, 175, 55, 0.4);
     display: flex; align-items: center; justify-content: space-between;
 }
-.owner-info h4 { font-size: 12.5px; font-weight: 700; color: var(--gold); text-transform: uppercase; font-family: 'Fraunces', serif; }
-.owner-info p { font-size: 11px; color: #e5e5e5; margin-top: 2px; }
+.owner-info h4 { font-size: 13.5px; font-weight: 700; color: var(--gold); text-transform: uppercase; font-family: 'Fraunces', serif; }
+.owner-info p { font-size: 11.5px; color: #e5e5e5; margin-top: 2px; }
 .call-btn {
-    background: var(--gold); color: var(--burgundy-dark); text-decoration: none; padding: 8px 14px;
-    border-radius: 8px; font-weight: 700; font-size: 11.5px; display: flex; align-items: center; gap: 6px;
+    background: var(--gold); color: var(--burgundy-dark); text-decoration: none; padding: 10px 16px;
+    border-radius: 10px; font-weight: 700; font-size: 12px; display: flex; align-items: center; gap: 6px;
 }
 
 /* ================= HIDDEN PROFESSIONAL PDF CANVAS TEMPLATE ================= */
@@ -185,9 +258,28 @@ td { padding: 10px; border-bottom: 1px solid var(--line); }
 </head>
 <body>
 
-<div class="wrapper">
+<!-- Full White Splash Screen with Book Icon & Typewriter Animation -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+<div id="splashScreen">
+    <div class="splash-content">
+        <i class="fas fa-book splash-icon"></i>
+        <div class="splash-title-container">City Choice Khata</div>
+    </div>
+</div>
+
+<style>
+.splash-icon{
+    font-size:96px;
+    color:#e53935; /* Red */
+}
+</style>
+
+<!-- Full Screen Application Area -->
+<div class="app-container" id="appContainer">
+    
     <!-- Customer Login Screen -->
-    <div class="login-card" id="loginScreen">
+    <div class="auth-fullscreen-wrapper" id="loginScreen">
         <div class="brand-container">
             <img src="logo2.png" alt="City Choice Logo" class="brand-logo" onerror="this.src='https://cdn-icons-png.flaticon.com/512/3076/3076137.png'">
             <h2>City Choice Bakers</h2>
@@ -197,19 +289,28 @@ td { padding: 10px; border-bottom: 1px solid var(--line); }
         <div class="form-group"><label>Registered Phone Number</label><input type="tel" id="loginPhone" placeholder="03XXXXXXXXX"></div>
         <div class="form-group"><label>Account Password / PIN</label><input type="number" inputmode="numeric" pattern="[0-9]*" id="loginPin" placeholder="4-digit PIN"></div>
         <button class="btn-primary" onclick="customerLogin()">View My Khata Statement</button>
+        
+        <!-- Owner Footer Card inside Auth Screen -->
+        <div class="owner-footer-card" style="margin-top: 30px;">
+            <div class="owner-info">
+                <h4>Nisar Ahmad Sheikh</h4>
+                <p><i class="fa-solid fa-store"></i> City Choice Bakers &amp; Sweets</p>
+            </div>
+            <a href="tel:+917006592704" class="call-btn"><i class="fa-solid fa-phone"></i> Call Now</a>
+        </div>
     </div>
 
     <!-- Customer Dashboard Screen -->
-    <div class="dashboard-card" id="dashboardScreen">
-        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; border-bottom: 1.5px solid var(--line); padding-bottom: 10px;">
-            <div style="display: flex; align-items: center; gap: 10px;">
-                <img src="logo2.png" alt="Logo" style="width:38px; height:38px; border-radius:50%; border:1.5px solid var(--gold); object-fit:cover;" onerror="this.src='https://cdn-icons-png.flaticon.com/512/3076/3076137.png'">
+    <div class="dashboard-fullscreen-wrapper" id="dashboardScreen">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px; border-bottom: 1.5px solid var(--line); padding-bottom: 12px;">
+            <div style="display: flex; align-items: center; gap: 12px;">
+                <img src="logo2.png" alt="Logo" style="width:44px; height:44px; border-radius:50%; border:1.5px solid var(--gold); object-fit:cover;" onerror="this.src='https://cdn-icons-png.flaticon.com/512/3076/3076137.png'">
                 <div>
-                    <h2 id="custWelcomeName" style="text-align:left; font-size:16px;">Customer Name</h2>
-                    <div class="subtitle" id="custPhoneDisplay" style="text-align:left; margin-bottom:0; font-size:9.5px;">Phone: </div>
+                    <h2 id="custWelcomeName" style="text-align:left; font-size:18px;">Customer Name</h2>
+                    <div class="subtitle" id="custPhoneDisplay" style="text-align:left; margin-bottom:0; font-size:10px;">Phone: </div>
                 </div>
             </div>
-            <button onclick="logoutCustomer()" style="background:#b91c1c; color:#fff; border:none; padding:7px 10px; border-radius:8px; cursor:pointer; font-size:11px; font-weight:600;"><i class="fa-solid fa-right-from-bracket"></i> Logout</button>
+            <button onclick="logoutCustomer()" style="background:#b91c1c; color:#fff; border:none; padding:8px 12px; border-radius:10px; cursor:pointer; font-size:11.5px; font-weight:600;"><i class="fa-solid fa-right-from-bracket"></i> Logout</button>
         </div>
 
         <!-- Summary Grid -->
@@ -225,19 +326,19 @@ td { padding: 10px; border-bottom: 1px solid var(--line); }
         </div>
 
         <!-- Monthly Clearance Status Overview for Customer -->
-        <h4 style="font-size:11.5px; text-transform:uppercase; color:var(--burgundy-deep); margin-bottom:6px; font-weight:700;"><i class="fa-solid fa-calendar-check"></i> Active & Cleared Months (2026)</h4>
+        <h4 style="font-size:12px; text-transform:uppercase; color:var(--burgundy-deep); margin-bottom:8px; font-weight:700;"><i class="fa-solid fa-calendar-check"></i> Active & Cleared Months (2026)</h4>
         <div class="months-grid" id="customerMonthsGrid"></div>
 
         <!-- Invoice Status & Download Section -->
         <div id="invoiceStatusBanner" class="invoice-status-banner">
             <div>
-                <h4 style="font-size:12px; font-weight:700; color:var(--burgundy-deep);" id="invoiceStatusTitle">Invoice Status</h4>
-                <p style="font-size:10.5px; color:var(--ink-soft);" id="invoiceStatusDesc">Checking invoice availability...</p>
+                <h4 style="font-size:12.5px; font-weight:700; color:var(--burgundy-deep);" id="invoiceStatusTitle">Invoice Status</h4>
+                <p style="font-size:11px; color:var(--ink-soft);" id="invoiceStatusDesc">Checking invoice availability...</p>
             </div>
             <div id="invoiceActionArea"></div>
         </div>
 
-        <h4 style="font-size:11.5px; text-transform:uppercase; color:var(--burgundy-deep); margin-bottom:6px; font-weight:700;"><i class="fa-solid fa-receipt"></i> Detailed Transaction History</h4>
+        <h4 style="font-size:12px; text-transform:uppercase; color:var(--burgundy-deep); margin-bottom:8px; font-weight:700;"><i class="fa-solid fa-receipt"></i> Detailed Transaction History</h4>
         <div class="table-container">
             <table>
                 <thead>
@@ -255,22 +356,34 @@ td { padding: 10px; border-bottom: 1px solid var(--line); }
                 </tbody>
             </table>
         </div>
+
+        <!-- Owner Footer Card in Dashboard -->
+        <div class="owner-footer-card">
+            <div class="owner-info">
+                <h4>Nisar Ahmad Sheikh</h4>
+                <p><i class="fa-solid fa-store"></i> City Choice Bakers &amp; Sweets</p>
+            </div>
+            <a href="tel:+917006592704" class="call-btn"><i class="fa-solid fa-phone"></i> Call Now</a>
+        </div>
     </div>
 
-    <!-- Owner Footer Card -->
-    <div class="owner-footer-card">
-        <div class="owner-info">
-            <h4>Nisar Ahmad Sheikh</h4>
-            <p><i class="fa-solid fa-store"></i> City Choice Bakers &amp; Sweets</p>
-        </div>
-        <a href="tel:+917006592704" class="call-btn"><i class="fa-solid fa-phone"></i> Call Now</a>
-    </div>
 </div>
 
 <!-- Render container used to generate the styled PDF -->
 <div id="pdfExportContainer"></div>
 
 <script>
+// Hide splash screen smoothly after animation finishes
+window.addEventListener('load', () => {
+    setTimeout(() => {
+        let splash = document.getElementById("splashScreen");
+        let app = document.getElementById("appContainer");
+        splash.style.opacity = '0';
+        splash.style.visibility = 'hidden';
+        app.style.display = 'flex';
+    }, 2400);
+});
+
 const SUPABASE_URL = 'https://pogglsfdqbwpyhdxwtlv.supabase.co';
 const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBvZ2dsc2ZkcWJ3cHloZHh3dGx2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODYwMjkzOTgsImV4cCI6MjEwMTYwNTM5OH0.6bVMzSovEdk2RkD2WYVJRXO20CW62gN37p7AERv_9kU';
 const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
@@ -296,7 +409,7 @@ async function customerLogin() {
 
     currentCustomerData = customer;
     document.getElementById("loginScreen").style.display = "none";
-    document.getElementById("dashboardScreen").style.display = "block";
+    document.getElementById("dashboardScreen").style.display = "flex";
     document.getElementById("custWelcomeName").innerText = customer.name;
     document.getElementById("custPhoneDisplay").innerText = `Phone: ${customer.phone} | ${customer.address || 'Magam'}`;
 
@@ -383,14 +496,14 @@ function renderCustomerMonthsGrid(clearedMonths, entries) {
             statusText = `<br><i class="fa-solid fa-check"><b> Cleared</b></i>`;
         } else {
             cssClass += " running";
-            statusText = `<br><span style="font-size:9px;">Running</span>`;
+            statusText = `<br><span style="font-size:9.5px;">Running</span>`;
         }
 
         grid.innerHTML += `<div class="${cssClass}"><b>${m}</b>${statusText}</div>`;
     });
 
     if (visibleMonthsCount === 0) {
-        grid.innerHTML = `<div style="grid-column: span 3; text-align:center; font-size:11px; color:var(--ink-soft); padding:10px;">No active billing months found.</div>`;
+        grid.innerHTML = `<div style="grid-column: span 3; text-align:center; font-size:11.5px; color:var(--ink-soft); padding:10px;">No active billing months found.</div>`;
     }
 }
 
@@ -404,12 +517,12 @@ function setupInvoiceBanner(isReady) {
         banner.className = "invoice-status-banner ready";
         title.innerHTML = `<i class="fa-solid fa-circle-check" style="color:var(--green-success);"></i> Invoice Ready`;
         desc.innerText = "Your official bill is generated and ready for download.";
-        actionArea.innerHTML = `<button onclick="downloadCustomerPDF()" style="background:var(--burgundy); color:#fff; border:none; padding:8px 12px; border-radius:8px; font-weight:700; font-size:11px; cursor:pointer;"><i class="fa-solid fa-file-pdf"></i> Download</button>`;
+        actionArea.innerHTML = `<button onclick="downloadCustomerPDF()" style="background:var(--burgundy); color:#fff; border:none; padding:9px 14px; border-radius:8px; font-weight:700; font-size:11.5px; cursor:pointer;"><i class="fa-solid fa-file-pdf"></i> Download</button>`;
     } else {
         banner.className = "invoice-status-banner";
         title.innerHTML = `<i class="fa-solid fa-clock" style="color:var(--burgundy);"></i> Invoice Not Ready`;
         desc.innerText = "Admin has not enabled the invoice yet.";
-        actionArea.innerHTML = `<span style="font-size:10px; font-weight:700; color:var(--ink-soft); text-transform:uppercase;">Pending Approval</span>`;
+        actionArea.innerHTML = `<span style="font-size:10.5px; font-weight:700; color:var(--ink-soft); text-transform:uppercase;">Pending Approval</span>`;
     }
 }
 
@@ -522,7 +635,6 @@ function downloadCustomerPDF() {
         jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
     };
 
-    // Direct html2pdf save method for instant mobile trigger
     html2pdf().set(renderSettings).from(exportContainer).save().then(() => {
         exportContainer.style.display = "none";
     }).catch(err => {
@@ -533,7 +645,7 @@ function downloadCustomerPDF() {
 
 function logoutCustomer() {
     document.getElementById("dashboardScreen").style.display = "none";
-    document.getElementById("loginScreen").style.display = "block";
+    document.getElementById("loginScreen").style.display = "flex";
     document.getElementById("loginPhone").value = "";
     document.getElementById("loginPin").value = "";
     currentCustomerData = null;
