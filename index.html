@@ -1,0 +1,836 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+  <title>City Choice Bakery</title>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="manifest" href="manifest.json">
+  <!-- Icons -->
+  <link rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="nav.css">
+  <link rel="stylesheet" href="catagory.css">
+  <link rel="stylesheet" href="icon-cat.css">
+  <link rel="stylesheet" href="menu.css">
+  <link rel="stylesheet" href="3D.css">
+  <link rel="stylesheet" href="alert.css">
+  <link rel="stylesheet" href="hed.css">
+  <link rel="stylesheet" href="product.css">
+  
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+  <script src="supabase.js"></script>
+  
+</head>
+<body>
+  
+
+  <!-- TOP ALERT -->
+
+<div class="top-alert" id="topAlert">
+
+<div class="alert-icon" id="alertIcon">
+<i class="fa-solid fa-check"></i>
+</div>
+
+<div class="alert-content">
+<div class="alert-title" id="alertTitle">Success</div>
+<div class="alert-text" id="alertText">Message here</div>
+</div>
+
+<div class="alert-close" onclick="closeTopAlert()">
+<i class="fa-solid fa-xmark"></i>
+</div>
+
+</div>
+  
+  
+  <div class="hero-bg">
+ <!-- NEW SWIGGY STYLE HEADER, TABS, SEARCH & OFFERS SECTION -->
+<div class="swiggy-header-wrapper" id="mainHeader">
+  
+  <!-- Top Bar: Title & Menu Button -->
+  <div class="header-top">
+    <div class="location-box">
+      <i class="fa-solid fa-location-dot loc-icon"></i>
+      <div class="loc-text">
+        <div class="loc-title">
+          City Choice Bakers <i class="fa-solid fa-chevron-down arrow-icon"></i>
+        </div>
+        <div class="loc-subtitle">Bakery, Sweets & Fine Dining Restaurant</div>
+      </div>
+    </div>
+    
+    <!-- Menu Button (Bars Icon) -->
+    <div class="menu-btn" id="menuToggleBtn">
+      <i class="fa-solid fa-bars"></i>
+    </div>
+  </div>
+
+  <!-- Category Tabs -->
+  <div class="category-tabs">
+    <button class="tab-btn active">
+      <i class="fa-solid fa-utensils"></i>
+      <span>Food</span>
+    </button>
+    <button class="tab-btn">
+      <i class="fa-solid fa-cake-candles"></i>
+      <span>Bakery</span>
+    </button>
+    <button class="tab-btn">
+      <i class="fa-solid fa-cookie-bite"></i>
+      <span>Sweets</span>
+    </button>
+    <button class="tab-btn">
+      <i class="fa-solid fa-chair"></i>
+      <span>Dineout</span>
+    </button>
+    <button class="tab-btn">
+      <i class="fa-solid fa-gift"></i>
+      <span>Special</span>
+    </button>
+  </div>
+
+  <!-- Search Section & Veg Toggle -->
+  <div class="search-section-swiggy">
+    <div class="search-input-box">
+      <i class="fa-solid fa-magnifying-glass search-icon"></i>
+      <input type="text" id="searchInput" placeholder="Search for 'Pastry', 'Biryani' or 'Sweets'">
+      <i class="fa-solid fa-microphone mic-icon"></i>
+    </div>
+    <button class="veg-toggle-btn">
+      <span>VEG</span>
+      <i class="fa-solid fa-toggle-on veg-icon"></i>
+    </button>
+  </div>
+
+  <!-- Offers Container -->
+  <div class="offers-container">
+    <div class="offers-title">REWARDS CARNIVAL • SPECIAL OFFERS</div>
+    <div class="offers-cards-scroll">
+      
+      <div class="offer-card">
+          <img src="offer1.jpg" class="offer-img">
+      </div>
+
+      <div class="offer-card">
+          <img src="offer2.jpg" class="offer-img">
+      </div>
+
+      <div class="offer-card">
+          <img src="offer4.jpg" class="offer-img">
+      </div>
+      
+      <div class="offer-card">
+          <img src="offer5.jpg" class="offer-img">
+      </div>
+      
+    </div>
+  </div>
+
+</div>
+
+<!-- CATEGORY -->
+<section class="category-section">
+
+  <div class="category-grid">
+
+    <div class="category-card" data-cat="Biryani">
+      <img src="https://images.unsplash.com/photo-1563379091339-03246963d96c?q=80&w=800">
+      <span>Biryani</span>
+    </div>
+
+    <div class="category-card" data-cat="Bread">
+      <img src="https://images.unsplash.com/photo-1509440159596-0249088772ff?q=80&w=800">
+      <span>Bread</span>
+    </div>
+
+    <div class="category-card" data-cat="Cake">
+      <img src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?q=80&w=800">
+      <span>Cake</span>
+    </div>
+
+    <div class="category-card" data-cat="Rice">
+      <img src="https://images.unsplash.com/photo-1512058564366-18510be2db19?q=80&w=800">
+      <span>Rice</span>
+    </div>
+
+    <div class="category-card" data-cat="Pastry">
+      <img src="https://images.unsplash.com/photo-1551024601-bec78aea704b?q=80&w=800">
+      <span>Pastry</span>
+    </div>
+
+    <div class="category-card" data-cat="Pizza">
+      <img src="https://images.unsplash.com/photo-1513104890138-7c749659a591?q=80&w=800">
+      <span>Pizza</span>
+    </div>
+
+    <div class="category-card" data-cat="Snacks">
+      <img src="https://images.unsplash.com/photo-1482049016688-2d3e1b311543?q=80&w=800">
+      <span>Snacks</span>
+    </div>
+
+    <div class="category-card" data-cat="Yum">
+      <img src="https://images.unsplash.com/photo-1525351484163-7529414344d8?q=80&w=800">
+      <span>Yum</span>
+    </div>
+
+    <div class="category-card" data-cat="Momos">
+      <img src="https://images.unsplash.com/photo-1589301760014-d929f3979dbc?q=80&w=800">
+      <span>Momos</span>
+    </div>
+
+    <div class="category-card" data-cat="Breakfast">
+      <img src="https://images.unsplash.com/photo-1490645935967-10de6ba17061?q=80&w=800">
+      <span>Breakfast</span>
+    </div>
+
+    <div class="category-card" data-cat="Lunch">
+      <img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?q=80&w=800">
+      <span>Lunch</span>
+    </div>
+    
+    <div class="category-card" data-cat="Burgur">
+      <img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?q=80&w=800">
+      <span>Burgur</span>
+    </div>
+
+  </div>
+
+</section>
+
+<!-- SIDE MENU -->
+<div id="sideMenu" class="side-menu">
+
+  <a href="about.html">
+    <i class="fa-solid fa-circle-info"></i> About
+  </a>
+
+  <a href="contact.html">
+    <i class="fa-solid fa-phone"></i> Contact
+  </a>
+
+  <a href="terms.html">
+    <i class="fa-solid fa-file-contract"></i> Terms & Conditions
+  </a>
+
+  <a href="location.html">
+    <i class="fa-solid fa-location-dot"></i> Location
+  </a>
+
+</div>
+
+<!-- overlay -->
+<div id="overlay" onclick="closeMenu()"></div>
+
+<!-- FAST DELIVERY BOX -->
+<div class="delivery-box">
+  <div class="delivery-icon">
+    <i class="fa-solid fa-motorcycle"></i>
+  </div>
+  <div class="delivery-text">
+    <h3>Fast Delivery</h3>
+    <p>30-45 Min Delivery</p>
+  </div>
+</div>
+
+<!-- AUTO SLIDE CATEGORY -->
+<section class="mini-category-slider">
+  <div class="mini-category-track">
+    <div class="mini-category">
+      <i class="fa-solid fa-cake-candles"></i>
+      <span>Bakery</span>
+    </div>
+    <div class="mini-category">
+      <i class="fa-solid fa-candy-cane"></i>
+      <span>Sweet</span>
+    </div>
+    <div class="mini-category">
+      <i class="fa-solid fa-burger"></i>
+      <span>FastFood</span>
+    </div>
+    <div class="mini-category">
+      <i class="fa-solid fa-utensils"></i>
+      <span>Restaurant</span>
+    </div>
+    <div class="mini-category">
+      <i class="fa-solid fa-box"></i>
+      <span>Disposal</span>
+    </div>
+    <div class="mini-category">
+      <i class="fa-solid fa-glass-water"></i>
+      <span>Cold Drink</span>
+    </div>
+    <!-- DUPLICATE FOR SMOOTH SLIDE -->
+    <div class="mini-category">
+      <i class="fa-solid fa-cake-candles"></i>
+      <span>Bakery</span>
+    </div>
+    <div class="mini-category">
+      <i class="fa-solid fa-candy-cane"></i>
+      <span>Sweet</span>
+    </div>
+    <div class="mini-category">
+      <i class="fa-solid fa-burger"></i>
+      <span>FastFood</span>
+    </div>
+    <div class="mini-category">
+      <i class="fa-solid fa-utensils"></i>
+      <span>Restaurant</span>
+    </div>
+    <div class="mini-category">
+      <i class="fa-solid fa-box"></i>
+      <span>Disposal</span>
+    </div>
+    <div class="mini-category">
+      <i class="fa-solid fa-glass-water"></i>
+      <span>Cold Drink</span>
+    </div>
+  </div>
+</section>
+
+<!-- PRODUCTS -->
+<section class="product-section">
+  <div class="section-head">
+    <h2>Popular Products</h2>
+  </div>
+  <div class="horizontal-products" id="popularProducts"></div>
+  <div id="allCategories"></div>
+</section>
+
+  <!-- BOTTOM NAV -->
+  <nav class="bottom-nav">
+
+    <a href="#" class="active">
+      <i class="fa-solid fa-house"></i>
+      <span>Home</span>
+    </a>
+
+    <a href="cart.html">
+      <i class="fa-solid fa-cart-shopping"></i>
+      <span>Cart</span>
+    </a>
+
+    <a href="customerkhata.html">
+      <i class="fa-solid fa-book"></i>
+      <span>Khata</span>
+    </a>
+
+    <a href="yourorder">
+      <i class="fa-solid fa-bag-shopping"></i>
+      <span>Order</span>
+    </a>
+
+    <a href="account.html">
+      <i class="fa-solid fa-user"></i>
+      <span>Account</span>
+    </a>
+
+  </nav>
+  
+  <!-- MENU BOOK ICON -->
+<div class="menu-book-btn" onclick="openMenuBook()">
+  <i class="fa-solid fa-book-open"></i>
+</div>
+
+<!-- MENU BOOK SHEET -->
+<div class="menu-book" id="menuBook">
+  <div class="menu-top">
+    <h2>Menu Book</h2>
+    <i class="fa-solid fa-xmark" onclick="closeMenuBook()"></i>
+  </div>
+
+  <div class="menu-item">
+    <img src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?q=80&w=800">
+    <div class="menu-info">
+      <h3>Chocolate Cake</h3>
+      <p>Fresh creamy cake</p>
+    </div>
+    <span>₹799</span>
+  </div>
+
+  <div class="menu-item">
+    <img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?q=80&w=800">
+    <div class="menu-info">
+      <h3>Cheese Pizza</h3>
+      <p>Extra cheesy pizza</p>
+    </div>
+    <span>₹399</span>
+  </div>
+
+  <div class="menu-item">
+    <img src="https://images.unsplash.com/photo-1585238342024-78d387f4a707?q=80&w=800">
+    <div class="menu-info">
+      <h3>Zinger Burger</h3>
+      <p>Hot crispy burger</p>
+    </div>
+    <span>₹249</span>
+  </div>
+</div>
+
+<!-- CONTACT ICON -->
+<a href="contact.html" class="contact-btn">
+  <i class="fa-solid fa-phone-volume"></i>
+</a>
+
+<!-- PREMIUM 3D BAKERY FOOTER -->
+<footer class="footer-3d-wrapper">
+  <div class="footer-3d-scene">
+    <svg viewBox="0 0 1000 450" class="scene-svg" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="wallGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#ffffff" />
+          <stop offset="100%" stop-color="#f3f3f3" />
+        </linearGradient>
+        <linearGradient id="redGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#ff3b3b" />
+          <stop offset="100%" stop-color="#cc0000" />
+        </linearGradient>
+        <linearGradient id="goldGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%" stop-color="#d4af37" />
+          <stop offset="50%" stop-color="#fff2a8" />
+          <stop offset="100%" stop-color="#d4af37" />
+        </linearGradient>
+        <linearGradient id="glassGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="rgba(255,255,255,0.8)" />
+          <stop offset="100%" stop-color="rgba(230,245,255,0.3)" />
+        </linearGradient>
+        
+        <filter id="3dShadow" x="-10%" y="-10%" width="130%" height="130%">
+          <feDropShadow dx="0" dy="12" stdDeviation="10" flood-color="#000" flood-opacity="0.15" />
+        </filter>
+        <filter id="vanShadow" x="-10%" y="-10%" width="130%" height="130%">
+          <feDropShadow dx="0" dy="10" stdDeviation="8" flood-color="#000" flood-opacity="0.25" />
+        </filter>
+      </defs>
+
+      <ellipse cx="500" cy="400" rx="460" ry="25" fill="rgba(0,0,0,0.06)" />
+
+      <g id="bakery-shop" filter="url(#3dShadow)">
+        <rect x="250" y="100" width="500" height="280" rx="20" fill="url(#wallGradient)" stroke="#e2e2e2" stroke-width="2"/>
+        <path d="M 230 140 L 770 140 L 750 100 L 250 100 Z" fill="url(#redGradient)" />
+        <path d="M 230 140 Q 250 160 270 140 Q 290 160 310 140 Q 330 160 350 140 Q 370 160 390 140 Q 410 160 430 140 Q 450 160 470 140 Q 490 160 510 140 Q 530 160 550 140 Q 570 160 590 140 Q 610 160 630 140 Q 650 160 670 140 Q 690 160 710 140 Q 730 160 750 140 Q 770 160 770 140" fill="#cc0000" />
+
+        <g id="main-board">
+          <rect x="300" y="35" width="400" height="70" rx="14" fill="#111111" stroke="url(#goldGradient)" stroke-width="3" filter="url(#3dShadow)"/>
+          <text x="500" y="78" font-family="'Poppins', sans-serif" font-weight="900" font-size="28" fill="url(#goldGradient)" text-anchor="middle" letter-spacing="1">
+            CITY CHOICE BAKERS
+          </text>
+        </g>
+
+        <rect x="280" y="180" width="200" height="170" rx="12" fill="url(#glassGradient)" stroke="#dbe5ed" stroke-width="2"/>
+        <rect x="520" y="180" width="200" height="170" rx="12" fill="url(#glassGradient)" stroke="#dbe5ed" stroke-width="2"/>
+
+        <g id="cake-1">
+          <ellipse cx="380" cy="320" rx="55" ry="12" fill="#d4af37" opacity="0.3"/>
+          <rect x="340" y="280" width="80" height="35" rx="6" fill="#ff2b2b"/>
+          <rect x="350" y="255" width="60" height="28" rx="5" fill="#ffffff"/>
+          <circle cx="380" cy="250" r="8" fill="#ff2b2b"/>
+        </g>
+
+        <g id="cake-2">
+          <ellipse cx="620" cy="320" rx="55" ry="12" fill="#000" opacity="0.15"/>
+          <rect x="580" y="270" width="80" height="45" rx="8" fill="#4a2c11"/>
+          <path d="M 580 285 Q 620 300 660 285" stroke="#ffffff" stroke-width="4" fill="none"/>
+          <circle cx="600" cy="262" r="6" fill="#d4af37"/>
+          <circle cx="620" cy="260" r="6" fill="#d4af37"/>
+          <circle cx="640" cy="262" r="6" fill="#d4af37"/>
+        </g>
+      </g>
+
+      <g id="delivery-van" filter="url(#vanShadow)">
+        <path d="M 100 360 L 100 270 C 100 250 120 240 140 240 L 260 240 C 280 240 295 255 305 270 L 330 300 C 340 310 345 325 345 340 L 345 360 Z" fill="url(#redGradient)"/>
+        <path d="M 270 252 L 300 285 L 260 285 Z" fill="#e0f2fe" opacity="0.8"/>
+        
+        <rect x="115" y="260" width="130" height="50" rx="8" fill="#ffffff" opacity="0.95"/>
+        <text x="180" y="285" font-family="'Poppins', sans-serif" font-weight="900" font-size="14" fill="#ff2b2b" text-anchor="middle">
+          CITY CHOICE
+        </text>
+        <text x="180" y="300" font-family="'Poppins', sans-serif" font-weight="700" font-size="9" fill="#111" text-anchor="middle" letter-spacing="1">
+          EXPRESS DELIVERY
+        </text>
+
+        <g id="wheels">
+          <circle cx="150" cy="360" r="24" fill="#111"/>
+          <circle cx="150" cy="360" r="12" fill="#e2e2e2"/>
+          <circle cx="295" cy="360" r="24" fill="#111"/>
+          <circle cx="295" cy="360" r="12" fill="#e2e2e2"/>
+        </g>
+        <path d="M 340 330 L 348 330 L 348 342 L 340 342 Z" fill="#fff2a8" filter="drop-shadow(4px 0px 8px #fff2a8)"/>
+      </g>
+    </svg>
+  </div>
+
+  <div class="footer-bottom-content">
+    <div class="footer-info">
+      <h3>City Choice Bakers</h3>
+      <p>Freshly Baked Goodness Delivered To Your Doorstep.</p>
+    </div>
+    <div class="footer-copyright">
+      &copy; 2026 City Choice Bakers. All Rights Reserved.
+    </div>
+  </div>
+</footer>
+
+<div class="shop-sheet" id="shopSheet">
+  <div class="shop-header">
+    <h2>
+      <i class="fa-solid fa-store"></i>
+      Our Shops
+    </h2>
+    <i class="fa-solid fa-xmark" onclick="closeShopSheet()"></i>
+  </div>
+
+  <div class="shop-card open">
+    <div class="shop-icon">
+      <img src="logo.png" alt="City Choice Bakers">
+    </div>
+    <div class="shop-info">
+      <h3>City Choice Bakers</h3>
+      <div class="shop-location">
+        <i class="fa-solid fa-location-dot"></i>
+        Gulmarg Road, Magam
+      </div>
+      <p id="magamStatus">Loading...</p>
+    </div>
+  </div>
+
+  <div class="shop-card">
+    <div class="shop-icon">
+      <img src="logo2.png" alt="City Choice Bakers">
+    </div>
+    <div class="shop-info">
+      <h3>City Choice Bakers</h3>
+      <div class="shop-location">
+        <i class="fa-solid fa-location-dot"></i>
+        Main Market, Kunzer
+      </div>
+      <p id="kunzerStatus">Loading...</p>
+    </div>
+  </div>
+</div>
+  
+<script>
+  let locationList = [];
+  let index = 0;
+
+  async function loadHeaderLocation(){
+    let { data: { user } } = await supabaseClient.auth.getUser();
+    let el = document.getElementById("headerLocation");
+    if(!user){
+      el.innerText = "Please Login";
+      return;
+    }
+    let { data } = await supabaseClient
+      .from("users")
+      .select("location, pincode")
+      .eq("email", user.email)
+      .single();
+
+    if(!data){
+      el.innerText = "No Location Found";
+      return;
+    }
+    locationList = [
+      data.location,
+      "Pincode: " + data.pincode
+    ];
+    rotateLocation();
+  }
+
+  function rotateLocation(){
+    let el = document.getElementById("headerLocation");
+    if(locationList.length === 0) return;
+    el.innerText = locationList[index];
+    index = (index + 1) % locationList.length;
+    setTimeout(rotateLocation, 3000);
+  }
+
+  function openMenuBook() {
+    document.getElementById("menuBook")?.classList.add("show-menu");
+  }
+
+  function closeMenuBook() {
+    document.getElementById("menuBook")?.classList.remove("show-menu");
+  }
+
+  let slideIndex = 0;
+  function showSlides() {
+    let slides = document.getElementsByClassName("slides");
+    if (!slides.length) return;
+    for (let i = 0; i < slides.length; i++) {
+      slides[i].style.display = "none";
+    }
+    slideIndex++;
+    if (slideIndex > slides.length) slideIndex = 1;
+    slides[slideIndex - 1].style.display = "block";
+    setTimeout(showSlides, 3000);
+  }
+  showSlides();
+
+  function openProduct(id) {
+    if (!id) return;
+    window.location.href = "product.html?id=" + id;
+  }
+
+  function addCart(event, item) {
+    event.stopPropagation();
+    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+    let existing = cart.find(p => p.id === item.id);
+    if (existing) {
+      existing.qty += 1;
+    } else {
+      cart.push({
+        id: item.id,
+        title: item.title,
+        desc: item.description,
+        price: item.price,
+        image: item.image,
+        qty: 1
+      });
+    }
+    localStorage.setItem("cart", JSON.stringify(cart));
+    showTopAlert("success", "Cart Updated", item.title + " Added To Cart");
+  }
+
+  function showProducts(products, id) {
+    const box = document.getElementById(id);
+    if (!box) return;
+    box.innerHTML = "";
+    products.forEach(item => {
+      const card = document.createElement("div");
+      card.className = "product-card";
+      card.onclick = (e) => {
+        if (e.target.classList.contains("add-btn")) return;
+        openProduct(item.id);
+      };
+
+      card.innerHTML = `
+        <img src="${item.image}">
+        <div class="content">
+          <h3>${item.title}</h3>
+          <p>${item.description ? (item.description.length > 45 ? item.description.substring(0,45) + "..." : item.description) : ""}</p>
+          <div class="product-badges">
+              <span class="badge"><i class="fa-solid fa-shield-halved"></i> FSSAI</span>
+              <span class="badge"><i class="fa-solid fa-motorcycle"></i> 30-45 Min</span>
+              <span class="badge"><i class="fa-solid fa-circle-check"></i> Trusted</span>
+          </div>
+          <div class="price-row">
+              <span>₹${item.price}</span>
+              <button class="add-btn">Add</button>
+          </div>
+        </div>
+      `;
+
+      card.querySelector(".add-btn").addEventListener("click", (e) => {
+        e.stopPropagation();
+        addCart(e, item);
+      });
+      box.appendChild(card);
+    });
+  }
+
+  async function loadProducts() {
+    try {
+      let { data: popular, error: popErr } = await supabaseClient
+        .from("products")
+        .select("*")
+        .eq("popular", true);
+
+      if (!popErr) {
+        showProducts(popular || [], "popularProducts");
+      }
+
+      let { data: categories, error: catErr } = await supabaseClient
+        .from("products")
+        .select("category");
+
+      if (catErr) return;
+
+      let uniqueCategories = [
+        ...new Set(
+          (categories || [])
+            .map(i => (i.category || "").trim().toLowerCase())
+            .filter(Boolean)
+        )
+      ];
+
+      const allCategories = document.getElementById("allCategories");
+      allCategories.innerHTML = "";
+
+      for (let category of uniqueCategories) {
+        let title = category.charAt(0).toUpperCase() + category.slice(1);
+        let categoryId = "cat_" + category.replace(/\s+/g, "_");
+
+        allCategories.insertAdjacentHTML("beforeend", `
+          <div class="section-head">
+            <div class="title-row">
+              <h2><i class="fa-solid fa-utensils"></i> ${title}</h2>
+              <span class="view-all" data-cat="${category}">View All</span>
+            </div>
+          </div>
+          <div class="horizontal-products" id="${categoryId}"></div>
+        `);
+
+        let { data: items, error: itemErr } = await supabaseClient
+          .from("products")
+          .select("*")
+          .ilike("category", `%${category}%`);
+
+        if (!itemErr && items) {
+          showProducts(items, categoryId);
+        }
+      }
+    } catch (err) {
+      console.log("Load error:", err);
+    }
+    
+    document.querySelectorAll(".view-all").forEach(btn => {
+      btn.addEventListener("click", (e) => {
+        let cat = e.target.getAttribute("data-cat");
+        window.location.href = "category.html?cat=" + encodeURIComponent(cat);
+      });
+    });
+  }
+
+  loadProducts();
+
+  document.querySelectorAll(".category-card").forEach(card => {
+    card.addEventListener("click", () => {
+      let cat = card.getAttribute("data-cat");
+      window.location.href = "category.html?cat=" + encodeURIComponent(cat);
+    });
+  });
+
+  function showTopAlert(type, title, message){
+    const alertBox = document.getElementById("topAlert");
+    const alertIcon = document.getElementById("alertIcon");
+    document.getElementById("alertTitle").innerText = title;
+    document.getElementById("alertText").innerText = message;
+    alertBox.classList.remove("success", "error");
+
+    if(type === "success"){
+      alertBox.classList.add("success");
+      alertIcon.innerHTML = `<i class="fa-solid fa-check"></i>`;
+    } else {
+      alertBox.classList.add("error");
+      alertIcon.innerHTML = `<i class="fa-solid fa-xmark"></i>`;
+    }
+    alertBox.classList.add("show");
+    setTimeout(()=>{
+      closeTopAlert();
+    }, 3000);
+  }
+
+  function closeTopAlert(){
+    document.getElementById("topAlert").classList.remove("show");
+  }
+</script>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const menuBtn = document.querySelector(".menu-btn");
+    const sideMenu = document.getElementById("sideMenu");
+    const overlay = document.getElementById("overlay");
+    if (!menuBtn || !sideMenu || !overlay) return;
+
+    menuBtn.addEventListener("click", () => {
+      sideMenu.classList.add("show");
+      overlay.style.display = "block";
+    });
+
+    overlay.addEventListener("click", () => {
+      sideMenu.classList.remove("show");
+      overlay.style.display = "none";
+    });
+  });
+</script>
+
+<script>
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('sw.js');
+  }
+</script>
+
+<script>
+  document.getElementById("searchInput").addEventListener("keyup", function(){
+    let search = this.value.toLowerCase();
+    document.querySelectorAll(".product-card").forEach(card => {
+      let title = card.querySelector("h3").innerText.toLowerCase();
+      if(title.includes(search)){
+        card.style.display = "";
+      } else {
+        card.style.display = "none";
+      }
+    });
+  });
+</script>
+
+<script>
+  function openShopSheet(){
+    document.getElementById("shopSheet").classList.add("show");
+  }
+
+  function closeShopSheet(){
+    document.getElementById("shopSheet").classList.remove("show");
+  }
+</script>
+
+<script>
+  async function loadShopStatus(){
+    let { data, error } = await supabaseClient.from("shops").select("*");
+    if(error) return;
+
+    data.forEach(shop => {
+      if(shop.shop_name === "City Choice Bakers Magam"){
+        document.getElementById("magamStatus").innerHTML =
+          shop.status === "Open"
+          ? '<i class="fa-solid fa-store" style="color:#22c55e;"></i>  Open Now'
+          : '<i class="fa-solid fa-store-slash" style="color:#ef4444;"></i>  Closed';
+      }
+      if(shop.shop_name === "City Choice Bakers Kunzer"){
+        document.getElementById("kunzerStatus").innerHTML =
+          shop.status === "Open"
+          ? '<i class="fa-solid fa-store" style="color:#22c55e;"></i> Open Now'
+          : '<i class="fa-solid fa-store-slash" style="color:#ef4444;"></i> Closed';
+      }
+    });
+  }
+
+  loadShopStatus();
+
+  let isShrunk = false;
+  let ticking = false;
+
+  function updateHeaderOnScroll() {
+    const header = document.getElementById('mainHeader');
+    if (!header) return;
+    const currentScrollY = window.scrollY;
+
+    if (!isShrunk && currentScrollY > 120) {
+      header.classList.add('shrink');
+      isShrunk = true;
+    } else if (isShrunk && currentScrollY < 20) {
+      header.classList.remove('shrink');
+      isShrunk = false;
+    }
+    ticking = false;
+  }
+
+  window.addEventListener('scroll', function() {
+    if (!ticking) {
+      window.requestAnimationFrame(updateHeaderOnScroll);
+      ticking = true;
+    }
+  }, { passive: true });
+</script>
+
+</body>
+</html>

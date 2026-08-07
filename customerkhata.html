@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>City Choice — Official Customer Khata Portal</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+<style>
+:root {
+    --burgundy: #6B1220;
+    --burgundy-deep: #4A0C17;
+    --burgundy-dark: #2A050B;
+    --gold: #D4AF37;
+    --gold-light: #F3E5AB;
+    --cream: #FAF6EF;
+    --paper: #FFFFFF;
+    --ink: #2B2420;
+    --ink-soft: #6B625A;
+    --line: #E8DFD2;
+    --shadow: 0 20px 50px rgba(74,12,23,0.18);
+    --green-success: #15803d;
+    --red-alert: #b91c1c;
+    --rose-tint: #F5EAE4;
+}
+* { margin:0; padding:0; box-sizing:border-box; font-family:'Inter', sans-serif; -webkit-tap-highlight-color: transparent; }
+body { 
+    background: linear-gradient(135deg, #3A0912 0%, #6B1220 50%, #2A050B 100%); 
+    padding: 16px; 
+    color: var(--ink); 
+    display: flex; 
+    flex-direction: column;
+    justify-content: center; 
+    align-items: center; 
+    min-height: 100vh; 
+}
+
+.wrapper { width: 100%; max-width: 680px; }
+
+.login-card, .dashboard-card { 
+    background: var(--paper); 
+    width: 100%; 
+    padding: 26px 20px; 
+    border-radius: 20px; 
+    border: 2px solid rgba(212, 175, 55, 0.3); 
+    box-shadow: var(--shadow); 
+    position: relative;
+    overflow: hidden;
+}
+.dashboard-card { display: none; }
+
+.brand-container { text-align: center; margin-bottom: 20px; }
+.brand-logo { 
+    width: 75px; height: 75px; object-fit: cover; border-radius: 50%; 
+    border: 2.5px solid var(--gold); box-shadow: 0 6px 16px rgba(107,18,32,0.25);
+    margin-bottom: 8px; background: var(--cream);
+}
+h2 { font-family: 'Fraunces', serif; color: var(--burgundy-deep); font-size: 21px; margin-bottom: 2px; text-align: center; }
+.location-tag { font-size: 11.5px; color: var(--gold); font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px; }
+.subtitle { font-size: 10.5px; color: var(--ink-soft); margin-bottom: 20px; text-transform: uppercase; letter-spacing: 1.2px; text-align: center; font-weight: 600; }
+
+.form-group { margin-bottom: 14px; }
+.form-group label { display: block; font-size: 11px; font-weight: 700; color: var(--burgundy); text-transform: uppercase; margin-bottom: 6px; }
+.form-group input { width: 100%; padding: 12px 14px; border: 1.5px solid var(--line); border-radius: 10px; font-size: 14px; background: var(--cream); outline: none; }
+.form-group input:focus { border-color: var(--gold); background: #fff; box-shadow: 0 0 0 3px rgba(212,175,55,0.15); }
+
+.btn-primary { 
+    background: linear-gradient(135deg, var(--burgundy) 0%, var(--burgundy-deep) 100%); 
+    color: #fff; border: 1px solid var(--gold); width: 100%; padding: 13px; 
+    border-radius: 10px; font-weight: 700; cursor: pointer; text-transform: uppercase; font-size: 13px; 
+    margin-top: 8px; box-shadow: 0 6px 20px rgba(107,18,32,0.3);
+}
+
+.summary-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 14px; }
+.summary-box { 
+    background: linear-gradient(135deg, #FAF6EF 0%, #F3E5AB 100%); 
+    padding: 14px; border-radius: 12px; border: 1.5px solid var(--gold); 
+}
+.summary-box h3 { font-size: 10.5px; color: var(--burgundy-deep); text-transform: uppercase; font-weight: 700; margin-bottom: 2px; }
+.summary-box .val { font-size: 17px; font-weight: 700; font-family: 'Fraunces', serif; color: var(--burgundy); }
+
+.months-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 14px; }
+.month-badge { background: var(--cream); border: 1.5px solid var(--line); padding: 8px; border-radius: 8px; text-align: center; font-size: 11px; font-weight: 600; cursor: pointer; transition: all 0.2s ease; }
+.month-badge.cleared { background: #f0fdf4; border-color: var(--green-success); color: var(--green-success); }
+.month-badge.running { background: var(--gold-light); border-color: var(--gold); color: var(--burgundy-deep); }
+
+.invoice-status-banner {
+    background: var(--cream); border: 1.5px dashed var(--burgundy); padding: 12px 14px;
+    border-radius: 12px; margin-bottom: 14px; display: flex; align-items: center; justify-content: space-between; gap: 10px;
+}
+.invoice-status-banner.ready { background: #f0fdf4; border: 1.5px solid var(--green-success); }
+
+.table-container { overflow-x: auto; margin-top: 8px; max-height: 220px; overflow-y: auto; border-radius: 10px; border: 1.5px solid var(--line); }
+table { width: 100%; border-collapse: collapse; font-size: 12px; background: #fff; }
+th { background: var(--burgundy-deep); color: #fff; text-align: left; padding: 10px; font-size: 10px; text-transform: uppercase; position: sticky; top: 0; z-index: 2; }
+td { padding: 10px; border-bottom: 1px solid var(--line); }
+
+.owner-footer-card {
+    margin-top: 16px; background: linear-gradient(145deg, #2A050B, #4A0C17); color: #fff;
+    padding: 14px 18px; border-radius: 14px; border: 1px solid rgba(212, 175, 55, 0.4);
+    display: flex; align-items: center; justify-content: space-between;
+}
+.owner-info h4 { font-size: 12.5px; font-weight: 700; color: var(--gold); text-transform: uppercase; font-family: 'Fraunces', serif; }
+.owner-info p { font-size: 11px; color: #e5e5e5; margin-top: 2px; }
+.call-btn {
+    background: var(--gold); color: var(--burgundy-dark); text-decoration: none; padding: 8px 14px;
+    border-radius: 8px; font-weight: 700; font-size: 11.5px; display: flex; align-items: center; gap: 6px;
+}
+
+/* ================= HIDDEN PROFESSIONAL PDF CANVAS TEMPLATE ================= */
+#pdfExportContainer { display: none; }
+
+.canvas-wrapper {
+    background: var(--paper);
+    padding: 38px 28px 32px;
+    border-radius: 6px;
+    width: 720px;
+    position: relative;
+    box-sizing: border-box;
+    color: var(--ink);
+}
+.canvas-wrapper::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 8px;
+    background: repeating-linear-gradient(90deg, var(--burgundy) 0px, var(--burgundy) 18px, var(--gold) 18px, var(--gold) 22px);
+}
+.invoice-header {
+    display: flex; justify-content: space-between; align-items: flex-start;
+    padding-bottom: 22px; margin-bottom: 22px; gap: 16px; border-bottom: 1px solid var(--line);
+}
+.brand-side { display: flex; align-items: flex-start; gap: 16px; width: 100%; }
+.logo-ring {
+    width: 72px; height: 72px; border-radius: 50%; flex-shrink: 0; padding: 3px;
+    background: conic-gradient(from 180deg, var(--gold), var(--burgundy), var(--gold));
+    display: flex; align-items: center; justify-content: center;
+}
+.logo-ring img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; border: 3px solid #fff; }
+.brand-info h1 { font-family: 'Fraunces', serif; font-size: 26px; font-weight: 700; color: var(--burgundy-deep); line-height: 1.1; }
+.brand-tagline { font-family: 'IBM Plex Mono', monospace; font-size: 10px; font-weight: 600; color: var(--gold); margin-top: 4px; text-transform: uppercase; letter-spacing: 1.4px; }
+.brand-info p { font-size: 11.5px; color: var(--ink-soft); line-height: 1.5; margin-top: 6px; }
+.fssai-badge-box {
+    display: flex; align-items: center; gap: 8px; margin-top: 8px; background: var(--rose-tint);
+    padding: 6px 10px; border-radius: 6px; border: 1px solid #EAD9CE; width: fit-content;
+}
+.fssai-badge-box img { width: 30px !important; }
+.fssai-text { font-size: 9px; color: var(--burgundy-deep); font-weight: 700; }
+.doc-label { text-align: right; flex-shrink: 0; }
+.doc-label .doc-kicker { font-family: 'IBM Plex Mono', monospace; font-size: 9.5px; letter-spacing: 1.8px; text-transform: uppercase; color: var(--gold); font-weight: 600; }
+.doc-label .doc-title { font-family: 'Fraunces', serif; font-size: 28px; font-weight: 600; color: var(--burgundy); line-height: 1.1; margin-top: 2px; }
+
+.bill-meta-container {
+    display: flex; justify-content: space-between; margin-bottom: 22px; font-size: 12px; line-height: 1.55;
+    background: var(--cream); padding: 16px 20px; border-radius: 10px; border: 1px solid var(--line); gap: 16px;
+}
+.bill-to h4 { font-family: 'IBM Plex Mono', monospace; font-size: 9.5px; color: var(--ink-soft); margin-bottom: 4px; text-transform: uppercase; font-weight: 600; }
+.bill-to .customer-name { font-family: 'Fraunces', serif; font-size: 16px; font-weight: 600; color: var(--ink); }
+.meta-details { text-align: right; white-space: nowrap; }
+
+.invoice-table { width: 100%; border-collapse: collapse; margin-bottom: 22px; font-size: 12px; border-radius: 8px; overflow: hidden; border: 1px solid var(--line); }
+.invoice-table th { background: var(--burgundy-deep); color: #fff; padding: 12px; font-weight: 600; text-align: left; font-size: 10.5px; text-transform: uppercase; }
+.invoice-table td { padding: 10px 12px; border-bottom: 1px solid var(--line); color: var(--ink); background: #ffffff; }
+
+.summary-container { display: flex; justify-content: space-between; align-items: flex-start; margin-top: 12px; gap: 20px; }
+.invoice-notes { font-size: 10.5px; color: var(--ink-soft); max-width: 300px; line-height: 1.45; }
+.summary-wrapper { width: 280px; font-size: 12px; background: var(--cream); padding: 14px; border-radius: 10px; border: 1px solid var(--line); }
+.summary-line { display: flex; justify-content: space-between; padding: 5px 0; color: var(--ink-soft); }
+.summary-line.paid-line { color: #178f48; font-weight: 600; border-bottom: 1px solid var(--line); padding-bottom: 8px; margin-bottom: 6px; }
+.balance-due-box {
+    background: var(--burgundy); color: #fff; padding: 10px 12px; display: flex; justify-content: space-between;
+    font-weight: 700; font-size: 13.5px; border-radius: 8px; margin-top: 4px;
+}
+.upi-payment-section {
+    margin-top: 16px; background: var(--rose-tint); border: 1.5px dashed var(--burgundy);
+    padding: 12px; border-radius: 10px; display: flex; align-items: center; gap: 12px;
+}
+.upi-qr-code { width: 75px; height: 75px; border-radius: 6px; object-fit: cover; border: 1px solid var(--line); flex-shrink: 0; }
+.upi-details h5 { font-family: 'Fraunces', serif; font-size: 12px; color: var(--burgundy-deep); margin-bottom: 2px; }
+.upi-details p { font-size: 10px; color: var(--ink-soft); line-height: 1.35; }
+.footer-greeting { margin-top: 24px; text-align: center; font-family: 'Fraunces', serif; font-style: italic; font-size: 12px; color: var(--ink-soft); }
+</style>
+</head>
+<body>
+
+<div class="wrapper">
+    <!-- Customer Login Screen -->
+    <div class="login-card" id="loginScreen">
+        <div class="brand-container">
+            <img src="logo2.png" alt="City Choice Logo" class="brand-logo" onerror="this.src='https://cdn-icons-png.flaticon.com/512/3076/3076137.png'">
+            <h2>City Choice Bakers</h2>
+            <div class="location-tag"><i class="fa-solid fa-location-dot"></i> Gulmarg Road Magam</div>
+            <div class="subtitle">Khata Book — Customer Statement Portal</div>
+        </div>
+        <div class="form-group"><label>Registered Phone Number</label><input type="tel" id="loginPhone" placeholder="03XXXXXXXXX"></div>
+        <div class="form-group"><label>Account Password / PIN</label><input type="number" inputmode="numeric" pattern="[0-9]*" id="loginPin" placeholder="4-digit PIN"></div>
+        <button class="btn-primary" onclick="customerLogin()">View My Khata Statement</button>
+    </div>
+
+    <!-- Customer Dashboard Screen -->
+    <div class="dashboard-card" id="dashboardScreen">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; border-bottom: 1.5px solid var(--line); padding-bottom: 10px;">
+            <div style="display: flex; align-items: center; gap: 10px;">
+                <img src="logo2.png" alt="Logo" style="width:38px; height:38px; border-radius:50%; border:1.5px solid var(--gold); object-fit:cover;" onerror="this.src='https://cdn-icons-png.flaticon.com/512/3076/3076137.png'">
+                <div>
+                    <h2 id="custWelcomeName" style="text-align:left; font-size:16px;">Customer Name</h2>
+                    <div class="subtitle" id="custPhoneDisplay" style="text-align:left; margin-bottom:0; font-size:9.5px;">Phone: </div>
+                </div>
+            </div>
+            <button onclick="logoutCustomer()" style="background:#b91c1c; color:#fff; border:none; padding:7px 10px; border-radius:8px; cursor:pointer; font-size:11px; font-weight:600;"><i class="fa-solid fa-right-from-bracket"></i> Logout</button>
+        </div>
+
+        <!-- Summary Grid -->
+        <div class="summary-grid">
+            <div class="summary-box">
+                <h3>Opening / Last Bal.</h3>
+                <div class="val">Rs. <span id="custOpeningBal">0.00</span></div>
+            </div>
+            <div class="summary-box" style="background: linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%); border-color: var(--red-alert);">
+                <h3 style="color: var(--red-alert);">Final Pending Due</h3>
+                <div class="val" style="color: var(--red-alert);">Rs. <span id="custTotalDue">0.00</span></div>
+            </div>
+        </div>
+
+        <!-- Monthly Clearance Status Overview for Customer -->
+        <h4 style="font-size:11.5px; text-transform:uppercase; color:var(--burgundy-deep); margin-bottom:6px; font-weight:700;"><i class="fa-solid fa-calendar-check"></i> Active & Cleared Months (2026)</h4>
+        <div class="months-grid" id="customerMonthsGrid"></div>
+
+        <!-- Invoice Status & Download Section -->
+        <div id="invoiceStatusBanner" class="invoice-status-banner">
+            <div>
+                <h4 style="font-size:12px; font-weight:700; color:var(--burgundy-deep);" id="invoiceStatusTitle">Invoice Status</h4>
+                <p style="font-size:10.5px; color:var(--ink-soft);" id="invoiceStatusDesc">Checking invoice availability...</p>
+            </div>
+            <div id="invoiceActionArea"></div>
+        </div>
+
+        <h4 style="font-size:11.5px; text-transform:uppercase; color:var(--burgundy-deep); margin-bottom:6px; font-weight:700;"><i class="fa-solid fa-receipt"></i> Detailed Transaction History</h4>
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Description</th>
+                        <th>Qty</th>
+                        <th>Rate</th>
+                        <th>Total</th>
+                        <th>Mode</th>
+                    </tr>
+                </thead>
+                <tbody id="custLedgerBody">
+                    <tr><td colspan="6" style="text-align:center;">Loading statement...</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Owner Footer Card -->
+    <div class="owner-footer-card">
+        <div class="owner-info">
+            <h4>Nisar Ahmad Sheikh</h4>
+            <p><i class="fa-solid fa-store"></i> City Choice Bakers &amp; Sweets</p>
+        </div>
+        <a href="tel:+917006592704" class="call-btn"><i class="fa-solid fa-phone"></i> Call Now</a>
+    </div>
+</div>
+
+<!-- Render container used to generate the styled PDF -->
+<div id="pdfExportContainer"></div>
+
+<script>
+const SUPABASE_URL = 'https://pogglsfdqbwpyhdxwtlv.supabase.co';
+const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBvZ2dsc2ZkcWJ3cHloZHh3dGx2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODYwMjkzOTgsImV4cCI6MjEwMTYwNTM5OH0.6bVMzSovEdk2RkD2WYVJRXO20CW62gN37p7AERv_9kU';
+const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+const MONTHS_LIST = [
+    "January", "February", "March", "April", "May", "June", 
+    "July", "August", "September", "October", "November", "December"
+];
+
+let currentCustomerData = null;
+let currentCustomerEntries = [];
+let cachedTotals = { opening: 0, purchases: 0, paid: 0, finalDue: 0 };
+
+async function customerLogin() {
+    let phone = document.getElementById("loginPhone").value.trim();
+    let pin = document.getElementById("loginPin").value.trim();
+
+    if (!phone || !pin) return alert("Please enter both phone number and PIN.");
+
+    let { data: customer, error } = await supabaseClient.from('customers').select('*').eq('phone', phone).eq('pin', pin).single();
+
+    if (error || !customer) return alert("Invalid phone number or PIN password.");
+
+    currentCustomerData = customer;
+    document.getElementById("loginScreen").style.display = "none";
+    document.getElementById("dashboardScreen").style.display = "block";
+    document.getElementById("custWelcomeName").innerText = customer.name;
+    document.getElementById("custPhoneDisplay").innerText = `Phone: ${customer.phone} | ${customer.address || 'Magam'}`;
+
+    loadCustomerStatement(customer);
+}
+
+async function loadCustomerStatement(customer) {
+    let { data: entries } = await supabaseClient.from('ledger_entries').select('*').eq('customer_phone', customer.phone).order('created_at', { ascending: false });
+    currentCustomerEntries = entries || [];
+
+    let { data: freshCust } = await supabaseClient.from('customers').select('cleared_months').eq('phone', customer.phone).single();
+    let clearedMonths = (freshCust && freshCust.cleared_months) ? freshCust.cleared_months : [];
+
+    renderCustomerMonthsGrid(clearedMonths, currentCustomerEntries);
+
+    let tbody = document.getElementById("custLedgerBody");
+    tbody.innerHTML = "";
+
+    let openingBalance = parseFloat(customer.opening_balance) || 0;
+    document.getElementById("custOpeningBal").innerText = openingBalance.toFixed(2);
+
+    let totalPurchases = 0, totalPaid = 0;
+    let isInvoiceReady = currentCustomerEntries.some(e => e.invoice_ready === true);
+
+    if (currentCustomerEntries.length === 0 && openingBalance === 0) {
+        tbody.innerHTML = `<tr><td colspan="6" style="text-align:center; color:var(--ink-soft);">No transaction records found.</td></tr>`;
+        document.getElementById("custTotalDue").innerText = "0.00";
+        cachedTotals = { opening: 0, purchases: 0, paid: 0, finalDue: 0 };
+        setupInvoiceBanner(false);
+        return;
+    }
+
+    currentCustomerEntries.forEach(e => {
+        let price = parseFloat(e.total_price) || 0;
+        if (e.payment_mode === 'Udhar') totalPurchases += price;
+        else totalPaid += price;
+
+        let badgeColor = e.payment_mode === 'Udhar' ? 'color:var(--red-alert); font-weight:700;' : 'color:var(--green-success); font-weight:700;';
+        tbody.innerHTML += `
+            <tr>
+                <td>${e.created_date || 'N/A'}</td>
+                <td><b>${e.item_name}</b></td>
+                <td>${e.qty}</td>
+                <td>Rs. ${e.rate}</td>
+                <td>Rs. ${price.toFixed(2)}</td>
+                <td><span style="${badgeColor}">${e.payment_mode}</span></td>
+            </tr>
+        `;
+    });
+
+    let finalDue = (openingBalance + totalPurchases) - totalPaid;
+    document.getElementById("custTotalDue").innerText = finalDue.toFixed(2);
+    cachedTotals = { opening: openingBalance, purchases: totalPurchases, paid: totalPaid, finalDue: finalDue };
+    
+    setupInvoiceBanner(isInvoiceReady);
+}
+
+function renderCustomerMonthsGrid(clearedMonths, entries) {
+    let grid = document.getElementById("customerMonthsGrid");
+    grid.innerHTML = "";
+
+    const currentDate = new Date();
+    const monthNameToNumber = {
+        "January": "01", "February": "02", "March": "03", "April": "04",
+        "May": "05", "June": "06", "July": "07", "August": "08",
+        "September": "09", "October": "10", "November": "11", "December": "12"
+    };
+
+    let visibleMonthsCount = 0;
+
+    MONTHS_LIST.forEach((m) => {
+        let isCleared = clearedMonths.includes(m);
+        let monthPrefix = `${currentDate.getFullYear()}-${monthNameToNumber[m]}`;
+        let hasActivity = entries.some(e => e.created_date && e.created_date.startsWith(monthPrefix));
+
+        if (!hasActivity && !isCleared) return;
+
+        visibleMonthsCount++;
+        let cssClass = "month-badge";
+        let statusText = "";
+
+        if (isCleared) {
+            cssClass += " cleared";
+            statusText = `<br><i class="fa-solid fa-check"><b> Cleared</b></i>`;
+        } else {
+            cssClass += " running";
+            statusText = `<br><span style="font-size:9px;">Running</span>`;
+        }
+
+        grid.innerHTML += `<div class="${cssClass}"><b>${m}</b>${statusText}</div>`;
+    });
+
+    if (visibleMonthsCount === 0) {
+        grid.innerHTML = `<div style="grid-column: span 3; text-align:center; font-size:11px; color:var(--ink-soft); padding:10px;">No active billing months found.</div>`;
+    }
+}
+
+function setupInvoiceBanner(isReady) {
+    let banner = document.getElementById("invoiceStatusBanner");
+    let title = document.getElementById("invoiceStatusTitle");
+    let desc = document.getElementById("invoiceStatusDesc");
+    let actionArea = document.getElementById("invoiceActionArea");
+
+    if (isReady) {
+        banner.className = "invoice-status-banner ready";
+        title.innerHTML = `<i class="fa-solid fa-circle-check" style="color:var(--green-success);"></i> Invoice Ready`;
+        desc.innerText = "Your official bill is generated and ready for download.";
+        actionArea.innerHTML = `<button onclick="downloadCustomerPDF()" style="background:var(--burgundy); color:#fff; border:none; padding:8px 12px; border-radius:8px; font-weight:700; font-size:11px; cursor:pointer;"><i class="fa-solid fa-file-pdf"></i> Download</button>`;
+    } else {
+        banner.className = "invoice-status-banner";
+        title.innerHTML = `<i class="fa-solid fa-clock" style="color:var(--burgundy);"></i> Invoice Not Ready`;
+        desc.innerText = "Admin has not enabled the invoice yet.";
+        actionArea.innerHTML = `<span style="font-size:10px; font-weight:700; color:var(--ink-soft); text-transform:uppercase;">Pending Approval</span>`;
+    }
+}
+
+function downloadCustomerPDF() {
+    if (!currentCustomerData) return;
+
+    let rowsHTML = "";
+    if (cachedTotals.opening > 0) {
+        rowsHTML += `<tr><td>-</td><td><b>Opening / Last Balance Carried Forward</b></td><td>1</td><td>Rs. ${cachedTotals.opening.toFixed(2)}</td><td>Rs. ${cachedTotals.opening.toFixed(2)}</td><td>Udhar</td></tr>`;
+    }
+    
+    currentCustomerEntries.forEach(e => {
+        rowsHTML += `<tr><td>${e.created_date || 'N/A'}</td><td><b>${e.item_name}</b></td><td>${e.qty}</td><td>Rs. ${e.rate}</td><td>Rs. ${e.total_price}</td><td>${e.payment_mode}</td></tr>`;
+    });
+
+    let subtotal = cachedTotals.opening + cachedTotals.purchases;
+    let upiSectionHTML = cachedTotals.finalDue > 0 ? `
+        <div class="upi-payment-section">
+            <img src="https://i.ibb.co/CpqqR6gP/IMG-20260801-WA0005.jpg" alt="UPI QR Code" class="upi-qr-code">
+            <div class="upi-details">
+                <h5>Scan &amp; Pay Due Balance</h5>
+                <p><strong>Name:</strong> City Choice Bakers &amp; Restaurant</p>
+                <p><strong>UPI ID:</strong> 7006592704@ptyes | <strong>Phone:</strong> 7006592704</p>
+            </div>
+        </div>` : '';
+
+    let exportContainer = document.getElementById("pdfExportContainer");
+    exportContainer.style.display = "block";
+    exportContainer.innerHTML = `
+        <div class="canvas-wrapper">
+            <div class="invoice-header">
+                <div class="brand-side">
+                    <div class="logo-ring">
+                        <img src="logo2.png" alt="City Choice Logo" onerror="this.src='https://cdn-icons-png.flaticon.com/512/3076/3076137.png'">
+                    </div>
+                    <div class="brand-info">
+                        <h1>City Choice Bakers</h1>
+                        <div class="brand-tagline">Bakery · Sweets · Restaurant · Disposal</div>
+                        <p>Gulmarg Road, Magam &amp; Kunzer<br>Mob: +91 7006592704</p>
+                        <div class="fssai-badge-box">
+                            <img src="https://i.ibb.co/7JbjFcx1/fssai-logo-df4c.png" alt="FSSAI">
+                            <div class="fssai-text">Lic No: 11023070000010</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="doc-label">
+                    <div class="doc-kicker">Statement</div>
+                    <div class="doc-title">Bill</div>
+                </div>
+            </div>
+
+            <div class="bill-meta-container">
+                <div class="bill-to">
+                    <h4>Billed To</h4>
+                    <div class="customer-name">${currentCustomerData.name}</div>
+                    <div style="margin-top: 4px;">Contact: <span>${currentCustomerData.phone}</span></div>
+                    <div style="color: var(--ink-soft); margin-top: 2px;">${currentCustomerData.address || 'Magam Branch'}</div>
+                </div>
+                <div class="meta-details">
+                    <p><strong>Date:</strong> ${new Date().toISOString().split('T')[0]}</p>
+                    <p style="margin-top: 4px;"><strong>Account:</strong> <span style="font-weight: 700; color: var(--burgundy);">Khata Statement</span></p>
+                </div>
+            </div>
+
+            <table class="invoice-table">
+                <thead>
+                    <tr>
+                        <th style="width: 17%;">Date</th>
+                        <th style="width: 43%;">Item Description</th>
+                        <th style="width: 10%;">Qty</th>
+                        <th style="width: 15%;">Rate</th>
+                        <th style="width: 15%;">Total</th>
+                        <th style="width: 10%;">Mode</th>
+                    </tr>
+                </thead>
+                <tbody>${rowsHTML}</tbody>
+            </table>
+
+            <div class="summary-container">
+                <div class="invoice-notes">
+                    <p><strong>Terms &amp; Conditions</strong></p>
+                    <p>1. Goods once sold will not be taken back.<br>2. Thank you for choosing City Choice Bakers.</p>
+                </div>
+                <div class="summary-wrapper">
+                    <div class="summary-line">
+                        <span>Total Purchases</span>
+                        <span>Rs. ${subtotal.toFixed(2)}</span>
+                    </div>
+                    <div class="summary-line paid-line">
+                        <span>Total Paid</span>
+                        <span>Rs. ${cachedTotals.paid.toFixed(2)}</span>
+                    </div>
+                    <div class="balance-due-box">
+                        <span>Balance Due</span>
+                        <span>Rs. ${cachedTotals.finalDue.toFixed(2)}</span>
+                    </div>
+                </div>
+            </div>
+
+            ${upiSectionHTML}
+            <div class="footer-greeting">Thank you for your business. Please visit again.</div>
+        </div>
+    `;
+
+    let renderSettings = {
+        margin: [10, 10, 10, 10],
+        filename: `Invoice_${currentCustomerData.phone}_CityChoice.pdf`,
+        image: { type: 'jpeg', quality: 0.98 },
+        html2canvas: { scale: 2, useCORS: true, letterRendering: true },
+        jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+    };
+
+    // Direct html2pdf save method for instant mobile trigger
+    html2pdf().set(renderSettings).from(exportContainer).save().then(() => {
+        exportContainer.style.display = "none";
+    }).catch(err => {
+        console.error("PDF generation error:", err);
+        exportContainer.style.display = "none";
+    });
+}
+
+function logoutCustomer() {
+    document.getElementById("dashboardScreen").style.display = "none";
+    document.getElementById("loginScreen").style.display = "block";
+    document.getElementById("loginPhone").value = "";
+    document.getElementById("loginPin").value = "";
+    currentCustomerData = null;
+}
+</script>
+</body>
+</html>
