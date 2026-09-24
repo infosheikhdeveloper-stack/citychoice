@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+  <title>Cakes Collection - City Choice Bakers</title>
+
+  <!-- Open Graph Meta Tags -->
+  <meta property="og:title" content="Delicious Cakes | City Choice Bakers" />
+  <meta property="og:description" content="Explore Birthday, Anniversary & Special Custom Cakes from City Choice Bakers!" />
+  <meta property="og:image" content="offer1.jpg" />
+  <meta property="og:type" content="website" />
+
+  <!-- Fonts & Icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Pacifico&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="cake.css">
+
+  <!-- Supabase JS -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+  <script src="supabase.js"></script>
+</head>
+<body>
+
+  <!-- PREMIUM RED & WHITE CAKE SPLASH SCREEN -->
+  <div id="cakeSplash" class="cake-splash-overlay">
+    <div class="splash-card">
+      <div class="splash-cake-wrapper">
+        <svg class="animated-cake-svg" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+          <!-- Cake Base Plate -->
+          <ellipse cx="100" cy="170" rx="70" ry="12" fill="#ffe6e6"/>
+          
+          <!-- Bottom Layer (Red Velvet & White Cream) -->
+          <path d="M 45 130 L 45 160 Q 100 180 155 160 L 155 130 Q 100 150 45 130 Z" fill="#d63031"/>
+          <path d="M 45 130 Q 100 150 155 130 Q 100 110 45 130 Z" fill="#ffffff"/>
+          
+          <!-- Middle Cream Drip -->
+          <path d="M 45 130 Q 60 145 75 132 Q 90 148 105 132 Q 120 145 135 132 Q 148 145 155 130 Q 100 145 45 130 Z" fill="#ff7675"/>
+
+          <!-- Top Layer -->
+          <path d="M 60 90 L 60 120 Q 100 138 140 120 L 140 90 Q 100 108 60 90 Z" fill="#ff4757"/>
+          <path d="M 60 90 Q 100 108 140 90 Q 100 75 60 90 Z" fill="#ffffff"/>
+
+          <!-- Candles -->
+          <rect x="80" y="60" width="6" height="22" rx="3" fill="#ff7675"/>
+          <rect x="97" y="55" width="6" height="27" rx="3" fill="#d63031"/>
+          <rect x="114" y="60" width="6" height="22" rx="3" fill="#ff7675"/>
+
+          <!-- Flames -->
+          <path class="flame flame-1" d="M 83 48 C 80 54, 86 58, 83 60 C 80 58, 86 54, 83 48 Z" fill="#ff4757"/>
+          <path class="flame flame-2" d="M 100 42 C 97 49, 103 53, 100 55 C 97 53, 103 49, 100 42 Z" fill="#ff6b6b"/>
+          <path class="flame flame-3" d="M 117 48 C 114 54, 120 58, 117 60 C 114 58, 120 54, 117 48 Z" fill="#ff4757"/>
+        </svg>
+      </div>
+      <h1 class="splash-brand-title">City Choice Bakers</h1>
+      <p class="splash-subtitle">Baking Fresh Magic Everyday</p>
+    </div>
+  </div>
+
+  <!-- MAIN CONTENT CONTAINER -->
+  <div id="mainPageContent" class="main-page-hidden">
+
+    <!-- TOP HEADER -->
+    <header class="cake-header">
+      <div class="header-left">
+        <a href="index.html" class="back-btn"><i class="fa-solid fa-arrow-left"></i></a>
+        <h1>Cake Store</h1>
+      </div>
+      <button class="page-share-btn" onclick="openShareModal()">
+        <i class="fa-solid fa-share-nodes"></i> Share Page
+      </button>
+    </header>
+
+    <!-- CAKE SPECIAL BANNER -->
+    <section class="banner-section">
+      <div class="banner-card">
+        <div class="banner-text">
+          <h2>Custom Birthday & Anniversary Cakes</h2>
+          <p>Freshly Baked • 100% Eggless Options • Fast Delivery</p>
+        </div>
+        <i class="fa-solid fa-cake-candles banner-icon"></i>
+      </div>
+    </section>
+
+    <!-- CAKE CATEGORY FILTERS -->
+    <section class="filter-section">
+      <button class="filter-btn active" onclick="filterCakes('all', this)">All Cakes</button>
+      <button class="filter-btn" onclick="filterCakes('birthday', this)">Birthday Cakes</button>
+      <button class="filter-btn" onclick="filterCakes('anniversary', this)">Anniversary</button>
+      <button class="filter-btn" onclick="filterCakes('pastry', this)">Pastries</button>
+    </section>
+
+    <!-- PRODUCTS GRID -->
+    <main class="cake-products-section">
+      <div class="cake-grid" id="cakeContainer">
+        <div class="loading-state">
+          <i class="fa-solid fa-spinner fa-spin"></i>
+          <p>Loading Fresh Cakes...</p>
+        </div>
+      </div>
+    </main>
+
+  </div>
+
+  <!-- SHARE MODAL -->
+  <div class="share-modal-overlay" id="shareModal">
+    <div class="share-modal-content">
+      <div class="share-modal-header">
+        <h3>Share Cake Collection</h3>
+        <i class="fa-solid fa-xmark" onclick="closeShareModal()"></i>
+      </div>
+      <p class="share-desc">Share our delicious cakes page with friends and family!</p>
+      
+      <div class="share-options-grid">
+        <div class="share-item whatsapp" onclick="shareToWhatsApp()">
+          <i class="fa-brands fa-whatsapp"></i>
+          <span>WhatsApp</span>
+        </div>
+
+        <div class="share-item wa-status" onclick="shareToWhatsAppStatus()">
+          <i class="fa-solid fa-circle-notch"></i>
+          <span>WA Status</span>
+        </div>
+
+        <div class="share-item facebook" onclick="shareToFacebook()">
+          <i class="fa-brands fa-facebook-f"></i>
+          <span>Facebook</span>
+        </div>
+
+        <div class="share-item instagram" onclick="shareToInstagram()">
+          <i class="fa-brands fa-instagram"></i>
+          <span>Instagram</span>
+        </div>
+
+        <div class="share-item native" onclick="shareNative()">
+          <i class="fa-solid fa-share-nodes"></i>
+          <span>More Options</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let allCakeProducts = [];
+
+    // SPLASH SCREEN & PAGE ZOOM CONTROLLER
+    function handleSplashAnimation() {
+      const splash = document.getElementById("cakeSplash");
+      const mainPage = document.getElementById("mainPageContent");
+
+      setTimeout(() => {
+        splash.classList.add("splash-fade-out");
+        mainPage.classList.remove("main-page-hidden");
+        mainPage.classList.add("main-page-zoom-in");
+
+        setTimeout(() => {
+          splash.style.display = "none";
+        }, 600);
+      }, 2300);
+    }
+
+    // Fetch Cakes from Supabase
+    async function fetchCakesFromSupabase() {
+      const container = document.getElementById("cakeContainer");
+      try {
+        const { data, error } = await supabaseClient
+          .from("products")
+          .select("*")
+          .ilike("category", "%Cake%");
+
+        if (error) throw error;
+
+        if (!data || data.length === 0) {
+          container.innerHTML = `
+            <div class="no-products">
+              <i class="fa-solid fa-cake-candles"></i>
+              <p>No Cakes Found Currently!</p>
+            </div>`;
+          return;
+        }
+
+        allCakeProducts = data;
+        renderCakes(allCakeProducts);
+
+      } catch (err) {
+        console.error("Supabase Error:", err.message);
+        container.innerHTML = `<p class="error-msg">Failed to load cakes. Please try again.</p>`;
+      }
+    }
+
+    // Render Cakes to HTML
+    function renderCakes(list) {
+      const container = document.getElementById("cakeContainer");
+      container.innerHTML = "";
+
+      list.forEach(item => {
+        const card = document.createElement("div");
+        card.className = "cake-card";
+        card.onclick = () => {
+          window.location.href = `product.html?id=${item.id}`;
+        };
+
+        card.innerHTML = `
+          <div class="cake-img-box">
+            <img src="${item.image}" alt="${item.title}" loading="lazy">
+            ${item.popular ? '<span class="popular-badge"><i class="fa-solid fa-star"></i> Bestseller</span>' : ''}
+          </div>
+          <div class="cake-details">
+            <h3>${item.title}</h3>
+            <p class="cake-desc">${item.description ? (item.description.length > 50 ? item.description.substring(0, 50) + "..." : item.description) : ""}</p>
+            <div class="cake-price-row">
+              <span class="price">₹${item.price}</span>
+              <span class="view-btn">View Details <i class="fa-solid fa-chevron-right"></i></span>
+            </div>
+          </div>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    // Filter Logic
+    function filterCakes(category, btn) {
+      document.querySelectorAll(".filter-btn").forEach(b => b.classList.remove("active"));
+      btn.classList.add("active");
+
+      if (category === "all") {
+        renderCakes(allCakeProducts);
+      } else {
+        const filtered = allCakeProducts.filter(p => 
+          p.title.toLowerCase().includes(category) || 
+          (p.description && p.description.toLowerCase().includes(category)) ||
+          p.category.toLowerCase().includes(category)
+        );
+        renderCakes(filtered);
+      }
+    }
+
+    // Share Modal
+    function openShareModal() {
+      document.getElementById("shareModal").classList.add("show");
+    }
+
+    function closeShareModal() {
+      document.getElementById("shareModal").classList.remove("show");
+    }
+
+    const shareUrl = window.location.href;
+    const shareTitle = "Check out delicious cakes at City Choice Bakers!";
+
+    function shareToWhatsApp() {
+      const url = `https://api.whatsapp.com/send?text=${encodeURIComponent(shareTitle + " " + shareUrl)}`;
+      window.open(url, '_blank');
+    }
+
+    function shareToWhatsAppStatus() {
+      const url = `https://api.whatsapp.com/send?text=${encodeURIComponent(shareTitle + " " + shareUrl)}`;
+      window.open(url, '_blank');
+    }
+
+    function shareToFacebook() {
+      const url = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}`;
+      window.open(url, '_blank');
+    }
+
+    function shareToInstagram() {
+      if (navigator.share) {
+        navigator.share({ title: shareTitle, url: shareUrl });
+      } else {
+        alert("Open Instagram app and share link in story or messages!");
+      }
+    }
+
+    function shareNative() {
+      if (navigator.share) {
+        navigator.share({
+          title: "City Choice Bakers - Cakes",
+          text: shareTitle,
+          url: shareUrl
+        });
+      } else {
+        shareToWhatsApp();
+      }
+    }
+
+    window.onload = () => {
+      handleSplashAnimation();
+      fetchCakesFromSupabase();
+    };
+  </script>
+</body>
+</html>
