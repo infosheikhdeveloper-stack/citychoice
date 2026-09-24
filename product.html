@@ -2,132 +2,195 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- Viewport strictly configured to block automatic zooming and layout break -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>Product Detail</title>
 
+<!-- Font Awesome & Google Fonts -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-  <link rel="stylesheet" href="alert.css">
-  <link rel="stylesheet" href="back.css">
-    <link rel="stylesheet" href="product1.css">
+<link rel="stylesheet" href="product1.css">
    
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
 <script src="supabase.js"></script>
-
-
-
 </head>
 
 <body>
   
   <!-- TOP ALERT -->
-
-<div class="top-alert"
-id="topAlert">
-
-<div class="alert-icon"
-id="alertIcon">
-
-<i class="fa-solid fa-check"></i>
-
-</div>
-
-<div class="alert-content">
-
-<div class="alert-title"
-id="alertTitle">
-
-Success
-
-</div>
-
-<div class="alert-text"
-id="alertText">
-
-Message here
-
-</div>
-
-</div>
-
-<div class="alert-close"
-onclick="closeTopAlert()">
-
-<i class="fa-solid fa-xmark"></i>
-
-</div>
-
-</div>
+  <div class="top-alert" id="topAlert">
+    <div class="alert-icon" id="alertIcon">
+      <i class="fa-solid fa-check"></i>
+    </div>
+    <div class="alert-content">
+      <div class="alert-title" id="alertTitle">Success</div>
+      <div class="alert-text" id="alertText">Message here</div>
+    </div>
+    <div class="alert-close" onclick="closeTopAlert()">
+      <i class="fa-solid fa-xmark"></i>
+    </div>
+  </div>
   
-  
-  
+  <div class="product-wrapper">
+    <!-- HERO IMAGE WRAPPER -->
+    <div class="hero-wrapper">
+      <img id="hero" class="hero" src="" alt="Product Image">
+      <button class="share-btn" onclick="shareProduct()" title="Share Product">
+        <i class="fa-solid fa-share-nodes"></i>
+      </button>
+    </div>
 
-<img id="hero" class="hero">
+    <!-- MAIN PRODUCT CARD -->
+    <div class="container">
+      
+      <!-- META ROW (VEG BADGE + RATING) -->
+      <div class="product-meta-row">
+        <div class="veg-tag">
+          <span class="veg-icon-dot"></span> 100% Pure Veg
+        </div>
+        <div class="rating-badge">
+          <i class="fa-solid fa-star"></i> 4.5
+        </div>
+      </div>
 
-<div class="container">
+      <h1 class="title" id="title">Loading...</h1>
+      <div class="price">₹<span id="price">0</span></div>
+      <p class="desc" id="desc"></p>
 
-  <div class="title" id="title">Loading...</div>
-  <div class="price">₹<span id="price">0</span></div>
-  <div class="desc" id="desc"></div>
+      <!-- FSSAI & SAFETY BADGE -->
+      <div class="fssai-box">
+        <div class="fssai-badge">
+          <span class="fssai-text">fssai</span>
+        </div>
+        <div class="fssai-info">
+          <span>Lic. No. 11023070000010</span>
+          <p>Guaranteed Clean & Hygienic Standard</p>
+        </div>
+      </div>
 
-  <div class="related">
-    <h3>More Products</h3>
-    <div class="grid" id="related"></div>
+      <!-- SOCIAL MEDIA & CONTACT CONNECT -->
+      <div class="social-contact-wrapper">
+        <h4>Connect & Support</h4>
+        
+        <div class="contact-number-row">
+          <i class="fa-solid fa-phone"></i>
+          <span>+91 7006592704</span>
+        </div>
+
+        <div class="social-icons">
+          <a href="#" class="social-btn instagram" title="Instagram" target="_blank" rel="noopener">
+            <i class="fa-brands fa-instagram"></i>
+          </a>
+          <a href="#" class="social-btn facebook" title="Facebook" target="_blank" rel="noopener">
+            <i class="fa-brands fa-facebook-f"></i>
+          </a>
+          <a href="https://wa.me/917006592704?text=Hi,%20I%20have%20a%20query%20regarding%20a%20product" class="social-btn whatsapp" title="WhatsApp Us" target="_blank" rel="noopener">
+            <i class="fa-brands fa-whatsapp"></i>
+          </a>
+        </div>
+      </div>
+
+      <!-- RELATED PRODUCTS HORIZONTAL SLIDER -->
+      <div class="related">
+        <div class="related-header">
+          <h3>More Products</h3>
+          <span class="swipe-hint">Swipe <i class="fa-solid fa-arrow-right-long"></i></span>
+        </div>
+        <div class="slider-container" id="related"></div>
+      </div>
+
+    </div>
   </div>
 
-</div>
-
-<div class="bottom">
-  <button onclick="addToCart()">Add to Cart</button>
-</div>
+  <!-- FIXED BOTTOM ACTIONS -->
+  <div class="bottom">
+    <button class="btn-add" onclick="addToCart()">Add to Cart</button>
+  </div>
 
 <script>
-
 const id = new URLSearchParams(window.location.search).get("id");
-
 let product = null;
 
 /* SUPABASE LOAD */
 async function loadProduct(){
+  if(!id) return;
 
-  const { data } = await supabaseClient
+  const { data, error } = await supabaseClient
     .from("products")
     .select("*")
     .eq("id", id)
     .single();
+
+  if(error || !data) return;
 
   product = data;
 
   document.getElementById("hero").src = data.image;
   document.getElementById("title").innerText = data.title;
   document.getElementById("price").innerText = data.price;
-  document.getElementById("desc").innerText = data.description || "";
+  document.getElementById("desc").innerText = data.description || "No description provided.";
 
-  loadRelated(data.category);
+  loadRelated(data.category, data.id);
 }
 
-/* RELATED */
-async function loadRelated(cat){
-
+/* RELATED PRODUCTS LOAD (HORIZONTAL SLIDER) */
+async function loadRelated(cat, currentId){
   const { data } = await supabaseClient
     .from("products")
     .select("*")
-    .eq("category", cat);
+    .eq("category", cat)
+    .neq("id", currentId);
 
   let box = document.getElementById("related");
   box.innerHTML = "";
 
+  if(!data || data.length === 0) {
+    box.innerHTML = "<p class='no-products'>No related items in this category.</p>";
+    return;
+  }
+
   data.forEach(item => {
+    const itemData = JSON.stringify(item).replace(/'/g, "&apos;").replace(/"/g, "&quot;");
+
     box.innerHTML += `
       <div class="card">
-        <img src="${item.image}">
-        <b>${item.title}</b>
-        <div>₹${item.price}</div>
+        <div onclick="openProduct('${item.id}')">
+          <img src="${item.image}" alt="${item.title}">
+          <b>${item.title}</b>
+          <div class="card-price">₹${item.price}</div>
+        </div>
+        <button class="btn-card-add" onclick='addRelatedToCart(${itemData})'>
+          <i class="fa-solid fa-plus"></i> Add
+        </button>
       </div>
     `;
   });
 }
 
-/* CART */
+function openProduct(prodId) {
+  window.location.href = `product.html?id=${prodId}`;
+}
+
+/* SHARE FUNCTION */
+async function shareProduct() {
+  if (!product) return;
+  
+  if (navigator.share) {
+    try {
+      await navigator.share({
+        title: product.title,
+        text: `Check out ${product.title} at ₹${product.price}!`,
+        url: window.location.href
+      });
+    } catch (err) {
+      console.log("Share cancelled or failed");
+    }
+  } else {
+    navigator.clipboard.writeText(window.location.href);
+    showTopAlert("success", "Link Copied", "Product link copied to clipboard!");
+  }
+}
+
+/* CART OPERATIONS */
 function getCart(){
   return JSON.parse(localStorage.getItem("cart") || "[]");
 }
@@ -136,104 +199,72 @@ function saveCart(cart){
   localStorage.setItem("cart", JSON.stringify(cart));
 }
 
-/* ADD TO CART */
 function addToCart(){
+  if(!product) return;
+  addSingleToCart(product, true);
+}
 
+function addRelatedToCart(item){
+  addSingleToCart(item, false);
+}
+
+function addSingleToCart(itemObj, redirect){
   let cart = getCart();
-
-  let item = cart.find(i => i.id == product.id);
+  let item = cart.find(i => i.id == itemObj.id);
 
   if(item){
     item.qty++;
   }else{
     cart.push({
-      id: product.id,
-      title: product.title,
-      price: product.price,
-      image: product.image,
+      id: itemObj.id,
+      title: itemObj.title,
+      price: itemObj.price,
+      image: itemObj.image,
       qty: 1
     });
   }
 
   saveCart(cart);
 
-showTopAlert(
-  "success",
-  "Success",
-  "Product added to your cart."
-);
+  showTopAlert("success", "Added to Cart", `${itemObj.title} added successfully.`);
 
-setTimeout(() => {
-  window.location.href = "cart.html";
-}, 1200); // 1.2 seconds
+  if(redirect){
+    setTimeout(() => {
+      window.location.href = "cart.html";
+    }, 1200);
+  }
 }
+
 loadProduct();
 
-// =========================
-// TOP ALERT
-// =========================
+/* TOP ALERT */
+function showTopAlert(type, title, message){
+  const alertBox = document.getElementById("topAlert");
+  const alertIcon = document.getElementById("alertIcon");
 
-function showTopAlert(type,title,message){
+  document.getElementById("alertTitle").innerText = title;
+  document.getElementById("alertText").innerText = message;
 
-const alertBox =
-document.getElementById("topAlert");
+  alertBox.classList.remove("success", "error");
 
-const alertIcon =
-document.getElementById("alertIcon");
+  if(type === "success"){
+    alertBox.classList.add("success");
+    alertIcon.innerHTML = `<i class="fa-solid fa-check"></i>`;
+  }else{
+    alertBox.classList.add("error");
+    alertIcon.innerHTML = `<i class="fa-solid fa-xmark"></i>`;
+  }
 
-document.getElementById("alertTitle")
-.innerText = title;
+  alertBox.classList.add("show");
 
-document.getElementById("alertText")
-.innerText = message;
-
-// RESET
-alertBox.classList.remove(
-"success",
-"error"
-);
-
-// TYPE
-if(type === "success"){
-
-alertBox.classList.add("success");
-
-alertIcon.innerHTML = `
-<i class="fa-solid fa-check"></i>
-`;
-
-}else{
-
-alertBox.classList.add("error");
-
-alertIcon.innerHTML = `
-<i class="fa-solid fa-xmark"></i>
-`;
-
+  setTimeout(()=>{
+    closeTopAlert();
+  }, 3000);
 }
 
-// SHOW
-alertBox.classList.add("show");
-
-// AUTO HIDE
-setTimeout(()=>{
-
-closeTopAlert();
-
-},3000);
-
-}
-
-// CLOSE
 function closeTopAlert(){
-
-document.getElementById("topAlert")
-.classList.remove("show");
-
+  document.getElementById("topAlert").classList.remove("show");
 }
-
-
-
 </script>
 <script src="back.js"></script>
 </body>
