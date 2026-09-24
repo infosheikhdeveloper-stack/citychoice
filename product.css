@@ -1,8 +1,8 @@
-/* =========================
-   PREMIUM PRODUCTS (GRID LAYOUT)
-========================= */
+/* =========================================
+   PREMIUM PRODUCTS (GRID LAYOUT & IMAGES)
+========================================= */
 
-/* Main Grid Container: 4 Products in one line on desktop */
+/* Main Grid Container */
 .horizontal-products {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -16,35 +16,46 @@
 .product-card {
     width: 100%;
     min-width: 0;
-    min-height: 320px;
-    background: #fff;
-    border-radius: 22px;
+    background: #ffffff;
+    border-radius: 20px;
     overflow: hidden;
     display: flex;
     flex-direction: column;
-    border: 1px solid rgba(0,0,0,.06);
-    box-shadow: 0 8px 25px rgba(0,0,0,.08);
-    transition: .35s ease;
-    animation: cardFade .45s ease;
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+    transition: transform 0.35s ease, box-shadow 0.35s ease;
+    animation: cardFade 0.45s ease;
+    cursor: pointer;
 }
 
 .product-card:hover {
     transform: translateY(-6px);
-    box-shadow: 0 18px 35px rgba(0,0,0,.15);
+    box-shadow: 0 18px 35px rgba(0, 0, 0, 0.15);
+}
+
+/* --- IMAGE FIX FOR PERFECT DISPLAY --- */
+.product-card .image-wrapper {
+    width: 100%;
+    aspect-ratio: 4 / 3; /* Maintains proper proportions without cropping */
+    overflow: hidden;
+    background-color: #f9f9f9;
+    position: relative;
 }
 
 .product-card img {
     width: 100%;
-    height: 130px;
-    object-fit: cover;
+    height: 100%;
+    object-fit: cover; /* Ensures full area is filled cleanly */
+    object-position: center; /* Centers subject in view */
     display: block;
-    transition: .35s;
+    transition: transform 0.35s ease;
 }
 
 .product-card:hover img {
-    transform: scale(1.05);
+    transform: scale(1.06);
 }
 
+/* Card Content Area */
 .product-card .content {
     display: flex;
     flex-direction: column;
@@ -53,7 +64,7 @@
 }
 
 .product-card h3 {
-    font-size: 13px;
+    font-size: 14px;
     font-weight: 700;
     line-height: 1.3;
     margin: 0;
@@ -61,13 +72,13 @@
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
     overflow: hidden;
-    min-height: 34px;
-    color: #111;
+    min-height: 36px;
+    color: #111111;
 }
 
 .product-card p {
     font-size: 11px;
-    color: #777;
+    color: #666666;
     margin: 6px 0;
     line-height: 1.4;
     display: -webkit-box;
@@ -77,19 +88,23 @@
     min-height: 30px;
 }
 
+/* Badges Section */
 .product-badges {
     display: flex;
     flex-wrap: wrap;
     gap: 4px;
-    margin: 6px 0;
+    margin: 6px 0 10px 0;
 }
 
 .badge {
-    padding: 3px 6px;
+    padding: 3px 7px;
     border-radius: 20px;
     font-size: 9px;
     font-weight: 600;
     background: #f6f6f6;
+    display: inline-flex;
+    align-items: center;
+    gap: 3px;
 }
 
 .badge:nth-child(1) {
@@ -107,16 +122,17 @@
     color: #ff8a00;
 }
 
+/* Price & Button Row */
 .price-row {
     margin-top: auto;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding-top: 4px;
+    padding-top: 6px;
 }
 
 .price-row span {
-    font-size: 15px;
+    font-size: 16px;
     font-weight: 800;
     color: #ff2b2b;
 }
@@ -124,20 +140,21 @@
 .price-row button {
     border: none;
     background: #ff2b2b;
-    color: #fff;
-    padding: 8px 14px;
+    color: #ffffff;
+    padding: 8px 16px;
     border-radius: 12px;
-    font-size: 11px;
+    font-size: 12px;
     font-weight: 700;
     cursor: pointer;
-    box-shadow: 0 4px 12px rgba(255, 43, 43, 0.2);
-    transition: .25s;
+    box-shadow: 0 4px 12px rgba(255, 43, 43, 0.25);
+    transition: background 0.2s ease, transform 0.2s ease;
 }
 
 .price-row button:active {
-    transform: scale(.92);
+    transform: scale(0.94);
 }
 
+/* Section Title Row */
 .title-row {
     display: flex;
     justify-content: space-between;
@@ -149,7 +166,7 @@
 .title-row h2 {
     font-size: 20px;
     font-weight: 800;
-    color: #111;
+    color: #111111;
 }
 
 .more,
@@ -163,7 +180,7 @@
 @keyframes cardFade {
     from {
         opacity: 0;
-        transform: translateY(20px);
+        transform: translateY(15px);
     }
     to {
         opacity: 1;
@@ -172,36 +189,36 @@
 }
 
 /* =========================================
-   RESPONSIVE BREAKPOINTS
+   RESPONSIVE BREAKPOINTS (TABLET & MOBILE)
 ========================================= */
 
-/* Tablets & Small Laptops (3 items in a row) */
-@media(max-width: 1024px) {
+/* Tablets & Small Laptops (3 Columns) */
+@media (max-width: 1024px) {
     .horizontal-products {
         grid-template-columns: repeat(3, 1fr);
         gap: 12px;
+        padding: 12px;
+    }
+
+    .product-card h3 {
+        font-size: 13px;
     }
 }
 
-/* Mobile Devices (2 items in a row, keeping cards clean & prominent) */
-@media(max-width: 768px) {
+/* Mobile Devices (2 Columns - Clean & Balanced) */
+@media (max-width: 600px) {
     .horizontal-products {
         grid-template-columns: repeat(2, 1fr);
         gap: 10px;
-        padding: 10px 14px;
+        padding: 10px;
     }
 
     .product-card {
-        min-height: 295px;
-        border-radius: 18px;
-    }
-
-    .product-card img {
-        height: 110px;
+        border-radius: 16px;
     }
 
     .product-card .content {
-        padding: 10px;
+        padding: 8px 10px 10px 10px;
     }
 
     .product-card h3 {
@@ -212,6 +229,12 @@
     .product-card p {
         font-size: 10px;
         min-height: 28px;
+        margin: 4px 0;
+    }
+
+    .badge {
+        font-size: 8px;
+        padding: 2px 5px;
     }
 
     .price-row span {
@@ -219,8 +242,8 @@
     }
 
     .price-row button {
-        padding: 6px 11px;
-        font-size: 10px;
-        border-radius: 10px;
+        padding: 6px 12px;
+        font-size: 11px;
+        border-radius: 8px;
     }
 }
