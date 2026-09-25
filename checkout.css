@@ -1,0 +1,356 @@
+/* =========================================
+   1. RESET & BASE STYLES
+========================================= */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    -webkit-tap-highlight-color: transparent;
+}
+
+body {
+    background-color: #f8fafc;
+    color: #1e293b;
+    padding: 12px;
+    padding-bottom: 90px; /* Checkout Button Sticky View Padding */
+    overflow-x: hidden;
+}
+
+/* =========================================
+   2. MAIN CONTAINER & LAYOUT
+========================================= */
+.checkout-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    max-width: 100%;
+}
+
+.main-content {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+h2 {
+    font-size: 20px;
+    font-weight: 700;
+    color: #0f172a;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 4px;
+}
+
+h2 i {
+    color: #4f46e5;
+}
+
+/* =========================================
+   3. CHECKOUT CARDS
+========================================= */
+.checkout-card {
+    background: #ffffff;
+    border-radius: 16px;
+    padding: 16px;
+    box-shadow: 0 4px 12px rgba(15, 23, 42, 0.04);
+    border: 1px solid #e2e8f0;
+}
+
+.checkout-card h3 {
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 14px;
+    color: #0f172a;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.checkout-card h3 i {
+    color: #4f46e5;
+    font-size: 16px;
+}
+
+/* =========================================
+   4. USER PROFILE BOX
+========================================= */
+.user-profile-info {
+    background: #f1f5f9;
+    padding: 12px 14px;
+    border-radius: 12px;
+    border-left: 4px solid #4f46e5;
+}
+
+.user-meta-info p {
+    font-size: 13px;
+    color: #334155;
+    word-break: break-all;
+}
+
+/* =========================================
+   5. SAVED ADDRESS CARDS
+========================================= */
+.saved-addresses-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.address-item-card {
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 12px !important;
+    border: 1.5px solid #e2e8f0 !important;
+    transition: all 0.2s ease;
+}
+
+.address-item-card.active-select {
+    background: #eef2ff !important;
+    border-color: #4f46e5 !important;
+}
+
+/* =========================================
+   6. FORM & INPUT CONTROLS
+========================================= */
+.form-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.input-group label {
+    font-size: 12px;
+    font-weight: 600;
+    color: #475569;
+}
+
+.input-group input,
+.input-group select {
+    width: 100%;
+    height: 46px;
+    padding: 0 14px;
+    border: 1px solid #cbd5e1;
+    border-radius: 12px;
+    outline: none;
+    font-size: 14px;
+    background: #ffffff;
+    color: #0f172a;
+    appearance: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.input-group select {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%3B64748b'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    background-size: 16px;
+}
+
+.input-group input:focus,
+.input-group select:focus {
+    border-color: #4f46e5;
+    box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.12);
+}
+
+.readonly-input {
+    background: #f8fafc !important;
+    color: #64748b !important;
+}
+
+/* PINCODE SECTION */
+.pincode-container {
+    display: flex;
+    gap: 8px;
+}
+
+.pincode-container input {
+    flex: 1;
+}
+
+#verifyPinBtn {
+    height: 46px;
+    border: none;
+    background: #0f172a;
+    color: #ffffff;
+    padding: 0 16px;
+    border-radius: 12px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+#verifyPinBtn:active {
+    transform: scale(0.96);
+}
+
+/* =========================================
+   7. BUTTONS
+========================================= */
+.btn-secondary {
+    width: 100%;
+    height: 48px;
+    border: none;
+    background: #0f172a;
+    color: #ffffff;
+    border-radius: 12px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 14px;
+}
+
+/* MOBILE BOTTOM STICKY PAYMENT BUTTON */
+.btn-primary {
+    width: 100%;
+    height: 52px;
+    border: none;
+    background: #4f46e5;
+    color: #ffffff;
+    border-radius: 14px;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    box-shadow: 0 8px 20px rgba(79, 70, 229, 0.3);
+}
+
+.btn-primary:disabled {
+    background: #cbd5e1;
+    color: #94a3b8;
+    box-shadow: none;
+    cursor: not-allowed;
+}
+
+.btn-secondary:active,
+.btn-primary:active:not(:disabled) {
+    transform: scale(0.98);
+}
+
+/* =========================================
+   8. ORDER SUMMARY & CART ITEMS
+========================================= */
+.cart-items-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    max-height: 220px;
+    overflow-y: auto;
+    padding-right: 4px;
+}
+
+.cart-summary-item {
+    background: #f8fafc;
+    padding: 8px 10px;
+    border-radius: 10px;
+    border: 1px solid #f1f5f9;
+}
+
+.divider {
+    border: none;
+    height: 1px;
+    background: #e2e8f0;
+    margin: 12px 0;
+}
+
+.bill-details {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.bill-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 13px;
+    color: #475569;
+}
+
+.bill-row span:last-child {
+    font-weight: 600;
+    color: #0f172a;
+}
+
+.total-row {
+    font-size: 16px;
+    font-weight: 700;
+    color: #0f172a;
+}
+
+.total-row span:last-child {
+    color: #4f46e5;
+    font-size: 18px;
+}
+
+.no-data {
+    text-align: center;
+    color: #64748b;
+    font-size: 13px;
+    padding: 12px 0;
+}
+
+/* =========================================
+   9. MOBILE STICKY FOOTER (PAYMENT BUTTON)
+========================================= */
+@media (max-width: 991px) {
+    .sidebar {
+        margin-top: 8px;
+    }
+
+    /* Fixed Bottom Action for Easy Mobile Tap */
+    .sidebar #nextBtn {
+        position: fixed;
+        bottom: 12px;
+        left: 12px;
+        right: 12px;
+        width: calc(100% - 24px);
+        z-index: 99;
+        margin-top: 0;
+    }
+}
+
+/* =========================================
+   10. DESKTOP RESPONSIVE
+========================================= */
+@media (min-width: 992px) {
+    body {
+        padding: 24px;
+        padding-bottom: 24px;
+    }
+
+    .checkout-container {
+        display: grid;
+        grid-template-columns: 1fr 380px;
+        gap: 24px;
+        max-width: 1200px;
+        margin: auto;
+        align-items: start;
+    }
+
+    .summary-card {
+        position: sticky;
+        top: 24px;
+    }
+
+    .form-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
+    }
+
+    .full-width {
+        grid-column: span 2;
+    }
+}
