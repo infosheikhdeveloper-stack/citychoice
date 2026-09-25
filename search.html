@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+  <title>Search Products - City Choice Bakery</title>
+
+  <!-- Google Fonts & Font Awesome -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+
+  <!-- External Stylesheets -->
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="nav.css">
+  <link rel="stylesheet" href="hed.css">
+  <link rel="stylesheet" href="alert.css">
+
+  <!-- Supabase -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="supabase.js"></script>
+
+  <style>
+    body {
+      background-color: #fafafa;
+      color: #1a1a1a;
+      padding-bottom: 80px;
+    }
+
+    /* TOP SEARCH BAR HEADER */
+    .search-header {
+      position: sticky;
+      top: 0;
+      background: #ffffff;
+      padding: 12px 16px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+      z-index: 100;
+      border-bottom: 1px solid #f0f0f0;
+    }
+
+    .back-btn {
+      background: #f8f9fa;
+      border: 1px solid #e9ecef;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #1a1a1a;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    .search-input-wrapper {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      background: #f4f5f7;
+      border-radius: 25px;
+      padding: 0 16px;
+      height: 44px;
+      border: 1px solid #e2e8f0;
+    }
+
+    .search-input-wrapper i {
+      color: #e63946;
+      font-size: 16px;
+      margin-right: 10px;
+    }
+
+    .search-input-wrapper input {
+      border: none;
+      background: transparent;
+      outline: none;
+      width: 100%;
+      font-size: 14px;
+      font-weight: 500;
+      color: #1a1a1a;
+    }
+
+    .clear-btn {
+      color: #a0aec0;
+      cursor: pointer;
+      display: none;
+    }
+
+    /* SEARCH RESULTS SECTION */
+    .search-results-container {
+      padding: 16px;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .results-count {
+      font-size: 13px;
+      font-weight: 600;
+      color: #6c757d;
+      margin-bottom: 12px;
+    }
+
+    /* SMALL PRODUCT LIST ITEM CARD */
+    .search-product-card {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: #ffffff;
+      padding: 10px 14px;
+      border-radius: 16px;
+      margin-bottom: 10px;
+      border: 1px solid #f0f0f0;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
+      cursor: pointer;
+      transition: transform 0.2s ease, border-color 0.2s ease;
+    }
+
+    .search-product-card:active {
+      transform: scale(0.98);
+      border-color: #ffe3e3;
+    }
+
+    .search-product-card img {
+      width: 60px;
+      height: 60px;
+      border-radius: 12px;
+      object-fit: cover;
+      background: #f8f9fa;
+      flex-shrink: 0;
+    }
+
+    .search-product-info {
+      flex: 1;
+      overflow: hidden;
+    }
+
+    .search-product-info h4 {
+      font-size: 14px;
+      font-weight: 700;
+      color: #1a1a1a;
+      margin-bottom: 2px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .search-product-info p {
+      font-size: 11px;
+      color: #6c757d;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .search-product-price {
+      font-size: 14px;
+      font-weight: 800;
+      color: #e63946;
+      margin-top: 4px;
+    }
+
+    .search-add-btn {
+      background: #fff0f0;
+      color: #e63946;
+      border: 1px solid #ffe3e3;
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .no-results {
+      text-align: center;
+      padding: 60px 20px;
+      color: #a0aec0;
+    }
+
+    .no-results i {
+      font-size: 48px;
+      color: #cbd5e0;
+      margin-bottom: 12px;
+    }
+
+    .no-results p {
+      font-size: 14px;
+      font-weight: 500;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- TOP ALERT -->
+  <div class="top-alert" id="topAlert">
+    <div class="alert-icon" id="alertIcon"><i class="fa-solid fa-check"></i></div>
+    <div class="alert-content">
+      <div class="alert-title" id="alertTitle">Success</div>
+      <div class="alert-text" id="alertText">Message here</div>
+    </div>
+    <div class="alert-close" onclick="closeTopAlert()"><i class="fa-solid fa-xmark"></i></div>
+  </div>
+
+  <!-- SEARCH HEADER -->
+  <header class="search-header">
+    <div class="back-btn" onclick="history.back()">
+      <i class="fa-solid fa-arrow-left"></i>
+    </div>
+    <div class="search-input-wrapper">
+      <i class="fa-solid fa-magnifying-glass"></i>
+      <input type="text" id="searchInput" placeholder="Search for cakes, pastries, biryani..." autofocus>
+      <i class="fa-solid fa-circle-xmark clear-btn" id="clearBtn" onclick="clearSearch()"></i>
+    </div>
+  </header>
+
+  <!-- SEARCH RESULTS -->
+  <main class="search-results-container">
+    <div class="results-count" id="resultsCount">Loading products...</div>
+    <div id="searchResultsList"></div>
+  </main>
+
+  <script>
+    let allProducts = [];
+
+    // ALERT FUNCTIONALITY
+    function showTopAlert(type, title, text) {
+      let alertBox = document.getElementById("topAlert");
+      document.getElementById("alertTitle").innerText = title;
+      document.getElementById("alertText").innerText = text;
+      alertBox.classList.add("show");
+      setTimeout(() => closeTopAlert(), 3000);
+    }
+
+    function closeTopAlert() {
+      document.getElementById("topAlert").classList.remove("show");
+    }
+
+    // LOAD ALL PRODUCTS FROM SUPABASE
+    async function fetchProducts() {
+      try {
+        let { data, error } = await supabaseClient.from("products").select("*");
+        
+        if (error) {
+          console.error("Error fetching products:", error);
+          document.getElementById("resultsCount").innerText = "Failed to load products.";
+          return;
+        }
+
+        allProducts = data || [];
+        
+        // URL se query check karna (agar index.html se redirected ho)
+        let params = new URLSearchParams(window.location.search);
+        let initialQuery = params.get("q") || "";
+        
+        if (initialQuery) {
+          document.getElementById("searchInput").value = initialQuery;
+          document.getElementById("clearBtn").style.display = "block";
+          filterProducts(initialQuery);
+        } else {
+          renderProducts(allProducts);
+        }
+      } catch (err) {
+        console.error(err);
+      }
+    }
+
+    // RENDER PRODUCTS LIST
+    function renderProducts(products) {
+      let list = document.getElementById("searchResultsList");
+      let countBox = document.getElementById("resultsCount");
+      list.innerHTML = "";
+
+      countBox.innerText = `${products.length} Products Found`;
+
+      if (products.length === 0) {
+        list.innerHTML = `
+          <div class="no-results">
+            <i class="fa-solid fa-magnifying-glass-minus"></i>
+            <p>No products match your search.</p>
+          </div>`;
+        return;
+      }
+
+      products.forEach(p => {
+        let card = document.createElement("div");
+        card.className = "search-product-card";
+
+        card.innerHTML = `
+          <img src="${p.image || 'https://via.placeholder.com/150'}" alt="${p.title}">
+          <div class="search-product-info">
+            <h4>${p.title}</h4>
+            <p>${p.description || 'Freshly prepared item'}</p>
+            <div class="search-product-price">₹${p.price}</div>
+          </div>
+          <button class="search-add-btn">Add</button>
+        `;
+
+        // Card click -> Open Product Page
+        card.addEventListener("click", () => {
+          window.location.href = `product.html?id=${p.id}`;
+        });
+
+        // Add Button Click
+        let addBtn = card.querySelector(".search-add-btn");
+        addBtn.addEventListener("click", (e) => {
+          e.stopPropagation();
+          addToCart(p);
+        });
+
+        list.appendChild(card);
+      });
+    }
+
+    // SEARCH FILTER
+    function filterProducts(query) {
+      let filtered = allProducts.filter(p => 
+        p.title.toLowerCase().includes(query.toLowerCase()) || 
+        (p.category && p.category.toLowerCase().includes(query.toLowerCase())) ||
+        (p.description && p.description.toLowerCase().includes(query.toLowerCase()))
+      );
+      renderProducts(filtered);
+    }
+
+    // INPUT EVENT
+    document.getElementById("searchInput").addEventListener("input", (e) => {
+      let val = e.target.value.trim();
+      let clearBtn = document.getElementById("clearBtn");
+      
+      if (val.length > 0) {
+        clearBtn.style.display = "block";
+      } else {
+        clearBtn.style.display = "none";
+      }
+
+      filterProducts(val);
+    });
+
+    // CLEAR SEARCH
+    function clearSearch() {
+      let input = document.getElementById("searchInput");
+      input.value = "";
+      document.getElementById("clearBtn").style.display = "none";
+      filterProducts("");
+      input.focus();
+    }
+
+    // ADD TO CART FUNCTION
+    function addToCart(item) {
+      let cart = JSON.parse(localStorage.getItem("cart")) || [];
+      let existing = cart.find(p => p.id === item.id);
+
+      if (existing) {
+        existing.qty += 1;
+      } else {
+        cart.push({
+          id: item.id,
+          title: item.title,
+          desc: item.description,
+          price: item.price,
+          image: item.image,
+          qty: 1
+        });
+      }
+
+      localStorage.setItem("cart", JSON.stringify(cart));
+      showTopAlert("success", "Cart Updated", `${item.title} Added To Cart`);
+    }
+
+    // INITIAL LOAD
+    fetchProducts();
+  </script>
+</body>
+</html>
