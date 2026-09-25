@@ -1,256 +1,260 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Category Page</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Category Page</title>
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-<link rel="stylesheet" href="category1.css">
-<link rel="stylesheet" href="back.css">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  
+  <link rel="stylesheet" href="category1.css">
+    <link rel="stylesheet" href="back.css">
 
-
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="supabase.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="supabase.js"></script>
 </head>
 
 <body>
 
-<!-- HERO HEADER -->
-<div class="hero" id="hero">
-  <div class="hero-content">
-    <h2 id="catName">Category</h2>
-    <p id="count">0 Items</p>
-  </div>
-</div>
+  <!-- TOP APP BAR -->
+  <header class="top-app-bar">
+    <h3 class="header-category-title" id="topHeaderTitle">Category</h3>
+    <div class="header-cart-icon" onclick="toggleCart()">
+      <i class="fa-solid fa-bag-shopping"></i>
+      <span class="cart-badge-count" id="headerCartBadge">0</span>
+    </div>
+  </header>
 
-<!-- FIXED HEADER (after scroll) -->
-<div class="fixed-header" id="fixedHeader">
-  <i class="fa-solid fa-arrow-left"></i>
-  <h3 id="titleSmall">Category</h3>
-  <i class="fa-solid fa-cart-shopping"></i>
-</div>
-
-<!-- PRODUCTS -->
-<div class="products" id="productList"></div>
-
-<!-- CART BAR -->
-<div class="cart-bar" onclick="toggleCart()">
-
-  <div class="cart-left">
-    <i class="fa-solid fa-bag-shopping"></i>
-    <span id="cartInfo">0 Items | ₹0</span>
-  </div>
-
-  <button class="cart-btn">
-    View Cart
-  </button>
-
-</div>
-
-<div class="cart-drawer" id="cartDrawer">
-
-  <div class="cart-header">
-    <h3>Your Cart</h3>
-    <i class="fa-solid fa-xmark" onclick="toggleCart()"></i>
-  </div>
-
-  <div id="cartItems"></div>
-
-  <div class="cart-footer">
-    <button onclick="goToCart()">Go to Cart</button>
-  </div>
-
-</div>
-
-<script>
-let cart = JSON.parse(localStorage.getItem("cart")) || [];
-
-/* CATEGORY */
-let params = new URLSearchParams(window.location.search);
-let category = decodeURIComponent(params.get("cat") || "");
-
-document.getElementById("catName").innerText = category;
-document.getElementById("titleSmall").innerText = category;
-
-/* LOAD */
-async function loadCategory(){
-
-  let { data } = await supabaseClient
-    .from("products")
-    .select("*")
-    .ilike("category", category);
-
-  let products = data || [];
-
-  document.getElementById("count").innerText = products.length + " Items";
-
-  showProducts(products);
-
-  if(products.length > 0){
-    document.getElementById("hero").style.backgroundImage =
-      `url('${products[0].image}')`;
-  }
-}
-
-/* PRODUCTS GRID */
-function showProducts(products){
-
-  let box = document.getElementById("productList");
-  box.innerHTML = "";
-
-  products.forEach(p=>{
-
-    let div = document.createElement("div");
-    div.className = "card";
-
-    div.innerHTML = `
-      <img src="${p.image}">
-      <h4>${p.title}</h4>
-      <p>${p.description || ""}</p>
-
-      <div class="price-row">
-        <span>₹${p.price}</span>
-        <button>Add</button>
+  <!-- CATEGORY HERO BANNER -->
+  <section class="category-hero-card" id="heroCard">
+    <div class="hero-content">
+      <div class="hero-text-side">
+        <span class="hero-chip"><i class="fa-solid fa-sparkles"></i> Special Category</span>
+        <h2 id="catName">Category</h2>
+        <p id="count">0 Items Available</p>
       </div>
-    `;
+      <div class="hero-image-side">
+        <img id="categoryHeroImg" src="https://via.placeholder.com/150" alt="Category Preview">
+      </div>
+    </div>
+  </section>
 
-    div.querySelector("button").onclick = () => addCart(p);
+  <!-- MAIN PRODUCTS CONTAINER -->
+  <main class="main-container">
+    <div class="products" id="productList"></div>
+  </main>
 
-    box.appendChild(div);
-  });
-}
+  <!-- FLOATING BOTTOM CART BAR -->
+  <div class="cart-bar" onclick="toggleCart()">
+    <div class="cart-left">
+      <div class="cart-badge-icon">
+        <i class="fa-solid fa-basket-shopping"></i>
+      </div>
+      <div class="cart-text-info">
+        <span class="cart-title">Your Cart</span>
+        <span id="cartInfo" class="cart-sub">0 Items | ₹0</span>
+      </div>
+    </div>
+    <button class="cart-btn">
+      View Cart <i class="fa-solid fa-arrow-right"></i>
+    </button>
+  </div>
 
-/* CART */
-function addCart(item){
+  <!-- CART DRAWER -->
+  <div class="cart-drawer-overlay" id="cartOverlay" onclick="toggleCart()"></div>
+  <div class="cart-drawer" id="cartDrawer">
+    <div class="drawer-handle"></div>
+    <div class="cart-header">
+      <h3><i class="fa-solid fa-bag-shopping" style="color: #ff3b30;"></i> Your Cart</h3>
+      <i class="fa-solid fa-xmark close-btn" onclick="toggleCart()"></i>
+    </div>
 
-  let exist = cart.find(c=>c.id===item.id);
+    <div id="cartItems" class="cart-items-container"></div>
 
-  if(exist){
-    exist.qty++;
-  }else{
-    cart.push({...item, qty:1});
-  }
+    <div class="cart-footer">
+      <div class="total-row">
+        <span>Total Amount</span>
+        <strong id="cartDrawerTotal">₹0</strong>
+      </div>
+      <button onclick="goToCart()" class="checkout-btn">Proceed to Checkout</button>
+    </div>
+  </div>
 
-  localStorage.setItem("cart",JSON.stringify(cart));
-  updateCart();
-}
+  <script>
+    let cart = JSON.parse(localStorage.getItem("cart")) || [];
 
-function updateCart(){
+    let params = new URLSearchParams(window.location.search);
+    let category = decodeURIComponent(params.get("cat") || "");
 
-  let totalItems = cart.reduce((a,b)=>a+b.qty,0);
-  let totalPrice = cart.reduce((a,b)=>a+b.qty*b.price,0);
+    let allProducts = [];
 
-  document.getElementById("cartInfo").innerText =
-    `${totalItems} Items | ₹${totalPrice}`;
+    document.getElementById("catName").innerText = category || "All Category";
+    document.getElementById("topHeaderTitle").innerText = category || "Category";
 
-  renderCart();
-}
+    async function loadCategory(){
+      let query = supabaseClient.from("products").select("*");
+      if (category) {
+        query = query.ilike("category", category);
+      }
 
-function renderCart(){
+      let { data, error } = await query;
 
-  let box = document.getElementById("cartItems");
-  box.innerHTML = "";
+      if (error) {
+        console.error("Error fetching products:", error);
+        return;
+      }
 
-  if(cart.length === 0){
-    box.innerHTML = "<p style='text-align:center'>Cart is empty</p>";
-    return;
-  }
+      allProducts = data || [];
+      document.getElementById("count").innerText = `${allProducts.length} Items Available`;
 
-  cart.forEach((c, index)=>{
+      if(allProducts.length > 0 && allProducts[0].image){
+        document.getElementById("categoryHeroImg").src = allProducts[0].image;
+      }
 
-    box.innerHTML += `
-      <div class="cart-item">
+      renderProducts();
+    }
 
-        <img src="${c.image}" />
+    function renderProducts(){
+      let box = document.getElementById("productList");
+      box.innerHTML = "";
 
-        <div class="cart-info">
-          <h4>${c.title}</h4>
-          <p>₹${c.price}</p>
+      if (allProducts.length === 0) {
+        box.innerHTML = `<div class="no-products"><i class="fa-solid fa-box-open"></i><p>No items found.</p></div>`;
+        return;
+      }
 
-          <div class="qty-box">
-            <button onclick="decreaseQty(${index})">-</button>
-            <span>${c.qty}</span>
-            <button onclick="increaseQty(${index})">+</button>
+      allProducts.forEach(p => {
+        let div = document.createElement("div");
+        div.className = "card";
+
+        div.innerHTML = `
+          <div class="card-img-wrapper">
+            <img src="${p.image || 'https://via.placeholder.com/150'}" alt="${p.title}">
+            <span class="card-tag">${category || 'Fresh'}</span>
           </div>
+          <div class="card-body">
+            <h4>${p.title}</h4>
+            <p>${p.description || "Fresh & quality product."}</p>
+            <div class="price-row">
+              <span class="price">₹${p.price}</span>
+              <button class="add-btn"><i class="fa-solid fa-plus"></i> Add</button>
+            </div>
+          </div>
+        `;
 
-        </div>
+        // Entire Card Click Event -> Redirects to product detail page
+        div.addEventListener("click", () => {
+          window.location.href = `product.html?id=${p.id}`;
+        });
 
-        <i class="fa-solid fa-trash delete"
-           onclick="removeItem(${index})"></i>
+        // Add Button Click Event -> Adds product to cart without redirecting
+        let addBtn = div.querySelector(".add-btn");
+        addBtn.addEventListener("click", (e) => {
+          e.stopPropagation();
+          addCart(p);
+        });
 
-      </div>
-    `;
-  });
-}
+        box.appendChild(div);
+      });
+    }
 
-function increaseQty(i){
-  cart[i].qty++;
-  saveCart();
-}
+    function addCart(item){
+      let exist = cart.find(c => c.id === item.id);
 
-function decreaseQty(i){
-  if(cart[i].qty > 1){
-    cart[i].qty--;
-  }else{
-    cart.splice(i,1);
-  }
-  saveCart();
-}
+      if(exist){
+        exist.qty++;
+      } else {
+        cart.push({...item, qty: 1});
+      }
 
-function removeItem(i){
-  cart.splice(i,1);
-  saveCart();
-}
+      saveCart();
+    }
 
-function saveCart(){
-  localStorage.setItem("cart", JSON.stringify(cart));
-  updateCart();
-}
+    function updateCart(){
+      let totalItems = cart.reduce((a,b) => a + b.qty, 0);
+      let totalPrice = cart.reduce((a,b) => a + (b.qty * b.price), 0);
 
-function toggleCart(){
+      document.getElementById("cartInfo").innerText = `${totalItems} Items | ₹${totalPrice}`;
+      document.getElementById("headerCartBadge").innerText = totalItems;
+      document.getElementById("cartDrawerTotal").innerText = `₹${totalPrice}`;
 
-  let cartDrawer = document.getElementById("cartDrawer");
+      renderCart();
+    }
 
-  cartDrawer.classList.toggle("show");
+    function renderCart(){
+      let box = document.getElementById("cartItems");
+      box.innerHTML = "";
 
-  // BODY LOCK
-  document.body.classList.toggle("cart-open");
-}
+      if(cart.length === 0){
+        box.innerHTML = `
+          <div class="cart-empty">
+            <i class="fa-solid fa-basket-shopping"></i>
+            <p>Your cart is empty!</p>
+          </div>`;
+        return;
+      }
 
-function goToCart(){
-  window.location.href = "cart.html";
-}
+      cart.forEach((c, index) => {
+        let itemDiv = document.createElement("div");
+        itemDiv.className = "cart-item";
+        itemDiv.innerHTML = `
+          <img src="${c.image}" alt="${c.title}" />
+          <div class="cart-info">
+            <h4>${c.title}</h4>
+            <p class="item-price">₹${c.price}</p>
+            <div class="qty-box">
+              <button onclick="decreaseQty(${index})">-</button>
+              <span>${c.qty}</span>
+              <button onclick="increaseQty(${index})">+</button>
+            </div>
+          </div>
+          <i class="fa-solid fa-trash-can delete" onclick="removeItem(${index})"></i>
+        `;
+        box.appendChild(itemDiv);
+      });
+    }
 
-/* SCROLL EFFECT */
-let lastScroll = 0;
+    function increaseQty(i){
+      cart[i].qty++;
+      saveCart();
+    }
 
-window.addEventListener("scroll", () => {
+    function decreaseQty(i){
+      if(cart[i].qty > 1){
+        cart[i].qty--;
+      } else {
+        cart.splice(i, 1);
+      }
+      saveCart();
+    }
 
-  let hero = document.querySelector(".hero");
-  let fixed = document.getElementById("fixedHeader");
+    function removeItem(i){
+      cart.splice(i, 1);
+      saveCart();
+    }
 
-  let current = window.scrollY;
+    function saveCart(){
+      localStorage.setItem("cart", JSON.stringify(cart));
+      updateCart();
+    }
 
-  // DOWN SCROLL
-  if (current > 120) {
-    hero.classList.add("hide");
-    fixed.classList.add("show");
-  }
+    function toggleCart(){
+      let cartDrawer = document.getElementById("cartDrawer");
+      let overlay = document.getElementById("cartOverlay");
 
-  // UP SCROLL
-  else {
-    hero.classList.remove("hide");
-    fixed.classList.remove("show");
-  }
+      cartDrawer.classList.toggle("show");
+      overlay.classList.toggle("show");
+      document.body.classList.toggle("cart-open");
+    }
 
-  lastScroll = current;
-});
+    function goToCart(){
+      window.location.href = "cart.html";
+    }
 
-updateCart();
-loadCategory();
-</script>
-<script src="back.js"></script>
+    updateCart();
+    loadCategory();
+  </script>
+  <script src="back.js"></script>
 </body>
 </html>
-
