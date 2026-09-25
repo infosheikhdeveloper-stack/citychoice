@@ -77,13 +77,13 @@
   <!-- Category Tabs -->
   <div class="category-tabs">
     <button class="tab-btn active">
-      <i class="fa-solid fa-utensils"></i>
-      <span>Food</span>
-    </button>
-    <button class="tab-btn">
       <i class="fa-solid fa-cake-candles"></i>
       <span>Bakery</span>
     </button>
+       <button class="tab-btn">
+      <i class="fa-solid fa-utensils"></i>
+      <span>Food</span>
+       </button>
     <button class="tab-btn">
       <i class="fa-solid fa-cookie-bite"></i>
       <span>Sweets</span>
@@ -833,6 +833,30 @@
       ticking = true;
     }
   }, { passive: true });
+
+
+
+
+// Index.html Search Click Handler
+let searchInput = document.getElementById("searchInput");
+if (searchInput) {
+  // Focus karne ya click karne par search.html khul jayega
+  searchInput.addEventListener("focus", () => {
+    window.location.href = "search.html";
+  });
+
+  // Type karne par text bhi query ke form me pass ho jayega
+  searchInput.addEventListener("keypress", (e) => {
+    if (e.key === "Enter") {
+      window.location.href = "search.html?q=" + encodeURIComponent(searchInput.value);
+    }
+  });
+}
+
+
+  
+
+  
 </script>
 
 </body>
