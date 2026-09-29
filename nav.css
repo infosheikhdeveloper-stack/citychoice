@@ -1,182 +1,608 @@
+/* =========================================================
+   CITY CHOICE BAKERS
+   PREMIUM BLUE / SKY-BLUE BOTTOM NAV
+   FULL nav.css
+   MATCHES hed.css
+========================================================= */
+
+:root{
+  --nav-blue-dark:#071b49;
+  --nav-blue:#123b91;
+  --nav-blue-light:#0284c7;
+  --nav-sky:#38bdf8;
+  --nav-sky-light:#7dd3fc;
+  --nav-white:#ffffff;
+  --nav-border:rgba(56,189,248,.28);
+}
+
+/* =========================================================
+   BOTTOM NAVIGATION
+========================================================= */
+
 .bottom-nav{
-  position: fixed;
-  bottom: 14px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 92%;
-  height: 72px;
+  position:fixed;
+  bottom:14px;
+  left:50%;
+  transform:translateX(-50%);
 
-  background: rgba(255, 255, 255, 0.85);
-  backdrop-filter: blur(14px);
+  width:92%;
+  height:72px;
 
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
+  background:
+    linear-gradient(
+      135deg,
+      rgba(255,255,255,.96),
+      rgba(239,248,255,.92)
+    );
 
-  border-radius: 22px;
+  backdrop-filter:blur(18px) saturate(150%);
+  -webkit-backdrop-filter:blur(18px) saturate(150%);
 
-  box-shadow: 0 10px 35px rgba(0, 0, 0, 0.05);
+  display:flex;
+  justify-content:space-around;
+  align-items:center;
 
-  z-index: 1000;
-  border: 1px solid rgba(234, 224, 213, 0.6);
+  border-radius:22px;
+
+  border:1px solid rgba(56,189,248,.30);
+
+  box-shadow:
+    0 10px 35px rgba(7,27,73,.12),
+    0 0 0 1px rgba(255,255,255,.65),
+    0 0 18px rgba(56,189,248,.08);
+
+  z-index:1000;
+
+  overflow:visible;
+
+  transition:
+    box-shadow .35s ease,
+    border-color .35s ease,
+    transform .3s ease;
 }
 
-/* ITEMS */
+/* =========================================================
+   BLUE-SKY BORDER ANIMATION
+========================================================= */
+
+.bottom-nav::before{
+  content:"";
+  position:absolute;
+  inset:-1px;
+
+  border-radius:23px;
+
+  padding:1px;
+
+  background:
+    linear-gradient(
+      90deg,
+      #ffffff,
+      #38bdf8,
+      #0284c7,
+      #7dd3fc,
+      #ffffff
+    );
+
+  background-size:300% 100%;
+
+  animation:navBorderFlow 5s linear infinite;
+
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+
+  -webkit-mask-composite:xor;
+
+  mask-composite:exclude;
+
+  pointer-events:none;
+  z-index:-1;
+}
+
+@keyframes navBorderFlow{
+  0%{
+    background-position:0% 50%;
+  }
+
+  50%{
+    background-position:100% 50%;
+  }
+
+  100%{
+    background-position:0% 50%;
+  }
+}
+
+/* =========================================================
+   NAV ITEMS
+========================================================= */
+
 .bottom-nav a{
-  text-decoration: none;
-  color: #718096;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: 11px;
-  font-weight: 500;
-  gap: 4px;
-  transition: 0.25s ease;
-  position: relative;
-  padding: 6px 10px;
-  border-radius: 12px;
+  text-decoration:none;
+
+  color:#64748b;
+
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+
+  font-size:11px;
+  font-weight:600;
+
+  gap:4px;
+
+  transition:
+    color .25s ease,
+    transform .25s ease,
+    background .25s ease,
+    box-shadow .25s ease;
+
+  position:relative;
+
+  padding:6px 10px;
+
+  border-radius:13px;
 }
 
-/* ICON & IMAGE ADJUSTMENT */
+/* =========================================================
+   ICON
+========================================================= */
+
 .bottom-nav a i{
-  font-size: 20px;
-  transition: 0.25s;
+  font-size:20px;
+
+  transition:
+    transform .3s ease,
+    color .25s ease,
+    filter .3s ease;
 }
+
+/* =========================================================
+   IMAGE ICON
+========================================================= */
 
 .bottom-nav a img.nav-icon-img{
-  width: 22px;
-  height: 22px;
-  object-fit: contain;
-  transition: 0.25s;
+  width:22px;
+  height:22px;
+
+  object-fit:contain;
+
+  transition:
+    transform .3s ease,
+    filter .3s ease;
 }
 
-/* ACTIVE */
+/* =========================================================
+   ACTIVE
+========================================================= */
+
 .bottom-nav a.active{
-  color: #d4a373;
-  background: rgba(212, 163, 115, 0.12);
+  color:#0284c7;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(56,189,248,.15),
+      rgba(2,132,199,.08)
+    );
+
+  box-shadow:
+    inset 0 0 0 1px rgba(56,189,248,.14),
+    0 4px 12px rgba(2,132,199,.07);
+}
+
+.bottom-nav a.active i{
+  color:#0284c7;
+
+  filter:
+    drop-shadow(0 0 6px rgba(56,189,248,.28));
+}
+
+.bottom-nav a.active img.nav-icon-img{
+  filter:
+    drop-shadow(0 0 6px rgba(56,189,248,.25));
 }
 
 .bottom-nav a.active i,
 .bottom-nav a.active img.nav-icon-img{
-  transform: translateY(-2px);
+  transform:translateY(-2px);
 }
 
-/* HOVER */
+/* =========================================================
+   ACTIVE BLUE LINE
+========================================================= */
+
+.bottom-nav a.active::after{
+  content:"";
+
+  position:absolute;
+
+  bottom:-2px;
+
+  left:50%;
+
+  width:24px;
+  height:3px;
+
+  transform:translateX(-50%);
+
+  border-radius:10px;
+
+  background:
+    linear-gradient(
+      90deg,
+      #0284c7,
+      #38bdf8,
+      #7dd3fc
+    );
+
+  box-shadow:
+    0 0 8px rgba(56,189,248,.55);
+
+  animation:activeLine 1.8s ease-in-out infinite;
+}
+
+@keyframes activeLine{
+  0%,100%{
+    opacity:.65;
+    width:20px;
+  }
+
+  50%{
+    opacity:1;
+    width:28px;
+  }
+}
+
+/* =========================================================
+   HOVER
+========================================================= */
+
 .bottom-nav a:hover{
-  color: #d4a373;
-  background: rgba(212, 163, 115, 0.08);
+  color:#0284c7;
+
+  background:rgba(56,189,248,.08);
+
+  transform:translateY(-2px);
 }
 
 .bottom-nav a:hover i,
 .bottom-nav a:hover img.nav-icon-img{
-  transform: scale(1.1);
+  transform:scale(1.1);
+
+  filter:
+    drop-shadow(0 0 6px rgba(56,189,248,.25));
 }
 
-/* =========================
+/* =========================================================
+   PRESS
+========================================================= */
+
+.bottom-nav a:active{
+  transform:scale(.93);
+}
+
+/* =========================================================
    FLOATING SHOP BUTTON
-========================= */
+========================================================= */
 
 .shop-btn{
-  width: 68px;
-  height: 68px;
+  width:68px;
+  height:68px;
 
-  background: linear-gradient(135deg, #e63946, #4a5568) !important;
-  border-radius: 50%;
+  background:
+    linear-gradient(
+      135deg,
+      #071b49,
+      #123b91,
+      #0284c7,
+      #38bdf8
+    ) !important;
 
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  background-size:200% 200% !important;
 
-  color: #ffffff !important;
+  border-radius:50%;
 
-  transform: translateY(-28px);
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
 
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
+  color:#fff !important;
 
-  border: 4px solid #ffffff;
+  transform:translateY(-28px);
 
-  animation: floatBtn 2.5s ease-in-out infinite;
+  box-shadow:
+    0 10px 25px rgba(2,132,199,.25),
+    0 0 18px rgba(56,189,248,.18);
+
+  border:4px solid #fff;
+
+  animation:
+    floatBtn 2.5s ease-in-out infinite,
+    shopBlueFlow 5s ease infinite;
+
+  position:relative;
+
+  overflow:hidden;
 }
 
-/* ICON */
+/* =========================================================
+   SHOP BUTTON SHINE
+========================================================= */
+
+.shop-btn::before{
+  content:"";
+
+  position:absolute;
+
+  width:45px;
+  height:100px;
+
+  top:-25px;
+  left:-70px;
+
+  background:rgba(255,255,255,.30);
+
+  transform:rotate(25deg);
+
+  filter:blur(4px);
+
+  animation:shopShine 3.5s ease-in-out infinite;
+
+  pointer-events:none;
+}
+
+@keyframes shopShine{
+  0%{
+    left:-70px;
+  }
+
+  45%,100%{
+    left:90px;
+  }
+}
+
+@keyframes shopBlueFlow{
+  0%{
+    background-position:0% 50%;
+  }
+
+  50%{
+    background-position:100% 50%;
+  }
+
+  100%{
+    background-position:0% 50%;
+  }
+}
+
+/* =========================================================
+   SHOP ICON
+========================================================= */
+
 .shop-btn i{
-  font-size: 22px !important;
+  font-size:22px !important;
+
+  color:#fff !important;
+
+  filter:
+    drop-shadow(0 0 5px rgba(255,255,255,.35));
 }
 
-/* TEXT */
+/* =========================================================
+   SHOP TEXT
+========================================================= */
+
 .shop-btn span{
-  font-size: 10px;
-  font-weight: 700;
+  font-size:10px;
+
+  font-weight:800;
+
+  color:#fff !important;
 }
 
-/* FLOAT ANIMATION */
+/* =========================================================
+   SHOP FLOAT
+========================================================= */
+
 @keyframes floatBtn{
-  0%{ transform: translateY(-28px) scale(1); }
-  50%{ transform: translateY(-32px) scale(1.05); }
-  100%{ transform: translateY(-28px) scale(1); }
+  0%{
+    transform:translateY(-28px) scale(1);
+  }
+
+  50%{
+    transform:translateY(-32px) scale(1.05);
+  }
+
+  100%{
+    transform:translateY(-28px) scale(1);
+  }
 }
 
-/* SHOP BUTTON ALWAYS SAME COLOR */
+/* =========================================================
+   SHOP BUTTON ALWAYS BLUE
+========================================================= */
 
 .shop-btn,
 .shop-btn:visited,
 .shop-btn:hover,
 .shop-btn:focus,
 .shop-btn:active{
-  color: #ffffff !important;
-  background: linear-gradient(135deg, #d4a373, #faedcd) !important;
+  color:#fff !important;
+
+  background:
+    linear-gradient(
+      135deg,
+      #071b49,
+      #123b91,
+      #0284c7,
+      #38bdf8
+    ) !important;
+
+  background-size:200% 200% !important;
 }
 
-/* ICON & TEXT WHITE */
+/* =========================================================
+   SHOP ICON + TEXT WHITE
+========================================================= */
+
 .shop-btn i,
 .shop-btn span{
-  color: #ffffff !important;
+  color:#fff !important;
 }
 
+/* =========================================================
+   LARGE ANIMATED CAKE NAV ITEM
+   NO BORDER / NO BACKGROUND
+========================================================= */
 
+.cake-large-anim-img{
+  width:38px !important;
+  height:38px !important;
 
+  object-fit:contain;
 
+  transition:
+    transform .3s ease,
+    filter .3s ease;
 
-/* =========================================
-   LARGE ANIMATED CAKE NAV ITEM (NO BORDER)
-========================================= */
-
-/* Extra large image styling with continuous smooth floating & pulse animation */
-.cake-large-anim-img {
-    width: 88px !important;       /* Size badhane ke liye yahan change karein */
-    height: 48px !important;      /* Size badhane ke liye yahan change karein */
-    object-fit: contain;
-    transition: transform 0.3s ease;
-    animation: cakeIconBounce 2s ease-in-out infinite alternate;
+  animation:cakeIconBounce 2s ease-in-out infinite alternate;
 }
 
+/* =========================================================
+   CAKE LINK
+========================================================= */
 
-/* Specific link styling to prevent borders, backgrounds or extra outlines */
 .bottom-nav a.cake-nav-item,
 .bottom-nav a.cake-nav-item:hover,
-.bottom-nav a.cake-nav-item.active {
-    border: none !important;
-    background: transparent !important;
-    box-shadow: none !important;
-    outline: none !important;
-    padding: 2px 6px;
+.bottom-nav a.cake-nav-item.active{
+  border:none !important;
+
+  background:transparent !important;
+
+  box-shadow:none !important;
+
+  outline:none !important;
+
+  padding:2px 6px;
+
+  transform:none;
 }
 
-/* Animated Floating Effect for Cake Icon */
-@keyframes cakeIconBounce {
-    0% {
-        transform: translateY(0) scale(1);
-    }
-    50% {
-        transform: translateY(-5px) scale(1.1);
-    }
-    100% {
-        transform: translateY(0) scale(1);
-    }
+/* =========================================================
+   CAKE ANIMATION
+========================================================= */
+
+@keyframes cakeIconBounce{
+  0%{
+    transform:translateY(0) scale(1);
+    filter:drop-shadow(0 0 0 rgba(56,189,248,0));
+  }
+
+  50%{
+    transform:translateY(-5px) scale(1.1);
+    filter:drop-shadow(0 4px 8px rgba(56,189,248,.22));
+  }
+
+  100%{
+    transform:translateY(0) scale(1);
+    filter:drop-shadow(0 0 0 rgba(56,189,248,0));
+  }
 }
 
-/* Hover effect for Cake Icon */
-.cake-nav-item:hover .cake-large-anim-img {
-    transform: scale(1.2) rotate(6deg) !important;
+/* =========================================================
+   CAKE HOVER
+========================================================= */
+
+.cake-nav-item:hover .cake-large-anim-img{
+  transform:scale(1.2) rotate(6deg) !important;
+
+  filter:
+    drop-shadow(0 0 8px rgba(56,189,248,.35));
+}
+
+/* =========================================================
+   MOBILE OPTIMIZATION
+========================================================= */
+
+@media(max-width:380px){
+
+  .bottom-nav{
+    width:94%;
+    height:69px;
+    bottom:11px;
+    border-radius:20px;
+  }
+
+  .bottom-nav::before{
+    border-radius:21px;
+  }
+
+  .bottom-nav a{
+    font-size:10px;
+    padding:5px 7px;
+  }
+
+  .bottom-nav a i{
+    font-size:18px;
+  }
+
+  .bottom-nav a img.nav-icon-img{
+    width:21px;
+    height:21px;
+  }
+
+  .shop-btn{
+    width:63px;
+    height:63px;
+
+    transform:translateY(-25px);
+  }
+
+  @keyframes floatBtn{
+    0%{
+      transform:translateY(-25px) scale(1);
+    }
+
+    50%{
+      transform:translateY(-29px) scale(1.05);
+    }
+
+    100%{
+      transform:translateY(-25px) scale(1);
+    }
+  }
+
+  .cake-large-anim-img{
+    width:35px !important;
+    height:35px !important;
+  }
+}
+
+/* =========================================================
+   TABLET / LARGE MOBILE
+========================================================= */
+
+@media(min-width:700px){
+
+  .bottom-nav{
+    max-width:760px;
+  }
+}
+
+/* =========================================================
+   REDUCE MOTION ACCESSIBILITY
+========================================================= */
+
+@media(prefers-reduced-motion:reduce){
+
+  .bottom-nav::before,
+  .shop-btn,
+  .cake-large-anim-img,
+  .bottom-nav a.active::after{
+    animation:none !important;
+  }
+}
