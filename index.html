@@ -819,6 +819,166 @@
   if("serviceWorker" in navigator){
     navigator.serviceWorker.register("sw.js").catch(()=>{});
   }
+
+
+/* =========================================
+   AUTO SLIDING BANNERS
+   Auto + Finger Swipe
+========================================= */
+
+document.addEventListener("DOMContentLoaded", () => {
+
+  const bannerContainer = document.querySelector(".banner-scroll-container");
+
+  if (!bannerContainer) return;
+
+  const banners = bannerContainer.querySelectorAll(".small-banner-card");
+
+  if (banners.length <= 1) return;
+
+  let currentBanner = 0;
+  let autoSlide;
+  let resumeTimer;
+
+  function getBannerWidth() {
+    const card = banners[0];
+
+    if (!card) return 0;
+
+    const style = window.getComputedStyle(bannerContainer);
+    const gap = parseFloat(style.gap) || 12;
+
+    return card.offsetWidth + gap;
+  }
+
+  function slideToBanner(index) {
+
+    const width = getBannerWidth();
+
+    if (!width) return;
+
+    currentBanner = index;
+
+    bannerContainer.scrollTo({
+      left: width * currentBanner,
+      behavior: "smooth"
+    });
+  }
+
+  function nextBanner() {
+
+    currentBanner++;
+
+    if (currentBanner >= banners.length) {
+      currentBanner = 0;
+    }
+
+    slideToBanner(currentBanner);
+  }
+
+  function startAutoSlide() {
+
+    clearInterval(autoSlide);
+
+    autoSlide = setInterval(() => {
+      nextBanner();
+    }, 3500);
+  }
+
+  function pauseAutoSlide() {
+
+    clearInterval(autoSlide);
+    clearTimeout(resumeTimer);
+
+    resumeTimer = setTimeout(() => {
+      startAutoSlide();
+    }, 3000);
+  }
+
+  /* Start automatic sliding */
+  startAutoSlide();
+
+
+  /* =====================================
+     USER FINGER / TOUCH CONTROL
+  ===================================== */
+
+  bannerContainer.addEventListener("touchstart", () => {
+    pauseAutoSlide();
+  }, {
+    passive: true
+  });
+
+  bannerContainer.addEventListener("touchmove", () => {
+    pauseAutoSlide();
+  }, {
+    passive: true
+  });
+
+  bannerContainer.addEventListener("touchend", () => {
+
+    /* Detect nearest card after finger swipe */
+    const width = getBannerWidth();
+
+    if (width > 0) {
+
+      currentBanner = Math.round(
+        bannerContainer.scrollLeft / width
+      );
+
+      if (currentBanner < 0) {
+        currentBanner = 0;
+      }
+
+      if (currentBanner >= banners.length) {
+        currentBanner = banners.length - 1;
+      }
+    }
+
+    pauseAutoSlide();
+
+  }, {
+    passive: true
+  });
+
+
+  /* =====================================
+     MOUSE / DESKTOP CONTROL
+  ===================================== */
+
+  bannerContainer.addEventListener("mouseenter", () => {
+    clearInterval(autoSlide);
+  });
+
+  bannerContainer.addEventListener("mouseleave", () => {
+    startAutoSlide();
+  });
+
+
+  /* =====================================
+     RESIZE FIX
+  ===================================== */
+
+  window.addEventListener("resize", () => {
+
+    const width = getBannerWidth();
+
+    if (width > 0) {
+
+      bannerContainer.scrollTo({
+        left: width * currentBanner,
+        behavior: "instant"
+      });
+
+    }
+
+  });
+
+});
+
+
+
+  
 </script>
 
 </body>
