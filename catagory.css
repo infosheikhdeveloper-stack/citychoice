@@ -1,75 +1,659 @@
-/* ================= CATEGORY WRAPPER ================= */
+/* =========================================================
+   CITY CHOICE BAKERS
+   PREMIUM CATEGORY CARD DESIGN
+========================================================= */
+
 .category-section{
-  padding:10px 12px;
-  background:#f6f6f6;
+  width:100%;
+  padding:16px 12px 20px;
+  background:#f6f7f9;
+  box-sizing:border-box;
+  overflow:hidden;
 }
 
-/* GRID = 2 ROWS + HORIZONTAL SCROLL */
 .category-grid{
-  display:grid;
-  grid-auto-flow:column;
-  grid-template-rows:repeat(2, 1fr); /* 2 lines */
-  grid-auto-columns:110px; /* card width */
-  gap:10px;
+  width:100%;
+  display:grid !important;
+
+  grid-template-rows:repeat(2, 1fr) !important;
+  grid-auto-flow:column !important;
+  grid-auto-columns:118px !important;
+
+  gap:12px !important;
 
   overflow-x:auto;
   overflow-y:hidden;
 
+  padding:5px 3px 12px;
+
   scroll-snap-type:x mandatory;
   -webkit-overflow-scrolling:touch;
 
-  padding-bottom:10px;
+  scrollbar-width:none;
 }
 
-/* hide scrollbar */
 .category-grid::-webkit-scrollbar{
   display:none;
 }
 
-/* CARD */
+
+/* =========================================================
+   BASE CARD
+========================================================= */
+
 .category-card{
+  width:118px !important;
+  height:118px !important;
+
+  min-width:118px !important;
+  min-height:118px !important;
+
+  position:relative;
+
+  border-radius:22px !important;
+
+  padding:8px !important;
+
+  box-sizing:border-box;
+
+  overflow:hidden;
+
   scroll-snap-align:start;
 
   background:#fff;
-  border-radius:18px;
-  padding:10px;
-  text-align:center;
 
-  box-shadow:0 4px 12px rgba(0,0,0,0.06);
-  border:1px solid #f1f1f1;
+  border:1px solid rgba(255,255,255,.8);
 
-  transition:0.2s ease;
+  box-shadow:
+    0 7px 20px rgba(15,23,42,.10);
+
+  cursor:pointer;
+
+  isolation:isolate;
+
+  transition:
+    transform .22s ease,
+    box-shadow .22s ease;
 }
 
-/* tap effect */
-.category-card:active{
-  transform:scale(0.96);
-}
 
-/* IMAGE */
+/* =========================================================
+   CARD IMAGE
+========================================================= */
+
 .category-card img{
-  width:65px;
-  height:65px;
-  border-radius:16px;
+  position:absolute;
+
+  inset:0;
+
+  width:100% !important;
+  height:100% !important;
+
+  min-height:0 !important;
+
   object-fit:cover;
-  margin-bottom:8px;
+
+  display:block;
+
+  margin:0 !important;
+
+  border-radius:0 !important;
+
+  z-index:0;
+
+  transition:
+    transform .4s ease;
 }
 
-/* TEXT */
+
+/* Image zoom */
+
+.category-card:hover img{
+  transform:scale(1.08);
+}
+
+
+/* =========================================================
+   DARK GRADIENT
+========================================================= */
+
+.category-card::after{
+  content:"";
+
+  position:absolute;
+
+  inset:0;
+
+  z-index:1;
+
+  pointer-events:none;
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(0,0,0,0) 20%,
+      rgba(0,0,0,.08) 45%,
+      rgba(0,0,0,.82) 100%
+    );
+}
+
+
+/* =========================================================
+   CATEGORY NAME
+========================================================= */
+
 .category-card span{
-  font-size:12px;
-  font-weight:600;
-  color:#111;
+  position:absolute;
+
+  z-index:3;
+
+  left:11px;
+  right:7px;
+  bottom:10px;
+
+  color:#fff;
+
+  font-size:13px;
+
+  font-weight:800;
+
+  line-height:16px;
+
+  text-align:left;
+
+  white-space:nowrap;
+
+  overflow:hidden;
+
+  text-overflow:ellipsis;
+
+  text-shadow:
+    0 2px 7px rgba(0,0,0,.55);
 }
 
-/* MOBILE SMALL */
-@media (max-width:400px){
+
+/* =========================================================
+   TAP EFFECT
+========================================================= */
+
+.category-card:active{
+  transform:scale(.94);
+
+  box-shadow:
+    0 3px 10px rgba(0,0,0,.12);
+}
+
+
+/* =========================================================
+   BIRYANI
+========================================================= */
+
+.category-card[data-cat="Biryani"]{
+  background:linear-gradient(135deg,#ff8a00,#c2410c);
+}
+
+.category-card[data-cat="Biryani"]::before{
+  content:"🍛";
+
+  position:absolute;
+
+  top:8px;
+  right:8px;
+
+  z-index:3;
+
+  width:30px;
+  height:30px;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  background:rgba(255,255,255,.2);
+
+  border:1px solid rgba(255,255,255,.3);
+
+  border-radius:50%;
+
+  backdrop-filter:blur(5px);
+
+  font-size:16px;
+}
+
+
+/* =========================================================
+   BREAD
+========================================================= */
+
+.category-card[data-cat="Bread"]{
+  background:linear-gradient(135deg,#f59e0b,#92400e);
+}
+
+.category-card[data-cat="Bread"]::before{
+  content:"🍞";
+
+  position:absolute;
+  top:8px;
+  right:8px;
+
+  z-index:3;
+
+  width:30px;
+  height:30px;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  background:rgba(255,255,255,.22);
+
+  border-radius:50%;
+
+  backdrop-filter:blur(5px);
+
+  font-size:16px;
+}
+
+
+/* =========================================================
+   CAKE
+========================================================= */
+
+.category-card[data-cat="Cake"]{
+  background:linear-gradient(135deg,#ec4899,#9d174d);
+}
+
+.category-card[data-cat="Cake"]::before{
+  content:"🎂";
+
+  position:absolute;
+  top:8px;
+  right:8px;
+
+  z-index:3;
+
+  width:30px;
+  height:30px;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  background:rgba(255,255,255,.22);
+
+  border-radius:50%;
+
+  backdrop-filter:blur(5px);
+
+  font-size:16px;
+}
+
+
+/* =========================================================
+   RICE
+========================================================= */
+
+.category-card[data-cat="Rice"]{
+  background:linear-gradient(135deg,#facc15,#a16207);
+}
+
+.category-card[data-cat="Rice"]::before{
+  content:"🍚";
+
+  position:absolute;
+  top:8px;
+  right:8px;
+
+  z-index:3;
+
+  width:30px;
+  height:30px;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  background:rgba(255,255,255,.25);
+
+  border-radius:50%;
+
+  backdrop-filter:blur(5px);
+
+  font-size:16px;
+}
+
+
+/* =========================================================
+   PASTRY
+========================================================= */
+
+.category-card[data-cat="Pastry"]{
+  background:linear-gradient(135deg,#fb7185,#be123c);
+}
+
+.category-card[data-cat="Pastry"]::before{
+  content:"🥐";
+
+  position:absolute;
+  top:8px;
+  right:8px;
+
+  z-index:3;
+
+  width:30px;
+  height:30px;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  background:rgba(255,255,255,.22);
+
+  border-radius:50%;
+
+  backdrop-filter:blur(5px);
+
+  font-size:16px;
+}
+
+
+/* =========================================================
+   PIZZA
+========================================================= */
+
+.category-card[data-cat="Pizza"]{
+  background:linear-gradient(135deg,#ef4444,#991b1b);
+}
+
+.category-card[data-cat="Pizza"]::before{
+  content:"🍕";
+
+  position:absolute;
+  top:8px;
+  right:8px;
+
+  z-index:3;
+
+  width:30px;
+  height:30px;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  background:rgba(255,255,255,.22);
+
+  border-radius:50%;
+
+  backdrop-filter:blur(5px);
+
+  font-size:16px;
+}
+
+
+/* =========================================================
+   SNACKS
+========================================================= */
+
+.category-card[data-cat="Snacks"]{
+  background:linear-gradient(135deg,#fb923c,#c2410c);
+}
+
+.category-card[data-cat="Snacks"]::before{
+  content:"🍟";
+
+  position:absolute;
+  top:8px;
+  right:8px;
+
+  z-index:3;
+
+  width:30px;
+  height:30px;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  background:rgba(255,255,255,.22);
+
+  border-radius:50%;
+
+  backdrop-filter:blur(5px);
+
+  font-size:16px;
+}
+
+
+/* =========================================================
+   YUM
+========================================================= */
+
+.category-card[data-cat="Yum"]{
+  background:linear-gradient(135deg,#a855f7,#581c87);
+}
+
+.category-card[data-cat="Yum"]::before{
+  content:"😋";
+
+  position:absolute;
+  top:8px;
+  right:8px;
+
+  z-index:3;
+
+  width:30px;
+  height:30px;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  background:rgba(255,255,255,.22);
+
+  border-radius:50%;
+
+  backdrop-filter:blur(5px);
+
+  font-size:16px;
+}
+
+
+/* =========================================================
+   MOMOS
+========================================================= */
+
+.category-card[data-cat="Momos"]{
+  background:linear-gradient(135deg,#22c55e,#166534);
+}
+
+.category-card[data-cat="Momos"]::before{
+  content:"🥟";
+
+  position:absolute;
+  top:8px;
+  right:8px;
+
+  z-index:3;
+
+  width:30px;
+  height:30px;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  background:rgba(255,255,255,.22);
+
+  border-radius:50%;
+
+  backdrop-filter:blur(5px);
+
+  font-size:16px;
+}
+
+
+/* =========================================================
+   BREAKFAST
+========================================================= */
+
+.category-card[data-cat="Breakfast"]{
+  background:linear-gradient(135deg,#38bdf8,#0369a1);
+}
+
+.category-card[data-cat="Breakfast"]::before{
+  content:"🍳";
+
+  position:absolute;
+  top:8px;
+  right:8px;
+
+  z-index:3;
+
+  width:30px;
+  height:30px;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  background:rgba(255,255,255,.22);
+
+  border-radius:50%;
+
+  backdrop-filter:blur(5px);
+
+  font-size:16px;
+}
+
+
+/* =========================================================
+   LUNCH
+========================================================= */
+
+.category-card[data-cat="Lunch"]{
+  background:linear-gradient(135deg,#14b8a6,#115e59);
+}
+
+.category-card[data-cat="Lunch"]::before{
+  content:"🍱";
+
+  position:absolute;
+  top:8px;
+  right:8px;
+
+  z-index:3;
+
+  width:30px;
+  height:30px;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  background:rgba(255,255,255,.22);
+
+  border-radius:50%;
+
+  backdrop-filter:blur(5px);
+
+  font-size:16px;
+}
+
+
+/* =========================================================
+   BURGUR
+========================================================= */
+
+.category-card[data-cat="Burgur"]{
+  background:linear-gradient(135deg,#f97316,#7c2d12);
+}
+
+.category-card[data-cat="Burgur"]::before{
+  content:"🍔";
+
+  position:absolute;
+  top:8px;
+  right:8px;
+
+  z-index:3;
+
+  width:30px;
+  height:30px;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  background:rgba(255,255,255,.22);
+
+  border-radius:50%;
+
+  backdrop-filter:blur(5px);
+
+  font-size:16px;
+}
+
+
+/* =========================================================
+   SMALL MOBILE
+========================================================= */
+
+@media(max-width:400px){
+
+  .category-section{
+    padding:13px 9px 18px;
+  }
+
   .category-grid{
-    grid-auto-columns:95px;
+    grid-auto-columns:103px !important;
+    gap:10px !important;
   }
 
-  .category-card img{
-    width:55px;
-    height:55px;
+  .category-card{
+    width:103px !important;
+    min-width:103px !important;
+    height:105px !important;
+    min-height:105px !important;
+
+    border-radius:18px !important;
+  }
+
+  .category-card span{
+    left:9px;
+    bottom:9px;
+    font-size:11px;
+  }
+
+  .category-card::before{
+    width:27px;
+    height:27px;
+    top:7px;
+    right:7px;
+    font-size:14px;
   }
 }
+
+
+/* =========================================================
+   VERY SMALL MOBILE
+========================================================= */
+
+@media(max-width:350px){
+
+  .category-grid{
+    grid-auto-columns:94px !important;
+    gap:8px !important;
+  }
+
+  .category-card{
+    width:94px !important;
+    min-width:94px !important;
+    height:96px !important;
+    min-height:96px !important;
+  }
+
+  .category-card span{
+    font-size:10px;
+  }
+  }
