@@ -179,7 +179,6 @@
 
     /* ================================
        FALLBACK OFFER DESIGN
-       No more empty/broken offer boxes
     ================================= */
     .offers-cards-scroll{
       display:flex;
@@ -255,7 +254,132 @@
       opacity:.92;
     }
 
+    /* ================================
+       INSTAGRAM STYLE PWA INSTALL POPUP
+    ================================= */
+    .pwa-install-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.65);
+      backdrop-filter: blur(5px);
+      -webkit-backdrop-filter: blur(5px);
+      z-index: 99999;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.3s;
+    }
 
+    .pwa-install-overlay.show {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .pwa-install-modal {
+      background: #ffffff;
+      width: 100%;
+      max-width: 480px;
+      border-top-left-radius: 28px;
+      border-top-right-radius: 28px;
+      padding: 24px 20px 28px;
+      box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.3);
+      transform: translateY(100%);
+      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      text-align: center;
+      position: relative;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    .pwa-install-overlay.show .pwa-install-modal {
+      transform: translateY(0);
+    }
+
+    .pwa-drag-handle {
+      width: 42px;
+      height: 5px;
+      background: #e2e8f0;
+      border-radius: 10px;
+      margin: 0 auto 16px;
+    }
+
+    .pwa-app-icon {
+      width: 80px;
+      height: 80px;
+      border-radius: 20px;
+      object-fit: cover;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+      margin-bottom: 12px;
+    }
+
+    .pwa-app-title {
+      font-size: 20px;
+      font-weight: 800;
+      color: #1e293b;
+      margin: 0 0 4px;
+    }
+
+    .pwa-app-desc {
+      font-size: 13px;
+      color: #64748b;
+      margin: 0 0 20px;
+      padding: 0 10px;
+      line-height: 1.45;
+    }
+
+    .pwa-features {
+      display: flex;
+      justify-content: space-around;
+      background: #f8fafc;
+      border-radius: 16px;
+      padding: 12px 8px;
+      margin-bottom: 20px;
+    }
+
+    .pwa-feature-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      font-size: 11px;
+      font-weight: 600;
+      color: #475569;
+    }
+
+    .pwa-feature-item i {
+      font-size: 18px;
+      color: #e11d48;
+      margin-bottom: 4px;
+    }
+
+    .pwa-action-btns {
+      display: flex;
+      gap: 10px;
+    }
+
+    .pwa-btn-secondary {
+      flex: 1;
+      background: #f1f5f9;
+      color: #475569;
+      border: none;
+      border-radius: 14px;
+      padding: 14px;
+      font-weight: 700;
+      font-size: 14px;
+      cursor: pointer;
+    }
+
+    .pwa-btn-primary {
+      flex: 2;
+      background: linear-gradient(135deg, #e11d48, #881337);
+      color: #ffffff;
+      border: none;
+      border-radius: 14px;
+      padding: 14px;
+      font-weight: 800;
+      font-size: 14px;
+      cursor: pointer;
+      box-shadow: 0 6px 18px rgba(225, 29, 72, 0.35);
     }
   </style>
 </head>
@@ -283,7 +407,7 @@
             City Choice Bakers
             <i class="fa-solid fa-chevron-down arrow-icon"></i>
           </div>
-          <div class="loc-subtitle">Bakery, Sweets & Fine Dining Restaurant</div>
+          <div class="loc-subtitle" id="headerLocation">Bakery, Sweets & Fine Dining Restaurant</div>
         </div>
       </div>
 
@@ -321,23 +445,19 @@
 
       <div class="offers-cards-scroll">
         <div class="offer-card">
-          <img src="offer1.jpg" class="offer-img" alt="Fresh bakery offer"
-               onerror="this.style.display='none'">
+          <img src="offer1.jpg" class="offer-img" alt="Fresh bakery offer" onerror="this.style.display='none'">
           <div class="offer-fallback"><strong>Fresh Bakery</strong><span>Freshly baked for you</span></div>
         </div>
         <div class="offer-card">
-          <img src="offer2.jpg" class="offer-img" alt="Sweet offer"
-               onerror="this.style.display='none'">
+          <img src="offer2.jpg" class="offer-img" alt="Sweet offer" onerror="this.style.display='none'">
           <div class="offer-fallback"><strong>Sweet Moments</strong><span>Special sweet deals</span></div>
         </div>
         <div class="offer-card">
-          <img src="offer4.jpg" class="offer-img" alt="Food offer"
-               onerror="this.style.display='none'">
+          <img src="offer4.jpg" class="offer-img" alt="Food offer" onerror="this.style.display='none'">
           <div class="offer-fallback"><strong>Food Festival</strong><span>Hot & delicious</span></div>
         </div>
         <div class="offer-card">
-          <img src="offer5.jpg" class="offer-img" alt="Special offer"
-               onerror="this.style.display='none'">
+          <img src="offer5.jpg" class="offer-img" alt="Special offer" onerror="this.style.display='none'">
           <div class="offer-fallback"><strong>Special Deal</strong><span>Order & enjoy</span></div>
         </div>
       </div>
@@ -355,8 +475,7 @@
         <div class="bolt-title">Fresh, hot & crisp delights for you.</div>
         <div class="bolt-btn">ORDER NOW</div>
       </div>
-      <img src="https://ftuchilcswtnnldrugir.supabase.co/storage/v1/object/public/products/1784810157856_1000044382.jpg"
-           class="bolt-img" alt="Chocolate Cake">
+      <img src="https://ftuchilcswtnnldrugir.supabase.co/storage/v1/object/public/products/1784810157856_1000044382.jpg" class="bolt-img" alt="Chocolate Cake">
     </a>
 
     <div class="banner-scroll-container">
@@ -562,6 +681,36 @@
 
 </div>
 
+<!-- INSTAGRAM STYLE PWA INSTALL POPUP -->
+<div class="pwa-install-overlay" id="pwaInstallModal">
+  <div class="pwa-install-modal">
+    <div class="pwa-drag-handle"></div>
+    <img src="logo.png" class="pwa-app-icon" alt="City Choice Bakers App">
+    <h3 class="pwa-app-title">City Choice Bakers</h3>
+    <p class="pwa-app-desc">Install our official app for faster ordering, exclusive discount coupons & instant tracking!</p>
+    
+    <div class="pwa-features">
+      <div class="pwa-feature-item">
+        <i class="fa-solid fa-bolt"></i>
+        <span>15-Min Delivery</span>
+      </div>
+      <div class="pwa-feature-item">
+        <i class="fa-solid fa-percent"></i>
+        <span>Exclusive Offers</span>
+      </div>
+      <div class="pwa-feature-item">
+        <i class="fa-solid fa-bell"></i>
+        <span>Live Updates</span>
+      </div>
+    </div>
+
+    <div class="pwa-action-btns">
+      <button class="pwa-btn-secondary" id="pwaDismissBtn">Not Now</button>
+      <button class="pwa-btn-primary" id="pwaInstallBtn">Install App</button>
+    </div>
+  </div>
+</div>
+
 <script>
   let locationList = [], index = 0;
 
@@ -570,7 +719,7 @@
       const {data:{user}} = await supabaseClient.auth.getUser();
       const el = document.getElementById("headerLocation");
       if(!el) return;
-      if(!user){ el.innerText="Please Login"; return; }
+      if(!user){ el.innerText="Bakery, Sweets & Fine Dining Restaurant"; return; }
 
       const {data} = await supabaseClient.from("users")
         .select("location,pincode").eq("email",user.email).single();
@@ -751,6 +900,7 @@
   document.addEventListener("DOMContentLoaded",()=>{
     loadProducts();
     loadShopStatus();
+    loadHeaderLocation();
 
     document.querySelectorAll(".category-card").forEach(card=>{
       card.addEventListener("click",()=>{
@@ -820,165 +970,141 @@
     navigator.serviceWorker.register("sw.js").catch(()=>{});
   }
 
+  /* =========================================
+     AUTO SLIDING BANNERS
+  ========================================= */
+  document.addEventListener("DOMContentLoaded", () => {
+    const bannerContainer = document.querySelector(".banner-scroll-container");
+    if (!bannerContainer) return;
+    const banners = bannerContainer.querySelectorAll(".small-banner-card");
+    if (banners.length <= 1) return;
 
-/* =========================================
-   AUTO SLIDING BANNERS
-   Auto + Finger Swipe
-========================================= */
+    let currentBanner = 0;
+    let autoSlide;
+    let resumeTimer;
 
-document.addEventListener("DOMContentLoaded", () => {
-
-  const bannerContainer = document.querySelector(".banner-scroll-container");
-
-  if (!bannerContainer) return;
-
-  const banners = bannerContainer.querySelectorAll(".small-banner-card");
-
-  if (banners.length <= 1) return;
-
-  let currentBanner = 0;
-  let autoSlide;
-  let resumeTimer;
-
-  function getBannerWidth() {
-    const card = banners[0];
-
-    if (!card) return 0;
-
-    const style = window.getComputedStyle(bannerContainer);
-    const gap = parseFloat(style.gap) || 12;
-
-    return card.offsetWidth + gap;
-  }
-
-  function slideToBanner(index) {
-
-    const width = getBannerWidth();
-
-    if (!width) return;
-
-    currentBanner = index;
-
-    bannerContainer.scrollTo({
-      left: width * currentBanner,
-      behavior: "smooth"
-    });
-  }
-
-  function nextBanner() {
-
-    currentBanner++;
-
-    if (currentBanner >= banners.length) {
-      currentBanner = 0;
+    function getBannerWidth() {
+      const card = banners[0];
+      if (!card) return 0;
+      const style = window.getComputedStyle(bannerContainer);
+      const gap = parseFloat(style.gap) || 12;
+      return card.offsetWidth + gap;
     }
 
-    slideToBanner(currentBanner);
-  }
-
-  function startAutoSlide() {
-
-    clearInterval(autoSlide);
-
-    autoSlide = setInterval(() => {
-      nextBanner();
-    }, 3500);
-  }
-
-  function pauseAutoSlide() {
-
-    clearInterval(autoSlide);
-    clearTimeout(resumeTimer);
-
-    resumeTimer = setTimeout(() => {
-      startAutoSlide();
-    }, 3000);
-  }
-
-  /* Start automatic sliding */
-  startAutoSlide();
-
-
-  /* =====================================
-     USER FINGER / TOUCH CONTROL
-  ===================================== */
-
-  bannerContainer.addEventListener("touchstart", () => {
-    pauseAutoSlide();
-  }, {
-    passive: true
-  });
-
-  bannerContainer.addEventListener("touchmove", () => {
-    pauseAutoSlide();
-  }, {
-    passive: true
-  });
-
-  bannerContainer.addEventListener("touchend", () => {
-
-    /* Detect nearest card after finger swipe */
-    const width = getBannerWidth();
-
-    if (width > 0) {
-
-      currentBanner = Math.round(
-        bannerContainer.scrollLeft / width
-      );
-
-      if (currentBanner < 0) {
-        currentBanner = 0;
-      }
-
-      if (currentBanner >= banners.length) {
-        currentBanner = banners.length - 1;
-      }
-    }
-
-    pauseAutoSlide();
-
-  }, {
-    passive: true
-  });
-
-
-  /* =====================================
-     MOUSE / DESKTOP CONTROL
-  ===================================== */
-
-  bannerContainer.addEventListener("mouseenter", () => {
-    clearInterval(autoSlide);
-  });
-
-  bannerContainer.addEventListener("mouseleave", () => {
-    startAutoSlide();
-  });
-
-
-  /* =====================================
-     RESIZE FIX
-  ===================================== */
-
-  window.addEventListener("resize", () => {
-
-    const width = getBannerWidth();
-
-    if (width > 0) {
-
+    function slideToBanner(index) {
+      const width = getBannerWidth();
+      if (!width) return;
+      currentBanner = index;
       bannerContainer.scrollTo({
         left: width * currentBanner,
-        behavior: "instant"
+        behavior: "smooth"
       });
-
     }
 
+    function nextBanner() {
+      currentBanner++;
+      if (currentBanner >= banners.length) {
+        currentBanner = 0;
+      }
+      slideToBanner(currentBanner);
+    }
+
+    function startAutoSlide() {
+      clearInterval(autoSlide);
+      autoSlide = setInterval(() => {
+        nextBanner();
+      }, 3500);
+    }
+
+    function pauseAutoSlide() {
+      clearInterval(autoSlide);
+      clearTimeout(resumeTimer);
+      resumeTimer = setTimeout(() => {
+        startAutoSlide();
+      }, 3000);
+    }
+
+    startAutoSlide();
+
+    bannerContainer.addEventListener("touchstart", pauseAutoSlide, { passive: true });
+    bannerContainer.addEventListener("touchmove", pauseAutoSlide, { passive: true });
+
+    bannerContainer.addEventListener("touchend", () => {
+      const width = getBannerWidth();
+      if (width > 0) {
+        currentBanner = Math.round(bannerContainer.scrollLeft / width);
+        if (currentBanner < 0) currentBanner = 0;
+        if (currentBanner >= banners.length) currentBanner = banners.length - 1;
+      }
+      pauseAutoSlide();
+    }, { passive: true });
+
+    bannerContainer.addEventListener("mouseenter", () => clearInterval(autoSlide));
+    bannerContainer.addEventListener("mouseleave", startAutoSlide);
+
+    window.addEventListener("resize", () => {
+      const width = getBannerWidth();
+      if (width > 0) {
+        bannerContainer.scrollTo({
+          left: width * currentBanner,
+          behavior: "instant"
+        });
+      }
+    });
   });
 
-});
+  /* =========================================
+     INSTAGRAM STYLE PWA INSTALL PROMPT LOGIC
+  ========================================= */
+  let deferredPrompt = null;
 
+  window.addEventListener('beforeinstallprompt', (e) => {
+    e.preventDefault();
+    deferredPrompt = e;
 
+    const isStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone;
+    
+    if (!isStandalone) {
+      setTimeout(() => {
+        const modal = document.getElementById('pwaInstallModal');
+        if (modal) modal.classList.add('show');
+      }, 1500);
+    }
+  });
 
-  
+  document.addEventListener('DOMContentLoaded', () => {
+    const installModal = document.getElementById('pwaInstallModal');
+    const installBtn = document.getElementById('pwaInstallBtn');
+    const dismissBtn = document.getElementById('pwaDismissBtn');
+
+    if (installBtn) {
+      installBtn.addEventListener('click', async () => {
+        if (deferredPrompt) {
+          deferredPrompt.prompt();
+          const { outcome } = await deferredPrompt.userChoice;
+          if (outcome === 'accepted') {
+            console.log('PWA Installed');
+          }
+          deferredPrompt = null;
+        } else {
+          alert("iOS me install karne ke liye Safari ke Share button par tap karein aur 'Add to Home Screen' chunein.");
+        }
+        if (installModal) installModal.classList.remove('show');
+      });
+    }
+
+    if (dismissBtn) {
+      dismissBtn.addEventListener('click', () => {
+        if (installModal) installModal.classList.remove('show');
+      });
+    }
+  });
+
+  window.addEventListener('appinstalled', () => {
+    deferredPrompt = null;
+    const modal = document.getElementById('pwaInstallModal');
+    if (modal) modal.classList.remove('show');
+  });
 </script>
 
 </body>
