@@ -8,7 +8,9 @@
 <link rel="stylesheet" href="account.css">
 <link rel="stylesheet" href="back.css">
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
 <script src="supabase.js"></script>
 </head>
@@ -17,6 +19,7 @@
 
 <!-- HEADER -->
 <header class="top-header">
+
   <div class="logo">
     <i class="fa-solid fa-store"></i>
     <span>City Choice Bakery</span>
@@ -25,102 +28,328 @@
   <button onclick="logout()" class="logout-btn">
     <i class="fa-solid fa-right-from-bracket"></i>
   </button>
+
 </header>
+
 
 <!-- USER LOCATION ANIMATION -->
 <div class="location-box">
+
   <i class="fa-solid fa-location-dot pulse"></i>
+
   <div>
     <h4>Your Location</h4>
     <p id="userLocation">Loading...</p>
   </div>
+
 </div>
+
 
 <!-- ACCOUNT CARD -->
 <section class="card">
 
   <div class="profile">
+
     <i class="fa-solid fa-user-circle"></i>
-    <h2 id="userName">User Name</h2>
+
+    <h2 id="userName">
+      Loading...
+    </h2>
+
   </div>
 
+
   <div class="info">
-    <p><i class="fa-solid fa-phone"></i> <span id="userPhone"></span></p>
-    <p><i class="fa-solid fa-envelope"></i> <span id="userEmail"></span></p>
-    <p><i class="fa-solid fa-location-pin"></i> <span id="userPincode"></span></p>
-    <p><i class="fa-solid fa-map"></i> <span id="userLoc"></span></p>
+
+    <p>
+      <i class="fa-solid fa-phone"></i>
+      <span id="userPhone">Loading...</span>
+    </p>
+
+    <p>
+      <i class="fa-solid fa-envelope"></i>
+      <span id="userEmail">Loading...</span>
+    </p>
+
+    <p>
+      <i class="fa-solid fa-location-pin"></i>
+      <span id="userPincode">Loading...</span>
+    </p>
+
+    <p>
+      <i class="fa-solid fa-map"></i>
+      <span id="userLoc">Loading...</span>
+    </p>
+
   </div>
 
 </section>
+
 
 <!-- SETTINGS -->
 <section class="box">
 
-  <h3><i class="fa-solid fa-gear"></i> Settings</h3>
+  <h3>
+    <i class="fa-solid fa-gear"></i>
+    Settings
+  </h3>
+
 
   <a href="terms.html" class="item">
+
     <i class="fa-solid fa-file"></i>
-    <span>Terms & Conditions</span>
+
+    <span>
+      Terms & Conditions
+    </span>
+
   </a>
+
 
   <div class="item">
+
     <i class="fa-solid fa-circle-info"></i>
-    <span>Info</span>
+
+    <span>
+      Info
+    </span>
+
   </div>
 
+
   <a href="contact.html" class="item">
+
     <i class="fa-solid fa-headset"></i>
-    <span>Contact Help</span>
+
+    <span>
+      Contact Help
+    </span>
+
   </a>
 
+
   <footer>
-    <p>info.sheikhdeveloper@gmail.com</p>
-    <p>+91 7051932522</p>
+
+    <p>
+      info.sheikhdeveloper@gmail.com
+    </p>
+
+    <p>
+      +91 7051932522
+    </p>
+
   </footer>
 
 </section>
 
-
-
 <script>
 
-async function loadUser(){
+async function loadUser() {
 
-  let { data: { user } } = await supabaseClient.auth.getUser();
+  try {
 
-  if(!user){
-    window.location.href = "login.html";
-    return;
+    /* ===============================
+       GET LOGGED-IN AUTH USER
+    =============================== */
+
+    const {
+      data: authData,
+      error: authError
+    } = await supabaseClient.auth.getUser();
+
+    if (authError) {
+      console.error("AUTH ERROR:", authError);
+      window.location.replace("login.html");
+      return;
+    }
+
+    const user = authData?.user;
+
+    if (!user) {
+      window.location.replace("login.html");
+      return;
+    }
+
+
+    /* ===============================
+       SHOW EMAIL IMMEDIATELY
+    =============================== */
+
+    document.getElementById("userEmail").innerText =
+      user.email || "Not available";
+
+
+    /* ===============================
+       GET PROFILE FROM USERS TABLE
+    =============================== */
+
+    const {
+      data: profile,
+      error: profileError
+    } = await supabaseClient
+      .from("users")
+      .select("name, phone, email, pincode, location")
+      .eq("email", user.email)
+      .limit(1)
+      .maybeSingle();
+
+
+    /* ===============================
+       DATABASE ERROR
+    =============================== */
+
+    if (profileError) {
+
+      console.error(
+        "USERS TABLE ERROR:",
+        profileError
+      );
+
+      document.getElementById("userName").innerText =
+        user.user_metadata?.name || "User";
+
+      document.getElementById("userPhone").innerText =
+        "Profile unavailable";
+
+      document.getElementById("userPincode").innerText =
+        "Profile unavailable";
+
+      document.getElementById("userLoc").innerText =
+        "Profile unavailable";
+
+      document.getElementById("userLocation").innerText =
+        "Profile unavailable";
+
+      return;
+    }
+
+
+    /* ===============================
+       PROFILE NOT FOUND
+    =============================== */
+
+    if (!profile) {
+
+      console.log(
+        "No matching row found in users table for:",
+        user.email
+      );
+
+      document.getElementById("userName").innerText =
+        user.user_metadata?.name || "User";
+
+      document.getElementById("userPhone").innerText =
+        "Not available";
+
+      document.getElementById("userPincode").innerText =
+        "Not available";
+
+      document.getElementById("userLoc").innerText =
+        "Not available";
+
+      document.getElementById("userLocation").innerText =
+        "Profile not found";
+
+      return;
+    }
+
+
+    /* ===============================
+       SHOW COMPLETE PROFILE
+    =============================== */
+
+    document.getElementById("userName").innerText =
+      profile.name || "User";
+
+    document.getElementById("userPhone").innerText =
+      profile.phone || "Not available";
+
+    document.getElementById("userEmail").innerText =
+      profile.email || user.email;
+
+    document.getElementById("userPincode").innerText =
+      profile.pincode || "Not available";
+
+    document.getElementById("userLoc").innerText =
+      profile.location || "Not available";
+
+
+    /* ===============================
+       LOCATION
+    =============================== */
+
+    if (profile.pincode && profile.location) {
+
+      document.getElementById("userLocation").innerText =
+        profile.pincode + " - " +
+        profile.location +
+        " - Active";
+
+    }
+    else if (profile.pincode) {
+
+      document.getElementById("userLocation").innerText =
+        profile.pincode + " - Active";
+
+    }
+    else if (profile.location) {
+
+      document.getElementById("userLocation").innerText =
+        profile.location + " - Active";
+
+    }
+    else {
+
+      document.getElementById("userLocation").innerText =
+        "Location not available";
+
+    }
+
+
+    /* ===============================
+       DEBUG
+    =============================== */
+
+    console.log("AUTH USER:", user);
+    console.log("DATABASE PROFILE:", profile);
+
   }
 
-  // get profile from DB
-  let { data } = await supabaseClient
-    .from("users")
-    .select("*")
-    .eq("email", user.email)
-    .single();
+  catch (error) {
 
-  if(data){
-
-    document.getElementById("userName").innerText = data.name;
-    document.getElementById("userPhone").innerText = data.phone;
-    document.getElementById("userEmail").innerText = data.email;
-    document.getElementById("userPincode").innerText = data.pincode;
-    document.getElementById("userLoc").innerText = data.location;
-    document.getElementById("userLocation").innerText = data.pincode + " - Active";
+    console.error(
+      "ACCOUNT ERROR:",
+      error
+    );
 
   }
+
 }
+
+
+/* ===============================
+   LOGOUT
+=============================== */
+
+async function logout() {
+
+  await supabaseClient.auth.signOut();
+
+  window.location.replace("login.html");
+
+}
+
+
+/* ===============================
+   START
+=============================== */
 
 loadUser();
 
-// LOGOUT
-async function logout(){
-  await supabaseClient.auth.signOut();
-  window.location.href = "login.html";
-}
-
 </script>
+
+
 <script src="back.js"></script>
+
 </body>
 </html>
