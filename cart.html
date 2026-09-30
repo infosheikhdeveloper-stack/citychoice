@@ -510,25 +510,73 @@
     /* =========================
        CHECKOUT WITH AUTH CHECK
     ========================= */
+async function goToCheckout() {
 
-    async function goToCheckout() {
-      if (cart.length === 0) {
-        alert("Your cart is empty!");
-        return;
-      }
+  /* CART EMPTY CHECK */
 
-      // Check user session with Supabase
-      const { data: { session }, error } = await supabaseClient.auth.getSession();
+  if (cart.length === 0) {
 
-      if (error || !session) {
-        alert("Please login first to proceed to checkout!");
-        window.location.href = "login.html";
-        return;
-      }
+    alert("Your cart is empty!");
 
-      window.location.href = "checkout.html";
-    }
+    return;
 
+  }
+
+
+  /* SUPABASE SESSION CHECK */
+
+  const {
+    data: { session },
+    error
+  } =
+    await supabaseClient.auth.getSession();
+
+
+  /* SESSION ERROR */
+
+  if (error) {
+
+    console.error(
+      "Auth session error:",
+      error
+    );
+
+    alert(
+      "Unable to check login. Please try again."
+    );
+
+    return;
+
+  }
+
+
+  /* USER NOT LOGGED IN */
+
+  if (!session) {
+
+    /*
+      Current cart ko localStorage mein
+      waise hi rehne do.
+
+      Login ke baad checkout.html par
+      redirect hoga.
+    */
+
+    window.location.href =
+      "login.html?redirect=checkout.html";
+
+    return;
+
+  }
+
+
+  /* USER ALREADY LOGGED IN */
+
+  window.location.href =
+    "checkout.html";
+
+}
+    
     renderCart();
   </script>
   <script src="back.js"></script>
