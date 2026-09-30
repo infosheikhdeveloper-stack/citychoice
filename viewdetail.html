@@ -1,59 +1,296 @@
-<!-- viewdetail.html -->
-
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
 <meta charset="UTF-8">
+
 <meta name="viewport"
 content="width=device-width, initial-scale=1.0">
 
 <title>Order Details</title>
 
-<link rel="stylesheet" href="header.css">
-<link rel="stylesheet" href="viewdetail.css">
-<link rel="stylesheet" href="back.css">
+<link rel="stylesheet"
+href="header.css">
+
+<link rel="stylesheet"
+href="viewdetail.css">
+
+<link rel="stylesheet"
+href="back.css">
+
 <link rel="stylesheet"
 href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
+<style>
+
+/* ==========================================
+   DELIVERY BOY
+========================================== */
+
+.delivery-boy-card{
+background:#eff6ff;
+border:1px solid #bfdbfe;
+padding:16px;
+border-radius:16px;
+display:flex;
+gap:14px;
+align-items:center;
+}
+
+.delivery-boy-icon{
+width:58px;
+height:58px;
+border-radius:50%;
+background:#2563eb;
+color:white;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:24px;
+flex-shrink:0;
+}
+
+.delivery-boy-info{
+flex:1;
+}
+
+.delivery-boy-info h3{
+margin:0 0 5px;
+color:#0f172a;
+}
+
+.delivery-boy-info p{
+margin:3px 0;
+color:#475569;
+font-size:14px;
+}
+
+
+/* ==========================================
+   PAYMENT
+========================================== */
+
+.payment-detail-box{
+background:#f8fafc;
+padding:14px;
+border-radius:14px;
+margin-top:10px;
+}
+
+.payment-detail-row{
+display:flex;
+justify-content:space-between;
+gap:10px;
+padding:8px 0;
+border-bottom:1px solid #e2e8f0;
+}
+
+.payment-detail-row:last-child{
+border-bottom:0;
+}
+
+.payment-paid{
+color:#16a34a;
+font-weight:800;
+}
+
+.payment-due{
+color:#dc2626;
+font-weight:800;
+}
+
+.payment-complete{
+margin-top:12px;
+padding:12px;
+border-radius:12px;
+background:#dcfce7;
+color:#166534;
+font-weight:800;
+text-align:center;
+}
+
+
+/* ==========================================
+   BIG DELIVERED
+========================================== */
+
+.delivered-success{
+display:none;
+background:#eff6ff;
+border:2px solid #2563eb;
+border-radius:22px;
+padding:30px 18px;
+text-align:center;
+margin-bottom:16px;
+box-shadow:0 8px 25px rgba(37,99,235,.12);
+}
+
+.delivered-success.show{
+display:block;
+animation:deliveredPop .5s ease;
+}
+
+@keyframes deliveredPop{
+
+0%{
+transform:scale(.7);
+opacity:0;
+}
+
+100%{
+transform:scale(1);
+opacity:1;
+}
+
+}
+
+.double-tick{
+font-size:68px;
+font-weight:900;
+line-height:1;
+color:#2563eb;
+letter-spacing:-17px;
+margin-right:17px;
+}
+
+.delivered-success h2{
+color:#2563eb;
+font-size:26px;
+margin-top:15px;
+}
+
+.delivered-success p{
+color:#475569;
+margin-top:6px;
+}
+
+
+/* ==========================================
+   TRACKING EXTRA
+========================================== */
+
+.track-step .circle{
+transition:.3s;
+}
+
+.track-step.active .circle{
+background:#2563eb;
+color:white;
+border-color:#2563eb;
+box-shadow:0 0 0 5px rgba(37,99,235,.12);
+}
+
+.active-line{
+background:#2563eb !important;
+}
+
+
+/* ==========================================
+   LIVE BADGE
+========================================== */
+
+.live-badge{
+display:inline-flex;
+align-items:center;
+gap:6px;
+background:#dcfce7;
+color:#15803d;
+font-size:12px;
+font-weight:800;
+padding:6px 10px;
+border-radius:20px;
+margin-left:8px;
+}
+
+.live-dot{
+width:7px;
+height:7px;
+background:#16a34a;
+border-radius:50%;
+animation:livePulse 1s infinite;
+}
+
+@keyframes livePulse{
+
+0%,100%{
+opacity:1;
+transform:scale(1);
+}
+
+50%{
+opacity:.4;
+transform:scale(.7);
+}
+
+}
+
+</style>
+
 </head>
+
 
 <body>
 
-  <!-- HEADER -->
+
+<!-- HEADER -->
+
 <header class="top-header">
 
-  <div class="logo-section">
+<div class="logo-section">
 
-    <div class="logo-circle">
-      <img src="logo.png">
-    </div>
+<div class="logo-circle">
 
-    <div class="logo-text-box">
-      <h1 class="logo-text">City Choice Bakery</h1>
+<img src="logo.png">
 
-      <div class="location-anim">
-        <i class="fa-solid fa-location-dot"></i>
-        <span id="headerLocation">Loading...</span>
-      </div>
+</div>
 
-    </div>
+<div class="logo-text-box">
 
-  </div>
+<h1 class="logo-text">
+City Choice Bakery
+</h1>
 
+<div class="location-anim">
 
+<i class="fa-solid fa-location-dot"></i>
+
+<span id="headerLocation">
+Loading...
+</span>
+
+</div>
+
+</div>
+
+</div>
 
 </header>
+
 
 <!-- PAGE -->
 
 <div class="detail-container">
 
+
 <div class="page-title">
+
 <i class="fa-solid fa-receipt"></i>
+
 Order Details
+
+<span class="live-badge">
+
+<span class="live-dot"></span>
+
+LIVE
+
+</span>
+
 </div>
+
 
 <!-- ORDER INFO -->
 
@@ -61,61 +298,113 @@ Order Details
 
 <div class="top-flex">
 
+
 <div>
 
 <div class="mini-box">
+
 <i class="fa-solid fa-hashtag"></i>
-<span id="orderId">Loading...</span>
+
+<span id="orderId">
+Loading...
+</span>
+
 </div>
+
 
 <div class="mini-box">
+
 <i class="fa-solid fa-box"></i>
-<span id="packageCode">Loading...</span>
+
+<span id="packageCode">
+Loading...
+</span>
+
 </div>
 
 </div>
+
 
 <div>
 
 <div class="mini-box">
+
 <i class="fa-solid fa-calendar"></i>
-<span id="orderDate">Loading...</span>
+
+<span id="orderDate">
+Loading...
+</span>
+
 </div>
+
 
 <div class="mini-box">
+
 <i class="fa-solid fa-clock"></i>
-<span id="orderTime">Loading...</span>
-</div>
+
+<span id="orderTime">
+Loading...
+</span>
 
 </div>
 
 </div>
+
+
+</div>
+
 
 <div class="customer-box">
 
+
 <div class="customer-item">
+
 <i class="fa-solid fa-user"></i>
-<span id="customerName"></span>
+
+<span id="customerName">
+-
+</span>
+
 </div>
 
+
 <div class="customer-item">
+
 <i class="fa-solid fa-phone"></i>
-<span id="customerPhone"></span>
+
+<span id="customerPhone">
+-
+</span>
+
 </div>
 
+
 <div class="customer-item">
+
 <i class="fa-solid fa-envelope"></i>
-<span id="customerEmail"></span>
+
+<span id="customerEmail">
+-
+</span>
+
 </div>
+
 
 <div class="customer-item">
+
 <i class="fa-solid fa-wallet"></i>
-<span id="paymentMethod"></span>
+
+<span id="paymentMethod">
+-
+</span>
+
 </div>
+
 
 </div>
 
 </div>
+
 
 <!-- STATUS -->
 
@@ -126,193 +415,429 @@ Loading status...
 
 </div>
 
+
+<!-- DELIVERED SUCCESS -->
+
+<div
+id="deliveredSuccess"
+class="delivered-success">
+
+<div class="double-tick">
+✓✓
+</div>
+
+<h2>
+Delivered Successfully
+</h2>
+
+<p>
+Your order has been delivered.
+</p>
+
+</div>
+
+
 <!-- ITEMS -->
 
 <div class="detail-card">
 
 <div class="section-title">
+
 <i class="fa-solid fa-bag-shopping"></i>
+
 Ordered Items
+
 </div>
 
 <div id="itemsBox"></div>
 
 </div>
 
+
+<!-- DELIVERY BOY -->
+
+<div class="detail-card">
+
+<div class="section-title">
+
+<i class="fa-solid fa-motorcycle"></i>
+
+Delivery Boy
+
+</div>
+
+
+<div
+id="deliveryBoyBox">
+
+<div class="delivery-boy-card">
+
+<div class="delivery-boy-icon">
+
+<i class="fa-solid fa-user"></i>
+
+</div>
+
+<div class="delivery-boy-info">
+
+<h3>
+Not Assigned
+</h3>
+
+<p>
+Delivery boy will appear here after admin assignment.
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+
 <!-- LIVE TRACK -->
 
 <div class="detail-card">
 
 <div class="section-title">
+
 <i class="fa-solid fa-truck"></i>
+
 Live Delivery Tracking
+
 </div>
+
 
 <div class="track-line">
 
-<div class="track-step active">
+
+<!-- ASSIGNED -->
+
+<div
+class="track-step active"
+id="assignedStep">
+
 <div class="circle">
-<i class="fa-solid fa-check"></i>
-</div>
-<p>Assigned</p>
+
+<i class="fa-solid fa-user-check"></i>
+
 </div>
 
-<div class="line active-line"></div>
+<p>
+Assigned
+</p>
 
-<div class="track-step"
+</div>
+
+
+<div
+class="line active-line"
+id="line1">
+</div>
+
+
+<!-- ACCEPTED -->
+
+<div
+class="track-step"
 id="acceptedStep">
 
 <div class="circle">
+
 <i class="fa-solid fa-store"></i>
-</div>
-
-<p>Accepted</p>
 
 </div>
 
-<div class="line"
-id="line2"></div>
+<p>
+Accepted
+</p>
 
-<div class="track-step"
+</div>
+
+
+<div
+class="line"
+id="line2">
+</div>
+
+
+<!-- PICKED UP -->
+
+<div
+class="track-step"
 id="pickupStep">
 
 <div class="circle">
+
 <i class="fa-solid fa-box"></i>
-</div>
-
-<p>Picked Up</p>
 
 </div>
 
-<div class="line"
-id="line3"></div>
+<p>
+Picked Up
+</p>
 
-<div class="track-step"
+</div>
+
+
+<div
+class="line"
+id="line3">
+</div>
+
+
+<!-- OUT -->
+
+<div
+class="track-step"
 id="deliveryStep">
 
 <div class="circle">
+
 <i class="fa-solid fa-motorcycle"></i>
-</div>
-
-<p>Out Delivery</p>
 
 </div>
 
-<div class="line"
-id="line4"></div>
+<p>
+Out Delivery
+</p>
 
-<div class="track-step"
+</div>
+
+
+<div
+class="line"
+id="line4">
+</div>
+
+
+<!-- DELIVERED -->
+
+<div
+class="track-step"
 id="doneStep">
 
 <div class="circle">
+
 <i class="fa-solid fa-house"></i>
-</div>
-
-<p>Delivered</p>
 
 </div>
 
+<p>
+Delivered
+</p>
+
+</div>
+
+
 </div>
 
 </div>
+
 
 <!-- BILL -->
 
 <div class="detail-card">
 
 <div class="section-title">
+
 <i class="fa-solid fa-file-invoice"></i>
+
 Bill Summary
+
 </div>
 
+
 <div class="bill-row">
+
 <span>
+
 <i class="fa-solid fa-receipt"></i>
+
 Subtotal
+
 </span>
 
-<b id="subtotal"></b>
+<b id="subtotal">
+₹0
+</b>
+
 </div>
 
+
 <div class="bill-row">
+
 <span>
+
 <i class="fa-solid fa-percent"></i>
+
 Tax
+
 </span>
 
-<b id="tax"></b>
+<b id="tax">
+₹0
+</b>
+
 </div>
 
+
 <div class="bill-row">
+
 <span>
+
 <i class="fa-solid fa-truck"></i>
+
 Delivery
+
 </span>
 
-<b id="delivery"></b>
+<b id="delivery">
+₹0
+</b>
+
 </div>
+
 
 <div class="bill-row">
+
 <span>
+
 <i class="fa-solid fa-layer-group"></i>
+
 Platform Charge
+
 </span>
 
-<b id="platform"></b>
+<b id="platform">
+₹0
+</b>
+
 </div>
+
 
 <div class="bill-row grand">
+
 <span>
+
 <i class="fa-solid fa-money-bill"></i>
+
 Grand Total
+
 </span>
 
-<b id="grandTotal"></b>
+<b id="grandTotal">
+₹0
+</b>
+
 </div>
 
-<div class="payment-status">
 
-<div class="paid">
+<!-- PAYMENT DETAILS -->
+
+<div class="payment-detail-box">
+
+
+<div class="payment-detail-row">
+
+<span>
+Payment Type
+</span>
+
+<b id="userPaymentType">
+-
+</b>
+
+</div>
+
+
+<div class="payment-detail-row">
+
+<span>
+Paid Amount
+</span>
+
+<b
+id="userPaidAmount"
+class="payment-paid">
+₹0
+</b>
+
+</div>
+
+
+<div class="payment-detail-row">
+
+<span>
+Remaining Due
+</span>
+
+<b
+id="userRemainingAmount"
+class="payment-due">
+₹0
+</b>
+
+</div>
+
+
+<div
+id="paymentComplete"
+class="payment-complete"
+style="display:none;">
+
 <i class="fa-solid fa-circle-check"></i>
-Paid
-</div>
 
-<div class="due">
-<i class="fa-solid fa-clock"></i>
-No Due
-</div>
+Payment Complete
 
 </div>
 
+
 </div>
 
-<!-- BUTTON -->
+</div>
 
-<button class="invoice-btn"
+
+<!-- INVOICE -->
+
+<button
+class="invoice-btn"
 onclick="downloadInvoice()">
 
 <i class="fa-solid fa-download"></i>
+
 Download Invoice
 
 </button>
 
+
 </div>
+
 
 <!-- ALERT -->
 
-<div class="overlay"
-id="overlay"></div>
+<div
+class="overlay"
+id="overlay">
+</div>
 
-<div class="bottom-sheet"
+
+<div
+class="bottom-sheet"
 id="bottomSheet">
 
 <div id="sheetContent"></div>
 
 </div>
 
+
 <script>
 
-// ================= SUPABASE =================
+/* =====================================================
+   SUPABASE
+===================================================== */
 
 const SUPABASE_URL =
 "https://ftuchilcswtnnldrugir.supabase.co";
@@ -320,139 +845,377 @@ const SUPABASE_URL =
 const SUPABASE_ANON_KEY =
 "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZ0dWNoaWxjc3d0bm5sZHJ1Z2lyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzkxNjAyNDQsImV4cCI6MjA5NDczNjI0NH0.88SWE5lvsJD0Fw8x7h4pgAmq1WFRN1qMvmXHCXeDqsU";
 
+/*
+ IMPORTANT:
+ Yahan apni existing Supabase ANON KEY use karo.
+*/
+
 const supabaseClient =
 window.supabase.createClient(
 SUPABASE_URL,
 SUPABASE_ANON_KEY
 );
 
-// ================= GET ORDER ID =================
+
+/* =====================================================
+   ORDER ID
+===================================================== */
 
 const params =
-new URLSearchParams(window.location.search);
+new URLSearchParams(
+window.location.search
+);
 
 const orderId =
 params.get("id");
 
-// ================= LOAD ORDER =================
+
+/* =====================================================
+   LOAD ORDER
+===================================================== */
 
 async function loadOrder(){
 
-const { data, error } =
-await supabaseClient
-.from("orders")
-.select("*")
-.eq("id", orderId)
-.single();
+if(!orderId){
 
-if(error || !data){
-
-alert("Order not found");
+alert("Order ID missing.");
 
 return;
 
 }
 
-const order = data;
 
-// ================= BASIC =================
+const {
+data:order,
+error
+} =
+await supabaseClient
+.from("orders")
+.select("*")
+.eq("id",orderId)
+.single();
 
-document.getElementById("orderId")
-.innerText = order.order_id;
 
-document.getElementById("packageCode")
-.innerText = order.package_code;
+if(error || !order){
 
-document.getElementById("customerName")
-.innerText = order.customer_name;
+alert("Order not found.");
 
-document.getElementById("customerPhone")
-.innerText = order.phone;
+return;
 
-document.getElementById("paymentMethod")
-.innerText = order.payment_method;
+}
 
-const { data:userData } =
-await supabaseClient.auth.getUser();
 
-document.getElementById("customerEmail")
-.innerText =
-userData.user?.email || "";
+/* =====================================================
+   BASIC
+===================================================== */
 
-// DATE TIME
+document.getElementById(
+"orderId"
+).innerText =
+order.order_id || "-";
+
+
+document.getElementById(
+"packageCode"
+).innerText =
+order.package_code || "-";
+
+
+document.getElementById(
+"customerName"
+).innerText =
+order.customer_name || "-";
+
+
+document.getElementById(
+"customerPhone"
+).innerText =
+order.phone || "-";
+
+
+document.getElementById(
+"paymentMethod"
+).innerText =
+order.payment_type ||
+order.payment_method ||
+"-";
+
+
+/* =====================================================
+   EMAIL
+===================================================== */
+
+document.getElementById(
+"customerEmail"
+).innerText =
+order.email || "";
+
+
+/* =====================================================
+   DATE TIME
+===================================================== */
+
+if(order.created_at){
 
 const date =
 new Date(order.created_at);
 
-document.getElementById("orderDate")
-.innerText =
+document.getElementById(
+"orderDate"
+).innerText =
 date.toLocaleDateString();
 
-document.getElementById("orderTime")
-.innerText =
+document.getElementById(
+"orderTime"
+).innerText =
 date.toLocaleTimeString();
 
-// ================= STATUS =================
+}
+
+
+/* =====================================================
+   STATUS
+===================================================== */
+
+const status =
+order.status || "Waiting";
+
+const deliveryStatus =
+order.delivery_status ||
+"Unassigned";
+
 
 const statusBox =
-document.getElementById("statusAlert");
+document.getElementById(
+"statusAlert"
+);
 
-if(order.status === "Accepted"){
 
-statusBox.className =
-"status-alert success";
-
-statusBox.innerHTML = `
-<i class="fa-solid fa-circle-check"></i>
-Your order has been accepted successfully
-`;
-
-activateAccepted();
-
-}else if(order.status === "Cancelled"){
+if(status==="Cancelled"){
 
 statusBox.className =
 "status-alert cancel";
 
 statusBox.innerHTML = `
+
 <i class="fa-solid fa-circle-xmark"></i>
-Sorry your order has been cancelled
+
+Sorry, your order has been cancelled.
+
 `;
 
-}else{
+}
+else if(
+deliveryStatus==="Delivered" ||
+status==="Delivered"
+){
+
+statusBox.className =
+"status-alert success";
+
+statusBox.innerHTML = `
+
+<i class="fa-solid fa-circle-check"></i>
+
+Your order has been delivered successfully.
+
+`;
+
+}
+else if(
+deliveryStatus==="Out for Delivery"
+){
+
+statusBox.className =
+"status-alert success";
+
+statusBox.innerHTML = `
+
+<i class="fa-solid fa-motorcycle"></i>
+
+Your order is out for delivery.
+
+`;
+
+}
+else if(
+deliveryStatus==="Picked Up"
+){
+
+statusBox.className =
+"status-alert success";
+
+statusBox.innerHTML = `
+
+<i class="fa-solid fa-box"></i>
+
+Your order has been picked up.
+
+`;
+
+}
+else if(status==="Accepted"){
+
+statusBox.className =
+"status-alert success";
+
+statusBox.innerHTML = `
+
+<i class="fa-solid fa-circle-check"></i>
+
+Your order has been accepted successfully.
+
+`;
+
+}
+else{
 
 statusBox.className =
 "status-alert waiting";
 
 statusBox.innerHTML = `
+
 <i class="fa-solid fa-clock"></i>
-Your order is waiting for confirmation
+
+Your order is waiting for confirmation.
+
 `;
 
 }
 
-// ================= ITEMS =================
+
+/* =====================================================
+   TRACKING
+===================================================== */
+
+updateTracking(
+deliveryStatus,
+status
+);
+
+
+/* =====================================================
+   DELIVERED BIG TICK
+===================================================== */
+
+if(
+deliveryStatus==="Delivered" ||
+status==="Delivered"
+){
+
+document
+.getElementById(
+"deliveredSuccess"
+)
+.classList.add("show");
+
+}
+
+
+/* =====================================================
+   DELIVERY BOY
+===================================================== */
+
+const deliveryBoyBox =
+document.getElementById(
+"deliveryBoyBox"
+);
+
+
+if(order.delivery_boy_id){
+
+deliveryBoyBox.innerHTML = `
+
+<div class="delivery-boy-card">
+
+<div class="delivery-boy-icon">
+
+<i class="fa-solid fa-motorcycle"></i>
+
+</div>
+
+<div class="delivery-boy-info">
+
+<h3>
+${order.delivery_boy_name || "Delivery Boy"}
+</h3>
+
+<p>
+
+<i class="fa-solid fa-phone"></i>
+
+${order.delivery_boy_phone || "Phone not available"}
+
+</p>
+
+<p>
+
+<i class="fa-solid fa-circle-check"></i>
+
+${deliveryStatus}
+
+</p>
+
+</div>
+
+</div>
+
+`;
+
+}
+
+
+/* =====================================================
+   ITEMS
+===================================================== */
 
 const itemsBox =
-document.getElementById("itemsBox");
+document.getElementById(
+"itemsBox"
+);
+
+itemsBox.innerHTML = "";
 
 let items = order.items;
 
-if(typeof items === "string"){
-items = JSON.parse(items);
+try{
+
+if(typeof items==="string"){
+
+items=JSON.parse(items);
+
 }
 
-items.forEach(item=>{
+}catch{
+
+items=[];
+
+}
+
+
+(items || []).forEach(item=>{
+
+const qty =
+Number(item.qty) || 0;
+
+const price =
+Number(item.price) || 0;
+
 
 itemsBox.innerHTML += `
 
 <div class="item-card">
 
-<img src="${item.image}">
+<img
+src="${item.image || ''}"
+onerror="this.style.display='none'"
+>
 
 <div class="item-content">
 
-<h3>${item.title}</h3>
+<h3>
+${item.title || "-"}
+</h3>
 
 <p>
 Fresh & delicious bakery item
@@ -461,11 +1224,11 @@ Fresh & delicious bakery item
 <div class="item-bottom">
 
 <span>
-Qty : ${item.qty}
+Qty : ${qty}
 </span>
 
 <b>
-₹${item.price * item.qty}
+₹${price * qty}
 </b>
 
 </div>
@@ -478,95 +1241,379 @@ Qty : ${item.qty}
 
 });
 
-// ================= BILL =================
 
-document.getElementById("subtotal")
-.innerText = `₹${order.subtotal}`;
+/* =====================================================
+   BILL
+===================================================== */
 
-document.getElementById("tax")
-.innerText = `₹${order.tax}`;
+document.getElementById(
+"subtotal"
+).innerText =
+"₹" + (Number(order.subtotal)||0);
 
-document.getElementById("delivery")
-.innerText =
-`₹${order.delivery_charge}`;
 
-document.getElementById("platform")
-.innerText =
-`₹${order.platform_charge}`;
+document.getElementById(
+"tax"
+).innerText =
+"₹" + (Number(order.tax)||0);
 
-document.getElementById("grandTotal")
-.innerText =
-`₹${order.grand_total}`;
+
+document.getElementById(
+"delivery"
+).innerText =
+"₹" + (Number(order.delivery_charge)||0);
+
+
+document.getElementById(
+"platform"
+).innerText =
+"₹" + (Number(order.platform_charge)||0);
+
+
+const total =
+Number(order.grand_total)||0;
+
+
+document.getElementById(
+"grandTotal"
+).innerText =
+"₹" + total;
+
+
+/* =====================================================
+   PAYMENT
+===================================================== */
+
+const paid =
+Number(order.paid_amount)||0;
+
+
+const remaining =
+Math.max(total-paid,0);
+
+
+document.getElementById(
+"userPaymentType"
+).innerText =
+order.payment_type ||
+order.payment_method ||
+"-";
+
+
+document.getElementById(
+"userPaidAmount"
+).innerText =
+"₹" + paid;
+
+
+document.getElementById(
+"userRemainingAmount"
+).innerText =
+"₹" + remaining;
+
+
+if(remaining<=0 && total>0){
+
+document.getElementById(
+"paymentComplete"
+).style.display =
+"block";
+
+document.getElementById(
+"userRemainingAmount"
+).className =
+"payment-paid";
 
 }
+
+}
+
+
+/* =====================================================
+   TRACKING
+===================================================== */
+
+function updateTracking(
+deliveryStatus,
+orderStatus
+){
+
+const assigned =
+document.getElementById(
+"assignedStep"
+);
+
+const accepted =
+document.getElementById(
+"acceptedStep"
+);
+
+const pickup =
+document.getElementById(
+"pickupStep"
+);
+
+const delivery =
+document.getElementById(
+"deliveryStep"
+);
+
+const done =
+document.getElementById(
+"doneStep"
+);
+
+
+const line1 =
+document.getElementById(
+"line1"
+);
+
+const line2 =
+document.getElementById(
+"line2"
+);
+
+const line3 =
+document.getElementById(
+"line3"
+);
+
+const line4 =
+document.getElementById(
+"line4"
+);
+
+
+[
+assigned,
+accepted,
+pickup,
+delivery,
+done
+].forEach(step=>{
+
+step.classList.remove(
+"active"
+);
+
+});
+
+
+[
+line1,
+line2,
+line3,
+line4
+].forEach(line=>{
+
+line.classList.remove(
+"active-line"
+);
+
+});
+
+
+if(
+deliveryStatus==="Unassigned"
+){
+
+return;
+
+}
+
+
+/* ASSIGNED */
+
+assigned.classList.add(
+"active"
+);
+
+line1.classList.add(
+"active-line"
+);
+
+
+/* ACCEPTED */
+
+if(
+orderStatus==="Accepted" ||
+deliveryStatus==="Picked Up" ||
+deliveryStatus==="Out for Delivery" ||
+deliveryStatus==="Delivered"
+){
+
+accepted.classList.add(
+"active"
+);
+
+line2.classList.add(
+"active-line"
+);
+
+}
+
+
+/* PICKED UP */
+
+if(
+deliveryStatus==="Picked Up" ||
+deliveryStatus==="Out for Delivery" ||
+deliveryStatus==="Delivered"
+){
+
+pickup.classList.add(
+"active"
+);
+
+line3.classList.add(
+"active-line"
+);
+
+}
+
+
+/* OUT FOR DELIVERY */
+
+if(
+deliveryStatus==="Out for Delivery" ||
+deliveryStatus==="Delivered"
+){
+
+delivery.classList.add(
+"active"
+);
+
+line4.classList.add(
+"active-line"
+);
+
+}
+
+
+/* DELIVERED */
+
+if(
+deliveryStatus==="Delivered"
+){
+
+done.classList.add(
+"active"
+);
+
+}
+
+}
+
+
+/* =====================================================
+   REALTIME
+===================================================== */
+
+supabaseClient
+.channel(
+"order-live-" + orderId
+)
+.on(
+"postgres_changes",
+{
+event:"UPDATE",
+schema:"public",
+table:"orders",
+filter:"id=eq." + orderId
+},
+payload=>{
+
+console.log(
+"Order updated:",
+payload.new
+);
 
 loadOrder();
 
-// ================= TRACK =================
-
-function activateAccepted(){
-
-document.getElementById("acceptedStep")
-.classList.add("active");
-
-document.getElementById("line2")
-.classList.add("active-line");
-
 }
+)
+.subscribe();
 
-// ================= ALERT =================
+
+/* =====================================================
+   BOTTOM SHEET
+===================================================== */
 
 function showSheet(html){
 
-document.getElementById("sheetContent")
-.innerHTML = html;
+document.getElementById(
+"sheetContent"
+).innerHTML =
+html;
 
-document.getElementById("overlay")
-.classList.add("show");
+document.getElementById(
+"overlay"
+).classList.add(
+"show"
+);
 
-document.getElementById("bottomSheet")
-.classList.add("show");
-
-}
-
-// CLOSE
-document.getElementById("overlay")
-.onclick = ()=>{
-
-document.getElementById("overlay")
-.classList.remove("show");
-
-document.getElementById("bottomSheet")
-.classList.remove("show");
+document.getElementById(
+"bottomSheet"
+).classList.add(
+"show"
+);
 
 }
 
-// ================= DOWNLOAD =================
+
+document.getElementById(
+"overlay"
+).onclick = ()=>{
+
+document.getElementById(
+"overlay"
+).classList.remove(
+"show"
+);
+
+document.getElementById(
+"bottomSheet"
+).classList.remove(
+"show"
+);
+
+};
+
+
+/* =====================================================
+   INVOICE
+===================================================== */
 
 async function downloadInvoice(){
 
-const { data } =
+const {
+data,
+error
+} =
 await supabaseClient
 .from("orders")
 .select("status")
-.eq("id", orderId)
+.eq("id",orderId)
 .single();
 
-if(data.status !== "Accepted"){
+
+if(error || !data){
 
 showSheet(`
 
 <div class="sheet-icon cancel-icon">
+
 <i class="fa-solid fa-xmark"></i>
+
 </div>
 
 <h2>
-Invoice Not Ready
+Invoice Error
 </h2>
 
 <p>
-Admin has not accepted your order yet.
-Please wait until order confirmation.
+Order information could not be loaded.
 </p>
 
 `);
@@ -575,10 +1622,42 @@ return;
 
 }
 
+
+if(
+data.status !== "Accepted" &&
+data.status !== "Delivered"
+){
+
+showSheet(`
+
+<div class="sheet-icon cancel-icon">
+
+<i class="fa-solid fa-clock"></i>
+
+</div>
+
+<h2>
+Invoice Not Ready
+</h2>
+
+<p>
+Admin has not accepted your order yet.
+Please wait for confirmation.
+</p>
+
+`);
+
+return;
+
+}
+
+
 showSheet(`
 
 <div class="sheet-icon success-icon">
+
 <i class="fa-solid fa-check"></i>
+
 </div>
 
 <h2>
@@ -586,20 +1665,28 @@ Invoice Ready
 </h2>
 
 <p>
-Your invoice download is ready now.
+Your invoice is ready.
 </p>
 
 `);
+
 
 setTimeout(()=>{
 
 window.print();
 
-},1500);
+},1200);
 
 }
 
+
+loadOrder();
+
 </script>
+
+
 <script src="back.js"></script>
+
 </body>
+
 </html>
