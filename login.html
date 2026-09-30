@@ -5,9 +5,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Login - City Choice Bakery</title>
 
-<!-- Font Awesome & Google Fonts -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap"
+rel="stylesheet">
 
 <link rel="stylesheet" href="login.css">
 <link rel="stylesheet" href="alert.css">
@@ -20,22 +22,30 @@
 
 <!-- TOP ALERT -->
 <div class="top-alert" id="topAlert">
+
   <div class="alert-icon" id="alertIcon">
     <i class="fa-solid fa-check"></i>
   </div>
 
   <div class="alert-content">
-    <div class="alert-title" id="alertTitle">Success</div>
-    <div class="alert-text" id="alertText">Message here</div>
+    <div class="alert-title" id="alertTitle">
+      Success
+    </div>
+
+    <div class="alert-text" id="alertText">
+      Message here
+    </div>
   </div>
 
   <div class="alert-close" onclick="closeTopAlert()">
     <i class="fa-solid fa-xmark"></i>
   </div>
+
 </div>
 
 
-<!-- HERO BACKGROUND SECTION -->
+<!-- HERO -->
+
 <div class="app-hero" id="videoHero">
 
   <div class="hero-header">
@@ -53,7 +63,8 @@
   </div>
 
 
-  <!-- ANIMATED SVG SHOP + CAKE + DELIVERY SCENE -->
+  <!-- SAME SVG DESIGN -->
+
   <div class="hero-scene-container">
 
     <svg
@@ -63,40 +74,62 @@
 
       <defs>
 
-        <linearGradient id="wallGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+        <linearGradient id="wallGradient"
+          x1="0%" y1="0%" x2="100%" y2="100%">
+
           <stop offset="0%" stop-color="#ffffff"/>
           <stop offset="100%" stop-color="#f1f5f9"/>
+
         </linearGradient>
 
-        <linearGradient id="redGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+
+        <linearGradient id="redGradient"
+          x1="0%" y1="0%" x2="100%" y2="100%">
+
           <stop offset="0%" stop-color="#ff3b3b"/>
           <stop offset="100%" stop-color="#cc0000"/>
+
         </linearGradient>
 
-        <linearGradient id="goldGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+
+        <linearGradient id="goldGradient"
+          x1="0%" y1="0%" x2="100%" y2="0%">
+
           <stop offset="0%" stop-color="#d4af37"/>
           <stop offset="50%" stop-color="#fff2a8"/>
           <stop offset="100%" stop-color="#d4af37"/>
+
         </linearGradient>
 
-        <linearGradient id="glassGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" stop-color="rgba(255,255,255,0.85)"/>
-          <stop offset="100%" stop-color="rgba(224,242,254,0.3)"/>
+
+        <linearGradient id="glassGradient"
+          x1="0%" y1="0%" x2="100%" y2="100%">
+
+          <stop offset="0%"
+            stop-color="rgba(255,255,255,0.85)"/>
+
+          <stop offset="100%"
+            stop-color="rgba(224,242,254,0.3)"/>
+
         </linearGradient>
 
-        <filter id="shadow3D" x="-10%" y="-10%" width="130%" height="130%">
+
+        <filter id="shadow3D"
+          x="-10%" y="-10%"
+          width="130%"
+          height="130%">
+
           <feDropShadow
             dx="0"
             dy="10"
             stdDeviation="8"
             flood-color="#000"
             flood-opacity="0.15"/>
+
         </filter>
 
       </defs>
 
-
-      <!-- GROUND -->
 
       <ellipse
         cx="450"
@@ -104,6 +137,7 @@
         rx="420"
         ry="20"
         fill="rgba(0,0,0,0.08)"/>
+
 
       <line
         x1="30"
@@ -115,9 +149,10 @@
         stroke-dasharray="12 10"/>
 
 
-      <!-- BAKERY SHOP -->
+      <!-- BAKERY -->
 
-      <g id="bakery-shop" filter="url(#shadow3D)">
+      <g id="bakery-shop"
+        filter="url(#shadow3D)">
 
         <rect
           x="200"
@@ -130,18 +165,15 @@
           stroke-width="3"/>
 
 
-        <!-- AWNING -->
-
         <path
           d="M 180 150 L 720 150 L 700 110 L 200 110 Z"
           fill="url(#redGradient)"/>
+
 
         <path
           d="M 180 150 Q 200 170 220 150 Q 240 170 260 150 Q 280 170 300 150 Q 320 170 340 150 Q 360 170 380 150 Q 400 170 420 150 Q 440 170 460 150 Q 480 170 500 150 Q 520 170 540 150 Q 560 170 580 150 Q 600 170 620 150 Q 640 170 660 150 Q 680 170 700 150 Q 720 170 720 150"
           fill="#990000"/>
 
-
-        <!-- BRANDING BOARD -->
 
         <g id="main-board">
 
@@ -172,8 +204,6 @@
         </g>
 
 
-        <!-- WINDOWS -->
-
         <rect
           x="230"
           y="190"
@@ -183,6 +213,7 @@
           fill="url(#glassGradient)"
           stroke="#cbd5e1"
           stroke-width="2"/>
+
 
         <rect
           x="470"
@@ -194,8 +225,6 @@
           stroke="#cbd5e1"
           stroke-width="2"/>
 
-
-        <!-- LEFT CAKE -->
 
         <g id="cake-left">
 
@@ -232,8 +261,6 @@
         </g>
 
 
-        <!-- RIGHT CAKE -->
-
         <g id="cake-right">
 
           <ellipse
@@ -258,30 +285,16 @@
             stroke-width="3"
             fill="none"/>
 
-          <circle
-            cx="550"
-            cy="272"
-            r="5"
-            fill="#d4af37"/>
-
-          <circle
-            cx="570"
-            cy="270"
-            r="5"
-            fill="#d4af37"/>
-
-          <circle
-            cx="590"
-            cy="272"
-            r="5"
-            fill="#d4af37"/>
+          <circle cx="550" cy="272" r="5" fill="#d4af37"/>
+          <circle cx="570" cy="270" r="5" fill="#d4af37"/>
+          <circle cx="590" cy="272" r="5" fill="#d4af37"/>
 
         </g>
 
       </g>
 
 
-      <!-- DELIVERY VAN -->
+      <!-- VAN -->
 
       <g
         id="van-group"
@@ -331,8 +344,6 @@
 
         </text>
 
-
-        <!-- WHEELS -->
 
         <g class="van-wheels">
 
@@ -400,8 +411,7 @@
           y2="410"
           stroke="#0f172a"
           stroke-width="6"
-          stroke-linecap="round"
-          class="leg-left"/>
+          stroke-linecap="round"/>
 
         <line
           x1="364"
@@ -410,8 +420,7 @@
           y2="410"
           stroke="#0f172a"
           stroke-width="6"
-          stroke-linecap="round"
-          class="leg-right"/>
+          stroke-linecap="round"/>
 
         <path
           d="M 352 345 L 338 358 L 345 368"
@@ -422,7 +431,7 @@
       </g>
 
 
-      <!-- SHOPPING BAG -->
+      <!-- BAG -->
 
       <g
         class="animated-cake-bag"
@@ -430,8 +439,7 @@
 
         <path
           d="M 720 330 L 780 330 L 790 410 L 710 410 Z"
-          fill="url(#goldGradient)"
-          rx="6"/>
+          fill="url(#goldGradient)"/>
 
         <path
           d="M 735 330 C 735 310 765 310 765 330"
@@ -452,8 +460,6 @@
 
         </text>
 
-
-        <!-- CAKE -->
 
         <g class="floating-cake">
 
@@ -517,17 +523,13 @@
     <button
       class="btn-primary"
       onclick="showLogin()">
-
       Login
-
     </button>
 
     <button
       class="btn-secondary"
       onclick="showSignup()">
-
       Create Account
-
     </button>
 
   </div>
@@ -692,8 +694,6 @@
     </div>
 
 
-    <!-- PINCODE -->
-
     <div class="pin-box">
 
       <div class="input-group">
@@ -777,20 +777,14 @@
 <script>
 
 /* =====================================================
-   REDIRECT SYSTEM
+   CUSTOMER LOGIN SYSTEM
+   ONLY users TABLE
 ===================================================== */
 
-/*
-   Agar cart se login.html open hua:
 
-   login.html?redirect=checkout.html
-
-   Login successful hone ke baad:
-   checkout.html open hoga.
-
-   Agar normal login page hai:
-   account.html open hoga.
-*/
+/* =====================================================
+   REDIRECT
+===================================================== */
 
 function getRedirectPage(){
 
@@ -800,15 +794,9 @@ function getRedirectPage(){
   const redirect =
     params.get("redirect");
 
-  /*
-    Security:
-    Sirf local HTML page allow kar rahe hain.
-    External URL allow nahi hoga.
-  */
-
   if(
     redirect &&
-    !redirect.includes("://") &&
+    !/^[a-zA-Z][a-zA-Z0-9+.-]*:/.test(redirect) &&
     !redirect.startsWith("//") &&
     !redirect.includes("\\")
   ){
@@ -823,7 +811,7 @@ function getRedirectPage(){
 
 
 /* =====================================================
-   UI CONTROLS
+   UI
 ===================================================== */
 
 function showLogin(){
@@ -838,15 +826,13 @@ function showLogin(){
     .classList
     .add("hidden");
 
-  const loginBox =
+  const box =
     document.getElementById("loginBox");
 
-  loginBox.classList.remove("hidden");
+  box.classList.remove("hidden");
 
   setTimeout(()=>{
-
-    loginBox.classList.add("active");
-
+    box.classList.add("active");
   },10);
 
 }
@@ -864,15 +850,13 @@ function showSignup(){
     .classList
     .add("hidden");
 
-  const signupBox =
+  const box =
     document.getElementById("signupBox");
 
-  signupBox.classList.remove("hidden");
+  box.classList.remove("hidden");
 
   setTimeout(()=>{
-
-    signupBox.classList.add("active");
-
+    box.classList.add("active");
   },10);
 
 }
@@ -893,7 +877,6 @@ function closeForms(){
   setTimeout(()=>{
 
     loginBox.classList.add("hidden");
-
     signupBox.classList.add("hidden");
 
     document
@@ -929,39 +912,41 @@ function getLocation(){
 
     async(pos)=>{
 
-      let lat =
+      const lat =
         pos.coords.latitude;
 
-      let lng =
+      const lng =
         pos.coords.longitude;
-
 
       try{
 
-        let res =
+        const res =
           await fetch(
             `https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}`
           );
 
-
-        let data =
+        const data =
           await res.json();
 
+        const address =
+          data.address || {};
 
-        let area =
-          data.address.city ||
-          data.address.town ||
-          data.address.village ||
-          data.address.county ||
-          data.display_name;
-
+        const area =
+          address.city ||
+          address.town ||
+          address.village ||
+          address.county ||
+          data.display_name ||
+          "";
 
         document
           .getElementById("location")
           .value = area;
 
+      }
+      catch(error){
 
-      }catch(e){
+        console.error(error);
 
         showTopAlert(
           "error",
@@ -989,12 +974,13 @@ function getLocation(){
 
 
 /* =====================================================
-   SIGNUP
+   CUSTOMER SIGNUP
+   ONLY users TABLE
 ===================================================== */
 
 async function signupUser(){
 
-  let user = {
+  const user = {
 
     name:
       document
@@ -1029,7 +1015,7 @@ async function signupUser(){
   };
 
 
-  let password =
+  const password =
     document
     .getElementById("password")
     .value;
@@ -1081,7 +1067,7 @@ async function signupUser(){
 
   /* CHECK PINCODE */
 
-  let {
+  const {
     data:pinData,
     error:pinError
   } =
@@ -1092,7 +1078,7 @@ async function signupUser(){
 
   if(pinError){
 
-    console.log(pinError);
+    console.error(pinError);
 
     showTopAlert(
       "error",
@@ -1105,13 +1091,17 @@ async function signupUser(){
   }
 
 
-  let allowed =
-    pinData.map(
+  const allowed =
+    (pinData || []).map(
       p => String(p.code)
     );
 
 
-  if(!allowed.includes(String(user.pincode))){
+  if(
+    !allowed.includes(
+      String(user.pincode)
+    )
+  ){
 
     showTopAlert(
       "error",
@@ -1124,9 +1114,9 @@ async function signupUser(){
   }
 
 
-  /* SUPABASE AUTH SIGNUP */
+  /* AUTH SIGNUP */
 
-  let {
+  const {
     data,
     error
   } =
@@ -1138,6 +1128,7 @@ async function signupUser(){
 
       options:{
         data:{
+          role:"customer",
           name:user.name,
           phone:user.phone,
           pincode:user.pincode,
@@ -1161,31 +1152,43 @@ async function signupUser(){
   }
 
 
+  if(!data?.user){
+
+    showTopAlert(
+      "error",
+      "Signup Failed",
+      "Customer account could not be created."
+    );
+
+    return;
+
+  }
+
+
   /*
-    USER TABLE
+    IMPORTANT
+
+    CUSTOMER DATA ONLY GOES
+    INTO users TABLE.
+
+    delivery_boys TABLE IS NEVER USED.
   */
 
-  const userRow = {
+  const customerRow = {
+
+    user_id:data.user.id,
 
     name:user.name,
+
     phone:user.phone,
+
     email:user.email,
+
     pincode:user.pincode,
+
     location:user.location
 
   };
-
-
-  /*
-    Agar signup ke time session mila,
-    to user_id bhi save kar denge.
-  */
-
-  if(data && data.user){
-
-    userRow.user_id = data.user.id;
-
-  }
 
 
   const {
@@ -1193,30 +1196,39 @@ async function signupUser(){
   } =
     await supabaseClient
       .from("users")
-      .insert([userRow]);
+      .insert([customerRow]);
 
 
   if(userError){
 
-    console.log(
-      "Users table error:",
+    console.error(
+      "Customer users table error:",
       userError
     );
 
     /*
-      Auth account already create ho chuka hai,
-      isliye signup ko failed nahi bolenge.
+      Auth account exists.
+      But profile was not created.
     */
+
+    if(data.session){
+
+      await supabaseClient.auth.signOut();
+
+    }
+
+    showTopAlert(
+      "error",
+      "Profile Error",
+      "Account created but customer profile could not be saved."
+    );
+
+    return;
 
   }
 
 
-  /*
-    EMAIL CONFIRMATION ON
-
-    Session nahi mila to user ko
-    pehle email verify karna hoga.
-  */
+  /* EMAIL CONFIRMATION */
 
   if(!data.session){
 
@@ -1227,9 +1239,7 @@ async function signupUser(){
     );
 
     setTimeout(()=>{
-
       showLogin();
-
     },1200);
 
     return;
@@ -1237,17 +1247,12 @@ async function signupUser(){
   }
 
 
-  /*
-    EMAIL CONFIRMATION OFF
-
-    User already logged in.
-    Ab redirect system use hoga.
-  */
+  /* SUCCESS */
 
   showTopAlert(
     "success",
     "Signup Successful",
-    "Your account has been created ✔"
+    "Your customer account has been created ✔"
   );
 
 
@@ -1267,12 +1272,53 @@ async function signupUser(){
 
 
 /* =====================================================
-   LOGIN
+   GET CUSTOMER PROFILE
+   ONLY users TABLE
+===================================================== */
+
+async function getCustomerProfile(userId){
+
+  const {
+    data,
+    error
+  } =
+    await supabaseClient
+      .from("users")
+      .select(
+        "id,user_id,name,phone,email,pincode,location"
+      )
+      .eq("user_id",userId)
+      .maybeSingle();
+
+
+  if(error){
+
+    console.error(
+      "Customer Profile Error:",
+      error
+    );
+
+    throw new Error(
+      "Customer profile check failed: " +
+      error.message
+    );
+
+  }
+
+
+  return data;
+
+}
+
+
+/* =====================================================
+   CUSTOMER LOGIN
+   NEVER CHECK delivery_boys
 ===================================================== */
 
 async function loginUser(){
 
-  let email =
+  const email =
     document
     .getElementById("loginEmail")
     .value
@@ -1280,13 +1326,13 @@ async function loginUser(){
     .toLowerCase();
 
 
-  let pass =
+  const password =
     document
     .getElementById("loginPassword")
     .value;
 
 
-  if(!email || !pass){
+  if(!email || !password){
 
     showTopAlert(
       "error",
@@ -1299,15 +1345,6 @@ async function loginUser(){
   }
 
 
-  const redirectPage =
-    getRedirectPage();
-
-
-  /*
-    LOGIN BUTTON KO DOUBLE CLICK
-    SE PROTECT KARNE KE LIYE
-  */
-
   const button =
     document.querySelector(
       "#loginBox .action-btn"
@@ -1315,91 +1352,113 @@ async function loginUser(){
 
 
   if(button){
-
     button.disabled = true;
-
   }
 
 
-  let {
-    data,
-    error
-  } =
+  try{
+
+    /* AUTH LOGIN */
+
+    const {
+      data,
+      error
+    } =
     await supabaseClient.auth.signInWithPassword({
 
       email:email,
 
-      password:pass
+      password:password
 
     });
 
 
-  if(error){
+    if(error){
 
-    if(button){
-
-      button.disabled = false;
+      throw error;
 
     }
+
+
+    const authUser =
+      data?.user;
+
+
+    if(!authUser){
+
+      throw new Error(
+        "Login failed. Customer account not found."
+      );
+
+    }
+
+
+    /*
+      VERY IMPORTANT:
+
+      ONLY users TABLE.
+
+      delivery_boys TABLE IS NOT CHECKED.
+    */
+
+    const customer =
+      await getCustomerProfile(
+        authUser.id
+      );
+
+
+    if(!customer){
+
+      await supabaseClient.auth.signOut();
+
+      throw new Error(
+        "This account is not registered as a customer."
+      );
+
+    }
+
+
+    /* CUSTOMER LOGIN SUCCESS */
+
+    showTopAlert(
+      "success",
+      "Login Successful",
+      "Welcome back ✔"
+    );
+
+
+    const redirectPage =
+      getRedirectPage();
+
+
+    setTimeout(()=>{
+
+      window.location.replace(
+        redirectPage
+      );
+
+    },800);
+
+  }
+  catch(error){
+
+    console.error(
+      "Customer Login Error:",
+      error
+    );
 
     showTopAlert(
       "error",
       "Login Failed",
-      error.message
+      error?.message ||
+      "Customer login failed."
     );
-
-    return;
-
-  }
-
-
-  if(!data || !data.session){
 
     if(button){
-
       button.disabled = false;
-
     }
 
-    showTopAlert(
-      "error",
-      "Login Failed",
-      "Session could not be created. Please try again."
-    );
-
-    return;
-
   }
-
-
-  /*
-    LOGIN SUCCESS
-  */
-
-  showTopAlert(
-    "success",
-    "Login Successful",
-    "Welcome back ✔"
-  );
-
-
-  /*
-    IMPORTANT:
-
-    Agar cart se aaye:
-      checkout.html
-
-    Agar normal login:
-      account.html
-  */
-
-  setTimeout(()=>{
-
-    window.location.replace(
-      redirectPage
-    );
-
-  },800);
 
 }
 
@@ -1413,7 +1472,7 @@ let allPincodes = [];
 
 async function loadPincodes(){
 
-  let {
+  const {
     data,
     error
   } =
@@ -1424,34 +1483,32 @@ async function loadPincodes(){
 
   if(error){
 
-    console.log(error);
+    console.error(error);
 
     return;
 
   }
 
 
-  allPincodes = data;
+  allPincodes =
+    data || [];
 
 
-  let select =
+  const select =
     document
     .getElementById("pincodeSelect");
 
 
-  data.forEach(pin=>{
+  allPincodes.forEach(pin=>{
 
-    let option =
+    const option =
       document.createElement("option");
-
 
     option.value =
       pin.code;
 
-
     option.textContent =
       `${pin.code} - ${pin.area}`;
-
 
     select.appendChild(option);
 
@@ -1465,14 +1522,14 @@ loadPincodes();
 
 function filterPincodes(){
 
-  let value =
+  const value =
     document
     .getElementById("pinSearch")
     .value
     .toLowerCase();
 
 
-  let select =
+  const select =
     document
     .getElementById("pincodeSelect");
 
@@ -1483,25 +1540,24 @@ function filterPincodes(){
 
   allPincodes
 
-    .filter(p =>
-      String(p.code)
-        .toLowerCase()
-        .includes(value)
+    .filter(pin=>
+
+      String(pin.code)
+      .toLowerCase()
+      .includes(value)
+
     )
 
     .forEach(pin=>{
 
-      let option =
+      const option =
         document.createElement("option");
-
 
       option.value =
         pin.code;
 
-
       option.textContent =
         `${pin.code} - ${pin.area}`;
-
 
       select.appendChild(option);
 
@@ -1511,7 +1567,7 @@ function filterPincodes(){
 
 
 /* =====================================================
-   TOP ALERT
+   ALERT
 ===================================================== */
 
 function showTopAlert(
@@ -1551,7 +1607,8 @@ function showTopAlert(
     alertIcon.innerHTML =
       `<i class="fa-solid fa-check"></i>`;
 
-  }else{
+  }
+  else{
 
     alertBox.classList.add("error");
 
@@ -1565,9 +1622,7 @@ function showTopAlert(
 
 
   setTimeout(()=>{
-
     closeTopAlert();
-
   },3000);
 
 }
