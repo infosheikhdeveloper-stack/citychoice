@@ -1,26 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
+
 <title>Login - City Choice Bakery</title>
 
 <link rel="stylesheet"
-href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap"
-rel="stylesheet">
+      rel="stylesheet">
 
-<link rel="stylesheet" href="login.css">
-<link rel="stylesheet" href="alert.css">
+<link rel="stylesheet"
+      href="login.css">
+
+<link rel="stylesheet"
+      href="alert.css">
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+
 <script src="supabase.js"></script>
+
 </head>
 
 <body>
 
-<!-- TOP ALERT -->
+
+<!-- =====================================================
+     TOP ALERT
+===================================================== -->
+
 <div class="top-alert" id="topAlert">
 
   <div class="alert-icon" id="alertIcon">
@@ -28,6 +42,7 @@ rel="stylesheet">
   </div>
 
   <div class="alert-content">
+
     <div class="alert-title" id="alertTitle">
       Success
     </div>
@@ -35,18 +50,26 @@ rel="stylesheet">
     <div class="alert-text" id="alertText">
       Message here
     </div>
+
   </div>
 
-  <div class="alert-close" onclick="closeTopAlert()">
+  <div class="alert-close"
+       onclick="closeTopAlert()">
+
     <i class="fa-solid fa-xmark"></i>
+
   </div>
 
 </div>
 
 
-<!-- HERO -->
 
-<div class="app-hero" id="videoHero">
+<!-- =====================================================
+     HERO
+===================================================== -->
+
+<div class="app-hero"
+     id="videoHero">
 
   <div class="hero-header">
 
@@ -54,7 +77,9 @@ rel="stylesheet">
       <i class="fa-solid fa-store"></i>
     </div>
 
-    <h1>City Choice Bakery</h1>
+    <h1>
+      City Choice Bakery
+    </h1>
 
     <p>
       Freshly Baked Goodness & Express Delivery in Minutes!
@@ -63,7 +88,9 @@ rel="stylesheet">
   </div>
 
 
-  <!-- SAME SVG DESIGN -->
+  <!-- =====================================================
+       HERO SCENE
+  ===================================================== -->
 
   <div class="hero-scene-container">
 
@@ -74,8 +101,12 @@ rel="stylesheet">
 
       <defs>
 
-        <linearGradient id="wallGradient"
-          x1="0%" y1="0%" x2="100%" y2="100%">
+        <linearGradient
+          id="wallGradient"
+          x1="0%"
+          y1="0%"
+          x2="100%"
+          y2="100%">
 
           <stop offset="0%" stop-color="#ffffff"/>
           <stop offset="100%" stop-color="#f1f5f9"/>
@@ -83,8 +114,12 @@ rel="stylesheet">
         </linearGradient>
 
 
-        <linearGradient id="redGradient"
-          x1="0%" y1="0%" x2="100%" y2="100%">
+        <linearGradient
+          id="redGradient"
+          x1="0%"
+          y1="0%"
+          x2="100%"
+          y2="100%">
 
           <stop offset="0%" stop-color="#ff3b3b"/>
           <stop offset="100%" stop-color="#cc0000"/>
@@ -92,8 +127,12 @@ rel="stylesheet">
         </linearGradient>
 
 
-        <linearGradient id="goldGradient"
-          x1="0%" y1="0%" x2="100%" y2="0%">
+        <linearGradient
+          id="goldGradient"
+          x1="0%"
+          y1="0%"
+          x2="100%"
+          y2="0%">
 
           <stop offset="0%" stop-color="#d4af37"/>
           <stop offset="50%" stop-color="#fff2a8"/>
@@ -102,20 +141,28 @@ rel="stylesheet">
         </linearGradient>
 
 
-        <linearGradient id="glassGradient"
-          x1="0%" y1="0%" x2="100%" y2="100%">
+        <linearGradient
+          id="glassGradient"
+          x1="0%"
+          y1="0%"
+          x2="100%"
+          y2="100%">
 
-          <stop offset="0%"
+          <stop
+            offset="0%"
             stop-color="rgba(255,255,255,0.85)"/>
 
-          <stop offset="100%"
+          <stop
+            offset="100%"
             stop-color="rgba(224,242,254,0.3)"/>
 
         </linearGradient>
 
 
-        <filter id="shadow3D"
-          x="-10%" y="-10%"
+        <filter
+          id="shadow3D"
+          x="-10%"
+          y="-10%"
           width="130%"
           height="130%">
 
@@ -151,7 +198,8 @@ rel="stylesheet">
 
       <!-- BAKERY -->
 
-      <g id="bakery-shop"
+      <g
+        id="bakery-shop"
         filter="url(#shadow3D)">
 
         <rect
@@ -171,7 +219,21 @@ rel="stylesheet">
 
 
         <path
-          d="M 180 150 Q 200 170 220 150 Q 240 170 260 150 Q 280 170 300 150 Q 320 170 340 150 Q 360 170 380 150 Q 400 170 420 150 Q 440 170 460 150 Q 480 170 500 150 Q 520 170 540 150 Q 560 170 580 150 Q 600 170 620 150 Q 640 170 660 150 Q 680 170 700 150 Q 720 170 720 150"
+          d="M 180 150
+             Q 200 170 220 150
+             Q 240 170 260 150
+             Q 280 170 300 150
+             Q 320 170 340 150
+             Q 360 170 380 150
+             Q 400 170 420 150
+             Q 440 170 460 150
+             Q 480 170 500 150
+             Q 520 170 540 150
+             Q 560 170 580 150
+             Q 600 170 620 150
+             Q 640 170 660 150
+             Q 680 170 700 150
+             Q 720 170 720 150"
           fill="#990000"/>
 
 
@@ -226,6 +288,8 @@ rel="stylesheet">
           stroke-width="2"/>
 
 
+        <!-- CAKE LEFT -->
+
         <g id="cake-left">
 
           <ellipse
@@ -260,6 +324,8 @@ rel="stylesheet">
 
         </g>
 
+
+        <!-- CAKE RIGHT -->
 
         <g id="cake-right">
 
@@ -302,13 +368,22 @@ rel="stylesheet">
         filter="url(#shadow3D)">
 
         <path
-          d="M 50 410 L 50 320 C 50 295 70 285 90 285 L 210 285 C 230 285 245 300 255 315 L 280 345 Q 295 360 295 385 L 295 410 Z"
+          d="M 50 410
+             L 50 320
+             C 50 295 70 285 90 285
+             L 210 285
+             C 230 285 245 300 255 315
+             L 280 345
+             Q 295 360 295 385
+             L 295 410 Z"
           fill="url(#redGradient)"/>
+
 
         <path
           d="M 220 298 L 250 330 L 210 330 Z"
           fill="#e0f2fe"
           opacity="0.85"/>
+
 
         <rect
           x="70"
@@ -317,6 +392,7 @@ rel="stylesheet">
           height="45"
           rx="8"
           fill="#ffffff"/>
+
 
         <text
           x="130"
@@ -330,6 +406,7 @@ rel="stylesheet">
           CITY CHOICE
 
         </text>
+
 
         <text
           x="130"
@@ -347,11 +424,7 @@ rel="stylesheet">
 
         <g class="van-wheels">
 
-          <circle
-            cx="100"
-            cy="380"
-            r="18"
-            fill="#111"/>
+          <circle cx="100" cy="380" r="18" fill="#111"/>
 
           <circle
             cx="100"
@@ -361,11 +434,7 @@ rel="stylesheet">
             stroke="#ff2b2b"
             stroke-width="3"/>
 
-          <circle
-            cx="235"
-            cy="380"
-            r="18"
-            fill="#111"/>
+          <circle cx="235" cy="380" r="18" fill="#111"/>
 
           <circle
             cx="235"
@@ -460,33 +529,6 @@ rel="stylesheet">
 
         </text>
 
-
-        <g class="floating-cake">
-
-          <rect
-            x="320"
-            y="335"
-            width="45"
-            height="24"
-            rx="5"
-            fill="#ff2b2b"/>
-
-          <rect
-            x="327"
-            y="322"
-            width="31"
-            height="15"
-            rx="4"
-            fill="#ffffff"/>
-
-          <circle
-            cx="342"
-            cy="317"
-            r="4"
-            fill="#d4af37"/>
-
-        </g>
-
       </g>
 
 
@@ -501,7 +543,9 @@ rel="stylesheet">
           fill="#fca5a5"/>
 
         <path
-          d="M 810 334 C 810 320 830 320 830 334 L 830 400"
+          d="M 810 334
+             C 810 320 830 320 830 334
+             L 830 400"
           stroke="#0284c7"
           stroke-width="12"/>
 
@@ -518,18 +562,24 @@ rel="stylesheet">
   </div>
 
 
+  <!-- HERO BUTTONS -->
+
   <div class="hero-actions">
 
     <button
       class="btn-primary"
       onclick="showLogin()">
+
       Login
+
     </button>
 
     <button
       class="btn-secondary"
       onclick="showSignup()">
+
       Create Account
+
     </button>
 
   </div>
@@ -537,7 +587,10 @@ rel="stylesheet">
 </div>
 
 
-<!-- OVERLAY -->
+
+<!-- =====================================================
+     OVERLAY
+===================================================== -->
 
 <div
   class="modal-overlay hidden"
@@ -546,7 +599,10 @@ rel="stylesheet">
 </div>
 
 
-<!-- LOGIN -->
+
+<!-- =====================================================
+     LOGIN
+===================================================== -->
 
 <div
   class="bottom-sheet hidden"
@@ -577,7 +633,9 @@ rel="stylesheet">
       placeholder=" "
       required>
 
-    <label>Enter Email Address</label>
+    <label>
+      Enter Email Address
+    </label>
 
   </div>
 
@@ -590,13 +648,16 @@ rel="stylesheet">
       placeholder=" "
       required>
 
-    <label>Enter Password</label>
+    <label>
+      Enter Password
+    </label>
 
   </div>
 
 
   <button
     class="action-btn"
+    id="loginButton"
     onclick="loginUser()">
 
     Continue
@@ -617,7 +678,10 @@ rel="stylesheet">
 </div>
 
 
-<!-- SIGNUP -->
+
+<!-- =====================================================
+     SIGNUP
+===================================================== -->
 
 <div
   class="bottom-sheet hidden"
@@ -650,7 +714,9 @@ rel="stylesheet">
         placeholder=" "
         required>
 
-      <label>Full Name</label>
+      <label>
+        Full Name
+      </label>
 
     </div>
 
@@ -663,7 +729,9 @@ rel="stylesheet">
         placeholder=" "
         required>
 
-      <label>Phone Number</label>
+      <label>
+        Phone Number
+      </label>
 
     </div>
 
@@ -676,7 +744,9 @@ rel="stylesheet">
         placeholder=" "
         required>
 
-      <label>Email Address</label>
+      <label>
+        Email Address
+      </label>
 
     </div>
 
@@ -689,7 +759,9 @@ rel="stylesheet">
         placeholder=" "
         required>
 
-      <label>Create Password</label>
+      <label>
+        Create Password
+      </label>
 
     </div>
 
@@ -704,7 +776,9 @@ rel="stylesheet">
           placeholder=" "
           oninput="filterPincodes()">
 
-        <label>Search Pincode...</label>
+        <label>
+          Search Pincode...
+        </label>
 
       </div>
 
@@ -745,7 +819,9 @@ rel="stylesheet">
         placeholder=" "
         readonly>
 
-      <label>Location Details</label>
+      <label>
+        Location Details
+      </label>
 
     </div>
 
@@ -754,6 +830,7 @@ rel="stylesheet">
 
   <button
     class="action-btn"
+    id="signupButton"
     onclick="signupUser()">
 
     Create Account
@@ -774,11 +851,26 @@ rel="stylesheet">
 </div>
 
 
+
 <script>
 
 /* =====================================================
-   CUSTOMER LOGIN SYSTEM
-   ONLY users TABLE
+   CITY CHOICE BAKERY
+   CUSTOMER AUTH SYSTEM
+
+   IMPORTANT:
+
+   Customer profile is now created by
+   Supabase database trigger.
+
+   This JavaScript DOES NOT insert into:
+   public.users
+
+   This JavaScript DOES NOT use:
+   delivery_boys
+
+   This JavaScript DOES NOT use:
+   user_id
 ===================================================== */
 
 
@@ -789,7 +881,9 @@ rel="stylesheet">
 function getRedirectPage(){
 
   const params =
-    new URLSearchParams(window.location.search);
+    new URLSearchParams(
+      window.location.search
+    );
 
   const redirect =
     params.get("redirect");
@@ -810,57 +904,76 @@ function getRedirectPage(){
 }
 
 
+
 /* =====================================================
-   UI
+   SHOW LOGIN
 ===================================================== */
 
 function showLogin(){
 
-  document
-    .getElementById("modalOverlay")
-    .classList
-    .remove("hidden");
+  const overlay =
+    document.getElementById("modalOverlay");
 
-  document
-    .getElementById("signupBox")
-    .classList
-    .add("hidden");
+  const signupBox =
+    document.getElementById("signupBox");
 
-  const box =
+  const loginBox =
     document.getElementById("loginBox");
 
-  box.classList.remove("hidden");
+
+  overlay.classList.remove("hidden");
+
+  signupBox.classList.remove("active");
+  signupBox.classList.add("hidden");
+
+  loginBox.classList.remove("hidden");
 
   setTimeout(()=>{
-    box.classList.add("active");
+
+    loginBox.classList.add("active");
+
   },10);
 
 }
 
+
+
+/* =====================================================
+   SHOW SIGNUP
+===================================================== */
 
 function showSignup(){
 
-  document
-    .getElementById("modalOverlay")
-    .classList
-    .remove("hidden");
+  const overlay =
+    document.getElementById("modalOverlay");
 
-  document
-    .getElementById("loginBox")
-    .classList
-    .add("hidden");
+  const loginBox =
+    document.getElementById("loginBox");
 
-  const box =
+  const signupBox =
     document.getElementById("signupBox");
 
-  box.classList.remove("hidden");
+
+  overlay.classList.remove("hidden");
+
+  loginBox.classList.remove("active");
+  loginBox.classList.add("hidden");
+
+  signupBox.classList.remove("hidden");
 
   setTimeout(()=>{
-    box.classList.add("active");
+
+    signupBox.classList.add("active");
+
   },10);
 
 }
 
+
+
+/* =====================================================
+   CLOSE FORMS
+===================================================== */
 
 function closeForms(){
 
@@ -871,8 +984,8 @@ function closeForms(){
     document.getElementById("signupBox");
 
   loginBox.classList.remove("active");
-
   signupBox.classList.remove("active");
+
 
   setTimeout(()=>{
 
@@ -889,6 +1002,7 @@ function closeForms(){
 }
 
 
+
 /* =====================================================
    LOCATION
 ===================================================== */
@@ -900,7 +1014,7 @@ function getLocation(){
     showTopAlert(
       "error",
       "Unsupported Device",
-      "Location not supported"
+      "Location is not supported on this device."
     );
 
     return;
@@ -910,62 +1024,109 @@ function getLocation(){
 
   navigator.geolocation.getCurrentPosition(
 
-    async(pos)=>{
+    async(position)=>{
 
       const lat =
-        pos.coords.latitude;
+        position.coords.latitude;
 
       const lng =
-        pos.coords.longitude;
+        position.coords.longitude;
+
 
       try{
 
-        const res =
+        const response =
           await fetch(
-            `https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}`
+            `https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}&zoom=18&addressdetails=1`,
+            {
+              headers:{
+                "Accept":"application/json"
+              }
+            }
           );
 
+
+        if(!response.ok){
+
+          throw new Error(
+            "Location service unavailable."
+          );
+
+        }
+
+
         const data =
-          await res.json();
+          await response.json();
+
 
         const address =
           data.address || {};
+
 
         const area =
           address.city ||
           address.town ||
           address.village ||
+          address.suburb ||
           address.county ||
           data.display_name ||
           "";
 
+
         document
           .getElementById("location")
-          .value = area;
+          .value =
+            area;
+
+
+        showTopAlert(
+          "success",
+          "Location Found",
+          area || "Location detected successfully."
+        );
 
       }
       catch(error){
 
-        console.error(error);
+        console.error(
+          "Location Error:",
+          error
+        );
+
 
         showTopAlert(
           "error",
           "Location Error",
-          "Location fetch failed"
+          error.message ||
+          "Unable to fetch your location."
         );
 
       }
 
     },
 
-    ()=>{
+
+    (error)=>{
+
+      console.error(
+        "GPS Error:",
+        error
+      );
+
 
       showTopAlert(
         "error",
         "Location Error",
-        "Permission denied or GPS OFF"
+        "Permission denied or GPS is OFF."
       );
 
+    },
+
+
+    {
+      enableHighAccuracy:true,
+      timeout:10000,
+      maximumAge:300000
     }
 
   );
@@ -973,78 +1134,94 @@ function getLocation(){
 }
 
 
+
 /* =====================================================
    CUSTOMER SIGNUP
-   ONLY users TABLE
 ===================================================== */
 
 async function signupUser(){
 
-  const user = {
+  const signupButton =
+    document.getElementById(
+      "signupButton"
+    );
 
-    name:
-      document
+
+  const name =
+    document
       .getElementById("name")
       .value
-      .trim(),
+      .trim();
 
-    phone:
-      document
+
+  const phone =
+    document
       .getElementById("phone")
       .value
-      .trim(),
+      .trim();
 
-    email:
-      document
+
+  const email =
+    document
       .getElementById("email")
       .value
       .trim()
-      .toLowerCase(),
-
-    pincode:
-      document
-      .getElementById("pincodeSelect")
-      .value,
-
-    location:
-      document
-      .getElementById("location")
-      .value
-      .trim()
-
-  };
+      .toLowerCase();
 
 
   const password =
     document
-    .getElementById("password")
-    .value;
+      .getElementById("password")
+      .value;
 
+
+  const pincode =
+    document
+      .getElementById("pincodeSelect")
+      .value;
+
+
+  const location =
+    document
+      .getElementById("location")
+      .value
+      .trim();
+
+
+
+  /* ===================================================
+     REQUIRED
+  =================================================== */
 
   if(
-    !user.name ||
-    !user.phone ||
-    !user.email ||
+    !name ||
+    !phone ||
+    !email ||
     !password
   ){
 
     showTopAlert(
       "error",
       "Missing Fields",
-      "Please fill all required fields"
+      "Please fill all required fields."
     );
 
     return;
 
   }
 
+
+
+  /* ===================================================
+     PASSWORD
+  =================================================== */
 
   if(password.length < 6){
 
     showTopAlert(
       "error",
       "Weak Password",
-      "Password must be at least 6 characters"
+      "Password must be at least 6 characters."
     );
 
     return;
@@ -1052,12 +1229,17 @@ async function signupUser(){
   }
 
 
-  if(!user.pincode){
+
+  /* ===================================================
+     PINCODE
+  =================================================== */
+
+  if(!pincode){
 
     showTopAlert(
       "error",
       "Pincode Required",
-      "Please select pincode"
+      "Please select your pincode."
     );
 
     return;
@@ -1065,218 +1247,291 @@ async function signupUser(){
   }
 
 
-  /* CHECK PINCODE */
 
-  const {
-    data:pinData,
-    error:pinError
-  } =
-    await supabaseClient
-      .from("pincodes")
-      .select("code");
+  /* ===================================================
+     DISABLE BUTTON
+  =================================================== */
 
+  signupButton.disabled = true;
 
-  if(pinError){
-
-    console.error(pinError);
-
-    showTopAlert(
-      "error",
-      "Error",
-      "Unable to check delivery area"
-    );
-
-    return;
-
-  }
+  signupButton.innerText =
+    "Creating Account...";
 
 
-  const allowed =
-    (pinData || []).map(
-      p => String(p.code)
-    );
+
+  try{
 
 
-  if(
-    !allowed.includes(
-      String(user.pincode)
-    )
-  ){
+    /* =================================================
+       CHECK PINCODE
+    ================================================= */
 
-    showTopAlert(
-      "error",
-      "Delivery Not Available",
-      "Sorry! Is area me delivery available nahi hai"
-    );
-
-    return;
-
-  }
+    const {
+      data: pinData,
+      error: pinError
+    } =
+      await supabaseClient
+        .from("pincodes")
+        .select("code");
 
 
-  /* AUTH SIGNUP */
+    if(pinError){
 
-  const {
-    data,
-    error
-  } =
-    await supabaseClient.auth.signUp({
+      console.error(
+        "Pincode Error:",
+        pinError
+      );
 
-      email:user.email,
-
-      password:password,
-
-      options:{
-        data:{
-          role:"customer",
-          name:user.name,
-          phone:user.phone,
-          pincode:user.pincode,
-          location:user.location
-        }
-      }
-
-    });
-
-
-  if(error){
-
-    showTopAlert(
-      "error",
-      "Signup Failed",
-      error.message
-    );
-
-    return;
-
-  }
-
-
-  if(!data?.user){
-
-    showTopAlert(
-      "error",
-      "Signup Failed",
-      "Customer account could not be created."
-    );
-
-    return;
-
-  }
-
-
-  /*
-    IMPORTANT
-
-    CUSTOMER DATA ONLY GOES
-    INTO users TABLE.
-
-    delivery_boys TABLE IS NEVER USED.
-  */
-
-  const customerRow = {
-
-    user_id:data.user.id,
-
-    name:user.name,
-
-    phone:user.phone,
-
-    email:user.email,
-
-    pincode:user.pincode,
-
-    location:user.location
-
-  };
-
-
-  const {
-    error:userError
-  } =
-    await supabaseClient
-      .from("users")
-      .insert([customerRow]);
-
-
-  if(userError){
-
-    console.error(
-      "Customer users table error:",
-      userError
-    );
-
-    /*
-      Auth account exists.
-      But profile was not created.
-    */
-
-    if(data.session){
-
-      await supabaseClient.auth.signOut();
+      throw new Error(
+        "Unable to check delivery area: " +
+        pinError.message
+      );
 
     }
 
-    showTopAlert(
-      "error",
-      "Profile Error",
-      "Account created but customer profile could not be saved."
+
+    const allowed =
+      (pinData || []).map(
+        pin => String(pin.code)
+      );
+
+
+    if(
+      !allowed.includes(
+        String(pincode)
+      )
+    ){
+
+      throw new Error(
+        "Sorry! Is area me delivery available nahi hai."
+      );
+
+    }
+
+
+
+    /* =================================================
+       AUTH SIGNUP
+
+       DATABASE TRIGGER WILL CREATE:
+
+       public.users
+
+       DO NOT INSERT PROFILE HERE.
+    ================================================= */
+
+    const {
+      data,
+      error
+    } =
+      await supabaseClient.auth.signUp({
+
+        email:
+          email,
+
+        password:
+          password,
+
+        options:{
+
+          data:{
+
+            role:
+              "customer",
+
+            name:
+              name,
+
+            phone:
+              phone,
+
+            pincode:
+              pincode,
+
+            location:
+              location
+
+          }
+
+        }
+
+      });
+
+
+
+    /* =================================================
+       AUTH ERROR
+    ================================================= */
+
+    if(error){
+
+      console.error(
+        "Supabase Signup Error:",
+        error
+      );
+
+      throw new Error(
+        error.message
+      );
+
+    }
+
+
+
+    /* =================================================
+       AUTH USER CHECK
+    ================================================= */
+
+    if(!data?.user){
+
+      throw new Error(
+        "Customer account could not be created."
+      );
+
+    }
+
+
+
+    /* =================================================
+       PROFILE TRIGGER CHECK
+    ================================================= */
+
+    /*
+      The trigger runs immediately after auth user
+      creation.
+
+      Give database a short moment before checking.
+    */
+
+    await new Promise(
+      resolve =>
+        setTimeout(resolve,500)
     );
 
-    return;
 
-  }
+    const {
+      data: profile,
+      error: profileError
+    } =
+      await supabaseClient
+        .from("users")
+        .select(
+          "id,name,phone,email,pincode,location,user_type"
+        )
+        .eq(
+          "id",
+          data.user.id
+        )
+        .maybeSingle();
 
 
-  /* EMAIL CONFIRMATION */
+    if(profileError){
 
-  if(!data.session){
+      console.error(
+        "Profile Check Error:",
+        profileError
+      );
+
+      throw new Error(
+        "Account created but customer profile could not be checked: " +
+        profileError.message
+      );
+
+    }
+
+
+    if(!profile){
+
+      throw new Error(
+        "Account created but customer profile was not created. Please check the Supabase customer trigger."
+      );
+
+    }
+
+
+
+    /* =================================================
+       SUCCESS
+    ================================================= */
+
+    console.log(
+      "Customer account:",
+      data.user
+    );
+
+    console.log(
+      "Customer profile:",
+      profile
+    );
+
 
     showTopAlert(
       "success",
       "Signup Successful",
-      "Please verify your email, then login."
+      "Customer account and profile created successfully."
     );
 
-    setTimeout(()=>{
-      showLogin();
-    },1200);
 
-    return;
+    const redirectPage =
+      getRedirectPage();
+
+
+    setTimeout(()=>{
+
+      window.location.replace(
+        redirectPage
+      );
+
+    },1200);
 
   }
 
 
-  /* SUCCESS */
+  catch(error){
 
-  showTopAlert(
-    "success",
-    "Signup Successful",
-    "Your customer account has been created ✔"
-  );
-
-
-  const redirectPage =
-    getRedirectPage();
-
-
-  setTimeout(()=>{
-
-    window.location.replace(
-      redirectPage
+    console.error(
+      "CUSTOMER SIGNUP ERROR:",
+      error
     );
 
-  },1000);
+
+    showTopAlert(
+      "error",
+      "Signup Failed",
+      error?.message ||
+      "Unable to create customer account."
+    );
+
+  }
+
+
+  finally{
+
+    signupButton.disabled = false;
+
+    signupButton.innerText =
+      "Create Account";
+
+  }
 
 }
 
 
+
 /* =====================================================
-   GET CUSTOMER PROFILE
-   ONLY users TABLE
+   CUSTOMER PROFILE
 ===================================================== */
 
 async function getCustomerProfile(userId){
+
+  if(!userId){
+
+    throw new Error(
+      "Customer user ID is missing."
+    );
+
+  }
+
 
   const {
     data,
@@ -1285,9 +1540,12 @@ async function getCustomerProfile(userId){
     await supabaseClient
       .from("users")
       .select(
-        "id,user_id,name,phone,email,pincode,location"
+        "id,created_at,name,phone,email,pincode,location,user_type"
       )
-      .eq("user_id",userId)
+      .eq(
+        "id",
+        userId
+      )
       .maybeSingle();
 
 
@@ -1311,25 +1569,25 @@ async function getCustomerProfile(userId){
 }
 
 
+
 /* =====================================================
    CUSTOMER LOGIN
-   NEVER CHECK delivery_boys
 ===================================================== */
 
 async function loginUser(){
 
   const email =
     document
-    .getElementById("loginEmail")
-    .value
-    .trim()
-    .toLowerCase();
+      .getElementById("loginEmail")
+      .value
+      .trim()
+      .toLowerCase();
 
 
   const password =
     document
-    .getElementById("loginPassword")
-    .value;
+      .getElementById("loginPassword")
+      .value;
 
 
   if(!email || !password){
@@ -1337,7 +1595,7 @@ async function loginUser(){
     showTopAlert(
       "error",
       "Missing Fields",
-      "Please enter email and password"
+      "Please enter email and password."
     );
 
     return;
@@ -1346,36 +1604,50 @@ async function loginUser(){
 
 
   const button =
-    document.querySelector(
-      "#loginBox .action-btn"
+    document.getElementById(
+      "loginButton"
     );
 
 
-  if(button){
-    button.disabled = true;
-  }
+  button.disabled = true;
+
+  button.innerText =
+    "Logging in...";
 
 
   try{
 
-    /* AUTH LOGIN */
+
+    /* =================================================
+       LOGIN
+    ================================================= */
 
     const {
       data,
       error
     } =
-    await supabaseClient.auth.signInWithPassword({
+      await supabaseClient.auth
+        .signInWithPassword({
 
-      email:email,
+          email:
+            email,
 
-      password:password
+          password:
+            password
 
-    });
+        });
 
 
     if(error){
 
-      throw error;
+      console.error(
+        "Auth Login Error:",
+        error
+      );
+
+      throw new Error(
+        error.message
+      );
 
     }
 
@@ -1387,19 +1659,16 @@ async function loginUser(){
     if(!authUser){
 
       throw new Error(
-        "Login failed. Customer account not found."
+        "Login failed. Account not found."
       );
 
     }
 
 
-    /*
-      VERY IMPORTANT:
 
-      ONLY users TABLE.
-
-      delivery_boys TABLE IS NOT CHECKED.
-    */
+    /* =================================================
+       CUSTOMER PROFILE
+    ================================================= */
 
     const customer =
       await getCustomerProfile(
@@ -1418,12 +1687,36 @@ async function loginUser(){
     }
 
 
-    /* CUSTOMER LOGIN SUCCESS */
+
+    /* =================================================
+       USER TYPE
+    ================================================= */
+
+    if(
+      customer.user_type &&
+      customer.user_type !== "customer"
+    ){
+
+      await supabaseClient.auth.signOut();
+
+      throw new Error(
+        "This account is not registered as a customer."
+      );
+
+    }
+
+
+
+    /* =================================================
+       SUCCESS
+    ================================================= */
 
     showTopAlert(
       "success",
       "Login Successful",
-      "Welcome back ✔"
+      "Welcome back, " +
+      (customer.name || "Customer") +
+      "!"
     );
 
 
@@ -1440,12 +1733,15 @@ async function loginUser(){
     },800);
 
   }
+
+
   catch(error){
 
     console.error(
-      "Customer Login Error:",
+      "CUSTOMER LOGIN ERROR:",
       error
     );
+
 
     showTopAlert(
       "error",
@@ -1454,13 +1750,20 @@ async function loginUser(){
       "Customer login failed."
     );
 
-    if(button){
-      button.disabled = false;
-    }
+  }
+
+
+  finally{
+
+    button.disabled = false;
+
+    button.innerText =
+      "Continue";
 
   }
 
 }
+
 
 
 /* =====================================================
@@ -1470,105 +1773,174 @@ async function loginUser(){
 let allPincodes = [];
 
 
+
 async function loadPincodes(){
 
-  const {
-    data,
-    error
-  } =
-    await supabaseClient
-      .from("pincodes")
-      .select("*");
+  try{
+
+    const {
+      data,
+      error
+    } =
+      await supabaseClient
+        .from("pincodes")
+        .select("*")
+        .order(
+          "code",
+          {
+            ascending:true
+          }
+        );
 
 
-  if(error){
+    if(error){
 
-    console.error(error);
+      console.error(
+        "Pincode Loading Error:",
+        error
+      );
+
+      showTopAlert(
+        "error",
+        "Pincode Error",
+        "Unable to load delivery areas."
+      );
+
+      return;
+
+    }
+
+
+    allPincodes =
+      data || [];
+
+
+    renderPincodes(
+      allPincodes
+    );
+
+  }
+  catch(error){
+
+    console.error(
+      "Pincode Exception:",
+      error
+    );
+
+  }
+
+}
+
+
+
+/* =====================================================
+   RENDER PINCODES
+===================================================== */
+
+function renderPincodes(pincodes){
+
+  const select =
+    document.getElementById(
+      "pincodeSelect"
+    );
+
+
+  if(!select){
 
     return;
 
   }
 
 
-  allPincodes =
-    data || [];
+  select.innerHTML =
+    `<option value="">
+      Select Pincode
+    </option>`;
 
 
-  const select =
-    document
-    .getElementById("pincodeSelect");
-
-
-  allPincodes.forEach(pin=>{
+  pincodes.forEach(pin=>{
 
     const option =
-      document.createElement("option");
+      document.createElement(
+        "option"
+      );
+
 
     option.value =
       pin.code;
 
+
     option.textContent =
       `${pin.code} - ${pin.area}`;
 
-    select.appendChild(option);
+
+    select.appendChild(
+      option
+    );
 
   });
 
 }
 
 
-loadPincodes();
 
+/* =====================================================
+   FILTER PINCODES
+===================================================== */
 
 function filterPincodes(){
 
+  const input =
+    document.getElementById(
+      "pinSearch"
+    );
+
+
   const value =
-    document
-    .getElementById("pinSearch")
-    .value
-    .toLowerCase();
-
-
-  const select =
-    document
-    .getElementById("pincodeSelect");
-
-
-  select.innerHTML =
-    `<option value="">Select Pincode</option>`;
-
-
-  allPincodes
-
-    .filter(pin=>
-
-      String(pin.code)
+    input
+      .value
       .toLowerCase()
-      .includes(value)
+      .trim();
 
-    )
 
-    .forEach(pin=>{
+  const filtered =
+    allPincodes.filter(
+      pin => {
 
-      const option =
-        document.createElement("option");
+        return (
 
-      option.value =
-        pin.code;
+          String(pin.code)
+            .toLowerCase()
+            .includes(value)
 
-      option.textContent =
-        `${pin.code} - ${pin.area}`;
+        ) ||
 
-      select.appendChild(option);
+        (
 
-    });
+          String(pin.area || "")
+            .toLowerCase()
+            .includes(value)
+
+        );
+
+      }
+    );
+
+
+  renderPincodes(
+    filtered
+  );
 
 }
+
 
 
 /* =====================================================
    ALERT
 ===================================================== */
+
+let alertTimer = null;
+
 
 function showTopAlert(
   type,
@@ -1577,21 +1949,27 @@ function showTopAlert(
 ){
 
   const alertBox =
-    document.getElementById("topAlert");
+    document.getElementById(
+      "topAlert"
+    );
 
 
   const alertIcon =
-    document.getElementById("alertIcon");
+    document.getElementById(
+      "alertIcon"
+    );
 
 
   document
     .getElementById("alertTitle")
-    .innerText = title;
+    .innerText =
+      title;
 
 
   document
     .getElementById("alertText")
-    .innerText = message;
+    .innerText =
+      message;
 
 
   alertBox.classList.remove(
@@ -1602,7 +1980,10 @@ function showTopAlert(
 
   if(type === "success"){
 
-    alertBox.classList.add("success");
+    alertBox.classList.add(
+      "success"
+    );
+
 
     alertIcon.innerHTML =
       `<i class="fa-solid fa-check"></i>`;
@@ -1610,7 +1991,10 @@ function showTopAlert(
   }
   else{
 
-    alertBox.classList.add("error");
+    alertBox.classList.add(
+      "error"
+    );
+
 
     alertIcon.innerHTML =
       `<i class="fa-solid fa-xmark"></i>`;
@@ -1618,24 +2002,63 @@ function showTopAlert(
   }
 
 
-  alertBox.classList.add("show");
+  alertBox.classList.add(
+    "show"
+  );
 
 
-  setTimeout(()=>{
-    closeTopAlert();
-  },3000);
+  if(alertTimer){
+
+    clearTimeout(
+      alertTimer
+    );
+
+  }
+
+
+  alertTimer =
+    setTimeout(()=>{
+
+      closeTopAlert();
+
+    },5000);
 
 }
 
+
+
+/* =====================================================
+   CLOSE ALERT
+===================================================== */
 
 function closeTopAlert(){
 
-  document
-    .getElementById("topAlert")
-    .classList
-    .remove("show");
+  const alertBox =
+    document.getElementById(
+      "topAlert"
+    );
+
+
+  alertBox.classList.remove(
+    "show"
+  );
 
 }
+
+
+
+/* =====================================================
+   START
+===================================================== */
+
+document.addEventListener(
+  "DOMContentLoaded",
+  async()=>{
+
+    await loadPincodes();
+
+  }
+);
 
 </script>
 
