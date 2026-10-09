@@ -1,140 +1,214 @@
-<!-- =========================
-     CART PAGE
-========================= -->
-
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <title>Cart - City Choice Bakers</title>
 
-  <!-- FONT -->
-
   <link rel="preconnect" href="https://fonts.googleapis.com">
-
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Pacifico&display=swap" rel="stylesheet">
 
-  <!-- FONT AWESOME -->
-
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-
   <link rel="stylesheet" href="cart.css">
   <link rel="stylesheet" href="back.css">
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-  <script>
-    const SUPABASE_URL = "https://ftuchilcswtnnldrugir.supabase.co";
+  <style>
+    /* TOP ALERT */
+    .cart-toast {
+      position: fixed;
+      top: 16px;
+      left: 50%;
+      width: calc(100% - 28px);
+      max-width: 420px;
+      z-index: 99999;
 
-    const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZ0dWNoaWxjc3d0bm5sZHJ1Z2lyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzkxNjAyNDQsImV4cCI6MjA5NDczNjI0NH0.88SWE5lvsJD0Fw8x7h4pgAmq1WFRN1qMvmXHCXeDqsU";
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+
+      padding: 16px;
+      border-radius: 18px;
+      background: #ffffff;
+      color: #222;
+
+      box-shadow: 0 12px 40px rgba(0,0,0,.22);
+      border: 1px solid #eeeeee;
+
+      transform: translate(-50%, -150%);
+      opacity: 0;
+      visibility: hidden;
+
+      transition:
+        transform .4s cubic-bezier(.2,.8,.2,1),
+        opacity .3s ease,
+        visibility .3s;
+    }
+
+    .cart-toast.show {
+      transform: translate(-50%, 0);
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .cart-toast-icon {
+      width: 43px;
+      height: 43px;
+      min-width: 43px;
+      border-radius: 14px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .cart-toast.error .cart-toast-icon {
+      background: #fff0f0;
+      color: #dc2626;
+    }
+
+    .cart-toast.success .cart-toast-icon {
+      background: #e9f9ef;
+      color: #16a34a;
+    }
+
+    .cart-toast-content {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .cart-toast-content h3 {
+      font-family: 'Poppins', sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+      margin: 1px 0 5px;
+    }
+
+    .cart-toast-content p {
+      font-family: 'Poppins', sans-serif;
+      font-size: 12px;
+      line-height: 1.6;
+      color: #666;
+      margin: 0;
+      white-space: pre-line;
+    }
+
+    .cart-toast-close {
+      width: 28px;
+      height: 28px;
+      border: none;
+      background: #f5f5f5;
+      color: #555;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+
+    .cart-toast-close svg {
+      width: 16px;
+      height: 16px;
+    }
+
+    .cart-toast-progress {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      height: 3px;
+      width: 100%;
+      background: #dc2626;
+      border-radius: 0 0 18px 18px;
+      transform-origin: left;
+    }
+
+    .cart-toast.success .cart-toast-progress {
+      background: #16a34a;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .cart-toast {
+        transition: none;
+      }
+    }
+  </style>
+
+  <script>
+    const SUPABASE_URL =
+      "https://ftuchilcswtnnldrugir.supabase.co";
+
+    const SUPABASE_ANON_KEY =
+      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZ0dWNoaWxjc3d0bm5sZHJ1Z2lyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzkxNjAyNDQsImV4cCI6MjA5NDczNjI0NH0.88SWE5lvsJD0Fw8x7h4pgAmq1WFRN1qMvmXHCXeDqsU";
 
     const supabaseClient = window.supabase.createClient(
       SUPABASE_URL,
       SUPABASE_ANON_KEY
     );
   </script>
-
 </head>
 
 <body>
 
-  <!-- =========================
-       HEADER
-  ========================= -->
-
+  <!-- HEADER -->
   <header class="cart-header">
-
     <div class="header-left">
-
       <div>
         <h2>Cart</h2>
         <p>Your selected items</p>
       </div>
-
     </div>
 
     <div class="cart-tag">
       <i class="fa-solid fa-cart-shopping"></i>
     </div>
-
   </header>
 
-  <!-- =========================
-       EMPTY CART
-  ========================= -->
-
+  <!-- EMPTY CART -->
   <section class="empty-cart">
-
     <i class="fa-solid fa-cart-shopping"></i>
-
     <h3>Your Cart is Empty</h3>
-
     <p>Add delicious items now</p>
-
   </section>
 
-  <!-- =========================
-       CART PRODUCTS
-  ========================= -->
-
+  <!-- PRODUCTS -->
   <section class="cart-products" id="cartProducts"></section>
 
-  <!-- =========================
-       COUPON BOX
-  ========================= -->
-
+  <!-- COUPON -->
   <section class="coupon-box" onclick="openCouponSheet()">
-
     <div class="coupon-left">
-
       <div class="coupon-icon">
         <i class="fa-solid fa-ticket"></i>
       </div>
 
       <div>
         <h3>Apply Best Offer</h3>
-        <p id="saveAmount">
-          You Save ₹0
-        </p>
+        <p id="saveAmount">You Save ₹0</p>
       </div>
-
     </div>
 
     <i class="fa-solid fa-angle-right"></i>
-
   </section>
 
-  <!-- =========================
-       BILL DETAILS
-  ========================= -->
-
+  <!-- BILL DETAILS -->
   <section class="bill-box">
-
     <h2>Bill Details</h2>
 
     <div class="bill-row">
       <span>Item Total</span>
-      <strong id="itemTotal">
-        ₹0
-      </strong>
+      <strong id="itemTotal">₹0</strong>
     </div>
 
     <div class="bill-row">
       <span>Tax (2%)</span>
-      <strong id="taxAmount">
-        ₹0
-      </strong>
+      <strong id="taxAmount">₹0</strong>
     </div>
 
     <div class="bill-row">
       <span>Delivery Charge</span>
-      <strong id="deliveryCharge">
-        ₹0
-      </strong>
+      <strong id="deliveryCharge">₹0</strong>
     </div>
 
     <div class="bill-row">
@@ -144,89 +218,45 @@
 
     <div class="bill-total">
       <span>Amount Payable</span>
-      <strong id="grandTotal">
-        ₹0
-      </strong>
+      <strong id="grandTotal">₹0</strong>
     </div>
-
   </section>
 
-  <!-- =========================
-       CHECKOUT BUTTON
-  ========================= -->
-
+  <!-- CHECKOUT BAR -->
   <div class="checkout-bar">
-
     <div>
       <small>Grand Total</small>
-
-      <h3 id="checkoutTotal">
-        ₹0
-      </h3>
+      <h3 id="checkoutTotal">₹0</h3>
     </div>
 
-    <button onclick="goToCheckout()">
-      Checkout
-    </button>
-
+    <button onclick="goToCheckout()">Checkout</button>
   </div>
 
-  <!-- =========================
-       COUPON SHEET
-  ========================= -->
-
+  <!-- COUPON SHEET -->
   <section class="coupon-sheet" id="couponSheet">
 
-    <!-- TOP -->
-
     <div class="coupon-top">
-
       <div class="coupon-back" onclick="closeCouponSheet()">
-
         <i class="fa-solid fa-arrow-left"></i>
-
       </div>
 
       <div>
-
         <h2>Coupons & Offers</h2>
-
-        <p>
-          Apply the best deal for this order
-        </p>
-
+        <p>Apply the best deal for this order</p>
       </div>
-
     </div>
-
-    <!-- PROMO -->
 
     <div class="promo-box">
-
       <input type="text" placeholder="Enter Promo Code">
-
-      <button>
-        Apply
-      </button>
-
+      <button onclick="applyPromoCode()">Apply</button>
     </div>
-
-    <!-- SELECTION -->
 
     <div class="selection-box">
-
       <h3>Your Selection</h3>
-
-      <p id="couponStatus">
-        No coupon applied
-      </p>
-
+      <p id="couponStatus">No coupon applied</p>
     </div>
 
-    <!-- COUPONS -->
-
     <div class="offer-card">
-
       <div class="offer-icon">
         <i class="fa-solid fa-tags"></i>
       </div>
@@ -236,14 +266,10 @@
         <p>On orders above ₹999</p>
       </div>
 
-      <button onclick="applyCoupon(100)">
-        Apply
-      </button>
-
+      <button onclick="applyCoupon(100)">Apply</button>
     </div>
 
     <div class="offer-card">
-
       <div class="offer-icon">
         <i class="fa-solid fa-tags"></i>
       </div>
@@ -253,333 +279,550 @@
         <p>On orders above ₹1499</p>
       </div>
 
-      <button onclick="applyCoupon(200)">
-        Apply
-      </button>
-
+      <button onclick="applyCoupon(200)">Apply</button>
     </div>
 
   </section>
 
-  <!-- =========================
-       SCRIPT
-  ========================= -->
+  <!-- PREMIUM TOP ALERT -->
+  <div
+    class="cart-toast error"
+    id="cartToast"
+    role="alert"
+    aria-live="assertive"
+    aria-atomic="true"
+  >
+    <div class="cart-toast-icon" id="toastIcon"></div>
+
+    <div class="cart-toast-content">
+      <h3 id="toastTitle">Minimum Quantity Required</h3>
+      <p id="toastMessage"></p>
+    </div>
+
+    <button
+      class="cart-toast-close"
+      onclick="hideCartToast()"
+      aria-label="Close alert"
+      type="button"
+    >
+      <!-- CROSS SVG -->
+      <svg viewBox="0 0 24 24" fill="none"
+        stroke="currentColor" stroke-width="2.5"
+        stroke-linecap="round">
+        <path d="M18 6 6 18M6 6l12 12"/>
+      </svg>
+    </button>
+
+    <div class="cart-toast-progress" id="toastProgress"></div>
+  </div>
 
   <script>
     let settings = null;
-
-    async function loadSettings() {
-
-      let { data, error } = await supabaseClient.from("settings")
-        .select("*")
-        .eq("id", 1)
-        .single();
-
-      console.log(data, error);
-
-      if (error) {
-        alert("Supabase error check console");
-        return;
-      }
-
-      settings = data;
-
-      renderCart();
-    }
-
-    window.addEventListener("DOMContentLoaded", () => {
-      loadSettings();
-    });
-
-    let cart = JSON.parse(localStorage.getItem("cart")) || [];
-
     let discount = 0;
 
-    const cartProducts = document.getElementById("cartProducts");
+    let cart = [];
 
-    const emptyCart = document.querySelector(".empty-cart");
+    const PASTRY_MIN_QTY = 6;
 
-    /* =========================
-       RENDER CART
-    ========================= */
+    let toastTimer = null;
+    let toastAnimation = null;
 
-    function renderCart() {
+    try {
+      const savedCart = JSON.parse(
+        localStorage.getItem("cart") || "[]"
+      );
 
-      if (!settings) {
-        emptyCart.innerHTML = "Loading...";
-        return;
+      cart = Array.isArray(savedCart) ? savedCart : [];
+    } catch (error) {
+      cart = [];
+      console.error("Unable to read cart:", error);
+    }
+
+    const cartProducts =
+      document.getElementById("cartProducts");
+
+    const emptyCart =
+      document.querySelector(".empty-cart");
+
+    /*
+      CROSS SVG
+    */
+    const CROSS_SVG = `
+      <svg width="25" height="25" viewBox="0 0 24 24"
+        fill="none" stroke="currentColor"
+        stroke-width="2.5" stroke-linecap="round"
+        stroke-linejoin="round" aria-hidden="true">
+        <circle cx="12" cy="12" r="10"/>
+        <path d="m15 9-6 6m0-6 6 6"/>
+      </svg>
+    `;
+
+    /*
+      TICK SVG
+    */
+    const TICK_SVG = `
+      <svg width="25" height="25" viewBox="0 0 24 24"
+        fill="none" stroke="currentColor"
+        stroke-width="2.5" stroke-linecap="round"
+        stroke-linejoin="round" aria-hidden="true">
+        <circle cx="12" cy="12" r="10"/>
+        <path d="m8 12 2.5 2.5L16 9"/>
+      </svg>
+    `;
+
+    /*
+      TOP ALERT FUNCTION WITH VIBRATION
+    */
+    function showCartToast(type, title, message) {
+      const toast = document.getElementById("cartToast");
+      const icon = document.getElementById("toastIcon");
+      const titleElement = document.getElementById("toastTitle");
+      const messageElement = document.getElementById("toastMessage");
+      const progress = document.getElementById("toastProgress");
+
+      clearTimeout(toastTimer);
+
+      if (toastAnimation) {
+        toastAnimation.cancel();
+        toastAnimation = null;
       }
+
+      toast.classList.remove("show", "error", "success");
+      toast.classList.add(type);
+
+      icon.innerHTML = type === "success"
+        ? TICK_SVG
+        : CROSS_SVG;
+
+      titleElement.textContent = title;
+      messageElement.textContent = message;
+
+      progress.style.transition = "none";
+      progress.style.transform = "scaleX(1)";
+
+      // Trigger Vibration pattern on Error/Cross
+      if (type === "error" && "vibrate" in navigator) {
+        navigator.vibrate([100, 50, 100]);
+      }
+
+      // Restart animation cleanly.
+      void toast.offsetWidth;
+
+      toast.classList.add("show");
+
+      if (progress.animate) {
+        toastAnimation = progress.animate(
+          [
+            { transform: "scaleX(1)" },
+            { transform: "scaleX(0)" }
+          ],
+          {
+            duration: 4500,
+            easing: "linear",
+            fill: "forwards"
+          }
+        );
+      }
+
+      toastTimer = setTimeout(() => {
+        hideCartToast();
+      }, 4500);
+    }
+
+    function hideCartToast() {
+      clearTimeout(toastTimer);
+
+      if (toastAnimation) {
+        toastAnimation.cancel();
+        toastAnimation = null;
+      }
+
+      document.getElementById("cartToast")
+        .classList.remove("show");
+    }
+
+    /*
+      PASTRY DETECTION
+      Checks product name and category.
+    */
+    function isPastryProduct(item) {
+      const name = String(
+        item.title ||
+        item.name ||
+        item.product_name ||
+        ""
+      );
+
+      const category = String(
+        item.category ||
+        item.product_category ||
+        ""
+      );
+
+      const pastryPattern = /pastr(y|ies)/i;
+
+      return pastryPattern.test(name) ||
+             pastryPattern.test(category);
+    }
+
+    /*
+      CHECK PASTRY QUANTITY
+    */
+    function validatePastryQuantities() {
+      for (const item of cart) {
+        if (!isPastryProduct(item)) continue;
+
+        const qty = Number(item.qty) || 0;
+
+        if (qty < PASTRY_MIN_QTY) {
+          showCartToast(
+            "error",
+            "Minimum 6 Pieces Required!",
+            "Product: " + (item.title || item.name || "Pastry") +
+            "\nYour quantity: " + qty +
+            " piece(s)\nPlease add " +
+            (PASTRY_MIN_QTY - qty) +
+            " more to continue to checkout."
+          );
+
+          return false;
+        }
+      }
+
+      return true;
+    }
+
+    /*
+      LOAD SETTINGS
+    */
+    async function loadSettings() {
+      try {
+        const { data, error } = await supabaseClient
+          .from("settings")
+          .select("*")
+          .eq("id", 1)
+          .single();
+
+        if (error) {
+          console.error("Settings error:", error);
+          alert("Supabase error. Please check the console.");
+          return;
+        }
+
+        settings = data;
+        renderCart();
+
+      } catch (error) {
+        console.error(error);
+        alert("Unable to load settings. Please try again.");
+      }
+    }
+
+    window.addEventListener("DOMContentLoaded", loadSettings);
+
+    /*
+      RENDER CART
+    */
+    function renderCart() {
+      if (!settings) return;
 
       cartProducts.innerHTML = "";
 
       let total = 0;
 
-      if (cart.length === 0) {
-
-        emptyCart.style.display = "block";
-
-      } else {
-
-        emptyCart.style.display = "none";
-
-      }
+      emptyCart.style.display =
+        cart.length === 0 ? "block" : "none";
 
       cart.forEach((item, index) => {
+        const price = Number(item.price) || 0;
+        const qty = Math.max(1, Number(item.qty) || 1);
 
-        total += item.price * item.qty;
+        item.qty = qty;
+        total += price * qty;
 
-        cartProducts.innerHTML += `
+        const product = document.createElement("div");
+        product.className = "cart-item";
 
-        <div class="cart-item">
+        const image = document.createElement("img");
+        image.src = item.image || "";
+        image.alt = item.title || "Product";
 
-          <img src="${item.image}">
+        const info = document.createElement("div");
+        info.className = "cart-info";
 
-          <div class="cart-info">
+        const title = document.createElement("h3");
+        title.textContent = item.title || item.name || "Product";
 
-            <h3>${item.title}</h3>
+        const desc = document.createElement("p");
+        desc.textContent = item.desc || "";
 
-            <p>${item.desc || ""}</p>
+        const priceText = document.createElement("span");
+        priceText.textContent = "₹" + price;
 
-            <span>
-              ₹${item.price}
-            </span>
+        const qtyBox = document.createElement("div");
+        qtyBox.className = "qty-box";
 
-            <div class="qty-box">
+        const minus = document.createElement("button");
+        minus.textContent = "-";
+        minus.type = "button";
+        minus.onclick = () => decreaseQty(index);
 
-              <button onclick="decreaseQty(${index})">
-              -
-              </button>
+        const qtyText = document.createElement("strong");
+        qtyText.textContent = qty;
 
-              <strong>
-                ${item.qty}
-              </strong>
+        const plus = document.createElement("button");
+        plus.textContent = "+";
+        plus.type = "button";
+        plus.onclick = () => increaseQty(index);
 
-              <button onclick="increaseQty(${index})">
-              +
-              </button>
+        qtyBox.append(minus, qtyText, plus);
+        info.append(title, desc, priceText, qtyBox);
 
-            </div>
+        if (isPastryProduct(item)) {
+          const note = document.createElement("small");
+          note.textContent = "Minimum order: 6 pieces";
+          note.style.color = "#c62828";
+          note.style.display = "block";
+          note.style.marginTop = "6px";
+          info.appendChild(note);
+        }
 
-          </div>
+        const deleteButton = document.createElement("div");
+        deleteButton.className = "delete-btn";
+        deleteButton.innerHTML =
+          '<i class="fa-solid fa-trash"></i>';
 
-          <div class="delete-btn" onclick="deleteItem(${index})">
+        deleteButton.onclick = () => deleteItem(index);
 
-            <i class="fa-solid fa-trash"></i>
-
-          </div>
-
-        </div>
-
-        `;
-
+        product.append(image, info, deleteButton);
+        cartProducts.appendChild(product);
       });
 
-      /* =========================
-         BILL CALCULATION
-      ========================= */
+      const taxPercent = Number(settings.tax_percent) || 0;
+      const freeLimit = Number(settings.free_delivery_limit) || 0;
+      const deliveryCharge = Number(settings.delivery_charge) || 0;
+      const platformCharge = Number(settings.platform_charge) || 0;
 
-      let tax = settings
-        ? Math.round(total * (settings.tax_percent / 100))
-        : 0;
+      const tax = Math.round(total * taxPercent / 100);
 
-      let delivery = settings
-        ? (total >= settings.free_delivery_limit
-            ? 0
-            : settings.delivery_charge)
-        : 0;
+      const delivery = total === 0
+        ? 0
+        : (total >= freeLimit ? 0 : deliveryCharge);
 
-      let platform = settings
-        ? settings.platform_charge
-        : 0;
+      const grandTotal = Math.max(
+        0,
+        total + tax + delivery +
+        (total > 0 ? platformCharge : 0) - discount
+      );
 
-      let grandTotal = total + tax + delivery + platform - discount;
+      document.getElementById("itemTotal").textContent = "₹" + total;
+      document.getElementById("taxAmount").textContent = "₹" + tax;
 
-      if (grandTotal < 0) {
-        grandTotal = 0;
-      }
+      document.getElementById("deliveryCharge").textContent =
+        delivery === 0 ? "FREE" : "₹" + delivery;
 
-      /* =========================
-         UPDATE BILL
-      ========================= */
+      document.getElementById("platformCharge").textContent =
+        "₹" + (total > 0 ? platformCharge : 0);
 
-      document.getElementById("itemTotal").innerText = `₹${total}`;
+      document.getElementById("grandTotal").textContent =
+        "₹" + grandTotal;
 
-      document.getElementById("taxAmount").innerText = `₹${tax}`;
+      document.getElementById("checkoutTotal").textContent =
+        "₹" + grandTotal;
 
-      document.getElementById("deliveryCharge").innerText =
-        delivery === 0 ? "FREE" : `₹${delivery}`;
-
-      document.getElementById("platformCharge").innerText = `₹${platform}`;
-
-      document.getElementById("grandTotal").innerText = `₹${grandTotal}`;
-
-      document.getElementById("checkoutTotal").innerText = `₹${grandTotal}`;
-
-      document.getElementById("saveAmount").innerText = `You Save ₹${discount}`;
-
+      document.getElementById("saveAmount").textContent =
+        "You Save ₹" + discount;
     }
 
-    /* =========================
-       SAVE CART
-    ========================= */
-
+    /*
+      SAVE CART
+    */
     function saveCart() {
-
       localStorage.setItem("cart", JSON.stringify(cart));
-
       renderCart();
-
     }
 
-    /* =========================
-       INCREASE QTY
-    ========================= */
-
+    /*
+      INCREASE QUANTITY
+    */
     function increaseQty(index) {
+      if (!cart[index]) return;
 
-      cart[index].qty++;
+      const oldQty = Number(cart[index].qty) || 1;
+
+      cart[index].qty = oldQty + 1;
 
       saveCart();
 
+      // Green tick when minimum pastry quantity is reached.
+      if (
+        isPastryProduct(cart[index]) &&
+        oldQty < PASTRY_MIN_QTY &&
+        cart[index].qty >= PASTRY_MIN_QTY
+      ) {
+        showCartToast(
+          "success",
+          "Minimum Quantity Completed!",
+          "Great! You have added 6 or more pastries. You can continue to checkout."
+        );
+      }
     }
 
-    /* =========================
-       DECREASE QTY
-    ========================= */
-
+    /*
+      DECREASE QUANTITY
+    */
     function decreaseQty(index) {
+      if (!cart[index]) return;
 
-      if (cart[index].qty > 1) {
+      const qty = Number(cart[index].qty) || 1;
 
-        cart[index].qty--;
-
-      } else {
+      if (qty <= 1) {
+        if (isPastryProduct(cart[index])) {
+          showCartToast(
+            "error",
+            "Pastry Cannot Be Reduced!",
+            "Minimum order quantity is 6 pieces. Use the trash icon if you want to remove this product."
+          );
+          return;
+        }
 
         cart.splice(index, 1);
 
+      } else {
+        cart[index].qty = qty - 1;
       }
 
       saveCart();
-
     }
 
-    /* =========================
-       DELETE ITEM
-    ========================= */
-
+    /*
+      DELETE PRODUCT
+    */
     function deleteItem(index) {
-
       cart.splice(index, 1);
-
       saveCart();
-
     }
 
-    /* =========================
-       COUPON SHEET
-    ========================= */
-
+    /*
+      COUPON SHEET
+    */
     function openCouponSheet() {
-
-      document.getElementById("couponSheet").classList.add("show-coupon");
-
+      document.getElementById("couponSheet")
+        .classList.add("show-coupon");
     }
 
     function closeCouponSheet() {
-
-      document.getElementById("couponSheet").classList.remove("show-coupon");
-
+      document.getElementById("couponSheet")
+        .classList.remove("show-coupon");
     }
 
-    /* =========================
-       APPLY COUPON
-    ========================= */
-
+    /*
+      APPLY COUPON
+    */
     function applyCoupon(amount) {
+      const total = cart.reduce((sum, item) => {
+        return sum +
+          (Number(item.price) || 0) *
+          (Number(item.qty) || 1);
+      }, 0);
+
+      const minimum = amount === 100 ? 999 : 1499;
+
+      if (total < minimum) {
+        showCartToast(
+          "error",
+          "Order Total Too Low",
+          "This coupon requires an item total of at least ₹" + minimum + "."
+        );
+        return;
+      }
 
       discount = amount;
 
-      document.getElementById("couponStatus").innerText = `Coupon Applied - ₹${amount} OFF`;
+      document.getElementById("couponStatus").textContent =
+        "Coupon Applied - ₹" + amount + " OFF";
 
       closeCouponSheet();
-
       renderCart();
-
     }
 
-    /* =========================
-       CHECKOUT WITH AUTH CHECK
-    ========================= */
-async function goToCheckout() {
-
-  /* CART EMPTY CHECK */
-
-  if (cart.length === 0) {
-
-    alert("Your cart is empty!");
-
-    return;
-
-  }
-
-
-  /* SUPABASE SESSION CHECK */
-
-  const {
-    data: { session },
-    error
-  } =
-    await supabaseClient.auth.getSession();
-
-
-  /* SESSION ERROR */
-
-  if (error) {
-
-    console.error(
-      "Auth session error:",
-      error
-    );
-
-    alert(
-      "Unable to check login. Please try again."
-    );
-
-    return;
-
-  }
-
-
-  /* USER NOT LOGGED IN */
-
-  if (!session) {
+    /*
+      PROMO CODE
+    */
+    function applyPromoCode() {
+      showCartToast(
+        "error",
+        "Promo Code Unavailable",
+        "This promo code has not been configured yet. Please use the available offers."
+      );
+    }
 
     /*
-      Current cart ko localStorage mein
-      waise hi rehne do.
-
-      Login ke baad checkout.html par
-      redirect hoga.
+      CHECKOUT WITH AUTH CHECK
     */
+    async function goToCheckout() {
+      if (cart.length === 0) {
+        showCartToast(
+          "error",
+          "Your Cart Is Empty!",
+          "Please add some delicious items before checkout."
+        );
+        return;
+      }
 
-    window.location.href =
-      "login.html?redirect=checkout.html";
+      // Stop checkout if ANY pastry quantity is below 6.
+      if (!validatePastryQuantities()) {
+        return;
+      }
 
-    return;
+      if (!settings) {
+        showCartToast(
+          "error",
+          "Please Wait",
+          "Cart settings are still loading. Try again in a moment."
+        );
+        return;
+      }
 
-  }
+      try {
+        const {
+          data: { session },
+          error
+        } = await supabaseClient.auth.getSession();
 
+        if (error) {
+          console.error("Auth session error:", error);
 
-  /* USER ALREADY LOGGED IN */
+          showCartToast(
+            "error",
+            "Login Check Failed",
+            "Unable to check your login. Please try again."
+          );
+          return;
+        }
 
-  window.location.href =
-    "checkout.html";
+        if (!session) {
+          window.location.href =
+            "login.html?redirect=checkout.html";
+          return;
+        }
 
-}
-    
+        window.location.href = "checkout.html";
+
+      } catch (error) {
+        console.error("Checkout error:", error);
+
+        showCartToast(
+          "error",
+          "Checkout Failed",
+          "Unable to continue. Please try again."
+        );
+      }
+    }
+
     renderCart();
   </script>
+
   <script src="back.js"></script>
 </body>
-
 </html>
