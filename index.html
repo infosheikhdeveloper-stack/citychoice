@@ -25,7 +25,7 @@
 
   <style>
     /* ================================
-       PREMIUM HOME BANNERS
+       PREMIUM HOME BANNERS & SCROLL HIDE
     ================================= */
     .bolt-banner-section{
       padding:16px 15px 8px;
@@ -109,15 +109,32 @@
       box-shadow:0 8px 24px rgba(0,0,0,.35);
     }
 
+    /* BANNER SCROLL CONTAINER - SMOOTH TRANSITION FOR SHRINK HIDE */
     .banner-scroll-container{
       display:flex;
       gap:12px;
       overflow-x:auto;
-      padding:0 1px 5px;
+      padding:8px 1px 5px;
       scrollbar-width:none;
       -webkit-overflow-scrolling:touch;
+      max-height: 160px;
+      opacity: 1;
+      visibility: visible;
+      transition: max-height 0.4s ease, opacity 0.3s ease, padding 0.3s ease, margin 0.3s ease, visibility 0.4s ease;
     }
     .banner-scroll-container::-webkit-scrollbar{display:none}
+
+    /* SCROLL UP KARNE PAR BANNER CONTAINER KO HIDE KAREIN */
+    .swiggy-header-wrapper.shrink .banner-scroll-container {
+      max-height: 0 !important;
+      opacity: 0 !important;
+      padding-top: 0 !important;
+      padding-bottom: 0 !important;
+      margin-top: 0 !important;
+      margin-bottom: 0 !important;
+      visibility: hidden !important;
+      pointer-events: none;
+    }
 
     .small-banner-card{
       min-width:275px;
@@ -500,7 +517,7 @@
     }
 
     /* ================================
-       FLOATING ACTIONS GROUP (CALL BUTTON RAISED)
+       FLOATING ACTIONS GROUP
     ================================= */
     .floating-action-group {
       position: fixed;
@@ -531,7 +548,6 @@
       background: linear-gradient(135deg, #e11d48, #9f1239);
     }
 
-    /* Call Button Upar Kar Diya Hai */
     .floating-action-group .btn-call {
       background: linear-gradient(135deg, #10b981, #047857);
       margin-bottom: 5px; 
@@ -571,7 +587,7 @@
       </div>
     </div>
 
-    <!-- Category Tabs styled purely from hed.css -->
+    <!-- Category Tabs -->
     <div class="category-tabs">
       <button class="tab-btn active"><i class="fa-solid fa-cake-candles"></i><span>Bakery</span></button>
       <button class="tab-btn"><i class="fa-solid fa-utensils"></i><span>Food</span></button>
@@ -592,6 +608,7 @@
       </button>
     </div>
 
+    <!-- HEADER BANNER SCROLL CONTAINER -->
     <div class="banner-scroll-container">
 
       <a href="cake.html" class="small-banner-card bg-cake">
@@ -710,9 +727,7 @@
     </div>
   </section>
 
-  <!-- ================================
-     CITY CHOICE BAKERY - PASTRY BOX
-  ================================= -->
+  <!-- PASTRY BOX -->
   <section class="pastry-section-wrapper">
     <div class="pastry-feature-box open" id="pastryBoxToggle" onclick="togglePastryDrawer()">
       <div class="pastry-box-left">
@@ -728,9 +743,7 @@
     </div>
 
     <div class="pastry-content-drawer show" id="pastryDrawer">
-      <div class="pastry-grid" id="pastryContainer">
-        <!-- 4 Popular Pastries loaded dynamically -->
-      </div>
+      <div class="pastry-grid" id="pastryContainer"></div>
       <a href="category.html?cat=pastry" class="pastry-view-all-btn">
         View All Pastries <i class="fa-solid fa-arrow-right"></i>
       </a>
@@ -1011,7 +1024,6 @@
 
   async function loadProducts(){
     try{
-      // Load Popular Pastries for City Choice Bakery Box
       const { data: pastryItems } = await supabaseClient
         .from("products")
         .select("*")
@@ -1172,10 +1184,11 @@
 
     const y=window.scrollY;
 
-    if(!isShrunk&&y>120){
+    /* SCROLL UP KARNE PAR HEADER LEAN/SHRINK HOGA AUR BANNER CONTAINER HIDE HO JAEGA */
+    if(!isShrunk && y > 60){
       header.classList.add("shrink");
       isShrunk=true;
-    }else if(isShrunk&&y<20){
+    }else if(isShrunk && y < 20){
       header.classList.remove("shrink");
       isShrunk=false;
     }
@@ -1216,6 +1229,8 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function slideToBanner(index) {
+    // Agar banner hide hai scroll par toh slide na karein
+    if (document.getElementById("mainHeader")?.classList.contains("shrink")) return;
     const width = getBannerWidth();
     if (!width) return;
     currentBanner = index;
