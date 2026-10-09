@@ -143,6 +143,7 @@
       pointer-events:none;
     }
     .bg-cake{background:linear-gradient(135deg,#e11d48,#881337)}
+    .bg-pastry{background:linear-gradient(135deg,#be185d,#831843)}
     .bg-dryfruit{background:linear-gradient(135deg,#d97706,#78350f)}
     .bg-sweets{background:linear-gradient(135deg,#059669,#064e3b)}
     .bg-food{background:linear-gradient(135deg,#2563eb,#1e3a8a)}
@@ -178,208 +179,362 @@
     }
 
     /* ================================
-       FALLBACK OFFER DESIGN
+       PREMIUM OFFERS & REWARDS DESIGN BOX
     ================================= */
-    .offers-cards-scroll{
-      display:flex;
-      gap:12px;
-      overflow-x:auto;
-      padding:3px 1px 8px;
-      scrollbar-width:none;
+    .offers-container {
+      background: #fafafa;
+      border-radius: 20px;
+      padding: 14px;
+      border: 1px solid #f0f0f0;
     }
-    .offers-cards-scroll::-webkit-scrollbar{display:none}
+    .offers-title {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.8px;
+      color: #e11d48;
+      margin-bottom: 12px;
+      text-transform: uppercase;
+    }
+    .offers-title b {
+      color: #cbd5e1;
+      font-size: 8px;
+    }
+    .offers-cards-scroll {
+      display: flex;
+      gap: 12px;
+      overflow-x: auto;
+      padding: 2px 1px 6px;
+      scrollbar-width: none;
+    }
+    .offers-cards-scroll::-webkit-scrollbar { display: none; }
 
-    .offer-card{
-      flex:0 0 154px;
-      width:154px;
-      height:132px;
-      border-radius:20px;
-      overflow:hidden;
-      position:relative;
-      background:linear-gradient(135deg,#0ea5e9,#1e3a8a);
-      border:1px solid rgba(255,255,255,.25);
-      box-shadow:0 8px 20px rgba(0,0,0,.20);
-      isolation:isolate;
+    .offer-card {
+      flex: 0 0 145px;
+      width: 145px;
+      height: 120px;
+      border-radius: 18px;
+      overflow: hidden;
+      position: relative;
+      background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+      isolation: isolate;
+      cursor: pointer;
     }
-    .offer-card:nth-child(2){background:linear-gradient(135deg,#7c3aed,#2563eb)}
-    .offer-card:nth-child(3){background:linear-gradient(135deg,#059669,#047857)}
-    .offer-card:nth-child(4){background:linear-gradient(135deg,#ea580c,#be123c)}
+    .offer-card:nth-child(2) { background: linear-gradient(135deg, #8b5cf6, #6d28d9); }
+    .offer-card:nth-child(3) { background: linear-gradient(135deg, #10b981, #047857); }
+    .offer-card:nth-child(4) { background: linear-gradient(135deg, #f97316, #c2410c); }
 
-    .offer-card:before{
-      content:"";
-      position:absolute;
-      width:120px;
-      height:120px;
-      right:-40px;
-      top:-45px;
-      background:rgba(255,255,255,.18);
-      border-radius:50%;
-      filter:blur(2px);
-      z-index:0;
+    .offer-card:before {
+      content: "";
+      position: absolute;
+      width: 100px;
+      height: 100px;
+      right: -30px;
+      top: -35px;
+      background: rgba(255, 255, 255, 0.22);
+      border-radius: 50%;
+      filter: blur(2px);
+      z-index: 0;
     }
-    .offer-img{
-      position:absolute;
-      inset:0;
-      width:100%;
-      height:100%;
-      object-fit:cover;
-      z-index:1;
-      transition:transform .35s ease;
+    .offer-img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: 1;
+      transition: transform 0.35s ease;
     }
-    .offer-card:hover .offer-img{transform:scale(1.05)}
-    .offer-card:after{
-      content:"";
-      position:absolute;
-      inset:0;
-      z-index:2;
-      background:linear-gradient(0deg,rgba(0,0,0,.68),rgba(0,0,0,.03) 70%);
-      pointer-events:none;
+    .offer-card:hover .offer-img { transform: scale(1.06); }
+    .offer-card:after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: 2;
+      background: linear-gradient(0deg, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.1) 70%);
+      pointer-events: none;
     }
-    .offer-fallback{
-      position:absolute;
-      left:12px;
-      right:12px;
-      bottom:11px;
-      z-index:3;
-      color:#fff;
-      text-shadow:0 2px 8px rgba(0,0,0,.35);
+    .offer-fallback {
+      position: absolute;
+      left: 10px;
+      right: 10px;
+      bottom: 10px;
+      z-index: 3;
+      color: #fff;
+      text-shadow: 0 2px 6px rgba(0,0,0,0.4);
     }
-    .offer-fallback strong{
-      display:block;
-      font-size:13px;
-      font-weight:900;
+    .offer-fallback strong {
+      display: block;
+      font-size: 12px;
+      font-weight: 800;
+      line-height: 1.2;
     }
-    .offer-fallback span{
-      font-size:9px;
-      opacity:.92;
+    .offer-fallback span {
+      font-size: 9px;
+      opacity: 0.9;
+      display: block;
+      margin-top: 2px;
     }
 
     /* ================================
-       INSTAGRAM STYLE PWA INSTALL POPUP
+       PASTRY SPECIAL BOX & ANIMATIONS
     ================================= */
-    .pwa-install-overlay {
-      position: fixed;
-      inset: 0;
-      background: rgba(0, 0, 0, 0.65);
-      backdrop-filter: blur(5px);
-      -webkit-backdrop-filter: blur(5px);
-      z-index: 99999;
-      display: flex;
-      align-items: flex-end;
-      justify-content: center;
-      opacity: 0;
-      visibility: hidden;
-      transition: opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.3s;
+    .pastry-section-wrapper {
+      padding: 12px 15px;
+      background: #fff;
     }
 
-    .pwa-install-overlay.show {
-      opacity: 1;
-      visibility: visible;
-    }
-
-    .pwa-install-modal {
-      background: #ffffff;
-      width: 100%;
-      max-width: 480px;
-      border-top-left-radius: 28px;
-      border-top-right-radius: 28px;
-      padding: 24px 20px 28px;
-      box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.3);
-      transform: translateY(100%);
-      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-      text-align: center;
+    .pastry-feature-box {
+      background: linear-gradient(135deg, #2b0818 0%, #4a0e2e 50%, #19030e 100%);
+      border-radius: 22px;
+      padding: 16px 18px;
+      color: #fff;
+      box-shadow: 0 10px 25px rgba(74, 14, 46, 0.25);
       position: relative;
-      font-family: 'Poppins', sans-serif;
-    }
-
-    .pwa-install-overlay.show .pwa-install-modal {
-      transform: translateY(0);
-    }
-
-    .pwa-drag-handle {
-      width: 42px;
-      height: 5px;
-      background: #e2e8f0;
-      border-radius: 10px;
-      margin: 0 auto 16px;
-    }
-
-    .pwa-app-icon {
-      width: 80px;
-      height: 80px;
-      border-radius: 20px;
-      object-fit: cover;
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
-      margin-bottom: 12px;
-    }
-
-    .pwa-app-title {
-      font-size: 20px;
-      font-weight: 800;
-      color: #1e293b;
-      margin: 0 0 4px;
-    }
-
-    .pwa-app-desc {
-      font-size: 13px;
-      color: #64748b;
-      margin: 0 0 20px;
-      padding: 0 10px;
-      line-height: 1.45;
-    }
-
-    .pwa-features {
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      cursor: pointer;
       display: flex;
-      justify-content: space-around;
-      background: #f8fafc;
-      border-radius: 16px;
-      padding: 12px 8px;
-      margin-bottom: 20px;
-    }
-
-    .pwa-feature-item {
-      display: flex;
-      flex-direction: column;
       align-items: center;
-      font-size: 11px;
-      font-weight: 600;
-      color: #475569;
+      justify-content: space-between;
+      transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.3s ease;
     }
 
-    .pwa-feature-item i {
-      font-size: 18px;
-      color: #e11d48;
+    .pastry-feature-box:active {
+      transform: scale(0.98);
+    }
+
+    .pastry-feature-box::before {
+      content: "";
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(255,182,193,0.15) 0%, transparent 60%);
+      animation: rotateGlow 8s linear infinite;
+      pointer-events: none;
+    }
+
+    @keyframes rotateGlow {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    .pastry-box-left {
+      position: relative;
+      z-index: 2;
+    }
+
+    .pastry-brand-tag {
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: #ff9ebb;
+      display: flex;
+      align-items: center;
+      gap: 5px;
       margin-bottom: 4px;
     }
 
-    .pwa-action-btns {
-      display: flex;
-      gap: 10px;
-    }
-
-    .pwa-btn-secondary {
-      flex: 1;
-      background: #f1f5f9;
-      color: #475569;
-      border: none;
-      border-radius: 14px;
-      padding: 14px;
-      font-weight: 700;
-      font-size: 14px;
-      cursor: pointer;
-    }
-
-    .pwa-btn-primary {
-      flex: 2;
-      background: linear-gradient(135deg, #e11d48, #881337);
-      color: #ffffff;
-      border: none;
-      border-radius: 14px;
-      padding: 14px;
+    .pastry-box-title {
+      font-size: 18px;
       font-weight: 800;
-      font-size: 14px;
+      color: #fff;
+      margin: 0 0 2px 0;
+      line-height: 1.2;
+    }
+
+    .pastry-box-sub {
+      font-size: 11px;
+      color: #e2d1d9;
+      margin: 0;
+    }
+
+    .pastry-box-right {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .pastry-toggle-icon {
+      width: 32px;
+      height: 32px;
+      background: rgba(255, 255, 255, 0.15);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-size: 13px;
+      backdrop-filter: blur(4px);
+      transition: transform 0.4s ease, background 0.3s ease;
+    }
+
+    .pastry-feature-box.open .pastry-toggle-icon {
+      transform: rotate(180deg);
+      background: #ff3b75;
+    }
+
+    .pastry-content-drawer {
+      max-height: 0;
+      overflow: hidden;
+      opacity: 0;
+      transition: max-height 0.5s cubic-bezier(0, 1, 0, 1), opacity 0.4s ease, padding 0.4s ease;
+      background: #fff;
+      border-radius: 0 0 20px 20px;
+    }
+
+    .pastry-content-drawer.show {
+      max-height: 1200px;
+      opacity: 1;
+      padding-top: 15px;
+      transition: max-height 0.7s ease-in-out, opacity 0.4s ease, padding 0.4s ease;
+    }
+
+    .pastry-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+      padding: 2px 2px 10px;
+    }
+
+    .pastry-card {
+      background: #fff;
+      border-radius: 16px;
+      border: 1px solid #f0f0f0;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      transition: transform 0.25s ease;
+    }
+
+    .pastry-card:active {
+      transform: scale(0.97);
+    }
+
+    .pastry-card img {
+      width: 100%;
+      height: 110px;
+      object-fit: cover;
+    }
+
+    .pastry-card-details {
+      padding: 10px;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+    }
+
+    .pastry-card-details h4 {
+      font-size: 13px;
+      font-weight: 700;
+      color: #222;
+      margin: 0 0 4px 0;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .pastry-card-details p {
+      font-size: 10px;
+      color: #777;
+      margin: 0 0 8px 0;
+      height: 26px;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      line-height: 1.3;
+    }
+
+    .pastry-card-bottom {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: auto;
+    }
+
+    .pastry-card-price {
+      font-size: 13px;
+      font-weight: 800;
+      color: #be185d;
+    }
+
+    .pastry-add-btn {
+      background: #be185d;
+      color: #fff;
+      border: none;
+      padding: 5px 12px;
+      border-radius: 8px;
+      font-size: 11px;
+      font-weight: 700;
       cursor: pointer;
-      box-shadow: 0 6px 18px rgba(225, 29, 72, 0.35);
+    }
+
+    .pastry-view-all-btn {
+      width: 100%;
+      background: linear-gradient(135deg, #be185d, #831843);
+      color: #fff;
+      text-align: center;
+      padding: 12px;
+      border-radius: 14px;
+      font-weight: 700;
+      font-size: 13px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      text-decoration: none;
+      margin-top: 5px;
+      box-shadow: 0 4px 12px rgba(190, 24, 93, 0.25);
+    }
+
+    /* ================================
+       FLOATING ACTIONS GROUP (CALL BUTTON RAISED)
+    ================================= */
+    .floating-action-group {
+      position: fixed;
+      bottom: 80px;
+      right: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      z-index: 999;
+    }
+
+    .floating-action-group .btn-icon {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-size: 16px;
+      box-shadow: 0 6px 16px rgba(0,0,0,0.22);
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+    }
+
+    .floating-action-group .btn-menu-book {
+      background: linear-gradient(135deg, #e11d48, #9f1239);
+    }
+
+    /* Call Button Upar Kar Diya Hai */
+    .floating-action-group .btn-call {
+      background: linear-gradient(135deg, #10b981, #047857);
+      margin-bottom: 5px; 
     }
   </style>
 </head>
@@ -407,7 +562,7 @@
             City Choice Bakers
             <i class="fa-solid fa-chevron-down arrow-icon"></i>
           </div>
-          <div class="loc-subtitle" id="headerLocation">Bakery, Sweets & Fine Dining Restaurant</div>
+          <div class="loc-subtitle">Bakery, Sweets & Fine Dining Restaurant</div>
         </div>
       </div>
 
@@ -416,6 +571,7 @@
       </div>
     </div>
 
+    <!-- Category Tabs styled purely from hed.css -->
     <div class="category-tabs">
       <button class="tab-btn active"><i class="fa-solid fa-cake-candles"></i><span>Bakery</span></button>
       <button class="tab-btn"><i class="fa-solid fa-utensils"></i><span>Food</span></button>
@@ -436,48 +592,6 @@
       </button>
     </div>
 
-    <div class="offers-container">
-      <div class="offers-title">
-        <span>REWARDS CARNIVAL</span>
-        <b>•</b>
-        <span>SPECIAL OFFERS</span>
-      </div>
-
-      <div class="offers-cards-scroll">
-        <div class="offer-card">
-          <img src="offer1.jpg" class="offer-img" alt="Fresh bakery offer" onerror="this.style.display='none'">
-          <div class="offer-fallback"><strong>Fresh Bakery</strong><span>Freshly baked for you</span></div>
-        </div>
-        <div class="offer-card">
-          <img src="offer2.jpg" class="offer-img" alt="Sweet offer" onerror="this.style.display='none'">
-          <div class="offer-fallback"><strong>Sweet Moments</strong><span>Special sweet deals</span></div>
-        </div>
-        <div class="offer-card">
-          <img src="offer4.jpg" class="offer-img" alt="Food offer" onerror="this.style.display='none'">
-          <div class="offer-fallback"><strong>Food Festival</strong><span>Hot & delicious</span></div>
-        </div>
-        <div class="offer-card">
-          <img src="offer5.jpg" class="offer-img" alt="Special offer" onerror="this.style.display='none'">
-          <div class="offer-fallback"><strong>Special Deal</strong><span>Order & enjoy</span></div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <section class="bolt-banner-section">
-
-    <a href="cake.html" class="bolt-card">
-      <div class="bolt-content">
-        <div class="bolt-badge">
-          Bolt <i class="fa-solid fa-bolt"></i>
-          <span style="font-size:15px;font-weight:700;color:#fff;">Food In 15 Mins!</span>
-        </div>
-        <div class="bolt-title">Fresh, hot & crisp delights for you.</div>
-        <div class="bolt-btn">ORDER NOW</div>
-      </div>
-      <img src="https://ftuchilcswtnnldrugir.supabase.co/storage/v1/object/public/products/1784810157856_1000044382.jpg" class="bolt-img" alt="Chocolate Cake">
-    </a>
-
     <div class="banner-scroll-container">
 
       <a href="cake.html" class="small-banner-card bg-cake">
@@ -487,6 +601,16 @@
           <span>ORDER NOW</span>
         </div>
         <img src="cake.png" class="s-banner-img" alt="Cake">
+      </a>
+
+      <!-- PASTRY HEADER BANNER -->
+      <a href="category.html?cat=pastry" class="small-banner-card bg-pastry">
+        <div class="s-banner-text">
+          <h4>Delight Pastries</h4>
+          <p>Creamy, Soft & Rich</p>
+          <span>EXPLORE</span>
+        </div>
+        <img src="https://images.unsplash.com/photo-1551024601-bec78aea704b?q=80&w=400" class="s-banner-img" alt="Pastry">
       </a>
 
       <a href="dryfruit.html" class="small-banner-card bg-dryfruit">
@@ -517,6 +641,56 @@
       </a>
 
     </div>
+
+  </div>
+
+  <section class="bolt-banner-section">
+
+    <a href="cake.html" class="bolt-card">
+      <div class="bolt-content">
+        <div class="bolt-badge">
+          Bolt <i class="fa-solid fa-bolt"></i>
+          <span style="font-size:15px;font-weight:700;color:#fff;">Food In 15 Mins!</span>
+        </div>
+        <div class="bolt-title">Fresh, hot & crisp delights for you.</div>
+        <div class="bolt-btn">ORDER NOW</div>
+      </div>
+      <img src="https://ftuchilcswtnnldrugir.supabase.co/storage/v1/object/public/products/1784810157856_1000044382.jpg"
+           class="bolt-img" alt="Chocolate Cake">
+    </a>
+
+    <!-- REDESIGNED OFFERS CONTAINER -->
+    <div class="offers-container">
+      <div class="offers-title">
+        <span>REWARDS CARNIVAL</span>
+        <b>•</b>
+        <span>SPECIAL OFFERS</span>
+      </div>
+
+      <div class="offers-cards-scroll">
+        <div class="offer-card">
+          <img src="offer1.jpg" class="offer-img" alt="Fresh bakery offer"
+               onerror="this.style.display='none'">
+          <div class="offer-fallback"><strong>Fresh Bakery</strong><span>Freshly baked for you</span></div>
+        </div>
+        <div class="offer-card">
+          <img src="offer2.jpg" class="offer-img" alt="Sweet offer"
+               onerror="this.style.display='none'">
+          <div class="offer-fallback"><strong>Sweet Moments</strong><span>Special sweet deals</span></div>
+        </div>
+        <div class="offer-card">
+          <img src="offer4.jpg" class="offer-img" alt="Food offer"
+               onerror="this.style.display='none'">
+          <div class="offer-fallback"><strong>Food Festival</strong><span>Hot & delicious</span></div>
+        </div>
+        <div class="offer-card">
+          <img src="offer5.jpg" class="offer-img" alt="Special offer"
+               onerror="this.style.display='none'">
+          <div class="offer-fallback"><strong>Special Deal</strong><span>Order & enjoy</span></div>
+        </div>
+      </div>
+    </div>
+
   </section>
 
   <section class="category-section">
@@ -533,6 +707,33 @@
       <div class="category-card" data-cat="Breakfast"><img src="https://images.unsplash.com/photo-1490645935967-10de6ba17061?q=80&w=800"><span>Breakfast</span></div>
       <div class="category-card" data-cat="Lunch"><img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?q=80&w=800"><span>Lunch</span></div>
       <div class="category-card" data-cat="Burgur"><img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?q=80&w=800"><span>Burgur</span></div>
+    </div>
+  </section>
+
+  <!-- ================================
+     CITY CHOICE BAKERY - PASTRY BOX
+  ================================= -->
+  <section class="pastry-section-wrapper">
+    <div class="pastry-feature-box open" id="pastryBoxToggle" onclick="togglePastryDrawer()">
+      <div class="pastry-box-left">
+        <div class="pastry-brand-tag"><i class="fa-solid fa-crown"></i> CITY CHOICE BAKERY</div>
+        <h3 class="pastry-box-title">Popular Pastries Collection</h3>
+        <p class="pastry-box-sub">Freshly baked top seller pastries</p>
+      </div>
+      <div class="pastry-box-right">
+        <div class="pastry-toggle-icon">
+          <i class="fa-solid fa-chevron-down"></i>
+        </div>
+      </div>
+    </div>
+
+    <div class="pastry-content-drawer show" id="pastryDrawer">
+      <div class="pastry-grid" id="pastryContainer">
+        <!-- 4 Popular Pastries loaded dynamically -->
+      </div>
+      <a href="category.html?cat=pastry" class="pastry-view-all-btn">
+        View All Pastries <i class="fa-solid fa-arrow-right"></i>
+      </a>
     </div>
   </section>
 
@@ -584,7 +785,15 @@
     <a href="account.html"><i class="fa-solid fa-user"></i><span>Account</span></a>
   </nav>
 
-  <div class="menu-book-btn" onclick="openMenuBook()"><i class="fa-solid fa-book-open"></i></div>
+  <!-- FLOATING ACTIONS WITH CALL BUTTON PLACED HIGHER -->
+  <div class="floating-action-group">
+    <a href="contact.html" class="btn-icon btn-call" aria-label="Contact Us">
+      <i class="fa-solid fa-phone-volume"></i>
+    </a>
+    <button class="btn-icon btn-menu-book" onclick="openMenuBook()" aria-label="Open Menu Book">
+      <i class="fa-solid fa-book-open"></i>
+    </button>
+  </div>
 
   <div class="menu-book" id="menuBook">
     <div class="menu-top"><h2>Menu Book</h2><i class="fa-solid fa-xmark" onclick="closeMenuBook()"></i></div>
@@ -607,8 +816,6 @@
       <span>₹249</span>
     </div>
   </div>
-
-  <a href="contact.html" class="contact-btn"><i class="fa-solid fa-phone-volume"></i></a>
 
   <footer class="footer-3d-wrapper">
     <div class="footer-3d-scene">
@@ -681,36 +888,6 @@
 
 </div>
 
-<!-- INSTAGRAM STYLE PWA INSTALL POPUP -->
-<div class="pwa-install-overlay" id="pwaInstallModal">
-  <div class="pwa-install-modal">
-    <div class="pwa-drag-handle"></div>
-    <img src="logo.png" class="pwa-app-icon" alt="City Choice Bakers App">
-    <h3 class="pwa-app-title">City Choice Bakers</h3>
-    <p class="pwa-app-desc">Install our official app for faster ordering, exclusive discount coupons & instant tracking!</p>
-    
-    <div class="pwa-features">
-      <div class="pwa-feature-item">
-        <i class="fa-solid fa-bolt"></i>
-        <span>15-Min Delivery</span>
-      </div>
-      <div class="pwa-feature-item">
-        <i class="fa-solid fa-percent"></i>
-        <span>Exclusive Offers</span>
-      </div>
-      <div class="pwa-feature-item">
-        <i class="fa-solid fa-bell"></i>
-        <span>Live Updates</span>
-      </div>
-    </div>
-
-    <div class="pwa-action-btns">
-      <button class="pwa-btn-secondary" id="pwaDismissBtn">Not Now</button>
-      <button class="pwa-btn-primary" id="pwaInstallBtn">Install App</button>
-    </div>
-  </div>
-</div>
-
 <script>
   let locationList = [], index = 0;
 
@@ -719,7 +896,7 @@
       const {data:{user}} = await supabaseClient.auth.getUser();
       const el = document.getElementById("headerLocation");
       if(!el) return;
-      if(!user){ el.innerText="Bakery, Sweets & Fine Dining Restaurant"; return; }
+      if(!user){ el.innerText="Please Login"; return; }
 
       const {data} = await supabaseClient.from("users")
         .select("location,pincode").eq("email",user.email).single();
@@ -760,6 +937,44 @@
     showTopAlert("success","Cart Updated",item.title+" Added To Cart");
   }
 
+  function togglePastryDrawer() {
+    const box = document.getElementById("pastryBoxToggle");
+    const drawer = document.getElementById("pastryDrawer");
+    box.classList.toggle("open");
+    drawer.classList.toggle("show");
+  }
+
+  function renderPastryProducts(items) {
+    const box = document.getElementById("pastryContainer");
+    if (!box) return;
+    box.innerHTML = "";
+
+    const list = items.slice(0, 4);
+    list.forEach(item => {
+      const card = document.createElement("div");
+      card.className = "pastry-card";
+      card.onclick = (e) => {
+        if (e.target.classList.contains("pastry-add-btn")) return;
+        openProduct(item.id);
+      };
+
+      card.innerHTML = `
+        <img src="${item.image || 'logo.png'}" onerror="this.src='logo.png'">
+        <div class="pastry-card-details">
+          <h4>${item.title || "Pastry"}</h4>
+          <p>${item.description || "Fresh & delicious pastry"}</p>
+          <div class="pastry-card-bottom">
+            <span class="pastry-card-price">₹${item.price}</span>
+            <button class="pastry-add-btn" type="button">Add</button>
+          </div>
+        </div>
+      `;
+
+      card.querySelector(".pastry-add-btn").addEventListener("click", e => addCart(e, item));
+      box.appendChild(card);
+    });
+  }
+
   function showProducts(products,id){
     const box=document.getElementById(id);
     if(!box)return;
@@ -796,6 +1011,16 @@
 
   async function loadProducts(){
     try{
+      // Load Popular Pastries for City Choice Bakery Box
+      const { data: pastryItems } = await supabaseClient
+        .from("products")
+        .select("*")
+        .ilike("category", "%pastry%");
+
+      if (pastryItems && pastryItems.length > 0) {
+        renderPastryProducts(pastryItems);
+      }
+
       const {data:popular,error:popErr}=await supabaseClient
         .from("products").select("*").eq("popular",true);
 
@@ -900,7 +1125,6 @@
   document.addEventListener("DOMContentLoaded",()=>{
     loadProducts();
     loadShopStatus();
-    loadHeaderLocation();
 
     document.querySelectorAll(".category-card").forEach(card=>{
       card.addEventListener("click",()=>{
@@ -970,141 +1194,87 @@
     navigator.serviceWorker.register("sw.js").catch(()=>{});
   }
 
-  /* =========================================
-     AUTO SLIDING BANNERS
-  ========================================= */
-  document.addEventListener("DOMContentLoaded", () => {
-    const bannerContainer = document.querySelector(".banner-scroll-container");
-    if (!bannerContainer) return;
-    const banners = bannerContainer.querySelectorAll(".small-banner-card");
-    if (banners.length <= 1) return;
+/* =========================================
+   AUTO SLIDING BANNERS
+========================================= */
+document.addEventListener("DOMContentLoaded", () => {
+  const bannerContainer = document.querySelector(".banner-scroll-container");
+  if (!bannerContainer) return;
+  const banners = bannerContainer.querySelectorAll(".small-banner-card");
+  if (banners.length <= 1) return;
 
-    let currentBanner = 0;
-    let autoSlide;
-    let resumeTimer;
+  let currentBanner = 0;
+  let autoSlide;
+  let resumeTimer;
 
-    function getBannerWidth() {
-      const card = banners[0];
-      if (!card) return 0;
-      const style = window.getComputedStyle(bannerContainer);
-      const gap = parseFloat(style.gap) || 12;
-      return card.offsetWidth + gap;
+  function getBannerWidth() {
+    const card = banners[0];
+    if (!card) return 0;
+    const style = window.getComputedStyle(bannerContainer);
+    const gap = parseFloat(style.gap) || 12;
+    return card.offsetWidth + gap;
+  }
+
+  function slideToBanner(index) {
+    const width = getBannerWidth();
+    if (!width) return;
+    currentBanner = index;
+    bannerContainer.scrollTo({
+      left: width * currentBanner,
+      behavior: "smooth"
+    });
+  }
+
+  function nextBanner() {
+    currentBanner++;
+    if (currentBanner >= banners.length) {
+      currentBanner = 0;
     }
+    slideToBanner(currentBanner);
+  }
 
-    function slideToBanner(index) {
-      const width = getBannerWidth();
-      if (!width) return;
-      currentBanner = index;
+  function startAutoSlide() {
+    clearInterval(autoSlide);
+    autoSlide = setInterval(() => {
+      nextBanner();
+    }, 3500);
+  }
+
+  function pauseAutoSlide() {
+    clearInterval(autoSlide);
+    clearTimeout(resumeTimer);
+    resumeTimer = setTimeout(() => {
+      startAutoSlide();
+    }, 3000);
+  }
+
+  startAutoSlide();
+
+  bannerContainer.addEventListener("touchstart", pauseAutoSlide, { passive: true });
+  bannerContainer.addEventListener("touchmove", pauseAutoSlide, { passive: true });
+  bannerContainer.addEventListener("touchend", () => {
+    const width = getBannerWidth();
+    if (width > 0) {
+      currentBanner = Math.round(bannerContainer.scrollLeft / width);
+      if (currentBanner < 0) currentBanner = 0;
+      if (currentBanner >= banners.length) currentBanner = banners.length - 1;
+    }
+    pauseAutoSlide();
+  }, { passive: true });
+
+  bannerContainer.addEventListener("mouseenter", () => clearInterval(autoSlide));
+  bannerContainer.addEventListener("mouseleave", startAutoSlide);
+
+  window.addEventListener("resize", () => {
+    const width = getBannerWidth();
+    if (width > 0) {
       bannerContainer.scrollTo({
         left: width * currentBanner,
-        behavior: "smooth"
-      });
-    }
-
-    function nextBanner() {
-      currentBanner++;
-      if (currentBanner >= banners.length) {
-        currentBanner = 0;
-      }
-      slideToBanner(currentBanner);
-    }
-
-    function startAutoSlide() {
-      clearInterval(autoSlide);
-      autoSlide = setInterval(() => {
-        nextBanner();
-      }, 3500);
-    }
-
-    function pauseAutoSlide() {
-      clearInterval(autoSlide);
-      clearTimeout(resumeTimer);
-      resumeTimer = setTimeout(() => {
-        startAutoSlide();
-      }, 3000);
-    }
-
-    startAutoSlide();
-
-    bannerContainer.addEventListener("touchstart", pauseAutoSlide, { passive: true });
-    bannerContainer.addEventListener("touchmove", pauseAutoSlide, { passive: true });
-
-    bannerContainer.addEventListener("touchend", () => {
-      const width = getBannerWidth();
-      if (width > 0) {
-        currentBanner = Math.round(bannerContainer.scrollLeft / width);
-        if (currentBanner < 0) currentBanner = 0;
-        if (currentBanner >= banners.length) currentBanner = banners.length - 1;
-      }
-      pauseAutoSlide();
-    }, { passive: true });
-
-    bannerContainer.addEventListener("mouseenter", () => clearInterval(autoSlide));
-    bannerContainer.addEventListener("mouseleave", startAutoSlide);
-
-    window.addEventListener("resize", () => {
-      const width = getBannerWidth();
-      if (width > 0) {
-        bannerContainer.scrollTo({
-          left: width * currentBanner,
-          behavior: "instant"
-        });
-      }
-    });
-  });
-
-  /* =========================================
-     INSTAGRAM STYLE PWA INSTALL PROMPT LOGIC
-  ========================================= */
-  let deferredPrompt = null;
-
-  window.addEventListener('beforeinstallprompt', (e) => {
-    e.preventDefault();
-    deferredPrompt = e;
-
-    const isStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone;
-    
-    if (!isStandalone) {
-      setTimeout(() => {
-        const modal = document.getElementById('pwaInstallModal');
-        if (modal) modal.classList.add('show');
-      }, 1500);
-    }
-  });
-
-  document.addEventListener('DOMContentLoaded', () => {
-    const installModal = document.getElementById('pwaInstallModal');
-    const installBtn = document.getElementById('pwaInstallBtn');
-    const dismissBtn = document.getElementById('pwaDismissBtn');
-
-    if (installBtn) {
-      installBtn.addEventListener('click', async () => {
-        if (deferredPrompt) {
-          deferredPrompt.prompt();
-          const { outcome } = await deferredPrompt.userChoice;
-          if (outcome === 'accepted') {
-            console.log('PWA Installed');
-          }
-          deferredPrompt = null;
-        } else {
-          alert("iOS me install karne ke liye Safari ke Share button par tap karein aur 'Add to Home Screen' chunein.");
-        }
-        if (installModal) installModal.classList.remove('show');
-      });
-    }
-
-    if (dismissBtn) {
-      dismissBtn.addEventListener('click', () => {
-        if (installModal) installModal.classList.remove('show');
+        behavior: "instant"
       });
     }
   });
-
-  window.addEventListener('appinstalled', () => {
-    deferredPrompt = null;
-    const modal = document.getElementById('pwaInstallModal');
-    if (modal) modal.classList.remove('show');
-  });
+});
 </script>
 
 </body>
