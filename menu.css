@@ -1,190 +1,64 @@
-/* =========================
-   MENU BOOK ICON
-========================= */
-
-.menu-book-btn{
-  position: fixed;
-  right: 18px;
-  bottom: 95px;
-  width: 58px;
-  height: 58px;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  font-size: 26px;
-  color: #fff;
-
-  background: linear-gradient(135deg,#ff0000,#ff4d4d);
-
-  border-radius: 50%;
-  cursor: pointer;
-  z-index: 1000;
-
-  box-shadow:
-    0 8px 20px rgba(255,0,0,0.35),
-    0 0 15px rgba(255,0,0,0.25);
-
-  transition: 0.3s ease;
+/* =========================================================
+   CITY CHOICE BAKERS — menu.css  (FLOATING BUTTONS + MENU BOOK)
+========================================================= */
+.floating-action-group{
+  position:fixed;bottom:98px;right:14px;z-index:999;
+  display:flex;flex-direction:column;gap:12px;
+  touch-action:none;user-select:none;-webkit-user-select:none;cursor:grab;
+  transition:left .3s cubic-bezier(.16,1,.3,1);
 }
-
-.menu-book-btn:hover{
-  transform: scale(1.08);
+.floating-action-group.dragging{transition:none;cursor:grabbing;opacity:.9}
+.floating-action-group.dragging .btn-icon{transform:scale(1.08)}
+.floating-action-group .btn-call{position:relative}
+.floating-action-group .btn-call:after{
+  content:"";position:absolute;inset:-5px;border-radius:50%;
+  border:2px solid rgba(52,211,153,.6);animation:supportPulse 2.4s ease-out infinite;
 }
-
-.menu-book-btn:active{
-  transform: scale(0.95);
+@keyframes supportPulse{0%{transform:scale(.9);opacity:.9}100%{transform:scale(1.35);opacity:0}}
+.floating-action-group .btn-icon{
+  width:46px;height:46px;border-radius:50%;border:none;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  color:#fff;font-size:17px;text-decoration:none;
+  border:2px solid #fff;
+  box-shadow:0 8px 20px rgba(43,16,32,.28);
+  transition:transform .2s;
 }
+.floating-action-group .btn-icon:active{transform:scale(.9)}
+.floating-action-group .btn-icon i{pointer-events:none}
+.floating-action-group .btn-menu-book{background:linear-gradient(135deg,#ff5c8a,#c2185b);animation:floatBook 2.6s ease-in-out infinite}
+.floating-action-group .btn-call{background:linear-gradient(135deg,#34d399,#0f9d6b)}
+@keyframes floatBook{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
+@media(prefers-reduced-motion:reduce){.floating-action-group .btn-menu-book{animation:none}}
 
-
-
-
-.menu-book-btn{
-  animation: floatBook 2.5s ease-in-out infinite;
-}
-
-@keyframes floatBook{
-  0%{
-    transform: translateY(0);
-  }
-
-  50%{
-    transform: translateY(-6px);
-  }
-
-  100%{
-    transform: translateY(0);
-  }
-}
-
-
-
-
-
-/* =========================
-   BOOK STYLE MENU
-========================= */
-
+/* MENU BOOK SHEET */
 .menu-book{
-  position:fixed;
-  left:0;
-  bottom:-100%;
-  width:100%;
-  height:82vh;
-  background:#fdfbf7;
-  border-top-left-radius:35px;
-  border-top-right-radius:35px;
-  padding:22px 18px;
-  z-index:2000;
-  transition:0.45s ease;
-  overflow-y:auto;
-  box-shadow:0 -10px 40px rgba(0,0,0,0.18);
-  
-  /* BOOK STYLE */
-  background-image:
-  linear-gradient(to right,#e8dfcf 0px,#fdfbf7 18px);
+  position:fixed;left:0;bottom:-100%;width:100%;height:82vh;box-sizing:border-box;
+  padding:22px 18px 30px;z-index:2000;overflow-y:auto;
+  background:#fff9fb;
+  background-image:linear-gradient(to right,#f6d3df 0,#fff9fb 18px);
+  border-radius:34px 34px 0 0;
+  box-shadow:0 -14px 44px rgba(43,16,32,.25);
+  transition:bottom .45s cubic-bezier(.16,1,.3,1);
+  font-family:'Poppins',sans-serif;
 }
-
-/* OPEN */
-
-.show-menu{
-  bottom:0;
-}
-
-/* =========================
-   TOP AREA
-========================= */
-
+.menu-book.show-menu{bottom:0}
 .menu-top{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  margin-bottom:25px;
-  padding-bottom:14px;
-  border-bottom:2px dashed #d9c7a3;
+  display:flex;justify-content:space-between;align-items:center;
+  margin-bottom:20px;padding-bottom:14px;border-bottom:2px dashed #f0b3c8;
 }
-
-/* TITLE */
-
-.menu-top h2{
-  font-size:28px;
-  color:#111;
-  font-family:'Pacifico',cursive;
-  letter-spacing:1px;
-}
-
-/* CLOSE */
-
+.menu-top h2{font-family:'Pacifico',cursive;font-weight:400;font-size:27px;color:#2b1020;margin:0}
 .menu-top i{
-  font-size:22px;
-  color: #ff0000;
-  cursor:pointer;
+  width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  font-size:17px;color:#e0245e;background:#ffe3ec;cursor:pointer;
 }
-
-/* =========================
-   MENU ITEM
-========================= */
-
-.menu-item{
-  display:flex;
-  align-items:center;
-  gap:14px;
-  padding:14px 0;
-  border-bottom:1px dashed #d8c8a7;
+.menu-item{display:flex;align-items:center;gap:14px;padding:14px 0;border-bottom:1px dashed #f0cbd8}
+.menu-item img{width:76px;height:76px;border-radius:20px;object-fit:cover;border:3px solid #fff;box-shadow:0 6px 14px rgba(43,16,32,.14)}
+.menu-info{flex:1;min-width:0}
+.menu-info h3{font-size:16px;font-weight:700;color:#2b1020;margin:0}
+.menu-info p{font-size:12px;color:#7a6470;margin:4px 0 0;line-height:1.4}
+.menu-item > span{
+  background:linear-gradient(135deg,#e0245e,#a3123f);color:#fff;
+  padding:8px 13px;border-radius:12px;font-size:13px;font-weight:700;white-space:nowrap;
 }
-
-/* IMAGE */
-
-.menu-item img{
-  width:75px;
-  height:75px;
-  border-radius:18px;
-  object-fit:cover;
-  border:3px solid #fff;
-  box-shadow:0 4px 10px rgba(0,0,0,0.08);
-}
-
-/* INFO */
-
-.menu-info{
-  flex:1;
-}
-
-.menu-info h3{
-  font-size:17px;
-  color:#111;
-  font-weight:700;
-}
-
-.menu-info p{
-  font-size:12px;
-  color:#111;
-  margin-top:4px;
-  line-height:1.4;
-}
-
-/* PRICE */
-
-.menu-item span{
-  background:#111;
-  color:#fff;
-  padding:8px 13px;
-  border-radius:12px;
-  font-size:13px;
-  font-weight:600;
-  white-space:nowrap;
-}
-
-/* =========================
-   SCROLLBAR
-========================= */
-
-.menu-book::-webkit-scrollbar{
-  width:4px;
-}
-
-.menu-book::-webkit-scrollbar-thumb{
-  background:#d7c29a;
-  border-radius:20px;
-}
+.menu-book::-webkit-scrollbar{width:4px}
+.menu-book::-webkit-scrollbar-thumb{background:#f0b3c8;border-radius:20px}
