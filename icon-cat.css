@@ -1,66 +1,24 @@
-/* =========================
-   MINI CATEGORY SLIDER
-========================= */
-
+/* =========================================================
+   CITY CHOICE BAKERS — icon-cat.css  (MINI CATEGORY SLIDER)
+========================================================= */
 .mini-category-slider{
-  width:100%;
-  overflow:hidden;
-  padding:10px 0 18px;
-  background:#fff;
+  width:100%;overflow:hidden;padding:12px 0 18px;background:#fff;
 }
-
-/* TRACK */
-
 .mini-category-track{
-  display:flex;
-  align-items:center;
-  gap:12px;
-  width:max-content;
-  animation:autoSlide 18s linear infinite;
+  display:flex;align-items:center;gap:12px;width:max-content;
+  animation:autoSlide 22s linear infinite;
 }
-
-/* ITEM */
-
+.mini-category-slider:active .mini-category-track{animation-play-state:paused}
 .mini-category{
-  min-width:95px;
-  height:42px;
-  background:#fff;
-  border:1px solid #f0f0f0;
-  border-radius:14px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  gap:8px;
-  padding:0 12px;
-  box-shadow:0 3px 10px rgba(0,0,0,0.04);
+  min-width:100px;height:44px;padding:0 15px;gap:8px;
+  display:flex;align-items:center;justify-content:center;
+  background:#fff6fa;border:1.5px dashed #f4b6cb;border-radius:999px;
+  box-shadow:0 3px 10px rgba(224,36,94,.07);
 }
-
-/* ICON */
-
-.mini-category i{
-  font-size:15px;
-  color:#111;
-}
-
-/* TEXT */
-
-.mini-category span{
-  font-size:12px;
-  font-weight:600;
-  color:#111;
-  white-space:nowrap;
-}
-
-/* AUTO ANIMATION */
-
+.mini-category i{font-size:15px;color:#e0245e}
+.mini-category span{font-size:12px;font-weight:600;color:#2b1020;white-space:nowrap}
 @keyframes autoSlide{
-
-  0%{
-    transform:translateX(0);
-  }
-
-  100%{
-    transform:translateX(-50%);
-  }
-
+  0%{transform:translateX(0)}
+  100%{transform:translateX(-50%)}
 }
+@media(prefers-reduced-motion:reduce){.mini-category-track{animation:none}}
