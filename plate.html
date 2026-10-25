@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover"/>
+  <meta name="theme-color" content="#050505">
+  <title>Bakery Plate - City Choice Bakers</title>
+
+  <meta property="og:title" content="Our Bakery Plate | City Choice Bakers" />
+  <meta property="og:description" content="Spin the plate and pick your favourite cake, pastry or bread!" />
+  <meta property="og:image" content="offer1.jpg" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&family=Pacifico&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+
+  <style>
+    :root{
+      --D:660px;            /* plate diameter (JS set karta hai) */
+      --item:112px;         /* product image size (JS set karta hai) */
+      --gold:#d4af37;
+      --gold-soft:#f6e3a1;
+      --red:#e30613;
+    }
+    *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+    html,body{height:100%;overflow:hidden;background:#030303;font-family:'Poppins',system-ui,sans-serif;color:#fff;user-select:none;-webkit-user-select:none}
+
+    /* =============== ROCK BACKGROUND =============== */
+    .rock-bg{position:fixed;inset:0;z-index:0;overflow:hidden;
+      background:
+        radial-gradient(ellipse 70% 55% at 50% 12%,rgba(255,170,60,.16),transparent 70%),
+        radial-gradient(ellipse 120% 90% at 50% 120%,rgba(0,0,0,.95),transparent 60%),
+        linear-gradient(180deg,#0d0d0d,#030303 70%)}
+    /* patthar ka texture */
+    .rock-bg::before{content:"";position:absolute;inset:0;opacity:.34;
+      background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='700' height='700'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.011 .019' numOctaves='6' seed='7'/><feColorMatrix type='matrix' values='0 0 0 0 .55  0 0 0 0 .52  0 0 0 0 .5  0 0 0 1.6 -.55'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+      background-size:700px 700px}
+    /* barik dana / grain */
+    .rock-bg::after{content:"";position:absolute;inset:0;opacity:.22;mix-blend-mode:screen;
+      background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='260' height='260'><filter id='g'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' seed='3'/><feColorMatrix type='matrix' values='0 0 0 0 .6  0 0 0 0 .6  0 0 0 0 .6  0 0 0 .9 -.35'/></filter><rect width='100%25' height='100%25' filter='url(%23g)'/></svg>");
+      background-size:260px 260px}
+    .cracks{position:absolute;inset:0;opacity:.5;
+      background:
+        repeating-linear-gradient(115deg,transparent 0 90px,rgba(255,255,255,.035) 91px,transparent 93px),
+        repeating-linear-gradient(62deg,transparent 0 140px,rgba(255,255,255,.03) 141px,transparent 143px),
+        repeating-linear-gradient(170deg,transparent 0 210px,rgba(0,0,0,.6) 211px,transparent 215px)}
+    .rock{position:absolute;bottom:-4%;background:linear-gradient(160deg,#2a2a2a,#0b0b0b 70%);filter:drop-shadow(0 -6px 18px rgba(0,0,0,.8))}
+    .rock.r1{left:-14%;width:52%;height:34%;clip-path:polygon(0 100%,4% 52%,22% 30%,38% 44%,58% 14%,78% 40%,100% 100%)}
+    .rock.r2{right:-16%;width:56%;height:40%;clip-path:polygon(0 100%,18% 36%,34% 48%,52% 12%,70% 34%,88% 20%,100% 100%)}
+    .rock.r3{left:26%;width:26%;height:16%;opacity:.7;clip-path:polygon(0 100%,18% 40%,50% 8%,82% 44%,100% 100%)}
+    .vignette{position:absolute;inset:0;background:radial-gradient(ellipse at 50% 45%,transparent 35%,rgba(0,0,0,.85) 100%)}
+    /* udte hue angaare / dust */
+    .embers{position:absolute;inset:0;pointer-events:none}
+    .embers i{position:absolute;bottom:-12px;width:4px;height:4px;border-radius:50%;background:#ffb347;box-shadow:0 0 8px 2px rgba(255,160,40,.8);opacity:0;animation:ember 9s linear infinite}
+    .embers i:nth-child(1){left:8%;animation-delay:0s}
+    .embers i:nth-child(2){left:18%;animation-delay:3s;width:3px;height:3px}
+    .embers i:nth-child(3){left:33%;animation-delay:6s}
+    .embers i:nth-child(4){left:47%;animation-delay:1.5s;width:3px;height:3px}
+    .embers i:nth-child(5){left:61%;animation-delay:4.5s}
+    .embers i:nth-child(6){left:74%;animation-delay:7.5s;width:3px;height:3px}
+    .embers i:nth-child(7){left:86%;animation-delay:2.2s}
+    .embers i:nth-child(8){left:95%;animation-delay:5.2s;width:3px;height:3px}
+    @keyframes ember{0%{transform:translate(0,0);opacity:0}10%{opacity:.9}100%{transform:translate(40px,-100vh);opacity:0}}
+
+    /* =============== HEADER =============== */
+    .top{position:fixed;top:0;left:0;right:0;z-index:20;display:flex;align-items:center;justify-content:space-between;
+      padding:calc(14px + env(safe-area-inset-top,0px)) 16px 10px}
+    .back{width:42px;height:42px;border-radius:50%;display:grid;place-items:center;color:#fff;text-decoration:none;font-size:16px;
+      background:rgba(255,255,255,.08);border:1px solid rgba(212,175,55,.5);backdrop-filter:blur(8px)}
+    .brand{text-align:center;line-height:1.1}
+    .brand b{display:block;font-family:'Pacifico',cursive;font-weight:400;font-size:21px;color:var(--gold-soft);text-shadow:0 2px 14px rgba(212,175,55,.5)}
+    .brand span{font-size:10px;letter-spacing:.28em;text-transform:uppercase;color:#a9a9a9}
+    .spacer{width:42px}
+
+    /* =============== FILTER CHIPS (neeche, plate ke khali hisse me dock) =============== */
+    .chips{position:fixed;left:50%;bottom:calc(16px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);z-index:25;
+      display:flex;gap:6px;padding:6px;border-radius:40px;max-width:94vw;
+      background:rgba(10,10,10,.86);border:1px solid rgba(212,175,55,.6);backdrop-filter:blur(10px);
+      box-shadow:0 12px 30px rgba(0,0,0,.55)}
+    .chip{flex:none;border:0;background:transparent;color:#e9e2c8;font:600 12px 'Poppins',sans-serif;
+      padding:8px 15px;border-radius:30px;cursor:pointer;transition:.25s}
+    .chip.on{background:linear-gradient(135deg,#ff3b3b,#c40010);color:#fff;box-shadow:0 6px 16px rgba(227,6,19,.45)}
+
+    /* =============== INFO PANEL (header ke neeche, plate ke upar - apni alag jagah) =============== */
+    .info{position:fixed;left:0;right:0;z-index:15;display:flex;align-items:center;justify-content:center;text-align:center;padding:0 22px;
+      top:calc(78px + env(safe-area-inset-top,0px));bottom:calc(var(--D) / 2 * var(--z, 1) + 14px);pointer-events:none;overflow:hidden}
+    .info-inner{display:flex;flex-direction:column;align-items:center;max-width:94%;pointer-events:auto;animation:infoIn .5s cubic-bezier(.3,1.4,.5,1)}
+    @keyframes infoIn{0%{opacity:0;transform:translateY(18px) scale(.92)}100%{opacity:1;transform:none}}
+    .info .tag{display:inline-block;font-size:10px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:#111;background:linear-gradient(90deg,#d4af37,#fff2a8,#d4af37);padding:3px 12px;border-radius:20px;max-width:100%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .info h2{margin:8px 0 4px;font-size:clamp(18px,5vw,26px);font-weight:800;line-height:1.2;text-shadow:0 4px 18px rgba(0,0,0,.9);
+      display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+    .info .row{display:flex;align-items:center;justify-content:center;gap:14px;flex-wrap:wrap}
+    .info .price{font-size:22px;font-weight:800;color:var(--gold-soft);text-shadow:0 0 18px rgba(212,175,55,.55)}
+    .info .go{display:inline-flex;align-items:center;gap:8px;border:0;cursor:pointer;font:700 13px 'Poppins',sans-serif;color:#fff;
+      padding:9px 20px;border-radius:30px;background:linear-gradient(135deg,#ff3b3b,#c40010);box-shadow:0 8px 20px rgba(227,6,19,.5)}
+    .info .go:active{transform:scale(.96)}
+
+    /* =============== ZOOM (plate ka center neeche hai, isliye wahi se zoom hota hai) =============== */
+    .zoomer{position:absolute;inset:0;transform-origin:50% 100%;transform:scale(var(--z,1));will-change:transform}
+    .zoomctl{position:fixed;right:12px;bottom:calc(76px + env(safe-area-inset-bottom,0px));z-index:25;display:flex;flex-direction:column;gap:2px;padding:5px;border-radius:30px;
+      background:rgba(10,10,10,.86);border:1px solid rgba(212,175,55,.6);backdrop-filter:blur(10px);box-shadow:0 12px 30px rgba(0,0,0,.55)}
+    .zoomctl button{width:38px;height:38px;border:0;border-radius:50%;background:transparent;color:#f6e3a1;font-size:15px;cursor:pointer}
+    .zoomctl button:active{background:linear-gradient(135deg,#ff3b3b,#c40010);color:#fff}
+
+    /* =============== PLATE (aadhi neeche chhupi hui) =============== */
+    .stage{position:fixed;inset:0;z-index:10;touch-action:none;cursor:grab}
+    .stage.drag{cursor:grabbing}
+    .plate-wrap{position:absolute;left:50%;bottom:0;width:var(--D);height:var(--D);margin-left:calc(var(--D)/-2);margin-bottom:calc(var(--D)/-2);
+      animation:plateRise 1.4s cubic-bezier(.2,.9,.3,1.1) both}
+    @keyframes plateRise{0%{opacity:0;transform:scale(.55) translateY(40px)}100%{opacity:1;transform:none}}
+
+    .plate{position:absolute;inset:0;border-radius:50%;
+      background:
+        radial-gradient(circle,#fdfdfd 0 46%,#ececef 47%,#fff 53%,#dedee3 63%,#f6f6f8 64%,#fff 82%,#d2d2d8 94%,#b9b9c1 100%);
+      box-shadow:
+        0 0 0 5px #b8922b,0 0 0 8px #3a2e0c,
+        0 40px 90px rgba(0,0,0,.95),
+        0 0 150px rgba(255,170,60,.22),
+        inset 0 0 50px rgba(0,0,0,.22)}
+    /* andar ki gehraai (well) */
+    .plate::before{content:"";position:absolute;inset:11%;border-radius:50%;
+      background:radial-gradient(circle at 50% 38%,#ffffff,#f1f1f4 55%,#dcdce2 100%);
+      box-shadow:inset 0 12px 28px rgba(0,0,0,.22),inset 0 -6px 14px rgba(255,255,255,.9),0 0 0 3px rgba(212,175,55,.65)}
+    /* gold dashed ring (plate ke saath ghoomta hai) */
+    .plate::after{content:"";position:absolute;inset:5.2%;border-radius:50%;border:2px dashed rgba(184,146,43,.85)}
+    .plate .ring2{position:absolute;inset:20%;border-radius:50%;border:1.5px solid rgba(184,146,43,.35)}
+    .plate .ring3{position:absolute;inset:32%;border-radius:50%;border:1.5px dashed rgba(184,146,43,.3)}
+    .plate .dot{position:absolute;left:50%;top:50%;width:10px;height:10px;margin:-5px;border-radius:50%;background:#b8922b;
+      transform:rotate(var(--r)) translateY(calc(var(--D)*-.465))}
+
+    .sheen{position:absolute;inset:0;border-radius:50%;pointer-events:none;
+      background:conic-gradient(from 200deg,rgba(255,255,255,0) 0deg,rgba(255,255,255,.55) 28deg,rgba(255,255,255,0) 62deg,rgba(255,255,255,0) 200deg,rgba(255,255,255,.35) 232deg,rgba(255,255,255,0) 268deg)}
+
+    .items{position:absolute;inset:0}
+    .pitem{position:absolute;left:50%;top:50%;width:var(--item);height:var(--item);cursor:pointer;will-change:transform}
+    .pitem .disc{position:relative;width:100%;height:100%;border-radius:50%;overflow:hidden;border:4px solid #fff;background:#fff;
+      box-shadow:0 14px 26px rgba(0,0,0,.45),0 0 0 2px rgba(184,146,43,.9);transition:transform .45s cubic-bezier(.3,1.6,.5,1),box-shadow .45s}
+    .pitem img{width:100%;height:100%;object-fit:cover;display:block;pointer-events:none;-webkit-user-drag:none}
+    .pitem.active .disc{transform:scale(1.42);box-shadow:0 22px 40px rgba(0,0,0,.6),0 0 0 3px #ffd86a,0 0 44px 8px rgba(255,190,70,.6)}
+    .pitem.active{z-index:5}
+    .pitem .mini{position:absolute;left:50%;bottom:-6px;transform:translateX(-50%);white-space:nowrap;font-size:10px;font-weight:800;color:#fff;
+      background:linear-gradient(135deg,#ff3b3b,#c40010);padding:2px 9px;border-radius:12px;box-shadow:0 4px 10px rgba(0,0,0,.4);z-index:3}
+
+    /* =============== STATES =============== */
+    .state{position:fixed;left:0;right:0;top:38%;z-index:16;text-align:center;color:#cfcfcf;font-size:14px;padding:0 24px}
+    .state i{display:block;font-size:30px;color:var(--gold);margin-bottom:10px}
+
+    @media (min-width:900px){
+      .brand b{font-size:26px}
+      .info h2{font-size:32px}
+    }
+    @media (prefers-reduced-motion:reduce){.embers i,.hint i{animation:none}}
+  </style>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+  <script src="supabase.js"></script>
+</head>
+<body>
+
+  <!-- ROCK BACKGROUND -->
+  <div class="rock-bg">
+    <div class="cracks"></div>
+    <div class="rock r1"></div>
+    <div class="rock r2"></div>
+    <div class="rock r3"></div>
+    <div class="embers"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+    <div class="vignette"></div>
+  </div>
+
+  <!-- HEADER -->
+  <header class="top">
+    <a href="index.html" class="back" aria-label="Back"><i class="fa-solid fa-arrow-left"></i></a>
+    <div class="brand"><b>City Choice Bakers</b><span>Bakery Plate</span></div>
+    <div class="spacer"></div>
+  </header>
+
+  <!-- FILTERS -->
+  <nav class="chips" id="chips">
+    <button class="chip on" data-cat="all">All</button>
+    <button class="chip" data-cat="cake">Cakes</button>
+    <button class="chip" data-cat="pastry">Pastry</button>
+    <button class="chip" data-cat="bread">Bread</button>
+  </nav>
+
+  <!-- INFO -->
+  <div class="info" id="info"></div>
+
+  <!-- PLATE -->
+  <div class="stage" id="stage">
+    <div class="zoomer" id="zoomer"><div class="plate-wrap" id="plateWrap">
+      <div class="plate" id="plate">
+        <div class="ring2"></div>
+        <div class="ring3"></div>
+      </div>
+      <div class="sheen"></div>
+      <div class="items" id="items"></div>
+    </div>
+    </div>
+  </div>
+
+  <!-- ZOOM CONTROLS -->
+  <div class="zoomctl" id="zoomCtl">
+    <button id="zoomIn" type="button" aria-label="Zoom in"><i class="fa-solid fa-plus"></i></button>
+    <button id="zoomOut" type="button" aria-label="Zoom out"><i class="fa-solid fa-minus"></i></button>
+    <button id="zoomReset" type="button" aria-label="Reset zoom"><i class="fa-solid fa-expand"></i></button>
+  </div>
+
+  <div class="state" id="state"><i class="fa-solid fa-spinner fa-spin"></i>Loading fresh bakes...</div>
+
+  <script>
+    /* ================= STATE ================= */
+    let allProducts = [];
+    let shown = [];            // plate par jo items hain (cloned bhi ho sakte hain)
+    let nodes = [];
+    let angle = 0, vel = 0, target = null;
+    let dragging = false, lastX = 0, lastT = 0, movedPx = 0;
+    let activeIdx = -1, lastFrame = 0, R = 240;
+    const AUTO = 16;           // deg/sec auto ghumna (pehle 7 tha)
+    const MAX_VEL = 1800;      // user kitni bhi tez ghuma sake (deg/sec)
+    let zoom = 1, zoomT = 1;
+    const Z_MIN = 0.55, Z_MAX = 1.9;
+    function setZoom(z) { zoomT = Math.max(Z_MIN, Math.min(Z_MAX, z)); }
+    function applyZoom() { document.documentElement.style.setProperty("--z", zoom.toFixed(4)); }
+    const MAX_ITEMS = 12;
+
+    const stage = document.getElementById("stage");
+    const itemsBox = document.getElementById("items");
+    const infoBox = document.getElementById("info");
+    const stateBox = document.getElementById("state");
+    const plateEl = document.getElementById("plate");
+
+    /* gold dots on rim */
+    for (let i = 0; i < 24; i++) {
+      const d = document.createElement("span");
+      d.className = "dot";
+      d.style.setProperty("--r", (i * 15) + "deg");
+      d.style.opacity = i % 2 ? ".35" : ".8";
+      plateEl.appendChild(d);
+    }
+
+    /* ================= SIZES ================= */
+    function setSizes() {
+      const w = window.innerWidth, h = window.innerHeight;
+      let D = Math.min(w * 1.72, h * 1.12, 1100);
+      D = Math.max(D, 520);
+      const item = Math.round(Math.max(86, Math.min(D * 0.17, 150)));
+      document.documentElement.style.setProperty("--D", D + "px");
+      document.documentElement.style.setProperty("--item", item + "px");
+      R = D * 0.355;
+      layout();
+    }
+    window.addEventListener("resize", setSizes);
+
+    /* ================= DATA ================= */
+    async function loadProducts() {
+      try {
+        const { data, error } = await supabaseClient.from("products").select("*");
+        if (error) throw error;
+        allProducts = (data || []).filter(p => p && p.image);
+        if (!allProducts.length) allProducts = data || [];
+        if (!allProducts.length) {
+          stateBox.innerHTML = '<i class="fa-solid fa-cake-candles"></i>No products found right now.';
+          return;
+        }
+        applyFilter("all");
+      } catch (e) {
+        console.error("Supabase Error:", e.message);
+        stateBox.innerHTML = '<i class="fa-solid fa-triangle-exclamation"></i>Failed to load products. Please try again.';
+      }
+    }
+
+    function matches(p, cat) {
+      if (cat === "all") return true;
+      const t = ((p.category || "") + " " + (p.title || "")).toLowerCase();
+      if (cat === "bread") return /bread|bun|rusk|toast|pav|roll|loaf|kulcha|bakarkhani/.test(t);
+      return t.includes(cat);
+    }
+
+    function applyFilter(cat) {
+      let list = allProducts.filter(p => matches(p, cat));
+      if (!list.length) {
+        stateBox.style.display = "block";
+        stateBox.innerHTML = '<i class="fa-solid fa-bread-slice"></i>Is category me abhi kuch nahi hai.';
+        itemsBox.innerHTML = ""; nodes = []; shown = []; infoBox.innerHTML = "";
+        return;
+      }
+      stateBox.style.display = "none";
+      list = list.slice(0, MAX_ITEMS);
+      // plate bhari hui dikhe, isliye kam items ho to repeat karo
+      shown = list.slice();
+      while (shown.length < 6) shown = shown.concat(list);
+      shown = shown.slice(0, Math.max(MAX_ITEMS > shown.length ? shown.length : MAX_ITEMS, 6));
+      buildItems();
+    }
+
+    /* ================= BUILD ================= */
+    function buildItems() {
+      itemsBox.innerHTML = "";
+      nodes = shown.map((p, i) => {
+        const el = document.createElement("div");
+        el.className = "pitem";
+        el.innerHTML = `
+          <div class="disc"><img src="${p.image || 'logo.png'}" alt="${(p.title || '').replace(/"/g, '')}" draggable="false" onerror="this.onerror=null;this.src='logo.png'"></div>
+          ${p.price ? `<span class="mini">₹${p.price}</span>` : ""}`;
+        el.addEventListener("click", () => onItemClick(i));
+        itemsBox.appendChild(el);
+        return el;
+      });
+      angle = 0; vel = AUTO; target = null; activeIdx = -1;
+      layout();
+    }
+
+    /* ================= MATH ================= */
+    const norm = d => ((d + 540) % 360 + 360) % 360 - 180;     // -180..180
+
+    function layout() {
+      if (!nodes.length) return;
+      const n = nodes.length;
+      let best = 0, bestD = 999;
+      for (let i = 0; i < n; i++) {
+        const a = i * (360 / n) + angle;
+        nodes[i].style.transform =
+          `translate(-50%,-50%) rotate(${a}deg) translateY(${-R}px) rotate(${-a}deg)`;
+        const d = Math.abs(norm(a));
+        if (d < bestD) { bestD = d; best = i; }
+      }
+      plateEl.style.transform = `rotate(${angle}deg)`;
+      if (best !== activeIdx) setActive(best);
+    }
+
+    function setActive(i) {
+      activeIdx = i;
+      nodes.forEach((el, k) => el.classList.toggle("active", k === i));
+      const p = shown[i];
+      if (!p) return;
+      infoBox.innerHTML = `
+        <div class="info-inner">
+          <span class="tag">${(p.category || "Fresh Bake").toString().split(",")[0]}</span>
+          <h2>${p.title || "Delicious Bake"}</h2>
+          <div class="row">
+            <div class="price">${p.price ? "₹" + p.price : ""}</div>
+            <button class="go" type="button" onclick="openProduct(${i})">Order Now <i class="fa-solid fa-arrow-right"></i></button>
+          </div>
+        </div>`;
+    }
+
+    function openProduct(i) {
+      const p = shown[i];
+      if (p) window.location.href = `product.html?id=${p.id}`;
+    }
+
+    function onItemClick(i) {
+      if (movedPx > 6) return;             // drag tha, click nahi
+      if (i === activeIdx) { openProduct(i); return; }
+      // is product ko plate ke top par ghuma kar lao
+      const n = nodes.length;
+      const a = i * (360 / n) + angle;
+      target = angle + norm(-a);
+      vel = 0;
+    }
+
+    /* ================= ANIMATION LOOP ================= */
+    function frame(t) {
+      const dt = Math.min(0.05, (t - lastFrame) / 1000 || 0.016);
+      lastFrame = t;
+
+      // smooth zoom in/out
+      if (Math.abs(zoomT - zoom) > 0.0005) { zoom += (zoomT - zoom) * Math.min(1, dt * 10); applyZoom(); }
+
+      if (nodes.length) {
+        if (target !== null && !dragging) {
+          const diff = target - angle;
+          angle += diff * Math.min(1, dt * 6);
+          if (Math.abs(diff) < 0.08) { angle = target; target = null; vel = 0; idleSince = performance.now(); }
+        } else if (!dragging) {
+          // user ne jis speed aur direction se ghumaya, usi se ghoomti rahe, phir dheere dheere auto speed par aaye
+          const dir = vel < 0 ? -1 : 1;
+          const base = AUTO * dir;
+          vel = base + (vel - base) * Math.pow(0.45, dt);
+          angle += vel * dt;
+        }
+        layout();
+      }
+      requestAnimationFrame(frame);
+    }
+    let idleSince = performance.now();
+
+    /* ================= DRAG / FLING / PINCH ZOOM ================= */
+    const ptrs = new Map();
+    let pinching = false, pinchD0 = 1, pinchZ0 = 1;
+    const pdist = () => {
+      const v = [...ptrs.values()];
+      return Math.hypot(v[0].x - v[1].x, v[0].y - v[1].y) || 1;
+    };
+
+    stage.addEventListener("pointerdown", e => {
+      ptrs.set(e.pointerId, { x: e.clientX, y: e.clientY });
+      if (ptrs.size >= 2) {                       // 2 ungli = zoom
+        pinching = true; dragging = false; movedPx = 99;
+        pinchD0 = pdist(); pinchZ0 = zoomT;
+        stage.classList.remove("drag");
+        return;
+      }
+      dragging = true; movedPx = 0; target = null;
+      lastX = e.clientX; lastT = performance.now();
+      stage.classList.add("drag");
+    });
+    window.addEventListener("pointermove", e => {
+      if (ptrs.has(e.pointerId)) ptrs.set(e.pointerId, { x: e.clientX, y: e.clientY });
+      if (pinching) { if (ptrs.size >= 2) setZoom(pinchZ0 * pdist() / pinchD0); return; }
+      if (!dragging) return;
+      const now = performance.now();
+      const dx = e.clientX - lastX;
+      movedPx += Math.abs(dx);
+      const dA = dx * 0.32;
+      angle += dA;
+      const dtt = Math.max(1, now - lastT) / 1000;
+      vel = vel * 0.55 + (dA / dtt) * 0.45;
+      vel = Math.max(-MAX_VEL, Math.min(MAX_VEL, vel));
+      lastX = e.clientX; lastT = now;
+      layout();
+    });
+    function endDrag(e) {
+      if (e && e.pointerId !== undefined) ptrs.delete(e.pointerId);
+      if (pinching) {
+        if (ptrs.size < 2) { pinching = false; setTimeout(() => { movedPx = 0; }, 80); }
+        return;
+      }
+      if (!dragging) return;
+      dragging = false;
+      stage.classList.remove("drag");
+      if (performance.now() - lastT > 90) vel = 0;      // ungli ruk kar chhodi to fling nahi
+      vel = Math.max(-MAX_VEL, Math.min(MAX_VEL, vel));
+      setTimeout(() => { movedPx = 0; }, 50);
+    }
+    window.addEventListener("pointerup", endDrag);
+    window.addEventListener("pointercancel", endDrag);
+
+    // mouse wheel se bhi ghumao (desktop)
+    stage.addEventListener("wheel", e => {
+      e.preventDefault();
+      if (e.ctrlKey) {                               // trackpad pinch / ctrl+scroll = zoom
+        setZoom(zoomT * (e.deltaY < 0 ? 1.08 : 0.92));
+        return;
+      }
+      target = null;
+      vel += (e.deltaY + e.deltaX) * 0.35;
+      vel = Math.max(-MAX_VEL, Math.min(MAX_VEL, vel));
+    }, { passive: false });
+
+    /* ================= ZOOM BUTTONS ================= */
+    document.getElementById("zoomIn").addEventListener("click", () => setZoom(zoomT * 1.2));
+    document.getElementById("zoomOut").addEventListener("click", () => setZoom(zoomT / 1.2));
+    document.getElementById("zoomReset").addEventListener("click", () => setZoom(1));
+
+    /* ================= FILTER CHIPS ================= */
+    document.getElementById("chips").addEventListener("click", e => {
+      const b = e.target.closest(".chip");
+      if (!b) return;
+      document.querySelectorAll(".chip").forEach(c => c.classList.remove("on"));
+      b.classList.add("on");
+      applyFilter(b.dataset.cat);
+    });
+
+    /* ================= START ================= */
+    setSizes();
+    requestAnimationFrame(frame);
+    loadProducts();
+  </script>
+</body>
+</html>
