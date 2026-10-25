@@ -39,77 +39,121 @@
     .ccs-blob.b2{width:240px;height:240px;background:#f1d98a;bottom:-80px;right:-80px;animation:ccsFloat 8s -3s ease-in-out infinite}
     @keyframes ccsFloat{0%,100%{transform:translate(0,0)}50%{transform:translate(24px,18px)}}
 
-    /* rising sprinkles (JS banata hai) */
-    .ccs-sprinkle{position:absolute;bottom:-20px;width:8px;height:18px;border-radius:6px;opacity:0;animation:ccsRiseUp linear infinite}
-    @keyframes ccsRiseUp{0%{transform:translateY(0) rotate(0);opacity:0}15%{opacity:.8}100%{transform:translateY(-110vh) rotate(360deg);opacity:0}}
-
-    /* logo badge */
-    .ccs-badge{position:relative;width:min(66vw,270px);aspect-ratio:1;display:grid;place-items:center;animation:ccsPop 1s cubic-bezier(.2,1.3,.4,1) both}
-    .ccs-badge::before{
-      content:"";position:absolute;inset:0;border-radius:50%;
-      background:conic-gradient(from 0deg,#c9a24b,#fff2a8,#c9a24b,#e30613,#c9a24b);
-      animation:ccsRotate 6s linear infinite;
-      -webkit-mask:radial-gradient(circle,transparent 62%,#000 63%);mask:radial-gradient(circle,transparent 62%,#000 63%);
-    }
-    .ccs-badge::after{
-      content:"";position:absolute;inset:7%;border-radius:50%;background:#fff;
-      box-shadow:0 18px 50px rgba(227,6,19,.18),inset 0 0 0 1px #f3e2b0;
-    }
-    .ccs-badge .ccs-logo{position:relative;z-index:2;width:78%;transform:translateY(2%)}
+    /* offline screen ke liye logo helpers (purane splash se bacha hua hissa) */
     .ccs-logo svg{width:100%;height:auto;display:block;overflow:visible}
-    @keyframes ccsPop{from{transform:scale(.55) rotate(-8deg);opacity:0}to{transform:none;opacity:1}}
-    @keyframes ccsRotate{to{transform:rotate(360deg)}}
     .ccs-drip{animation:ccsDrip 2.4s ease-in-out infinite;transform-origin:50% 0}
     @keyframes ccsDrip{0%,100%{transform:scaleY(1)}50%{transform:scaleY(1.12)}}
     .ccs-flame{animation:ccsFlick 1.2s ease-in-out infinite;transform-origin:50% 100%}
     @keyframes ccsFlick{0%,100%{transform:scale(1) rotate(-2deg)}50%{transform:scale(1.12,.92) rotate(2deg)}}
-
-    /* brand board with shine */
-    .ccs-brand{
-      position:relative;overflow:hidden;margin-top:22px;text-align:center;font-weight:800;
-      font-size:clamp(19px,5.8vw,27px);letter-spacing:.05em;
-      background:linear-gradient(180deg,#1d1d1d,#000);color:#f1d98a;padding:9px 22px;border-radius:12px;
-      border:2px solid #c9a24b;box-shadow:0 10px 24px rgba(0,0,0,.25);
-      animation:ccsRise .7s .5s both;
-    }
-    .ccs-brand::after{
-      content:"";position:absolute;top:0;bottom:0;width:40%;left:-60%;
-      background:linear-gradient(100deg,transparent,rgba(255,255,255,.55),transparent);
-      animation:ccsShine 2.6s 1.4s ease-in-out infinite;
-    }
     @keyframes ccsShine{0%{left:-60%}60%,100%{left:130%}}
-    .ccs-tag{margin-top:10px;font-size:14px;font-weight:500;color:#7a5c4c;animation:ccsRise .7s .7s both}
-    .ccs-tag b{color:#e30613;font-weight:700}
-    @keyframes ccsRise{from{transform:translateY(14px);opacity:0}to{transform:none;opacity:1}}
-
-    /* delivery road */
-    .ccs-road{position:relative;width:100%;max-width:430px;height:96px;margin-top:26px}
-    .ccs-road::after{
-      content:"";position:absolute;left:8px;right:8px;bottom:12px;height:3px;border-radius:3px;
-      background:repeating-linear-gradient(90deg,#d9c9c5 0 14px,transparent 14px 26px);
-      animation:ccsDash 1s linear infinite;
-    }
-    @keyframes ccsDash{to{background-position:-26px 0}}
-    .ccs-pin{position:absolute;right:16px;bottom:14px;font-size:30px;color:#e30613;filter:drop-shadow(0 6px 6px rgba(227,6,19,.3));animation:ccsPinBounce 1s ease-in-out infinite}
-    .ccs-pin i{display:block}
-    @keyframes ccsPinBounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
-    .ccs-van{position:absolute;bottom:14px;left:-110px;width:96px;animation:ccsDrive 3.3s .9s cubic-bezier(.5,0,.3,1) forwards}
-    .ccs-van svg{width:100%;display:block;animation:ccsBump .35s ease-in-out infinite;overflow:visible}
-    @keyframes ccsDrive{0%{left:-110px}100%{left:calc(100% - 150px)}}
-    @keyframes ccsBump{0%,100%{transform:translateY(0)}50%{transform:translateY(-2px)}}
-    .ccs-wheel{transform-box:fill-box;transform-origin:center;animation:ccsSpin .5s linear infinite}
     @keyframes ccsSpin{to{transform:rotate(360deg)}}
-    .ccs-puff{position:absolute;bottom:12px;width:10px;height:10px;border-radius:50%;background:#e8ddd9;opacity:0;animation:ccsPuff 1s ease-out infinite}
-    .ccs-puff:nth-child(2){animation-delay:.33s}.ccs-puff:nth-child(3){animation-delay:.66s}
-    @keyframes ccsPuff{0%{opacity:.8;transform:translate(0,0) scale(.5)}100%{opacity:0;transform:translate(-26px,-14px) scale(1.8)}}
 
-    /* loader */
-    .ccs-loader{width:min(64vw,260px);height:8px;border-radius:8px;background:#f1e4e1;margin-top:6px;overflow:hidden;box-shadow:inset 0 1px 3px rgba(0,0,0,.08)}
-    .ccs-loader i{display:block;height:100%;width:0;background:linear-gradient(90deg,#e30613,#ff6a5a,#c9a24b);border-radius:8px;animation:ccsLoad var(--ccs-time,4.5s) .3s ease-in-out forwards}
-    @keyframes ccsLoad{to{width:100%}}
-    .ccs-row{display:flex;gap:10px;align-items:center;justify-content:center;margin-top:12px;font-size:13px;color:#8a6f64}
-    .ccs-row b{min-width:38px;text-align:right;color:#e30613;font-weight:700}
-    .ccs-foot{position:absolute;bottom:calc(env(safe-area-inset-bottom) + 18px);left:0;right:0;text-align:center;font-size:12px;color:#a58f86;letter-spacing:.04em}
+    /* =====================================================
+       PLATE SPLASH (cps- prefix)
+       rock background -> plate aati hai -> beech me logo.png -> products nikalte hain
+       -> yummy thought bubbles -> sparkle blast
+       ===================================================== */
+    #ccSplash{
+      background:
+        radial-gradient(ellipse 80% 55% at 50% 30%,rgba(255,170,60,.22),transparent 70%),
+        radial-gradient(ellipse 120% 80% at 50% 120%,rgba(0,0,0,.95),transparent 60%),
+        linear-gradient(180deg,#111,#030303 75%);
+      color:#fff}
+    #ccSplash::before{content:"";position:absolute;inset:0;opacity:.34;pointer-events:none;
+      background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='700' height='700'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.011 .019' numOctaves='6' seed='7'/><feColorMatrix type='matrix' values='0 0 0 0 .55  0 0 0 0 .52  0 0 0 0 .5  0 0 0 1.6 -.55'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+      background-size:700px 700px}
+    #ccSplash::after{content:"";position:absolute;inset:0;opacity:.2;mix-blend-mode:screen;pointer-events:none;
+      background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='260' height='260'><filter id='g'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' seed='3'/><feColorMatrix type='matrix' values='0 0 0 0 .6  0 0 0 0 .6  0 0 0 0 .6  0 0 0 .9 -.35'/></filter><rect width='100%25' height='100%25' filter='url(%23g)'/></svg>");
+      background-size:260px 260px}
+
+    .cps-embers{position:absolute;inset:0;pointer-events:none;z-index:1}
+    .cps-embers i{position:absolute;bottom:-12px;width:4px;height:4px;border-radius:50%;background:#ffb347;box-shadow:0 0 8px 2px rgba(255,160,40,.8);opacity:0;animation:cpsEmber 7s linear infinite}
+    .cps-embers i:nth-child(1){left:10%;animation-delay:0s}
+    .cps-embers i:nth-child(2){left:28%;animation-delay:2.2s;width:3px;height:3px}
+    .cps-embers i:nth-child(3){left:46%;animation-delay:4.4s}
+    .cps-embers i:nth-child(4){left:64%;animation-delay:1.2s;width:3px;height:3px}
+    .cps-embers i:nth-child(5){left:80%;animation-delay:3.4s}
+    .cps-embers i:nth-child(6){left:93%;animation-delay:5.4s;width:3px;height:3px}
+    @keyframes cpsEmber{0%{transform:translate(0,0);opacity:0}10%{opacity:.9}100%{transform:translate(36px,-100vh);opacity:0}}
+
+    .cps-stage{position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;width:100%;padding-top:4vh}
+    .cps-plate{--s:min(84vw,350px);position:relative;width:var(--s);height:var(--s)}
+    .cps-glow{position:absolute;inset:-20%;border-radius:50%;background:radial-gradient(circle,rgba(255,190,70,.38),transparent 65%);animation:cpsGlow 1.6s .3s both}
+    @keyframes cpsGlow{0%{opacity:0;transform:scale(.4)}100%{opacity:1;transform:scale(1)}}
+
+    .cps-body{position:absolute;inset:0;border-radius:50%;
+      background:radial-gradient(circle,#fdfdfd 0 44%,#ececef 45%,#fff 52%,#dedee3 63%,#f6f6f8 64%,#fff 82%,#d2d2d8 94%,#b9b9c1 100%);
+      box-shadow:0 0 0 4px #b8922b,0 0 0 7px #3a2e0c,0 30px 70px rgba(0,0,0,.9),0 0 90px rgba(255,170,60,.25),inset 0 0 40px rgba(0,0,0,.2);
+      animation:cpsPlateIn 1.1s cubic-bezier(.2,1.2,.4,1) both}
+    .cps-body::before{content:"";position:absolute;inset:5%;border-radius:50%;border:2px dashed rgba(184,146,43,.85)}
+    .cps-body::after{content:"";position:absolute;inset:13%;border-radius:50%;box-shadow:inset 0 10px 22px rgba(0,0,0,.16),0 0 0 2px rgba(212,175,55,.55)}
+    @keyframes cpsPlateIn{0%{opacity:0;transform:scale(.3) rotate(-200deg)}100%{opacity:1;transform:none}}
+
+    /* products wali ring (ghoomti hai) */
+    .cps-ring{position:absolute;inset:0;animation:cpsSpin 22s linear infinite}
+    @keyframes cpsSpin{to{transform:rotate(360deg)}}
+    .cps-i{position:absolute;left:50%;top:50%;width:0;height:0;transform:rotate(var(--a)) translateY(calc(var(--s) * -.375))}
+    .cps-o{position:absolute;left:0;top:0;width:0;height:0;animation:cpsOut .85s calc(1.3s + var(--n) * .32s) cubic-bezier(.3,1.5,.5,1) both}
+    @keyframes cpsOut{
+      0%{opacity:0;transform:translateY(calc(var(--s) * .375)) scale(.1)}
+      100%{opacity:1;transform:translateY(0) scale(1)}}
+    .cps-d{position:absolute;width:calc(var(--s) * .2);height:calc(var(--s) * .2);left:calc(var(--s) * -.1);top:calc(var(--s) * -.1);
+      border-radius:50%;overflow:hidden;background:#fff;border:3px solid #fff;display:grid;place-items:center;font-size:calc(var(--s) * .1);line-height:1;
+      box-shadow:0 8px 16px rgba(0,0,0,.4),0 0 0 2px #c9a24b;animation:cpsCounter 22s linear infinite}
+    .cps-d img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+    @keyframes cpsCounter{
+      from{transform:rotate(calc(var(--a) * -1))}
+      to{transform:rotate(calc(var(--a) * -1 - 360deg))}}
+
+    /* beech me logo.png */
+    .cps-logo{position:absolute;left:50%;top:50%;width:calc(var(--s) * .36);height:calc(var(--s) * .36);
+      margin:calc(var(--s) * -.18) 0 0 calc(var(--s) * -.18);border-radius:50%;background:#fff;border:3px solid #c9a24b;
+      display:grid;place-items:center;overflow:hidden;z-index:4;
+      box-shadow:0 10px 26px rgba(0,0,0,.35),0 0 0 4px rgba(201,162,75,.35);
+      animation:cpsLogoPop .9s .55s cubic-bezier(.2,1.6,.4,1) both,cpsPulse 2.2s 2.4s ease-in-out infinite}
+    .cps-logo span{position:absolute;font:800 calc(var(--s) * .09)/1 'Poppins',sans-serif;color:#e30613}
+    .cps-logo img{position:relative;width:84%;height:84%;object-fit:contain;display:block}
+    @keyframes cpsLogoPop{0%{opacity:0;transform:scale(0) rotate(-120deg)}100%{opacity:1;transform:none}}
+    @keyframes cpsPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.07)}}
+
+    /* yummy thought bubbles */
+    .cps-think{position:absolute;z-index:6;opacity:0;pointer-events:none;transform-origin:30% 100%;animation:cpsThink 1.9s var(--d) ease-in-out both}
+    .cps-think b{display:block;font:800 13px/1 'Poppins',system-ui,sans-serif;color:#d10012;background:#fff;border-radius:16px;padding:8px 14px;white-space:nowrap;box-shadow:0 10px 22px rgba(0,0,0,.45)}
+    .cps-think::before,.cps-think::after{content:"";position:absolute;border-radius:50%;background:#fff}
+    .cps-think::before{width:6px;height:6px;left:12px;bottom:-14px}
+    .cps-think::after{width:10px;height:10px;left:18px;bottom:-8px}
+    .cps-think.t1{left:-6%;top:-6%}
+    .cps-think.t2{right:-8%;top:4%}
+    .cps-think.t3{left:24%;top:-17%}
+    @keyframes cpsThink{
+      0%{opacity:0;transform:scale(.2) translateY(16px)}
+      16%{opacity:1;transform:scale(1.15) translateY(0)}
+      26%{transform:scale(1)}
+      78%{opacity:1;transform:scale(1) translateY(-4px)}
+      100%{opacity:0;transform:scale(.4) translateY(-14px)}}
+
+    /* sparkle blast */
+    .cps-spark{position:absolute;left:50%;top:50%;z-index:7;font-size:20px;opacity:0;pointer-events:none;animation:cpsSpark 1.3s 3.5s ease-out both}
+    @keyframes cpsSpark{
+      0%{opacity:1;transform:translate(0,0) scale(.2)}
+      100%{opacity:0;transform:translate(var(--dx),var(--dy)) scale(1.4) rotate(40deg)}}
+
+    /* text + loader */
+    .cps-brand{position:relative;overflow:hidden;margin-top:28px;text-align:center;font-weight:800;font-size:clamp(18px,5.6vw,26px);letter-spacing:.06em;
+      color:#f1d98a;background:linear-gradient(180deg,#1d1d1d,#000);border:2px solid #c9a24b;border-radius:12px;padding:9px 22px;
+      box-shadow:0 10px 24px rgba(0,0,0,.5);animation:cpsRise .7s 1s both}
+    .cps-brand::after{content:"";position:absolute;top:0;bottom:0;width:40%;left:-60%;
+      background:linear-gradient(100deg,transparent,rgba(255,255,255,.5),transparent);animation:ccsShine 2.6s 1.6s ease-in-out infinite}
+    .cps-yum{margin-top:12px;font-family:'Pacifico',cursive;font-size:22px;color:#fff3b0;text-align:center;
+      text-shadow:0 3px 0 #b3000f,0 6px 14px rgba(0,0,0,.5);opacity:0;animation:cpsYum .9s 3.9s cubic-bezier(.3,1.7,.5,1) both}
+    @keyframes cpsYum{0%{opacity:0;transform:scale(0) rotate(-10deg)}100%{opacity:1;transform:none}}
+    @keyframes cpsRise{from{transform:translateY(14px);opacity:0}to{transform:none;opacity:1}}
+    .cps-loader{width:min(64vw,260px);height:8px;border-radius:8px;background:rgba(255,255,255,.14);margin-top:18px;overflow:hidden}
+    .cps-loader i{display:block;height:100%;width:0;background:linear-gradient(90deg,#e30613,#ff6a5a,#c9a24b);border-radius:8px;animation:cpsLoad var(--ccs-time,5.6s) .3s ease-in-out forwards}
+    @keyframes cpsLoad{to{width:100%}}
+    .cps-row{display:flex;gap:10px;align-items:center;justify-content:center;margin-top:10px;font-size:12.5px;color:#b9a99d}
+    .cps-row b{min-width:38px;text-align:right;color:#f1d98a;font-weight:700}
+    .cps-foot{position:absolute;z-index:2;bottom:calc(env(safe-area-inset-bottom) + 16px);left:0;right:0;text-align:center;font-size:12px;color:#8d8d8d;letter-spacing:.06em}
 
     /* ================= OFFLINE SCREEN ================= */
     #ccOffline{z-index:100000;visibility:hidden;opacity:0;transition:opacity .35s,visibility .35s;text-align:center}
@@ -211,6 +255,97 @@
     }
     /* nav cake icon (splash wala cake) */
     :where(.cake-nav-item) svg{width:56px;height:auto;display:block;margin:0 auto;overflow:visible}
+
+    /* =====================================================
+       PLATE NAV BUTTON  (Cart ki jagah) - pn- prefix
+       plate ghoomti hai -> usme se products nikalte hain -> thought bubble -> restart
+       ===================================================== */
+    .plate-nav-item{overflow:visible}
+    .pn-wrap{position:relative;display:block;width:50px;height:28px;margin:0 auto 3px;overflow:visible}
+    .pn-plate{position:absolute;left:50%;bottom:-6px;width:36px;height:36px;margin-left:-18px;display:block;
+      transform-origin:50% 50%;animation:pnSpin 5s linear infinite;filter:drop-shadow(0 3px 4px rgba(0,0,0,.28))}
+    @keyframes pnSpin{to{transform:rotate(360deg)}}
+
+    /* products jo plate me se nikalte hain */
+    .pn-p{position:absolute;left:50%;bottom:6px;font-size:15px;line-height:1;opacity:0;pointer-events:none;z-index:3;
+      transform:translate(-50%,6px) scale(.2);animation:pnOut 6s ease-in-out infinite;filter:drop-shadow(0 2px 2px rgba(0,0,0,.3))}
+    .pn-p.p1{--x:-14px;--r:-14deg;animation-delay:0s}
+    .pn-p.p2{--x:0px;--r:8deg;animation-delay:.9s}
+    .pn-p.p3{--x:14px;--r:16deg;animation-delay:1.8s}
+    @keyframes pnOut{
+      0%{opacity:0;transform:translate(-50%,6px) scale(.2) rotate(0)}
+      8%{opacity:1;transform:translate(calc(-50% + var(--x) * .4),-8px) scale(1.15) rotate(var(--r))}
+      22%{opacity:1;transform:translate(calc(-50% + var(--x)),-24px) scale(1) rotate(var(--r))}
+      32%{opacity:0;transform:translate(calc(-50% + var(--x)),-32px) scale(.6) rotate(var(--r))}
+      100%{opacity:0;transform:translate(calc(-50% + var(--x)),-32px) scale(.6)}}
+
+    /* thought bubble */
+    .pn-bub{position:absolute;right:-18px;top:-20px;z-index:4;opacity:0;pointer-events:none;transform-origin:0 100%;
+      animation:pnThought 6s ease-in-out infinite}
+    .pn-bub b{display:block;font:700 9.5px/1 'Poppins',system-ui,sans-serif;color:#d10012;background:#fff;
+      border:1.5px solid #ffc2c8;border-radius:10px;padding:3px 6px;white-space:nowrap;box-shadow:0 3px 8px rgba(0,0,0,.25)}
+    .pn-bub::before,.pn-bub::after{content:"";position:absolute;border-radius:50%;background:#fff;border:1.5px solid #ffc2c8}
+    .pn-bub::before{width:4px;height:4px;left:-2px;bottom:-9px}
+    .pn-bub::after{width:6px;height:6px;left:2px;bottom:-5px}
+    @keyframes pnThought{
+      0%,40%{opacity:0;transform:scale(.2) translateY(6px)}
+      48%{opacity:1;transform:scale(1.15) translateY(0)}
+      54%{transform:scale(1)}
+      82%{opacity:1;transform:scale(1) translateY(-2px)}
+      92%,100%{opacity:0;transform:scale(.3) translateY(-6px)}}
+
+    /* =====================================================
+       PLATE PROMO BANNER (products ke beech) - pp- prefix
+       ===================================================== */
+    .plate-promo{position:relative;display:block;overflow:hidden;margin:16px 14px 6px;min-height:150px;border-radius:22px;text-decoration:none;color:#fff;
+      font-family:'Poppins',system-ui,sans-serif;
+      background:
+        radial-gradient(ellipse 70% 90% at 82% 100%,rgba(255,170,60,.28),transparent 70%),
+        repeating-linear-gradient(115deg,transparent 0 60px,rgba(255,255,255,.04) 61px,transparent 63px),
+        linear-gradient(135deg,#1b1b1b,#050505);
+      border:1px solid rgba(212,175,55,.55);box-shadow:0 14px 30px rgba(0,0,0,.35)}
+    .plate-promo:active{transform:scale(.99)}
+    .pp-text{position:relative;z-index:3;max-width:56%;padding:18px 0 18px 18px}
+    .pp-tag{display:inline-block;font-size:9.5px;font-weight:800;letter-spacing:.18em;color:#111;background:linear-gradient(90deg,#d4af37,#fff2a8,#d4af37);padding:3px 10px;border-radius:20px}
+    .pp-text h3{margin:8px 0 3px;font-size:19px;font-weight:800;line-height:1.2}
+    .pp-text p{margin:0 0 10px;font-size:11.5px;color:#cfcfcf;line-height:1.4}
+    .pp-btn{display:inline-flex;align-items:center;gap:7px;font-weight:700;font-size:12.5px;color:#fff;padding:8px 16px;border-radius:30px;
+      background:linear-gradient(135deg,#ff3b3b,#c40010);box-shadow:0 8px 18px rgba(227,6,19,.45)}
+    .pp-btn i{font-size:11px;animation:ppNudge 1.2s ease-in-out infinite}
+    @keyframes ppNudge{0%,100%{transform:translateX(0)}50%{transform:translateX(4px)}}
+
+    /* aadhi plate (neeche chhupi) */
+    .pp-plate{position:absolute;right:-64px;bottom:-96px;width:240px;height:240px;border-radius:50%;z-index:1;
+      background:radial-gradient(circle,#fdfdfd 0 40%,#e8e8ec 41%,#fff 50%,#d9d9de 62%,#f6f6f8 63%,#fff 84%,#c4c4cb 100%);
+      box-shadow:0 0 0 4px #b8922b,0 0 0 6px #3a2e0c,0 0 60px rgba(255,170,60,.3);
+      animation:ppSpin 16s linear infinite}
+    .pp-plate::before{content:"";position:absolute;inset:5%;border-radius:50%;border:2px dashed rgba(184,146,43,.85)}
+    .pp-plate::after{content:"";position:absolute;inset:22%;border-radius:50%;border:1.5px solid rgba(184,146,43,.4)}
+    @keyframes ppSpin{to{transform:rotate(360deg)}}
+    .pp-i{position:absolute;left:50%;top:50%;width:0;height:0;transform:rotate(var(--a)) translateY(-92px)}
+    .pp-i span{position:absolute;left:-21px;top:-21px;width:42px;height:42px;border-radius:50%;display:grid;place-items:center;font-size:23px;
+      background:#fff;border:2px solid #c9a24b;box-shadow:0 8px 14px rgba(0,0,0,.4);
+      animation:ppCounter 16s linear infinite}
+    @keyframes ppCounter{from{transform:rotate(calc(var(--a) * -1))}to{transform:rotate(calc(var(--a) * -1 - 360deg))}}
+
+    /* thought bubbles jo plate se nikalte hain */
+    .pp-think{position:absolute;z-index:4;right:22px;top:14px;opacity:0;pointer-events:none;transform-origin:50% 100%;animation:ppThink 6s ease-in-out infinite}
+    .pp-think.t2{right:92px;top:34px;animation-delay:3s}
+    .pp-think b{display:block;font:700 11px/1 'Poppins',system-ui,sans-serif;color:#d10012;background:#fff;border-radius:12px;padding:5px 10px;white-space:nowrap;box-shadow:0 6px 14px rgba(0,0,0,.4)}
+    .pp-think::before,.pp-think::after{content:"";position:absolute;border-radius:50%;background:#fff}
+    .pp-think::before{width:5px;height:5px;left:6px;bottom:-12px}
+    .pp-think::after{width:8px;height:8px;left:10px;bottom:-7px}
+    @keyframes ppThink{
+      0%,8%{opacity:0;transform:scale(.2) translateY(14px)}
+      18%{opacity:1;transform:scale(1.15) translateY(0)}
+      24%{transform:scale(1)}
+      48%{opacity:1;transform:scale(1) translateY(-3px)}
+      58%,100%{opacity:0;transform:scale(.3) translateY(-12px)}}
+
+    @media (prefers-reduced-motion:reduce){
+      .pn-plate,.pn-p,.pn-bub,.pp-plate,.pp-i span,.pp-think,.pp-btn i{animation:none!important}
+      .pn-bub{opacity:1}
+    }
   </style>
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
@@ -246,37 +381,48 @@
   </svg>
 </template>
 
-<!-- ================= SPLASH (app open hotay waqt) ================= -->
+<!-- ================= SPLASH: PLATE (app open hotay waqt) ================= -->
 <section id="ccSplash" aria-label="City Choice Bakers loading">
-  <span class="ccs-blob b1"></span><span class="ccs-blob b2"></span>
-  <div id="ccsSprinkles" aria-hidden="true"></div>
+  <div class="cps-embers" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></div>
 
-  <div class="ccs-badge">
-    <div class="ccs-logo" data-ccs-logo role="img" aria-label="CCB logo"></div>
-  </div>
+  <div class="cps-stage">
+    <div class="cps-plate" aria-hidden="true">
+      <div class="cps-glow"></div>
+      <div class="cps-body"></div>
 
-  <div class="ccs-brand">CITY CHOICE BAKERS</div>
-  <p class="ccs-tag">Fresh cakes, <b>delivered fast</b></p>
+      <div class="cps-ring">
+        <div class="cps-i" style="--a:0deg;--n:0"><span class="cps-o"><span class="cps-d">🎂<img src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?q=70&w=240" alt="" loading="eager" onerror="this.remove()"></span></span></div>
+        <div class="cps-i" style="--a:60deg;--n:1"><span class="cps-o"><span class="cps-d">🥐<img src="https://images.unsplash.com/photo-1551024601-bec78aea704b?q=70&w=240" alt="" loading="eager" onerror="this.remove()"></span></span></div>
+        <div class="cps-i" style="--a:120deg;--n:2"><span class="cps-o"><span class="cps-d">🍞<img src="https://images.unsplash.com/photo-1509440159596-0249088772ff?q=70&w=240" alt="" loading="eager" onerror="this.remove()"></span></span></div>
+        <div class="cps-i" style="--a:180deg;--n:3"><span class="cps-o"><span class="cps-d">🧁</span></span></div>
+        <div class="cps-i" style="--a:240deg;--n:4"><span class="cps-o"><span class="cps-d">🍩</span></span></div>
+        <div class="cps-i" style="--a:300deg;--n:5"><span class="cps-o"><span class="cps-d">🍪</span></span></div>
+      </div>
 
-  <div class="ccs-road" aria-hidden="true">
-    <div class="ccs-pin"><i class="fa-solid fa-location-dot"></i></div>
-    <div class="ccs-van">
-      <span class="ccs-puff" style="left:-6px"></span><span class="ccs-puff" style="left:-6px"></span><span class="ccs-puff" style="left:-6px"></span>
-      <svg viewBox="0 0 120 70" xmlns="http://www.w3.org/2000/svg">
-        <path d="M8 18a10 10 0 0 1 10-10h58a10 10 0 0 1 8 4l28 28a8 8 0 0 1 2 5v14a4 4 0 0 1-4 4H12a4 4 0 0 1-4-4z" fill="#e30613"/>
-        <path d="M86 16l24 24H86z" fill="#fff" opacity=".85"/>
-        <rect x="16" y="16" width="56" height="26" rx="5" fill="#fff"/>
-        <text x="44" y="28" text-anchor="middle" font-family="Poppins,sans-serif" font-weight="800" font-size="8.5" fill="#e30613">CITY CHOICE</text>
-        <text x="44" y="38" text-anchor="middle" font-family="Poppins,sans-serif" font-weight="600" font-size="5" fill="#111">EXPRESS DELIVERY</text>
-        <g><circle cx="34" cy="58" r="10" fill="#111"/><circle class="ccs-wheel" cx="34" cy="58" r="5" fill="#fff"/><rect class="ccs-wheel" x="33" y="53" width="2" height="10" fill="#111"/></g>
-        <g><circle cx="92" cy="58" r="10" fill="#111"/><circle class="ccs-wheel" cx="92" cy="58" r="5" fill="#fff"/><rect class="ccs-wheel" x="91" y="53" width="2" height="10" fill="#111"/></g>
-      </svg>
+      <div class="cps-logo"><span>CCB</span><img src="logo.png" alt="City Choice Bakers" onerror="this.remove()"></div>
+
+      <span class="cps-think t1" style="--d:2.7s"><b>Yummmy! 😋</b></span>
+      <span class="cps-think t2" style="--d:3.5s"><b>Fresh &amp; hot! 🥐</b></span>
+      <span class="cps-think t3" style="--d:4.3s"><b>Cake time! 🎂</b></span>
+
+      <span class="cps-spark" style="--dx:-150px;--dy:-120px">✨</span>
+      <span class="cps-spark" style="--dx:150px;--dy:-110px">⭐</span>
+      <span class="cps-spark" style="--dx:-170px;--dy:10px">🎉</span>
+      <span class="cps-spark" style="--dx:170px;--dy:20px">✨</span>
+      <span class="cps-spark" style="--dx:-110px;--dy:130px">🍓</span>
+      <span class="cps-spark" style="--dx:110px;--dy:130px">🍒</span>
+      <span class="cps-spark" style="--dx:0px;--dy:-170px">✨</span>
+      <span class="cps-spark" style="--dx:0px;--dy:150px">💖</span>
     </div>
+
+    <div class="cps-brand">CITY CHOICE BAKERS</div>
+    <div class="cps-yum">Cakes, pastry &amp; bread. Yummmy!</div>
+
+    <div class="cps-loader" role="progressbar" aria-label="Loading"><i></i></div>
+    <div class="cps-row"><span id="ccsStatus">Warming the oven…</span><b id="ccsPercent">0%</b></div>
   </div>
 
-  <div class="ccs-loader" role="progressbar" aria-label="Loading"><i></i></div>
-  <div class="ccs-row"><span id="ccsStatus">Starting up…</span><b id="ccsPercent">0%</b></div>
-  <div class="ccs-foot">Magam &nbsp;•&nbsp; Kunzer</div>
+  <div class="cps-foot">Magam &nbsp;•&nbsp; Kunzer</div>
 </section>
 
 <!-- ================= NO INTERNET SCREEN ================= -->
@@ -525,6 +671,28 @@
   <section class="product-section">
     <div class="section-head"><h2>Popular Products</h2></div>
     <div class="horizontal-products" id="popularProducts"></div>
+
+    <!-- ============ PLATE PROMO (products ke beech, link: plate.html) ============ -->
+    <a href="plate.html" class="plate-promo" aria-label="Open Bakery Plate">
+      <div class="pp-text">
+        <span class="pp-tag">NEW • BAKERY PLATE</span>
+        <h3>Spin the Plate!</h3>
+        <p>Cake, pastry &amp; bread. Plate ghumao, pasand ka product chuno.</p>
+        <span class="pp-btn">Open Plate <i class="fa-solid fa-arrow-right"></i></span>
+      </div>
+
+      <div class="pp-plate" aria-hidden="true">
+        <i class="pp-i" style="--a:0deg"><span>🍰</span></i>
+        <i class="pp-i" style="--a:72deg"><span>🥐</span></i>
+        <i class="pp-i" style="--a:144deg"><span>🍞</span></i>
+        <i class="pp-i" style="--a:216deg"><span>🧁</span></i>
+        <i class="pp-i" style="--a:288deg"><span>🍪</span></i>
+      </div>
+
+      <span class="pp-think" aria-hidden="true"><b>Mmm… yum! 😋</b></span>
+      <span class="pp-think t2" aria-hidden="true"><b>Fresh! 🍰</b></span>
+    </a>
+
     <div id="allCategories"></div>
   </section>
 
@@ -544,7 +712,32 @@
 
   <nav class="bottom-nav">
     <a href="#" class="active"><i class="fa-solid fa-house"></i><span>Home</span></a>
-    <a href="cart.html"><i class="fa-solid fa-cart-shopping"></i><span>Cart</span></a>
+
+    <!-- PLATE button (pehle yahan Cart tha). Plate ghoomti hai, products + thought nikalte hain -->
+    <a href="plate.html" class="plate-nav-item" aria-label="Bakery Plate">
+      <span class="pn-wrap" aria-hidden="true">
+        <span class="pn-p p1">🍰</span>
+        <span class="pn-p p2">🥐</span>
+        <span class="pn-p p3">🍞</span>
+        <span class="pn-bub"><b>yum! 😋</b></span>
+        <svg class="pn-plate" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <radialGradient id="pnG" cx="50%" cy="40%" r="65%">
+              <stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="#d9d9de"/>
+            </radialGradient>
+          </defs>
+          <circle cx="32" cy="32" r="30" fill="url(#pnG)" stroke="#c9a24b" stroke-width="3"/>
+          <circle cx="32" cy="32" r="23" fill="none" stroke="#c9a24b" stroke-width="1.6" stroke-dasharray="3.5 3"/>
+          <circle cx="32" cy="32" r="15" fill="#fff" stroke="#e6dcc0" stroke-width="2"/>
+          <circle cx="32" cy="7" r="3" fill="#e30613"/>
+          <circle cx="57" cy="32" r="2.4" fill="#c9a24b"/>
+          <circle cx="32" cy="57" r="2.4" fill="#c9a24b"/>
+          <circle cx="7" cy="32" r="2.4" fill="#c9a24b"/>
+        </svg>
+      </span>
+      <span>Plate</span>
+    </a>
+
     <a href="cake.html" class="cake-nav-item"><svg class="cake-large-anim-img" viewBox="0 0 400 330" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Cake"><defs><linearGradient id="ccnG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f1d98a"/><stop offset="1" stop-color="#a77c25"/></linearGradient></defs><path d="M200 8c10 14 14 22 6 30-5 5-17 5-12-6 2-8 4-14 6-24z" fill="#111"/><path d="M170 78c4-16 20-18 18-34 14 6 24 10 28 26 6 6 12 10 14 16z" fill="#111"/><path d="M86 92h228a14 14 0 0 1 14 14v22c0 10-8 12-16 8-10-6-18 6-30 6s-18-12-30-12-18 12-30 12-20-14-34-14-22 14-34 14-18-12-30-12-20 8-28 2c-6-4-6-8-6-14v-26a14 14 0 0 1 14-14z" fill="#111"/><path d="M100 150c16 0 24-14 40-14s24 14 40 14 24-14 40-14 24 14 40 14 24-14 40-14" fill="none" stroke="url(#ccnG)" stroke-width="3"/><text x="200" y="262" text-anchor="middle" font-family="Poppins,Arial Rounded MT Bold,sans-serif" font-weight="800" font-size="150" letter-spacing="-4" fill="#e30613" stroke="#e30613" stroke-width="6" stroke-linejoin="round">CCB</text><g fill="url(#ccnG)" stroke="#111" stroke-width="2.5" stroke-linejoin="round"><path d="M104 236c-12-2-14-18-4-24 8-6 20-2 20 8-8-2-10 8 0 10 8 2 6 10-2 10z"/><path d="M188 236c-14 0-20-8-16-14 6-4 10-6 12-12 6-8 16-6 20 2 2 6-2 10-6 12 8 4 4 12-10 12z"/><path d="M296 236c-8 0-12-6-8-10 4-2 6-4 8-8 4-2 8 0 10 4 6-2 12 2 8 8-2 4-8 6-18 6z"/></g><g fill="none" stroke="url(#ccnG)" stroke-width="3" stroke-linecap="round"><path d="M60 268c0 16 14 24 40 24 40 0 56-8 70-24 14 16 30 24 70 24 40 0 56-8 70-24 14 16 30 24 70 24"/><path d="M60 286c0 14 14 22 40 22 40 0 56-8 70-22 14 14 30 22 70 22s56-8 70-22c14 14 30 22 70 22" transform="translate(0,6)"/></g></svg><span>Cake</span></a>
     <a href="yourorder.html"><i class="fa-solid fa-bag-shopping"></i><span>Order</span></a>
     <a href="account.html"><i class="fa-solid fa-user"></i><span>Account</span></a>
@@ -654,7 +847,7 @@
 
 <script>
   /* ================= SPLASH + OFFLINE ================= */
-  const CCS_SPLASH_TIME = 4500;      // splash kitni der dikhe (ms)
+  const CCS_SPLASH_TIME = 5600;      // splash kitni der dikhe (ms)
   const CCS_SHOW_EVERY_TIME = false; // true = har baar dikhe, false = session mein ek baar
 
   /* logo dono jagah daalo */
@@ -738,24 +931,10 @@
     document.body.style.overflow = "hidden";
     splash.style.setProperty("--ccs-time", (CCS_SPLASH_TIME/1000)+"s");
 
-    /* sprinkles */
-    const box = document.getElementById("ccsSprinkles");
-    const colors = ["#e30613","#c9a24b","#f1d98a","#111","#ff6a5a"];
-    for(let i=0;i<16;i++){
-      const s = document.createElement("span");
-      s.className = "ccs-sprinkle";
-      s.style.left = (Math.random()*100)+"%";
-      s.style.background = colors[i%colors.length];
-      s.style.animationDuration = (5+Math.random()*5)+"s";
-      s.style.animationDelay = (-Math.random()*8)+"s";
-      s.style.transform = "rotate("+Math.random()*180+"deg)";
-      box.appendChild(s);
-    }
-
     /* status text + percent */
     const status = document.getElementById("ccsStatus");
     const pct = document.getElementById("ccsPercent");
-    const messages = ["Starting up…","Baking something fresh…","Getting your delivery ready…"];
+    const messages = ["Warming the oven…","Plating fresh bakes…","Yummmy! Almost ready…"];
     const t0 = performance.now();
     (function tick(now){
       const p = Math.min(1,(now-t0-300)/CCS_SPLASH_TIME);
