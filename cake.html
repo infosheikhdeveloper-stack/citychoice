@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+  <meta name="theme-color" content="#2b1020">
   <title>Cakes Collection - City Choice Bakers</title>
 
   <!-- Open Graph Meta Tags -->
@@ -13,11 +14,168 @@
 
   <!-- Fonts & Icons -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Pacifico&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&family=Pacifico&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
 
   <!-- CSS -->
   <link rel="stylesheet" href="cake.css">
+  <link rel="stylesheet" href="3D.css">
+
+  <!-- Home page jaisi red theme + slider banners (cb- prefix, purane CSS se clash nahi hoga) -->
+  <style>
+    :root{--cb-red:#e30613;--cb-red-dark:#c40010;--cb-gold:#f1d98a}
+
+    /* ---------- header: home jaisa red ---------- */
+    .cake-header{background:linear-gradient(135deg,#ff3b3b,#c40010)!important;color:#fff!important}
+    .cake-header h1,.cake-header .back-btn{color:#fff!important}
+    .cake-header .page-share-btn{background:rgba(255,255,255,.18)!important;color:#fff!important;border:1px solid rgba(255,255,255,.5)!important}
+
+    /* ---------- filters: active red ---------- */
+    .filter-btn.active{background:linear-gradient(135deg,#ff3b3b,#c40010)!important;color:#fff!important;border-color:transparent!important;box-shadow:0 6px 14px rgba(227,6,19,.28)}
+
+    /* ---------- cards: red price / badge ---------- */
+    .cake-card .price{color:var(--cb-red)!important}
+    .cake-card .view-btn{color:var(--cb-red)!important}
+    .cake-card .popular-badge{background:linear-gradient(135deg,#ff3b3b,#c40010)!important;color:#fff!important}
+
+    /* ---------- section headings ---------- */
+    .cb-heading{position:relative;margin:30px 16px 10px;font-family:'Poppins',system-ui,sans-serif;font-size:19px;font-weight:800;color:#1a1a1a}
+
+    /* ---------- YUM! animation: bada -> chota -> thought bubble -> bada -> chota ---------- */
+    .cb-yum{position:relative;display:inline-block;margin-left:6px;font-size:12px;font-weight:700;color:var(--cb-red);
+      font-family:'Pacifico','Poppins',cursive;transform-origin:0 70%;animation:cbYum 6s ease-in-out infinite}
+    @keyframes cbYum{
+      0%,6%{transform:scale(1) rotate(0)}
+      16%{transform:scale(2.6) rotate(-6deg)}
+      22%{transform:scale(2.3) rotate(4deg)}
+      32%{transform:scale(1) rotate(0)}
+      70%{transform:scale(1) rotate(0)}
+      80%{transform:scale(2.8) rotate(-5deg)}
+      86%{transform:scale(2.4) rotate(5deg)}
+      96%,100%{transform:scale(1) rotate(0)}
+    }
+    .cb-thought{position:absolute;left:105%;top:-34px;white-space:nowrap;pointer-events:none;opacity:0;transform:scale(.3);transform-origin:0 100%;
+      animation:cbThought 6s ease-in-out infinite}
+    .cb-thought em{display:block;font-style:normal;font-family:'Poppins',sans-serif;font-size:11px;font-weight:700;color:#7a1245;
+      background:#fff;border:2px solid #ffc2c8;border-radius:16px;padding:5px 10px;box-shadow:0 6px 14px rgba(227,6,19,.18)}
+    .cb-thought b{position:absolute;border-radius:50%;background:#fff;border:2px solid #ffc2c8}
+    .cb-thought b:nth-child(1){width:5px;height:5px;left:-12px;bottom:-8px}
+    .cb-thought b:nth-child(2){width:8px;height:8px;left:-6px;bottom:-3px}
+    @keyframes cbThought{
+      0%,34%{opacity:0;transform:scale(.3) translateY(8px)}
+      42%{opacity:1;transform:scale(1.1) translateY(0)}
+      46%{transform:scale(1)}
+      62%{opacity:1;transform:scale(1) translateY(-3px)}
+      68%,100%{opacity:0;transform:scale(.3) translateY(-8px)}
+    }
+
+    /* ---------- sliding ad banners ---------- */
+    .cb-slider{padding:34px 0 6px;font-family:'Poppins',system-ui,sans-serif}
+    .cb-head{display:flex;align-items:center;justify-content:space-between;padding:0 16px 10px}
+    .cb-head h2{position:relative;margin:0;font-size:19px;font-weight:800;color:#1a1a1a}
+    .cb-head a{font-size:12.5px;font-weight:700;color:var(--cb-red);text-decoration:none}
+    .cb-track{display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;padding:4px 16px 12px;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+    .cb-track::-webkit-scrollbar{display:none}
+    .cb-card{position:relative;flex:0 0 86%;max-width:380px;min-height:156px;box-sizing:border-box;scroll-snap-align:center;
+      display:flex;align-items:center;justify-content:space-between;gap:8px;padding:18px 14px 18px 18px;border-radius:22px;overflow:hidden;
+      color:#fff;cursor:pointer;box-shadow:0 12px 26px rgba(0,0,0,.18);transform:scale(.96);opacity:.85;transition:transform .35s,opacity .35s}
+    .cb-card.active{transform:scale(1);opacity:1}
+    .cb-card::before{content:"";position:absolute;right:-40px;top:-40px;width:170px;height:170px;border-radius:50%;background:rgba(255,255,255,.14)}
+    .cb-card::after{content:"";position:absolute;left:-30px;bottom:-50px;width:120px;height:120px;border-radius:50%;background:rgba(255,255,255,.1)}
+    .cb-c0{background:linear-gradient(135deg,#ff3b3b,#b3000f)}
+    .cb-c1{background:linear-gradient(135deg,#7a4524,#2b1209)}
+    .cb-c2{background:linear-gradient(135deg,#e0457b,#7a1245)}
+    .cb-c3{background:linear-gradient(135deg,#e6a100,#b34d00)}
+    .cb-c4{background:linear-gradient(135deg,#7a55f0,#3b1fa8)}
+    .cb-text{position:relative;z-index:2;min-width:0;flex:1}
+    .cb-tag{display:inline-flex;align-items:center;gap:5px;background:rgba(255,255,255,.22);padding:3px 9px;border-radius:20px;font-size:10.5px;font-weight:700;letter-spacing:.04em}
+    .cb-text h3{margin:8px 0 2px;font-size:17px;font-weight:800;line-height:1.2;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+    .cb-text p{margin:0 0 6px;font-size:12px;opacity:.9}
+    .cb-price{font-size:20px;font-weight:800;color:var(--cb-gold)}
+    .cb-btn{display:inline-flex;align-items:center;gap:6px;margin-top:8px;border:0;cursor:pointer;font-family:inherit;font-weight:700;font-size:12.5px;
+      padding:8px 15px;border-radius:30px;background:#fff;color:var(--cb-red);box-shadow:0 5px 12px rgba(0,0,0,.2)}
+    .cb-btn:active{transform:scale(.96)}
+    .cb-img{position:relative;z-index:2;flex:none;width:118px;height:118px;border-radius:50%;object-fit:cover;border:4px solid #fff;
+      box-shadow:0 12px 24px rgba(0,0,0,.35);animation:cbFloat 3.6s ease-in-out infinite}
+    @keyframes cbFloat{0%,100%{transform:translateY(0) rotate(-3deg)}50%{transform:translateY(-7px) rotate(3deg)}}
+    .cb-icon{position:relative;z-index:2;flex:none;font-size:74px;color:rgba(255,255,255,.9);animation:cbFloat 3.6s ease-in-out infinite}
+    .cb-dots{display:flex;justify-content:center;gap:6px;padding:0 0 4px}
+    .cb-dots i{width:7px;height:7px;border-radius:7px;background:#e8d6d3;transition:width .3s,background .3s;cursor:pointer}
+    .cb-dots i.on{width:22px;background:var(--cb-red)}
+
+    @media (prefers-reduced-motion:reduce){.cb-img,.cb-icon{animation:none}}
+
+    /* =====================================================
+       YUMMY CAKE SPLASH  (cs- prefix)
+       layer by layer cake banta hai -> candles -> BLAST
+       ===================================================== */
+    #cakeSplash{position:fixed!important;inset:0;z-index:99999;display:flex!important;align-items:center;justify-content:center;overflow:hidden;
+      background:radial-gradient(circle at 50% 38%,#ff5a5a 0%,#e30613 55%,#8f000b 100%)!important;transition:opacity .6s ease,transform .6s ease}
+    #cakeSplash.splash-fade-out{opacity:0;transform:scale(1.15);pointer-events:none}
+    .cs-stage{position:relative;display:flex;flex-direction:column;align-items:center;text-align:center;padding:20px;font-family:'Poppins',system-ui,sans-serif}
+
+    /* background glow + floating bits */
+    .cs-glow{position:absolute;top:8%;left:50%;width:340px;height:340px;margin-left:-170px;border-radius:50%;
+      background:radial-gradient(circle,rgba(255,236,160,.55),rgba(255,236,160,0) 65%);opacity:0;animation:csGlow 1s 4s ease-out forwards}
+    @keyframes csGlow{0%{opacity:0;transform:scale(.4)}60%{opacity:1;transform:scale(1.25)}100%{opacity:.75;transform:scale(1)}}
+    .cs-float{position:absolute;inset:0;pointer-events:none}
+    .cs-float span{position:absolute;bottom:-30px;font-size:22px;opacity:0;animation:csRise 5s linear infinite}
+    .cs-float span:nth-child(1){left:8%;animation-delay:.2s}
+    .cs-float span:nth-child(2){left:22%;animation-delay:1.4s;font-size:16px}
+    .cs-float span:nth-child(3){left:40%;animation-delay:.8s}
+    .cs-float span:nth-child(4){left:62%;animation-delay:2.1s;font-size:18px}
+    .cs-float span:nth-child(5){left:78%;animation-delay:.5s}
+    .cs-float span:nth-child(6){left:91%;animation-delay:1.8s;font-size:16px}
+    @keyframes csRise{0%{transform:translateY(0) rotate(0);opacity:0}15%{opacity:.8}100%{transform:translateY(-105vh) rotate(260deg);opacity:0}}
+
+    /* cake */
+    .cs-cake{position:relative;width:min(300px,78vw);aspect-ratio:1/1;filter:drop-shadow(0 18px 26px rgba(0,0,0,.35))}
+    .cs-cake svg{width:100%;height:100%;overflow:visible;display:block}
+    .cs-cake.cs-shake{animation:csShake .5s .0s ease-out}
+    @keyframes csShake{0%{transform:scale(1)}25%{transform:scale(1.12) rotate(-2deg)}55%{transform:scale(.97) rotate(1.5deg)}100%{transform:scale(1) rotate(0)}}
+
+    .cs-pop,.cs-lyr{opacity:0;animation-delay:var(--d);animation-fill-mode:forwards;animation-duration:.65s}
+    .cs-pop{animation-name:csPop;animation-timing-function:cubic-bezier(.3,1.6,.5,1);transform-box:fill-box;transform-origin:50% 100%}
+    .cs-lyr{animation-name:csDrop;animation-timing-function:cubic-bezier(.3,1.45,.5,1)}
+    @keyframes csDrop{0%{opacity:0;transform:translateY(-150px)}55%{opacity:1}100%{opacity:1;transform:translateY(0)}}
+    @keyframes csPop{0%{opacity:0;transform:scale(0)}100%{opacity:1;transform:scale(1)}}
+
+    /* thoda jelly squash jab layer girti hai */
+    .cs-lyr.cs-sq{transform-box:fill-box;transform-origin:50% 100%}
+
+    .cs-flame{transform-box:fill-box;transform-origin:50% 100%;opacity:0;
+      animation:csFlameIn .35s 4s ease-out forwards,csFlick .22s 4.35s ease-in-out infinite alternate}
+    @keyframes csFlameIn{0%{opacity:0;transform:scale(0)}100%{opacity:1;transform:scale(1)}}
+    @keyframes csFlick{0%{transform:scale(1,1) rotate(-3deg)}100%{transform:scale(.88,1.15) rotate(3deg)}}
+
+    /* BLAST */
+    .cs-blast{position:absolute;left:50%;top:40%;width:0;height:0;pointer-events:none}
+    .cs-blast i{position:absolute;left:0;top:0;border-radius:2px;opacity:0;animation:csFly 1.6s cubic-bezier(.15,.7,.4,1) forwards}
+    @keyframes csFly{
+      0%{transform:translate(0,0) scale(.2) rotate(0);opacity:1}
+      70%{opacity:1}
+      100%{transform:translate(var(--dx),calc(var(--dy) + 140px)) scale(1) rotate(var(--rot));opacity:0}}
+    .cs-blast u{position:absolute;left:0;top:0;text-decoration:none;font-size:24px;opacity:0;animation:csSpark 1.3s ease-out forwards}
+    @keyframes csSpark{0%{transform:translate(0,0) scale(.2);opacity:1}100%{transform:translate(var(--dx),var(--dy)) scale(1.6) rotate(var(--rot));opacity:0}}
+    .cs-ring{position:absolute;left:-20px;top:-20px;width:40px;height:40px;border-radius:50%;border:5px solid #fff;opacity:0;animation:csRing .9s ease-out forwards}
+    .cs-ring.r2{border-color:#ffd54a;animation-delay:.15s}
+    @keyframes csRing{0%{transform:scale(.2);opacity:.95}100%{transform:scale(10);opacity:0}}
+
+    /* texts */
+    .cs-title{margin:6px 0 2px;font-size:26px;font-weight:900;color:#fff;letter-spacing:.02em;text-shadow:0 4px 14px rgba(0,0,0,.3);
+      opacity:0;animation:csFadeUp .7s .3s ease-out forwards}
+    .cs-sub{position:relative;height:46px;width:100%}
+    .cs-making,.cs-yummy{position:absolute;left:0;right:0;top:0}
+    .cs-making{font-size:13px;font-weight:600;color:#ffe3e3;letter-spacing:.06em;animation:csFadeOut .3s 3.9s forwards}
+    .cs-making::after{content:"";animation:csDots 1.2s steps(4) infinite}
+    @keyframes csDots{0%{content:""}25%{content:"."}50%{content:".."}75%{content:"..."}}
+    .cs-yummy{font-family:'Pacifico','Poppins',cursive;font-size:30px;color:#fff3b0;text-shadow:0 4px 0 #b3000f,0 8px 18px rgba(0,0,0,.35);
+      opacity:0;transform:scale(0);animation:csYummy .9s 4.1s cubic-bezier(.3,1.7,.5,1) forwards,csWobble 1.6s 5s ease-in-out infinite}
+    @keyframes csYummy{0%{opacity:0;transform:scale(0) rotate(-12deg)}100%{opacity:1;transform:scale(1) rotate(0)}}
+    @keyframes csWobble{0%,100%{transform:scale(1) rotate(-2deg)}50%{transform:scale(1.1) rotate(2deg)}}
+    @keyframes csFadeUp{0%{opacity:0;transform:translateY(14px)}100%{opacity:1;transform:translateY(0)}}
+    @keyframes csFadeOut{to{opacity:0}}
+  </style>
 
   <!-- Supabase JS -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
@@ -25,38 +183,127 @@
 </head>
 <body>
 
-  <!-- PREMIUM RED & WHITE CAKE SPLASH SCREEN -->
+  <!-- YUMMY CAKE-MAKING SPLASH SCREEN -->
   <div id="cakeSplash" class="cake-splash-overlay">
-    <div class="splash-card">
-      <div class="splash-cake-wrapper">
-        <svg class="animated-cake-svg" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-          <!-- Cake Base Plate -->
-          <ellipse cx="100" cy="170" rx="70" ry="12" fill="#ffe6e6"/>
-          
-          <!-- Bottom Layer (Red Velvet & White Cream) -->
-          <path d="M 45 130 L 45 160 Q 100 180 155 160 L 155 130 Q 100 150 45 130 Z" fill="#d63031"/>
-          <path d="M 45 130 Q 100 150 155 130 Q 100 110 45 130 Z" fill="#ffffff"/>
-          
-          <!-- Middle Cream Drip -->
-          <path d="M 45 130 Q 60 145 75 132 Q 90 148 105 132 Q 120 145 135 132 Q 148 145 155 130 Q 100 145 45 130 Z" fill="#ff7675"/>
+    <div class="cs-float"><span>🍓</span><span>🍰</span><span>🍒</span><span>🧁</span><span>🍫</span><span>✨</span></div>
 
-          <!-- Top Layer -->
-          <path d="M 60 90 L 60 120 Q 100 138 140 120 L 140 90 Q 100 108 60 90 Z" fill="#ff4757"/>
-          <path d="M 60 90 Q 100 108 140 90 Q 100 75 60 90 Z" fill="#ffffff"/>
+    <div class="cs-stage">
+      <div class="cs-glow"></div>
+
+      <div class="cs-cake" id="csCake">
+        <svg viewBox="0 0 240 240" xmlns="http://www.w3.org/2000/svg">
+          <!-- Plate -->
+          <g class="cs-pop" style="--d:.1s">
+            <ellipse cx="120" cy="214" rx="108" ry="15" fill="#fff"/>
+            <ellipse cx="120" cy="210" rx="96" ry="11" fill="#ffe3e3"/>
+          </g>
+
+          <!-- Layer 1 : chocolate sponge -->
+          <g class="cs-lyr" style="--d:.5s">
+            <ellipse cx="120" cy="204" rx="82" ry="11" fill="#4a2410"/>
+            <rect x="38" y="170" width="164" height="34" fill="#6b3318"/>
+            <ellipse cx="120" cy="170" rx="82" ry="11" fill="#8a4423"/>
+            <path d="M44 184 Q120 196 196 184" stroke="#8a4423" stroke-width="2" fill="none" opacity=".6"/>
+          </g>
+
+          <!-- Cream 1 -->
+          <g class="cs-lyr" style="--d:1.05s">
+            <ellipse cx="120" cy="172" rx="84" ry="11" fill="#ffd1d6"/>
+            <rect x="36" y="160" width="168" height="12" fill="#fff0f2"/>
+            <ellipse cx="120" cy="160" rx="84" ry="11" fill="#fff"/>
+          </g>
+
+          <!-- Layer 2 : red velvet -->
+          <g class="cs-lyr" style="--d:1.6s">
+            <ellipse cx="120" cy="160" rx="70" ry="10" fill="#9c1527"/>
+            <rect x="50" y="124" width="140" height="36" fill="#c7243a"/>
+            <ellipse cx="120" cy="124" rx="70" ry="10" fill="#e0405a"/>
+            <path d="M54 142 Q120 153 186 142" stroke="#e0405a" stroke-width="2" fill="none" opacity=".6"/>
+          </g>
+
+          <!-- Cream 2 -->
+          <g class="cs-lyr" style="--d:2.15s">
+            <ellipse cx="120" cy="126" rx="72" ry="10" fill="#ffd1d6"/>
+            <rect x="48" y="115" width="144" height="11" fill="#fff0f2"/>
+            <ellipse cx="120" cy="115" rx="72" ry="10" fill="#fff"/>
+          </g>
+
+          <!-- Layer 3 : strawberry sponge -->
+          <g class="cs-lyr" style="--d:2.7s">
+            <ellipse cx="120" cy="115" rx="60" ry="9" fill="#e0486d"/>
+            <rect x="60" y="82" width="120" height="33" fill="#ff6b8b"/>
+            <ellipse cx="120" cy="82" rx="60" ry="9" fill="#ff8fa8"/>
+          </g>
+
+          <!-- White frosting + drips -->
+          <g class="cs-lyr" style="--d:3.2s">
+            <rect x="56" y="78" width="128" height="10" fill="#fff"/>
+            <g fill="#fff">
+              <rect x="58" y="80" width="11" height="22" rx="5.5"/>
+              <rect x="76" y="80" width="11" height="14" rx="5.5"/>
+              <rect x="94" y="80" width="11" height="26" rx="5.5"/>
+              <rect x="113" y="80" width="11" height="16" rx="5.5"/>
+              <rect x="131" y="80" width="11" height="24" rx="5.5"/>
+              <rect x="149" y="80" width="11" height="15" rx="5.5"/>
+              <rect x="167" y="80" width="11" height="21" rx="5.5"/>
+            </g>
+            <ellipse cx="120" cy="78" rx="64" ry="10" fill="#fff"/>
+            <ellipse cx="120" cy="78" rx="52" ry="6.5" fill="#fff0f2"/>
+            <!-- sprinkles -->
+            <g>
+              <rect x="86" y="76" width="6" height="2.5" rx="1.2" fill="#ffd54a" transform="rotate(25 89 77)"/>
+              <rect x="104" y="80" width="6" height="2.5" rx="1.2" fill="#55efc4" transform="rotate(-20 107 81)"/>
+              <rect x="132" y="75" width="6" height="2.5" rx="1.2" fill="#74b9ff" transform="rotate(40 135 76)"/>
+              <rect x="148" y="80" width="6" height="2.5" rx="1.2" fill="#ff7675" transform="rotate(-35 151 81)"/>
+            </g>
+          </g>
+
+          <!-- Strawberries / cherries -->
+          <g class="cs-pop" style="--d:3.6s">
+            <g transform="translate(84 72)">
+              <path d="M-8 -3 Q0 -9 8 -3 Q8 9 0 12 Q-8 9 -8 -3Z" fill="#e11d2e"/>
+              <path d="M-5 -5 L0 -10 L5 -5 L0 -3Z" fill="#2ecc71"/>
+              <circle cx="-3" cy="1" r="1" fill="#ffe3e3"/><circle cx="3" cy="3" r="1" fill="#ffe3e3"/><circle cx="0" cy="7" r="1" fill="#ffe3e3"/>
+            </g>
+            <g transform="translate(156 72)">
+              <path d="M-8 -3 Q0 -9 8 -3 Q8 9 0 12 Q-8 9 -8 -3Z" fill="#e11d2e"/>
+              <path d="M-5 -5 L0 -10 L5 -5 L0 -3Z" fill="#2ecc71"/>
+              <circle cx="-3" cy="1" r="1" fill="#ffe3e3"/><circle cx="3" cy="3" r="1" fill="#ffe3e3"/><circle cx="0" cy="7" r="1" fill="#ffe3e3"/>
+            </g>
+            <g transform="translate(120 88)">
+              <circle r="7" fill="#b3000f"/><circle cx="-2.5" cy="-2.5" r="2" fill="#fff" opacity=".7"/>
+              <path d="M0 -6 Q4 -16 10 -17" stroke="#2d6a2d" stroke-width="2" fill="none"/>
+            </g>
+          </g>
 
           <!-- Candles -->
-          <rect x="80" y="60" width="6" height="22" rx="3" fill="#ff7675"/>
-          <rect x="97" y="55" width="6" height="27" rx="3" fill="#d63031"/>
-          <rect x="114" y="60" width="6" height="22" rx="3" fill="#ff7675"/>
+          <g class="cs-pop" style="--d:3.7s">
+            <rect x="101" y="56" width="6" height="24" rx="3" fill="#ff7675"/>
+            <rect x="101" y="62" width="6" height="3" fill="#fff" opacity=".7"/><rect x="101" y="70" width="6" height="3" fill="#fff" opacity=".7"/>
+            <rect x="117" y="50" width="6" height="30" rx="3" fill="#74b9ff"/>
+            <rect x="117" y="57" width="6" height="3" fill="#fff" opacity=".7"/><rect x="117" y="66" width="6" height="3" fill="#fff" opacity=".7"/>
+            <rect x="133" y="56" width="6" height="24" rx="3" fill="#ffeaa7"/>
+            <rect x="133" y="62" width="6" height="3" fill="#ff7675" opacity=".8"/><rect x="133" y="70" width="6" height="3" fill="#ff7675" opacity=".8"/>
+          </g>
 
           <!-- Flames -->
-          <path class="flame flame-1" d="M 83 48 C 80 54, 86 58, 83 60 C 80 58, 86 54, 83 48 Z" fill="#ff4757"/>
-          <path class="flame flame-2" d="M 100 42 C 97 49, 103 53, 100 55 C 97 53, 103 49, 100 42 Z" fill="#ff6b6b"/>
-          <path class="flame flame-3" d="M 117 48 C 114 54, 120 58, 117 60 C 114 58, 120 54, 117 48 Z" fill="#ff4757"/>
+          <g transform="translate(104 55)"><path class="cs-flame" d="M0 -15 C-7 -7 -6 0 0 2 C6 0 7 -7 0 -15Z" fill="#ffb300"/></g>
+          <g transform="translate(120 49)"><path class="cs-flame" d="M0 -17 C-8 -8 -7 0 0 2 C7 0 8 -8 0 -17Z" fill="#ffb300"/></g>
+          <g transform="translate(136 55)"><path class="cs-flame" d="M0 -15 C-7 -7 -6 0 0 2 C6 0 7 -7 0 -15Z" fill="#ffb300"/></g>
+          <g transform="translate(104 55)"><path class="cs-flame" d="M0 -8 C-3 -4 -3 -1 0 1 C3 -1 3 -4 0 -8Z" fill="#fff6c9"/></g>
+          <g transform="translate(120 49)"><path class="cs-flame" d="M0 -9 C-3 -4 -3 -1 0 1 C3 -1 3 -4 0 -9Z" fill="#fff6c9"/></g>
+          <g transform="translate(136 55)"><path class="cs-flame" d="M0 -8 C-3 -4 -3 -1 0 1 C3 -1 3 -4 0 -8Z" fill="#fff6c9"/></g>
         </svg>
+
+        <!-- confetti blast yahan se phootta hai -->
+        <div class="cs-blast" id="csBlast"></div>
       </div>
-      <h1 class="splash-brand-title">City Choice Bakers</h1>
-      <p class="splash-subtitle">Baking Fresh Magic Everyday</p>
+
+      <h1 class="cs-title">City Choice Bakers</h1>
+      <div class="cs-sub">
+        <div class="cs-making">Baking layer by layer</div>
+        <div class="cs-yummy">Yummmmy Cake! 😋</div>
+      </div>
     </div>
   </div>
 
@@ -74,15 +321,27 @@
       </button>
     </header>
 
-    <!-- CAKE SPECIAL BANNER -->
-    <section class="banner-section">
-      <div class="banner-card">
-        <div class="banner-text">
-          <h2>Custom Birthday & Anniversary Cakes</h2>
-          <p>Freshly Baked • 100% Eggless Options • Fast Delivery</p>
-        </div>
-        <i class="fa-solid fa-cake-candles banner-icon"></i>
+    <!-- CAKE ADVERTISEMENT BANNERS (auto slide, aapke products se) -->
+    <section class="cb-slider" id="cbSlider">
+      <div class="cb-head">
+        <h2>Cake Specials <small class="cb-yum">yum!<span class="cb-thought"><b></b><b></b><em>Mmm... so tasty 🍰</em></span></small></h2>
+        <a href="#cakeContainer">See all</a>
       </div>
+
+      <div class="cb-track" id="cbTrack">
+        <!-- pehla banner hamesha dikhta hai -->
+        <div class="cb-card cb-c0">
+          <div class="cb-text">
+            <span class="cb-tag"><i class="fa-solid fa-cake-candles"></i> CUSTOM CAKES</span>
+            <h3>Birthday &amp; Anniversary Cakes</h3>
+            <p>Freshly Baked • Eggless Options • Fast Delivery</p>
+            <button class="cb-btn" type="button" onclick="document.getElementById('cakeContainer').scrollIntoView({behavior:'smooth'})">Order Now <i class="fa-solid fa-arrow-right"></i></button>
+          </div>
+          <i class="fa-solid fa-cake-candles cb-icon"></i>
+        </div>
+      </div>
+
+      <div class="cb-dots" id="cbDots"></div>
     </section>
 
     <!-- CAKE CATEGORY FILTERS -->
@@ -92,6 +351,8 @@
       <button class="filter-btn" onclick="filterCakes('anniversary', this)">Anniversary</button>
       <button class="filter-btn" onclick="filterCakes('pastry', this)">Pastries</button>
     </section>
+
+    <h2 class="cb-heading">Our Cakes <small class="cb-yum">yum!<span class="cb-thought"><b></b><b></b><em>Mmm... so tasty 🍰</em></span></small></h2>
 
     <!-- PRODUCTS GRID -->
     <main class="cake-products-section">
@@ -103,6 +364,54 @@
       </div>
     </main>
 
+    <!-- 3D FOOTER (home page jaisa) -->
+    <footer class="footer-3d-wrapper">
+      <div class="footer-3d-scene">
+        <svg viewBox="0 0 1000 450" class="scene-svg" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="wallGradient" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#fff"/><stop offset="100%" stop-color="#f3f3f3"/></linearGradient>
+            <linearGradient id="redGradient" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#ff3b3b"/><stop offset="100%" stop-color="#cc0000"/></linearGradient>
+            <linearGradient id="goldGradient" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="#d4af37"/><stop offset="50%" stop-color="#fff2a8"/><stop offset="100%" stop-color="#d4af37"/></linearGradient>
+            <linearGradient id="glassGradient" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="rgba(255,255,255,.8)"/><stop offset="100%" stop-color="rgba(230,245,255,.3)"/></linearGradient>
+            <filter id="3dShadow"><feDropShadow dx="0" dy="12" stdDeviation="10" flood-color="#000" flood-opacity=".15"/></filter>
+            <filter id="vanShadow"><feDropShadow dx="0" dy="10" stdDeviation="8" flood-color="#000" flood-opacity=".25"/></filter>
+          </defs>
+
+          <ellipse cx="500" cy="400" rx="460" ry="25" fill="rgba(0,0,0,.06)"/>
+
+          <g filter="url(#3dShadow)">
+            <rect x="250" y="100" width="500" height="280" rx="20" fill="url(#wallGradient)" stroke="#e2e2e2" stroke-width="2"/>
+            <path d="M230 140L770 140L750 100L250 100Z" fill="url(#redGradient)"/>
+            <path d="M230 140Q250 160 270 140Q290 160 310 140Q330 160 350 140Q370 160 390 140Q410 160 430 140Q450 160 470 140Q490 160 510 140Q530 160 550 140Q570 160 590 140Q610 160 630 140Q650 160 670 140Q690 160 710 140Q730 160 750 140Q770 160 770 140" fill="#c00"/>
+            <rect x="300" y="35" width="400" height="70" rx="14" fill="#111" stroke="url(#goldGradient)" stroke-width="3" filter="url(#3dShadow)"/>
+            <text x="500" y="78" font-family="Poppins,sans-serif" font-weight="900" font-size="28" fill="url(#goldGradient)" text-anchor="middle">CITY CHOICE BAKERS</text>
+            <rect x="280" y="180" width="200" height="170" rx="12" fill="url(#glassGradient)" stroke="#dbe5ed" stroke-width="2"/>
+            <rect x="520" y="180" width="200" height="170" rx="12" fill="url(#glassGradient)" stroke="#dbe5ed" stroke-width="2"/>
+            <g><ellipse cx="380" cy="320" rx="55" ry="12" fill="#d4af37" opacity=".3"/><rect x="340" y="280" width="80" height="35" rx="6" fill="#ff2b2b"/><rect x="350" y="255" width="60" height="28" rx="5" fill="#fff"/><circle cx="380" cy="250" r="8" fill="#ff2b2b"/></g>
+            <g><ellipse cx="620" cy="320" rx="55" ry="12" fill="#000" opacity=".15"/><rect x="580" y="270" width="80" height="45" rx="8" fill="#4a2c11"/><path d="M580 285Q620 300 660 285" stroke="#fff" stroke-width="4" fill="none"/><circle cx="600" cy="262" r="6" fill="#d4af37"/><circle cx="620" cy="260" r="6" fill="#d4af37"/><circle cx="640" cy="262" r="6" fill="#d4af37"/></g>
+          </g>
+
+          <g filter="url(#vanShadow)">
+            <path d="M100 360V270C100 250 120 240 140 240H260C280 240 295 255 305 270L330 300C340 310 345 325 345 340V360Z" fill="url(#redGradient)"/>
+            <path d="M270 252L300 285H260Z" fill="#e0f2fe" opacity=".8"/>
+            <rect x="115" y="260" width="130" height="50" rx="8" fill="#fff" opacity=".95"/>
+            <text x="180" y="285" font-family="Poppins,sans-serif" font-weight="900" font-size="14" fill="#ff2b2b" text-anchor="middle">CITY CHOICE</text>
+            <text x="180" y="300" font-family="Poppins,sans-serif" font-weight="700" font-size="9" fill="#111" text-anchor="middle">EXPRESS DELIVERY</text>
+            <circle cx="150" cy="360" r="24" fill="#111"/><circle cx="150" cy="360" r="12" fill="#e2e2e2"/>
+            <circle cx="295" cy="360" r="24" fill="#111"/><circle cx="295" cy="360" r="12" fill="#e2e2e2"/>
+          </g>
+        </svg>
+      </div>
+
+      <div class="footer-bottom-content">
+        <div class="footer-info">
+          <h3>City Choice Bakers</h3>
+          <p>Freshly Baked Goodness Delivered To Your Doorstep.</p>
+        </div>
+        <div class="footer-copyright">&copy; 2026 City Choice Bakers. All Rights Reserved.</div>
+      </div>
+    </footer>
+
   </div>
 
   <!-- SHARE MODAL -->
@@ -113,7 +422,7 @@
         <i class="fa-solid fa-xmark" onclick="closeShareModal()"></i>
       </div>
       <p class="share-desc">Share our delicious cakes page with friends and family!</p>
-      
+
       <div class="share-options-grid">
         <div class="share-item whatsapp" onclick="shareToWhatsApp()">
           <i class="fa-brands fa-whatsapp"></i>
@@ -146,10 +455,63 @@
   <script>
     let allCakeProducts = [];
 
+    /* ================= CAKE BLAST (confetti + sparkles + rings) ================= */
+    function cakeBlast() {
+      const box = document.getElementById("csBlast");
+      const cake = document.getElementById("csCake");
+      if (!box) return;
+
+      if (cake) cake.classList.add("cs-shake");
+
+      // shockwave rings
+      ["", "r2"].forEach(c => {
+        const r = document.createElement("div");
+        r.className = "cs-ring " + c;
+        box.appendChild(r);
+      });
+
+      // confetti
+      const cols = ["#ffffff", "#ffd54a", "#ff7675", "#ffeaa7", "#fd79a8", "#55efc4", "#74b9ff", "#a29bfe"];
+      for (let i = 0; i < 70; i++) {
+        const p = document.createElement("i");
+        const a = Math.random() * Math.PI * 2;
+        const r = 90 + Math.random() * 190;
+        p.style.setProperty("--dx", Math.cos(a) * r + "px");
+        p.style.setProperty("--dy", Math.sin(a) * r - 60 + "px");
+        p.style.setProperty("--rot", (Math.random() * 900 - 450) + "deg");
+        p.style.background = cols[i % cols.length];
+        p.style.width = (5 + Math.random() * 6) + "px";
+        p.style.height = (8 + Math.random() * 8) + "px";
+        if (i % 4 === 0) p.style.borderRadius = "50%";
+        p.style.animationDelay = (Math.random() * 0.12) + "s";
+        box.appendChild(p);
+      }
+
+      // emoji sparkles
+      const em = ["✨", "🎉", "🍓", "🎂", "⭐", "🍒", "💖", "🧁"];
+      for (let i = 0; i < 16; i++) {
+        const s = document.createElement("u");
+        const a = (i / 16) * Math.PI * 2 + Math.random() * 0.3;
+        const r = 120 + Math.random() * 120;
+        s.textContent = em[i % em.length];
+        s.style.setProperty("--dx", Math.cos(a) * r + "px");
+        s.style.setProperty("--dy", Math.sin(a) * r - 30 + "px");
+        s.style.setProperty("--rot", (Math.random() * 120 - 60) + "deg");
+        s.style.animationDelay = (Math.random() * 0.15) + "s";
+        box.appendChild(s);
+      }
+
+      if (navigator.vibrate) { try { navigator.vibrate([40, 30, 60]); } catch (e) {} }
+    }
+
     // SPLASH SCREEN & PAGE ZOOM CONTROLLER
     function handleSplashAnimation() {
       const splash = document.getElementById("cakeSplash");
       const mainPage = document.getElementById("mainPageContent");
+
+      // layers ban jane ke baad candles par BLAST
+      setTimeout(cakeBlast, 4100);
+      setTimeout(cakeBlast, 4900); // double blast, aur dhamaka
 
       setTimeout(() => {
         splash.classList.add("splash-fade-out");
@@ -158,8 +520,9 @@
 
         setTimeout(() => {
           splash.style.display = "none";
-        }, 600);
-      }, 2300);
+          initCakeBanners(); // page dikhne ke baad banner positions sahi nikalte hain
+        }, 650);
+      }, 6200);
     }
 
     // Fetch Cakes from Supabase
@@ -184,6 +547,7 @@
 
         allCakeProducts = data;
         renderCakes(allCakeProducts);
+        buildCakeBanners(allCakeProducts);
 
       } catch (err) {
         console.error("Supabase Error:", err.message);
@@ -205,7 +569,7 @@
 
         card.innerHTML = `
           <div class="cake-img-box">
-            <img src="${item.image}" alt="${item.title}" loading="lazy">
+            <img src="${item.image || 'logo.png'}" alt="${item.title}" loading="lazy" onerror="this.onerror=null;this.src='logo.png'">
             ${item.popular ? '<span class="popular-badge"><i class="fa-solid fa-star"></i> Bestseller</span>' : ''}
           </div>
           <div class="cake-details">
@@ -229,13 +593,115 @@
       if (category === "all") {
         renderCakes(allCakeProducts);
       } else {
-        const filtered = allCakeProducts.filter(p => 
-          p.title.toLowerCase().includes(category) || 
+        const filtered = allCakeProducts.filter(p =>
+          p.title.toLowerCase().includes(category) ||
           (p.description && p.description.toLowerCase().includes(category)) ||
           p.category.toLowerCase().includes(category)
         );
         renderCakes(filtered);
       }
+    }
+
+    /* ================= CAKE ADVERTISEMENT BANNERS (auto slide) ================= */
+    const CB_COLORS = ["cb-c1", "cb-c2", "cb-c3", "cb-c4"];
+    let cbIndex = 0, cbTimer, cbResume, cbCards = [], cbDots = [], cbReady = false;
+
+    function buildCakeBanners(list) {
+      const track = document.getElementById("cbTrack");
+      if (!track) return;
+
+      // pehla static banner rakho, baaki sab hata kar apne products ke banners banao
+      track.querySelectorAll(".cb-card:not(.cb-c0)").forEach(el => el.remove());
+
+      // bestsellers pehle, phir baaki (max 6)
+      const sorted = list.slice().sort((a, b) => (b.popular ? 1 : 0) - (a.popular ? 1 : 0)).slice(0, 6);
+
+      sorted.forEach((item, i) => {
+        const card = document.createElement("div");
+        card.className = "cb-card " + CB_COLORS[i % CB_COLORS.length];
+        card.innerHTML = `
+          <div class="cb-text">
+            <span class="cb-tag"><i class="fa-solid fa-star"></i> ${item.popular ? "BESTSELLER" : "FRESH CAKE"}</span>
+            <h3>${item.title || "Delicious Cake"}</h3>
+            <div class="cb-price">₹${item.price}</div>
+            <button class="cb-btn" type="button">Order Now <i class="fa-solid fa-arrow-right"></i></button>
+          </div>
+          <img class="cb-img" src="${item.image || 'logo.png'}" alt="" onerror="this.onerror=null;this.src='logo.png'">`;
+        card.addEventListener("click", () => {
+          window.location.href = `product.html?id=${item.id}`;
+        });
+        track.appendChild(card);
+      });
+
+      initCakeBanners(true);
+    }
+
+    function cbGo(i) {
+      const track = document.getElementById("cbTrack");
+      const card = cbCards[i];
+      if (!track || !card) return;
+      cbIndex = i;
+      track.scrollTo({ left: card.offsetLeft - (track.clientWidth - card.offsetWidth) / 2, behavior: "smooth" });
+    }
+
+    function cbMarkActive() {
+      const track = document.getElementById("cbTrack");
+      if (!track || !cbCards.length) return;
+      const mid = track.scrollLeft + track.clientWidth / 2;
+      let best = 0, bestD = 1e9;
+      cbCards.forEach((c, i) => {
+        const d = Math.abs(c.offsetLeft + c.offsetWidth / 2 - mid);
+        if (d < bestD) { bestD = d; best = i; }
+      });
+      cbIndex = best;
+      cbCards.forEach((c, i) => c.classList.toggle("active", i === best));
+      cbDots.forEach((d, i) => d.classList.toggle("on", i === best));
+    }
+
+    function cbStart() {
+      clearInterval(cbTimer);
+      if (cbCards.length < 2) return;
+      cbTimer = setInterval(() => {
+        if (document.hidden) return;
+        cbGo((cbIndex + 1) % cbCards.length);
+      }, 3200);
+    }
+
+    function cbPause() {
+      clearInterval(cbTimer);
+      clearTimeout(cbResume);
+      cbResume = setTimeout(cbStart, 3500);
+    }
+
+    function initCakeBanners(rebuild) {
+      const track = document.getElementById("cbTrack");
+      const dotsBox = document.getElementById("cbDots");
+      if (!track || !dotsBox) return;
+
+      cbCards = [...track.querySelectorAll(".cb-card")];
+      dotsBox.innerHTML = "";
+      cbDots = cbCards.map((c, i) => {
+        const d = document.createElement("i");
+        d.addEventListener("click", () => { cbGo(i); cbPause(); });
+        dotsBox.appendChild(d);
+        return d;
+      });
+      cbMarkActive();
+
+      if (!cbReady) {
+        cbReady = true;
+        let raf = false;
+        track.addEventListener("scroll", () => {
+          if (raf) return; raf = true;
+          requestAnimationFrame(() => { cbMarkActive(); raf = false; });
+        }, { passive: true });
+        track.addEventListener("touchstart", cbPause, { passive: true });
+        track.addEventListener("touchmove", cbPause, { passive: true });
+        track.addEventListener("mouseenter", () => clearInterval(cbTimer));
+        track.addEventListener("mouseleave", cbStart);
+        window.addEventListener("resize", cbMarkActive);
+      }
+      cbStart();
     }
 
     // Share Modal
