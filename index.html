@@ -4,8 +4,13 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <meta name="theme-color" content="#2b1020">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="City Choice">
   <title>City Choice Bakery</title>
 
+  <link rel="icon" href="logocity.png">
+  <link rel="apple-touch-icon" href="logocity.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -22,7 +27,6 @@
   <link rel="stylesheet" href="hed.css">
   <link rel="stylesheet" href="product.css">
 
-  <!-- ================= SPLASH + OFFLINE CSS (ccs- prefix, purane CSS se clash nahi hoga) ================= -->
   <style>
     #ccSplash,#ccOffline{
       position:fixed;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;
@@ -33,13 +37,11 @@
     #ccSplash{z-index:99999;transition:opacity .7s ease,visibility .7s,transform .7s}
     #ccSplash.hide{opacity:0;visibility:hidden;transform:scale(1.04)}
 
-    /* soft color blobs */
     .ccs-blob{position:absolute;border-radius:50%;filter:blur(60px);opacity:.45;pointer-events:none}
     .ccs-blob.b1{width:260px;height:260px;background:#e30613;top:-90px;left:-90px;animation:ccsFloat 7s ease-in-out infinite}
     .ccs-blob.b2{width:240px;height:240px;background:#f1d98a;bottom:-80px;right:-80px;animation:ccsFloat 8s -3s ease-in-out infinite}
     @keyframes ccsFloat{0%,100%{transform:translate(0,0)}50%{transform:translate(24px,18px)}}
 
-    /* offline screen ke liye logo helpers (purane splash se bacha hua hissa) */
     .ccs-logo svg{width:100%;height:auto;display:block;overflow:visible}
     .ccs-drip{animation:ccsDrip 2.4s ease-in-out infinite;transform-origin:50% 0}
     @keyframes ccsDrip{0%,100%{transform:scaleY(1)}50%{transform:scaleY(1.12)}}
@@ -48,11 +50,7 @@
     @keyframes ccsShine{0%{left:-60%}60%,100%{left:130%}}
     @keyframes ccsSpin{to{transform:rotate(360deg)}}
 
-    /* =====================================================
-       PLATE SPLASH (cps- prefix)
-       rock background -> plate aati hai -> beech me logo.png -> products nikalte hain
-       -> yummy thought bubbles -> sparkle blast
-       ===================================================== */
+    /* ===== PLATE SPLASH ===== */
     #ccSplash{
       background:
         radial-gradient(ellipse 80% 55% at 50% 30%,rgba(255,170,60,.22),transparent 70%),
@@ -89,7 +87,6 @@
     .cps-body::after{content:"";position:absolute;inset:13%;border-radius:50%;box-shadow:inset 0 10px 22px rgba(0,0,0,.16),0 0 0 2px rgba(212,175,55,.55)}
     @keyframes cpsPlateIn{0%{opacity:0;transform:scale(.3) rotate(-200deg)}100%{opacity:1;transform:none}}
 
-    /* products wali ring (ghoomti hai) */
     .cps-ring{position:absolute;inset:0;animation:cpsSpin 22s linear infinite}
     @keyframes cpsSpin{to{transform:rotate(360deg)}}
     .cps-i{position:absolute;left:50%;top:50%;width:0;height:0;transform:rotate(var(--a)) translateY(calc(var(--s) * -.375))}
@@ -105,7 +102,6 @@
       from{transform:rotate(calc(var(--a) * -1))}
       to{transform:rotate(calc(var(--a) * -1 - 360deg))}}
 
-    /* beech me logo.png */
     .cps-logo{position:absolute;left:50%;top:50%;width:calc(var(--s) * .36);height:calc(var(--s) * .36);
       margin:calc(var(--s) * -.18) 0 0 calc(var(--s) * -.18);border-radius:50%;background:#fff;border:3px solid #c9a24b;
       display:grid;place-items:center;overflow:hidden;z-index:4;
@@ -116,46 +112,24 @@
     @keyframes cpsLogoPop{0%{opacity:0;transform:scale(0) rotate(-120deg)}100%{opacity:1;transform:none}}
     @keyframes cpsPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.07)}}
 
-    /* yummy thought bubbles */
-    .cps-think{position:absolute;z-index:6;opacity:0;pointer-events:none;transform-origin:30% 100%;animation:cpsThink 1.9s var(--d) ease-in-out both}
-    .cps-think b{display:block;font:800 13px/1 'Poppins',system-ui,sans-serif;color:#d10012;background:#fff;border-radius:16px;padding:8px 14px;white-space:nowrap;box-shadow:0 10px 22px rgba(0,0,0,.45)}
-    .cps-think::before,.cps-think::after{content:"";position:absolute;border-radius:50%;background:#fff}
-    .cps-think::before{width:6px;height:6px;left:12px;bottom:-14px}
-    .cps-think::after{width:10px;height:10px;left:18px;bottom:-8px}
-    .cps-think.t1{left:-6%;top:-6%}
-    .cps-think.t2{right:-8%;top:4%}
-    .cps-think.t3{left:24%;top:-17%}
-    @keyframes cpsThink{
-      0%{opacity:0;transform:scale(.2) translateY(16px)}
-      16%{opacity:1;transform:scale(1.15) translateY(0)}
-      26%{transform:scale(1)}
-      78%{opacity:1;transform:scale(1) translateY(-4px)}
-      100%{opacity:0;transform:scale(.4) translateY(-14px)}}
-
-    /* sparkle blast */
     .cps-spark{position:absolute;left:50%;top:50%;z-index:7;font-size:20px;opacity:0;pointer-events:none;animation:cpsSpark 1.3s 3.5s ease-out both}
     @keyframes cpsSpark{
       0%{opacity:1;transform:translate(0,0) scale(.2)}
       100%{opacity:0;transform:translate(var(--dx),var(--dy)) scale(1.4) rotate(40deg)}}
 
-    /* text + loader */
     .cps-brand{position:relative;overflow:hidden;margin-top:28px;text-align:center;font-weight:800;font-size:clamp(18px,5.6vw,26px);letter-spacing:.06em;
       color:#f1d98a;background:linear-gradient(180deg,#1d1d1d,#000);border:2px solid #c9a24b;border-radius:12px;padding:9px 22px;
       box-shadow:0 10px 24px rgba(0,0,0,.5);animation:cpsRise .7s 1s both}
     .cps-brand::after{content:"";position:absolute;top:0;bottom:0;width:40%;left:-60%;
       background:linear-gradient(100deg,transparent,rgba(255,255,255,.5),transparent);animation:ccsShine 2.6s 1.6s ease-in-out infinite}
-    .cps-yum{margin-top:12px;font-family:'Pacifico',cursive;font-size:22px;color:#fff3b0;text-align:center;
-      text-shadow:0 3px 0 #b3000f,0 6px 14px rgba(0,0,0,.5);opacity:0;animation:cpsYum .9s 3.9s cubic-bezier(.3,1.7,.5,1) both}
-    @keyframes cpsYum{0%{opacity:0;transform:scale(0) rotate(-10deg)}100%{opacity:1;transform:none}}
     @keyframes cpsRise{from{transform:translateY(14px);opacity:0}to{transform:none;opacity:1}}
-    .cps-loader{width:min(64vw,260px);height:8px;border-radius:8px;background:rgba(255,255,255,.14);margin-top:18px;overflow:hidden}
+    .cps-loader{width:min(64vw,260px);height:8px;border-radius:8px;background:rgba(255,255,255,.14);margin-top:20px;overflow:hidden}
     .cps-loader i{display:block;height:100%;width:0;background:linear-gradient(90deg,#e30613,#ff6a5a,#c9a24b);border-radius:8px;animation:cpsLoad var(--ccs-time,5.6s) .3s ease-in-out forwards}
     @keyframes cpsLoad{to{width:100%}}
-    .cps-row{display:flex;gap:10px;align-items:center;justify-content:center;margin-top:10px;font-size:12.5px;color:#b9a99d}
-    .cps-row b{min-width:38px;text-align:right;color:#f1d98a;font-weight:700}
-    .cps-foot{position:absolute;z-index:2;bottom:calc(env(safe-area-inset-bottom) + 16px);left:0;right:0;text-align:center;font-size:12px;color:#8d8d8d;letter-spacing:.06em}
+    .cps-row{margin-top:10px;font-size:12.5px;text-align:center}
+    .cps-row b{color:#f1d98a;font-weight:700}
 
-    /* ================= OFFLINE SCREEN ================= */
+    /* ===== OFFLINE SCREEN ===== */
     #ccOffline{z-index:100000;visibility:hidden;opacity:0;transition:opacity .35s,visibility .35s;text-align:center}
     #ccOffline.show{visibility:visible;opacity:1}
     .ccs-off-badge{width:112px;aspect-ratio:1;position:relative;display:grid;place-items:center}
@@ -169,119 +143,93 @@
     .ccs-wifi svg{width:78px;height:78px;position:relative;z-index:2}
     .ccs-off-title{margin-top:26px;font-size:22px;font-weight:800;color:#1a1a1a}
     .ccs-off-text{margin-top:8px;max-width:290px;font-size:14px;line-height:1.55;color:#7a6a64}
-    .ccs-off-btn{
-      margin-top:24px;border:0;cursor:pointer;font-family:inherit;font-weight:700;font-size:15px;color:#fff;
+    .ccs-off-btn{margin-top:24px;border:0;cursor:pointer;font-family:inherit;font-weight:700;font-size:15px;color:#fff;
       padding:13px 34px;border-radius:50px;background:linear-gradient(135deg,#ff3b3b,#c40010);
-      box-shadow:0 10px 24px rgba(227,6,19,.35);display:inline-flex;gap:10px;align-items:center;
-    }
+      box-shadow:0 10px 24px rgba(227,6,19,.35);display:inline-flex;gap:10px;align-items:center}
     .ccs-off-btn:active{transform:scale(.96)}
     .ccs-off-btn.loading i{animation:ccsSpin .8s linear infinite}
     .ccs-off-hint{margin-top:14px;font-size:12.5px;color:#a58f86;min-height:18px}
     .ccs-shake{animation:ccsShake .4s}
     @keyframes ccsShake{0%,100%{transform:translateX(0)}25%{transform:translateX(-7px)}75%{transform:translateX(7px)}}
 
-    @media (prefers-reduced-motion:reduce){
-      #ccSplash *,#ccOffline *{animation-duration:.01ms!important;animation-delay:0s!important;animation-iteration-count:1!important}
-    }
+    /* ===== SEARCH BAR: trolley andar chalti hai ===== */
+    .search-section-swiggy,.search-input-box{overflow:visible!important}
+    .search-input-box{position:relative}
+    .sb-track{position:absolute;left:36px;right:34px;top:0;bottom:0;pointer-events:none;display:none;z-index:6}
+    .sb-track.on{display:block}
+    .search-input-box.has-cart #searchInput::placeholder{opacity:.3}
 
-    /* ---------- Cart bar (red + blue, Home se Account tak, nav ke upar) ---------- */
-    .cc-cart{position:fixed;left:10px;width:calc(100% - 20px);bottom:84px;z-index:998;height:56px;box-sizing:border-box;
-      padding:0 10px 0 14px;border-radius:18px;text-decoration:none;color:#fff;
-      display:flex;align-items:center;gap:14px;
-      background:linear-gradient(115deg,rgba(227,6,19,.84) 0%,rgba(150,30,160,.80) 50%,rgba(30,70,230,.84) 100%);
-      -webkit-backdrop-filter:blur(12px) saturate(1.4);backdrop-filter:blur(12px) saturate(1.4);
-      border:1px solid rgba(255,255,255,.42);
-      box-shadow:0 10px 24px rgba(40,40,160,.28),0 4px 10px rgba(227,6,19,.22);
-      transform:translateY(170%);opacity:0;pointer-events:none;
-      transition:transform .5s cubic-bezier(.2,1.2,.4,1),opacity .3s}
-    .cc-cart.show{transform:none;opacity:1;pointer-events:auto}
-    .cc-cart.bump{animation:ccBump .45s}
-    @keyframes ccBump{40%{transform:scale(1.04)}}
+    .cl-cart{position:absolute;left:0;bottom:7px;width:46px;height:34px;opacity:0;animation:clRun 7s ease-in-out infinite both;will-change:transform}
+    .cl-cart svg{width:100%;height:100%;display:block;overflow:visible;filter:drop-shadow(0 2px 3px rgba(150,0,15,.35));animation:clBob .35s ease-in-out infinite alternate}
+    .cl-wh{transform-box:fill-box;transform-origin:center;animation:ccsSpin .5s linear infinite}
+    @keyframes clBob{to{transform:translateY(-1.5px)}}
+    @keyframes clRun{
+      0%{transform:translateX(0);opacity:0}
+      4%{opacity:1}
+      40%{transform:translateX(var(--run));opacity:1}
+      80%{transform:translateX(var(--run));opacity:1}
+      90%{transform:translateX(var(--run));opacity:0}
+      100%{transform:translateX(0);opacity:0}}
+    .cl-it{position:absolute;bottom:17px;width:24px;height:24px;border-radius:50%;animation:clItem 7s ease-in-out infinite both}
+    .cl-it img{display:block;width:100%;height:100%;border-radius:50%;object-fit:cover;border:2px solid #fff;background:#fff;box-shadow:0 2px 6px rgba(0,0,0,.35)}
+    .cl-it.more{display:flex;align-items:center;justify-content:center;background:#d10012;color:#fff;font:800 10px 'Poppins',system-ui,sans-serif;border:2px solid #fff;box-sizing:border-box}
+    @keyframes clItem{
+      0%{opacity:0;transform:translate(0,0) scale(.2)}
+      7%{opacity:1;transform:translate(0,-4px) scale(1.15)}
+      11%,42%{opacity:1;transform:translate(0,0) scale(1)}
+      52%{opacity:1;transform:translate(calc(var(--tx) * .5),calc(var(--ty,0px) * .5 - 28px)) scale(.9)}
+      61%{opacity:1;transform:translate(var(--tx),calc(var(--ty,0px) - 4px)) scale(.35)}
+      65%,100%{opacity:0;transform:translate(var(--tx),var(--ty,0px)) scale(.1)}}
 
-    /* trolley (left) */
-    .cc-trolley{position:relative;flex:none;width:38px;height:32px;animation:ccRock 6s ease-in-out infinite}
-    .cc-trolley svg{width:100%;height:100%;display:block;overflow:visible;filter:drop-shadow(0 2px 3px rgba(20,10,80,.45))}
-    .cc-wh{transform-box:fill-box;transform-origin:center;animation:ccWheel 6s linear infinite}
-    @keyframes ccRock{0%,16%{transform:translateX(0) rotate(0)}4%{transform:translateX(2px) rotate(-3deg)}8%{transform:translateX(-1px) rotate(2deg)}12%{transform:translateX(1px) rotate(-1deg)}
-      100%{transform:translateX(0) rotate(0)}}
-    @keyframes ccWheel{0%,14%{transform:rotate(0)}18%,100%{transform:rotate(180deg)}}
-
-    /* count badge */
-    .cc-n{position:absolute;top:-11px;right:-11px;min-width:20px;height:20px;padding:0 5px;border-radius:10px;box-sizing:border-box;
-      background:#f1d98a;color:#111;font:800 11px/20px 'Poppins',system-ui,sans-serif;text-align:center;z-index:3;
-      box-shadow:0 2px 6px rgba(0,0,0,.3)}
-    .cc-n.pop{animation:ccNumPop .55s cubic-bezier(.2,1.6,.4,1)}
+    /* ===== VIEW CART BAG BUTTON (van ki jagah) ===== */
+    .cart-bag-btn{position:relative;display:inline-flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;
+      background:#fff;border:0;border-radius:14px;min-width:54px;padding:0 8px;text-decoration:none;cursor:pointer;overflow:visible;
+      -webkit-tap-highlight-color:transparent}
+    .cart-bag-btn:active{transform:scale(.95)}
+    .cl-bagsvg{width:28px;height:30px;overflow:visible;transform-origin:50% 100%;filter:drop-shadow(0 2px 3px rgba(150,0,15,.3))}
+    .cl-lid{transform-box:view-box;transform-origin:34px 15px;transform:rotate(0)}
+    .cart-bag-btn.has-items .cl-bagsvg{animation:clBag 7s ease-in-out infinite}
+    .cart-bag-btn.has-items .cl-lid{animation:clLid 7s ease-in-out infinite}
+    @keyframes clLid{0%,60%{transform:rotate(78deg)}68%,94%{transform:rotate(0)}99%,100%{transform:rotate(78deg)}}
+    @keyframes clBag{0%,66%{transform:scale(1)}70%{transform:scale(1.16,.88)}75%{transform:scale(.96,1.08)}80%,100%{transform:scale(1)}}
+    .cb-label{font:700 8.5px/1 'Poppins',system-ui,sans-serif;color:#d10012;letter-spacing:.02em;white-space:nowrap}
+    .cl-n{position:absolute;top:-6px;right:-5px;min-width:19px;height:19px;padding:0 5px;border-radius:10px;box-sizing:border-box;display:none;
+      background:#f1d98a;color:#111;font:800 11px/19px 'Poppins',system-ui,sans-serif;text-align:center;box-shadow:0 2px 6px rgba(0,0,0,.3)}
+    .cart-bag-btn.has-items .cl-n{display:block}
+    .cl-n.pop{animation:ccNumPop .55s cubic-bezier(.2,1.6,.4,1)}
     @keyframes ccNumPop{0%{transform:scale(1)}40%{transform:scale(1.6) rotate(-8deg)}100%{transform:scale(1)}}
 
-    /* products jo trolley se bahar nikalte hain */
-    .cc-items{position:relative;flex:1;min-width:0;height:36px;display:flex;align-items:center;gap:6px}
-    .cc-th{position:relative;flex:none;width:34px;height:34px;border-radius:50%;
-      animation:ccOut 6s ease-in-out infinite both;will-change:transform}
-    .cc-th img{display:block;width:100%;height:100%;border-radius:50%;object-fit:cover;border:2px solid #fff;background:#fff;
-      box-shadow:0 3px 8px rgba(0,0,0,.3)}
-    .cc-th.new::after{content:"";position:absolute;inset:-4px;border-radius:50%;border:2px solid #f1d98a;
-      animation:ccRing 1.4s ease-out 3}
-    @keyframes ccRing{0%{transform:scale(.85);opacity:1}100%{transform:scale(1.5);opacity:0}}
-    .cc-more{display:flex;align-items:center;justify-content:center;border-radius:50%;box-sizing:border-box;
-      background:rgba(255,255,255,.92);color:#1d3bd6;font:800 12px 'Poppins',system-ui,sans-serif;border:2px solid #fff}
-    @keyframes ccOut{
-      0%{transform:translateX(var(--from)) translateY(0) scale(.2);opacity:0}
-      6%{transform:translateX(calc(var(--from) * .5)) translateY(-16px) scale(.8);opacity:1}
-      12%{transform:translateX(0) translateY(0) scale(1.15);opacity:1}
-      16%,56%{transform:translateX(0) translateY(0) scale(1);opacity:1}
-      66%{transform:translateX(calc(var(--to) * .5)) translateY(-14px) scale(.9);opacity:1}
-      74%{transform:translateX(var(--to)) translateY(0) scale(.45);opacity:1}
-      78%,100%{transform:translateX(var(--to)) translateY(0) scale(.1);opacity:0}}
-
-    /* View Cart button */
-    .cc-view{position:relative;overflow:hidden;flex:none;display:inline-flex;align-items:center;gap:6px;
-      padding:9px 13px;border-radius:30px;background:#fff;color:#d10012;
-      font:700 12.5px 'Poppins',system-ui,sans-serif;box-shadow:0 4px 10px rgba(0,0,40,.25);
-      z-index:2;animation:ccGulp 6s ease-in-out infinite}
-    @keyframes ccGulp{
-      0%,68%{transform:scale(1);box-shadow:0 4px 10px rgba(0,0,40,.25)}
-      74%{transform:scale(1.1);box-shadow:0 0 0 4px rgba(255,255,255,.35),0 4px 14px rgba(0,0,40,.3)}
-      80%{transform:scale(1)}
-      86%{transform:scale(1.07)}
-      92%,100%{transform:scale(1);box-shadow:0 4px 10px rgba(0,0,40,.25)}}
-    .cc-view i{font-size:10px}
-    .cc-view::after{content:"";position:absolute;top:0;bottom:0;width:40%;left:-60%;
-      background:linear-gradient(100deg,transparent,rgba(30,70,230,.25),transparent);animation:ccsShine 2.8s 1s ease-in-out infinite}
-    
-
-    @media (prefers-reduced-motion:reduce){
-      .cc-trolley,.cc-wh,.cc-th,.cc-n,.cc-view,.cc-view::after{animation:none!important}
-      .cc-th{opacity:1;transform:none}
-    }
-    /* nav cake icon (splash wala cake) */
+    /* ===== NAV: Cake Slice ===== */
     :where(.cake-nav-item) svg{width:56px;height:auto;display:block;margin:0 auto;overflow:visible}
+    .slice-nav-item{overflow:visible}
+    .slice-nav-item svg.cs-svg{width:46px;height:38px;display:block;margin:0 auto 2px;overflow:visible;
+      filter:drop-shadow(0 3px 4px rgba(0,0,0,.25));animation:csFloat 2.6s ease-in-out infinite;transform-origin:50% 90%}
+    @keyframes csFloat{0%,100%{transform:translateY(0) rotate(-2deg)}50%{transform:translateY(-3px) rotate(2deg)}}
+    .cs-cherry{transform-box:fill-box;transform-origin:50% 100%;animation:csCherry 1.8s ease-in-out infinite}
+    @keyframes csCherry{0%,100%{transform:translateY(0) scale(1)}40%{transform:translateY(-2.5px) scale(1.08,.94)}60%{transform:translateY(0) scale(.96,1.05)}}
+    .cs-sp{transform-box:fill-box;transform-origin:center;opacity:0;animation:csSpark 2.6s ease-in-out infinite}
+    .cs-sp.s2{animation-delay:1.3s}
+    @keyframes csSpark{0%,100%{opacity:0;transform:scale(.2) rotate(0)}40%{opacity:1;transform:scale(1) rotate(25deg)}70%{opacity:0;transform:scale(.4) rotate(50deg)}}
 
-    /* =====================================================
-       PLATE NAV BUTTON  (Cart ki jagah) - pn- prefix
-       plate ghoomti hai -> usme se products nikalte hain -> thought bubble -> restart
-       ===================================================== */
-    .plate-nav-item{overflow:visible}
-    .pn-wrap{position:relative;display:block;width:50px;height:28px;margin:0 auto 3px;overflow:visible}
-    .pn-plate{position:absolute;left:50%;bottom:-6px;width:36px;height:36px;margin-left:-18px;display:block;
-      transform-origin:50% 50%;animation:pnSpin 5s linear infinite;filter:drop-shadow(0 3px 4px rgba(0,0,0,.28))}
+    /* ===== NAV: Plate (bada) ===== */
+    .plate-nav-item,.order-nav-item{overflow:visible}
+    .plate-nav-item{margin-top:-10px}
+    .pn-wrap{position:relative;display:block;width:68px;height:36px;margin:0 auto 3px;overflow:visible}
+    .pn-plate{position:absolute;left:50%;bottom:-8px;width:58px;height:58px;margin-left:-29px;display:block;
+      transform-origin:50% 50%;animation:pnSpin 5s linear infinite;filter:drop-shadow(0 4px 6px rgba(0,0,0,.3))}
     @keyframes pnSpin{to{transform:rotate(360deg)}}
-
-    /* products jo plate me se nikalte hain */
-    .pn-p{position:absolute;left:50%;bottom:6px;font-size:15px;line-height:1;opacity:0;pointer-events:none;z-index:3;
+    .pn-p{position:absolute;left:50%;bottom:10px;font-size:19px;line-height:1;opacity:0;pointer-events:none;z-index:3;
       transform:translate(-50%,6px) scale(.2);animation:pnOut 6s ease-in-out infinite;filter:drop-shadow(0 2px 2px rgba(0,0,0,.3))}
-    .pn-p.p1{--x:-14px;--r:-14deg;animation-delay:0s}
+    .pn-p.p1{--x:-20px;--r:-14deg;animation-delay:0s}
     .pn-p.p2{--x:0px;--r:8deg;animation-delay:.9s}
-    .pn-p.p3{--x:14px;--r:16deg;animation-delay:1.8s}
+    .pn-p.p3{--x:20px;--r:16deg;animation-delay:1.8s}
     @keyframes pnOut{
       0%{opacity:0;transform:translate(-50%,6px) scale(.2) rotate(0)}
       8%{opacity:1;transform:translate(calc(-50% + var(--x) * .4),-8px) scale(1.15) rotate(var(--r))}
-      22%{opacity:1;transform:translate(calc(-50% + var(--x)),-24px) scale(1) rotate(var(--r))}
-      32%{opacity:0;transform:translate(calc(-50% + var(--x)),-32px) scale(.6) rotate(var(--r))}
-      100%{opacity:0;transform:translate(calc(-50% + var(--x)),-32px) scale(.6)}}
-
-    /* thought bubble */
-    .pn-bub{position:absolute;right:-18px;top:-20px;z-index:4;opacity:0;pointer-events:none;transform-origin:0 100%;
-      animation:pnThought 6s ease-in-out infinite}
+      22%{opacity:1;transform:translate(calc(-50% + var(--x)),-28px) scale(1) rotate(var(--r))}
+      32%{opacity:0;transform:translate(calc(-50% + var(--x)),-36px) scale(.6) rotate(var(--r))}
+      100%{opacity:0;transform:translate(calc(-50% + var(--x)),-36px) scale(.6)}}
+    .pn-bub{position:absolute;right:-14px;top:-24px;z-index:4;opacity:0;pointer-events:none;transform-origin:0 100%;animation:pnThought 6s ease-in-out infinite}
     .pn-bub b{display:block;font:700 9.5px/1 'Poppins',system-ui,sans-serif;color:#d10012;background:#fff;
       border:1.5px solid #ffc2c8;border-radius:10px;padding:3px 6px;white-space:nowrap;box-shadow:0 3px 8px rgba(0,0,0,.25)}
     .pn-bub::before,.pn-bub::after{content:"";position:absolute;border-radius:50%;background:#fff;border:1.5px solid #ffc2c8}
@@ -294,9 +242,30 @@
       82%{opacity:1;transform:scale(1) translateY(-2px)}
       92%,100%{opacity:0;transform:scale(.3) translateY(-6px)}}
 
-    /* =====================================================
-       PLATE PROMO BANNER (products ke beech) - pp- prefix
-       ===================================================== */
+    /* ===== NAV: Order (bag se bill nikalta hai + products + signature, phir restart) ===== */
+    .od-wrap{position:relative;display:block;width:50px;height:28px;margin:0 auto 3px;overflow:visible}
+    .od-bag{position:absolute;left:50%;bottom:-4px;width:32px;height:24px;margin-left:-16px;z-index:3;filter:drop-shadow(0 2px 3px rgba(0,0,0,.25))}
+    .od-bill{position:absolute;left:50%;bottom:6px;width:22px;height:30px;z-index:2;transform:translate(-50%,18px);
+      animation:odBill 6s ease-in-out infinite;filter:drop-shadow(0 2px 3px rgba(0,0,0,.28))}
+    @keyframes odBill{
+      0%{transform:translate(-50%,18px)}
+      16%{transform:translate(-50%,-12px)}
+      82%{transform:translate(-50%,-12px)}
+      94%{transform:translate(-50%,18px)}
+      100%{transform:translate(-50%,18px)}}
+    .od-sig{stroke-dasharray:60;stroke-dashoffset:60;animation:odSign 6s ease-in-out infinite}
+    @keyframes odSign{0%,26%{stroke-dashoffset:60}52%,100%{stroke-dashoffset:0}}
+    .od-p{position:absolute;left:50%;bottom:8px;font-size:13px;line-height:1;opacity:0;pointer-events:none;z-index:4;
+      transform:translate(-50%,6px) scale(.2);animation:odOut 6s ease-in-out infinite}
+    .od-p.p1{--x:-20px;animation-delay:.2s}
+    .od-p.p2{--x:20px;animation-delay:.8s}
+    @keyframes odOut{
+      0%{opacity:0;transform:translate(-50%,6px) scale(.2)}
+      10%{opacity:1;transform:translate(calc(-50% + var(--x) * .5),-12px) scale(1.15)}
+      24%{opacity:1;transform:translate(calc(-50% + var(--x)),-24px) scale(1)}
+      34%,100%{opacity:0;transform:translate(calc(-50% + var(--x)),-30px) scale(.6)}}
+
+    /* ===== PLATE PROMO BANNER ===== */
     .plate-promo{position:relative;display:block;overflow:hidden;margin:16px 14px 6px;min-height:150px;border-radius:22px;text-decoration:none;color:#fff;
       font-family:'Poppins',system-ui,sans-serif;
       background:
@@ -313,8 +282,6 @@
       background:linear-gradient(135deg,#ff3b3b,#c40010);box-shadow:0 8px 18px rgba(227,6,19,.45)}
     .pp-btn i{font-size:11px;animation:ppNudge 1.2s ease-in-out infinite}
     @keyframes ppNudge{0%,100%{transform:translateX(0)}50%{transform:translateX(4px)}}
-
-    /* aadhi plate (neeche chhupi) */
     .pp-plate{position:absolute;right:-64px;bottom:-96px;width:240px;height:240px;border-radius:50%;z-index:1;
       background:radial-gradient(circle,#fdfdfd 0 40%,#e8e8ec 41%,#fff 50%,#d9d9de 62%,#f6f6f8 63%,#fff 84%,#c4c4cb 100%);
       box-shadow:0 0 0 4px #b8922b,0 0 0 6px #3a2e0c,0 0 60px rgba(255,170,60,.3);
@@ -327,8 +294,6 @@
       background:#fff;border:2px solid #c9a24b;box-shadow:0 8px 14px rgba(0,0,0,.4);
       animation:ppCounter 16s linear infinite}
     @keyframes ppCounter{from{transform:rotate(calc(var(--a) * -1))}to{transform:rotate(calc(var(--a) * -1 - 360deg))}}
-
-    /* thought bubbles jo plate se nikalte hain */
     .pp-think{position:absolute;z-index:4;right:22px;top:14px;opacity:0;pointer-events:none;transform-origin:50% 100%;animation:ppThink 6s ease-in-out infinite}
     .pp-think.t2{right:92px;top:34px;animation-delay:3s}
     .pp-think b{display:block;font:700 11px/1 'Poppins',system-ui,sans-serif;color:#d10012;background:#fff;border-radius:12px;padding:5px 10px;white-space:nowrap;box-shadow:0 6px 14px rgba(0,0,0,.4)}
@@ -342,9 +307,31 @@
       48%{opacity:1;transform:scale(1) translateY(-3px)}
       58%,100%{opacity:0;transform:scale(.3) translateY(-12px)}}
 
+    /* ===== INSTALL APP POPUP ===== */
+    .ci-pop{position:fixed;left:12px;right:12px;bottom:calc(92px + env(safe-area-inset-bottom));z-index:9500;
+      display:flex;align-items:center;gap:12px;padding:12px 40px 12px 12px;border-radius:20px;background:#fff;
+      font-family:'Poppins',system-ui,sans-serif;border:1px solid rgba(201,162,75,.55);
+      box-shadow:0 18px 40px rgba(0,0,0,.3),0 0 0 3px rgba(227,6,19,.06);
+      transform:translateY(160%);opacity:0;visibility:hidden;transition:transform .55s cubic-bezier(.2,1.2,.4,1),opacity .35s,visibility .35s}
+    .ci-pop.show{transform:none;opacity:1;visibility:visible}
+    .ci-logo{flex:none;width:54px;height:54px;border-radius:14px;object-fit:contain;background:#fff;border:2px solid #c9a24b;padding:3px;box-sizing:border-box;box-shadow:0 6px 14px rgba(0,0,0,.18)}
+    .ci-txt{flex:1;min-width:0}
+    .ci-txt h4{margin:0;font-size:14px;font-weight:800;color:#1a1a1a;line-height:1.2}
+    .ci-txt p{margin:3px 0 0;font-size:11px;line-height:1.35;color:#7a6a64}
+    .ci-btn{flex:none;border:0;cursor:pointer;font-family:inherit;font-weight:700;font-size:12.5px;color:#fff;padding:9px 14px;border-radius:30px;
+      background:linear-gradient(135deg,#ff3b3b,#c40010);box-shadow:0 8px 18px rgba(227,6,19,.35);display:inline-flex;align-items:center;gap:6px}
+    .ci-btn:active{transform:scale(.95)}
+    .ci-x{position:absolute;top:6px;right:6px;width:26px;height:26px;border:0;border-radius:50%;background:#f3f1ef;color:#555;cursor:pointer;font-size:12px;display:grid;place-items:center}
+
     @media (prefers-reduced-motion:reduce){
-      .pn-plate,.pn-p,.pn-bub,.pp-plate,.pp-i span,.pp-think,.pp-btn i{animation:none!important}
+      #ccSplash *,#ccOffline *{animation-duration:.01ms!important;animation-delay:0s!important;animation-iteration-count:1!important}
+      .cl-cart,.cl-cart svg,.cl-wh,.cl-it,.cl-bagsvg,.cl-lid,.cl-n,
+      .cs-svg,.cs-cherry,.cs-sp,
+      .pn-plate,.pn-p,.pn-bub,.od-bill,.od-sig,.od-p,.pp-plate,.pp-i span,.pp-think,.pp-btn i{animation:none!important}
+      .cl-cart,.cl-it{opacity:1}
       .pn-bub{opacity:1}
+      .od-bill{transform:translate(-50%,-12px)}
+      .od-sig{stroke-dashoffset:0}
     }
   </style>
 
@@ -354,7 +341,6 @@
 
 <body>
 
-<!-- ================= LOGO (splash + offline dono mein use hota hai) ================= -->
 <template id="ccsLogoTpl">
   <svg viewBox="0 0 400 330" xmlns="http://www.w3.org/2000/svg">
     <defs>
@@ -381,7 +367,7 @@
   </svg>
 </template>
 
-<!-- ================= SPLASH: PLATE (app open hotay waqt) ================= -->
+<!-- ================= SPLASH ================= -->
 <section id="ccSplash" aria-label="City Choice Bakers loading">
   <div class="cps-embers" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></div>
 
@@ -401,10 +387,6 @@
 
       <div class="cps-logo"><span>CCB</span><img src="logo.png" alt="City Choice Bakers" onerror="this.remove()"></div>
 
-      <span class="cps-think t1" style="--d:2.7s"><b>Yummmy! 😋</b></span>
-      <span class="cps-think t2" style="--d:3.5s"><b>Fresh &amp; hot! 🥐</b></span>
-      <span class="cps-think t3" style="--d:4.3s"><b>Cake time! 🎂</b></span>
-
       <span class="cps-spark" style="--dx:-150px;--dy:-120px">✨</span>
       <span class="cps-spark" style="--dx:150px;--dy:-110px">⭐</span>
       <span class="cps-spark" style="--dx:-170px;--dy:10px">🎉</span>
@@ -416,13 +398,9 @@
     </div>
 
     <div class="cps-brand">CITY CHOICE BAKERS</div>
-    <div class="cps-yum">Cakes, pastry &amp; bread. Yummmy!</div>
-
     <div class="cps-loader" role="progressbar" aria-label="Loading"><i></i></div>
-    <div class="cps-row"><span id="ccsStatus">Warming the oven…</span><b id="ccsPercent">0%</b></div>
+    <div class="cps-row"><b id="ccsPercent">0%</b></div>
   </div>
-
-  <div class="cps-foot">Magam &nbsp;•&nbsp; Kunzer</div>
 </section>
 
 <!-- ================= NO INTERNET SCREEN ================= -->
@@ -453,6 +431,17 @@
     <div class="alert-text" id="alertText">Message here</div>
   </div>
   <div class="alert-close" onclick="closeTopAlert()"><i class="fa-solid fa-xmark"></i></div>
+</div>
+
+<!-- ================= INSTALL APP POPUP ================= -->
+<div class="ci-pop" id="ccInstall" role="dialog" aria-label="Install City Choice app">
+  <button class="ci-x" id="ccInstClose" type="button" aria-label="Close"><i class="fa-solid fa-xmark"></i></button>
+  <img class="ci-logo" src="logocity.png" alt="City Choice Bakers" onerror="this.style.visibility='hidden'">
+  <div class="ci-txt">
+    <h4>Install City Choice</h4>
+    <p id="ccInstText">Home screen par add karein, fast order karein!</p>
+  </div>
+  <button class="ci-btn" id="ccInstBtn" type="button"><i class="fa-solid fa-download"></i> <span>Install</span></button>
 </div>
 
 <div class="hero-bg">
@@ -489,67 +478,25 @@
         <i class="fa-solid fa-magnifying-glass search-icon"></i>
         <input type="text" id="searchInput" autocomplete="off" placeholder="Search for 'Pastry', 'Biryani' or 'Sweets'">
         <i class="fa-solid fa-microphone mic-icon"></i>
+        <!-- trolley search bar ke andar chalti hai, products bag me daalti hai -->
+        <div class="sb-track" id="ccTrack" aria-hidden="true"></div>
       </div>
-      <button class="veg-toggle-btn" type="button">
-        <span>VEG</span>
-        <i class="fa-solid fa-toggle-on veg-icon"></i>
-      </button>
+
+      <!-- van ki jagah: View Cart bag -->
+      <a href="cart.html" class="veg-toggle-btn cart-bag-btn" id="ccBagBtn" aria-label="View cart">
+        <svg class="cl-bagsvg" viewBox="0 0 40 44" aria-hidden="true">
+          <path d="M13 16v-4a7 7 0 0 1 14 0v4" fill="none" stroke="#d10012" stroke-width="2.6" stroke-linecap="round"/>
+          <path d="M6 15h28l-2 25a3 3 0 0 1-3 3H11a3 3 0 0 1-3-3z" fill="#e30613"/>
+          <path d="M14 27l4 4 8-8" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+          <g class="cl-lid"><path d="M4 15h32l-1.5-6h-29z" fill="#f1d98a" stroke="#c9a24b" stroke-width="1.2" stroke-linejoin="round"/></g>
+        </svg>
+        <span class="cl-n" id="ccCartN">0</span>
+        <span class="cb-label">View Cart</span>
+      </a>
     </div>
-<!--
-    <div class="banner-scroll-container">
-
-      <a href="cake.html" class="small-banner-card bg-cake">
-        <div class="s-banner-text">
-          <h4>Fresh Cakes</h4>
-          <p>Custom &amp; Designer Cakes</p>
-          <span>ORDER NOW</span>
-        </div>
-        <img src="cake.png" class="s-banner-img" alt="Cake">
-      </a>
-
-      <a href="category.html?cat=pastry" class="small-banner-card bg-pastry">
-        <div class="s-banner-text">
-          <h4>Delight Pastries</h4>
-          <p>Creamy, Soft &amp; Rich</p>
-          <span>EXPLORE</span>
-        </div>
-        <img src="https://images.unsplash.com/photo-1551024601-bec78aea704b?q=80&w=400" class="s-banner-img" alt="Pastry">
-      </a>
-
-      <a href="dryfruit.html" class="small-banner-card bg-dryfruit">
-        <div class="s-banner-text">
-          <h4>Premium Dry Fruits</h4>
-          <p>Healthy &amp; Rich Quality</p>
-          <span>EXPLORE</span>
-        </div>
-        <img src="https://images.unsplash.com/photo-1596040033229-a9821ebd058d?q=80&w=400" class="s-banner-img" alt="Dry Fruit">
-      </a>
-
-      <a href="sweets.html" class="small-banner-card bg-sweets">
-        <div class="s-banner-text">
-          <h4>Traditional Sweets</h4>
-          <p>Pure Desi Ghee Delights</p>
-          <span>BUY NOW</span>
-        </div>
-        <img src="https://images.unsplash.com/photo-1599488615731-7e5c2823ff28?q=80&w=400" class="s-banner-img" alt="Sweets">
-      </a>
-
-      <a href="food.html" class="small-banner-card bg-food">
-        <div class="s-banner-text">
-          <h4>Delicious Food</h4>
-          <p>Biryani, Pizza &amp; Burgers</p>
-          <span>ORDER NOW</span>
-        </div>
-        <img src="https://images.unsplash.com/photo-1513104890138-7c749659a591?q=80&w=400" class="s-banner-img" alt="Food">
-      </a>
-
-    </div>
-    -->
   </div>
 
   <section class="bolt-banner-section">
-
-    <!-- NEW ARRIVALS SLIDER (Supabase se naye products) -->
     <div class="new-slider" id="newSlider">
       <div class="new-slider-head">
         <h2>Fresh from the oven <small>new</small></h2>
@@ -562,36 +509,6 @@
       </div>
       <div class="new-dots" id="newDots"></div>
     </div>
-
-    <!--
-    <div class="offers-container">
-      <div class="offers-title">
-        <span>REWARDS CARNIVAL</span>
-        <b>•</b>
-        <span>SPECIAL OFFERS</span>
-      </div>
-
-      <div class="offers-cards-scroll">
-        <div class="offer-card">
-          <img src="offer1.jpg" class="offer-img" alt="Fresh bakery offer" onerror="this.style.display='none'">
-          <div class="offer-fallback"><strong>Fresh Bakery</strong><span>Freshly baked for you</span></div>
-        </div>
-        <div class="offer-card">
-          <img src="offer2.jpg" class="offer-img" alt="Sweet offer" onerror="this.style.display='none'">
-          <div class="offer-fallback"><strong>Sweet Moments</strong><span>Special sweet deals</span></div>
-        </div>
-        <div class="offer-card">
-          <img src="offer4.jpg" class="offer-img" alt="Food offer" onerror="this.style.display='none'">
-          <div class="offer-fallback"><strong>Food Festival</strong><span>Hot &amp; delicious</span></div>
-        </div>
-        <div class="offer-card">
-          <img src="offer5.jpg" class="offer-img" alt="Special offer" onerror="this.style.display='none'">
-          <div class="offer-fallback"><strong>Special Deal</strong><span>Order &amp; enjoy</span></div>
-        </div>
-      </div>
-    </div>
-    -->
-
   </section>
 
   <h2 class="home-heading">What's on your mind? <small>yum!</small></h2>
@@ -672,7 +589,6 @@
     <div class="section-head"><h2>Popular Products</h2></div>
     <div class="horizontal-products" id="popularProducts"></div>
 
-    <!-- ============ PLATE PROMO (products ke beech, link: plate.html) ============ -->
     <a href="plate.html" class="plate-promo" aria-label="Open Bakery Plate">
       <div class="pp-text">
         <span class="pp-tag">NEW • BAKERY PLATE</span>
@@ -696,24 +612,38 @@
     <div id="allCategories"></div>
   </section>
 
-  <a href="cart.html" class="cc-cart" id="ccCartBar" aria-label="View cart">
-    <span class="cc-trolley">
-      <svg viewBox="0 0 48 40" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-        <path d="M2 4h7l5 21h23l5-15H11"/>
-        <path d="M18 11l1.8 9M26 11v9M34 11l-1.8 9" stroke-width="2" opacity=".85"/>
-        <g class="cc-wh"><circle cx="19" cy="33" r="4" fill="#fff" stroke="none"/><path d="M16 33h6" stroke="#c2000f" stroke-width="1.6"/></g>
-        <g class="cc-wh"><circle cx="34" cy="33" r="4" fill="#fff" stroke="none"/><path d="M31 33h6" stroke="#1d3bd6" stroke-width="1.6"/></g>
-      </svg>
-      <span class="cc-n" id="ccCartN">0</span>
-    </span>
-    <span class="cc-items" id="ccItems"></span>
-    <span class="cc-view">View Cart <i class="fa-solid fa-chevron-right"></i></span>
-  </a>
-
+  <!-- BOTTOM NAV: Home | Cake Slice | PLATE (bada, beech me) | Order (bill animation) | Account -->
   <nav class="bottom-nav">
     <a href="#" class="active"><i class="fa-solid fa-house"></i><span>Home</span></a>
 
-    <!-- PLATE button (pehle yahan Cart tha). Plate ghoomti hai, products + thought nikalte hain -->
+    <a href="cake.html" class="cake-nav-item slice-nav-item" aria-label="Cakes">
+      <svg class="cs-svg" viewBox="0 0 52 40" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <ellipse cx="26" cy="35" rx="22" ry="4" fill="#f1f1f4" stroke="#c9a24b" stroke-width="1.4"/>
+        <!-- right side face -->
+        <polygon points="34,20 46,12 46,24 34,32" fill="#5a2c12"/>
+        <polygon points="34,23 46,15 46,18 34,26" fill="#f3dfb4"/>
+        <polygon points="34,28 46,20 46,23 34,31" fill="#f3dfb4"/>
+        <!-- front face -->
+        <rect x="6" y="20" width="28" height="12" fill="#7a3e1d"/>
+        <rect x="6" y="23" width="28" height="3" fill="#fff3d6"/>
+        <rect x="6" y="28" width="28" height="3" fill="#fff3d6"/>
+        <!-- top face -->
+        <polygon points="6,20 34,20 46,12" fill="#ff9db0" stroke="#e7667f" stroke-width="1" stroke-linejoin="round"/>
+        <!-- frosting drips -->
+        <path d="M6 20h28v2.4c-2 0-2 3-4 3s-2-3-4-3-2 3-4 3-2-3-4-3-2 3-4 3-2-3-4-3z" fill="#ff8fa3"/>
+        <!-- cherry -->
+        <g class="cs-cherry">
+          <path d="M28 16c1-4 3-5 5-6" fill="none" stroke="#2f7a2f" stroke-width="1.3" stroke-linecap="round"/>
+          <circle cx="28" cy="16" r="3.4" fill="#d10012"/>
+          <circle cx="27" cy="15" r="1" fill="#fff" opacity=".8"/>
+        </g>
+        <!-- sparkles -->
+        <path class="cs-sp" d="M8 10l1.2 2.6L12 14l-2.8 1.2L8 18l-1.2-2.8L4 14l2.8-1.4z" fill="#f1c24b"/>
+        <path class="cs-sp s2" d="M44 30l.9 2 2.1.9-2.1.9-.9 2-.9-2-2.1-.9 2.1-.9z" fill="#f1c24b"/>
+      </svg>
+      <span>Cake</span>
+    </a>
+
     <a href="plate.html" class="plate-nav-item" aria-label="Bakery Plate">
       <span class="pn-wrap" aria-hidden="true">
         <span class="pn-p p1">🍰</span>
@@ -738,8 +668,24 @@
       <span>Plate</span>
     </a>
 
-    <a href="cake.html" class="cake-nav-item"><svg class="cake-large-anim-img" viewBox="0 0 400 330" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Cake"><defs><linearGradient id="ccnG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f1d98a"/><stop offset="1" stop-color="#a77c25"/></linearGradient></defs><path d="M200 8c10 14 14 22 6 30-5 5-17 5-12-6 2-8 4-14 6-24z" fill="#111"/><path d="M170 78c4-16 20-18 18-34 14 6 24 10 28 26 6 6 12 10 14 16z" fill="#111"/><path d="M86 92h228a14 14 0 0 1 14 14v22c0 10-8 12-16 8-10-6-18 6-30 6s-18-12-30-12-18 12-30 12-20-14-34-14-22 14-34 14-18-12-30-12-20 8-28 2c-6-4-6-8-6-14v-26a14 14 0 0 1 14-14z" fill="#111"/><path d="M100 150c16 0 24-14 40-14s24 14 40 14 24-14 40-14 24 14 40 14 24-14 40-14" fill="none" stroke="url(#ccnG)" stroke-width="3"/><text x="200" y="262" text-anchor="middle" font-family="Poppins,Arial Rounded MT Bold,sans-serif" font-weight="800" font-size="150" letter-spacing="-4" fill="#e30613" stroke="#e30613" stroke-width="6" stroke-linejoin="round">CCB</text><g fill="url(#ccnG)" stroke="#111" stroke-width="2.5" stroke-linejoin="round"><path d="M104 236c-12-2-14-18-4-24 8-6 20-2 20 8-8-2-10 8 0 10 8 2 6 10-2 10z"/><path d="M188 236c-14 0-20-8-16-14 6-4 10-6 12-12 6-8 16-6 20 2 2 6-2 10-6 12 8 4 4 12-10 12z"/><path d="M296 236c-8 0-12-6-8-10 4-2 6-4 8-8 4-2 8 0 10 4 6-2 12 2 8 8-2 4-8 6-18 6z"/></g><g fill="none" stroke="url(#ccnG)" stroke-width="3" stroke-linecap="round"><path d="M60 268c0 16 14 24 40 24 40 0 56-8 70-24 14 16 30 24 70 24 40 0 56-8 70-24 14 16 30 24 70 24"/><path d="M60 286c0 14 14 22 40 22 40 0 56-8 70-22 14 14 30 22 70 22s56-8 70-22c14 14 30 22 70 22" transform="translate(0,6)"/></g></svg><span>Cake</span></a>
-    <a href="yourorder.html"><i class="fa-solid fa-bag-shopping"></i><span>Order</span></a>
+    <a href="yourorder.html" class="order-nav-item" aria-label="Your orders">
+      <span class="od-wrap" aria-hidden="true">
+        <span class="od-p p1">🍰</span>
+        <span class="od-p p2">🥐</span>
+        <svg class="od-bill" viewBox="0 0 22 30" xmlns="http://www.w3.org/2000/svg">
+          <path d="M1 1h20v27l-2.5-2-2.5 2-2.5-2-2.5 2-2.5-2-2.5 2-2.5-2L1 28z" fill="#fff" stroke="#c9a24b" stroke-width="1.2" stroke-linejoin="round"/>
+          <path d="M5 6h12M5 10h12M5 14h8" stroke="#bbb" stroke-width="1.4" stroke-linecap="round"/>
+          <path class="od-sig" d="M4 22c2-6 3-6 4-2s2 4 3 0 2-3 3 1 2 1 4-3" fill="none" stroke="#d10012" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <svg class="od-bag" viewBox="0 0 32 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M2 4h28l-2.5 16a3 3 0 0 1-3 2.6H7.5a3 3 0 0 1-3-2.6z" fill="#e30613"/>
+          <path d="M2 4h28" stroke="#f1d98a" stroke-width="2.4" stroke-linecap="round"/>
+          <path d="M11 4V3a5 5 0 0 1 10 0v1" fill="none" stroke="#f1d98a" stroke-width="1.8" stroke-linecap="round"/>
+        </svg>
+      </span>
+      <span>Order</span>
+    </a>
+
     <a href="account.html"><i class="fa-solid fa-user"></i><span>Account</span></a>
   </nav>
 
@@ -850,7 +796,6 @@
   const CCS_SPLASH_TIME = 5600;      // splash kitni der dikhe (ms)
   const CCS_SHOW_EVERY_TIME = false; // true = har baar dikhe, false = session mein ek baar
 
-  /* logo dono jagah daalo */
   (function(){
     const tpl = document.getElementById("ccsLogoTpl");
     if(!tpl) return;
@@ -859,7 +804,6 @@
     });
   })();
 
-  /* ---- No internet ---- */
   const ccsOff = document.getElementById("ccOffline");
   const ccsHint = document.getElementById("ccsOffHint");
   let ccsSplashActive = false;
@@ -877,7 +821,6 @@
     if(!ccsSplashActive) document.body.style.overflow = "";
   }
 
-  /* asli internet check (sirf navigator.onLine par bharosa nahi) */
   async function ccsReallyOnline(){
     if(navigator.onLine === false) return false;
     try{
@@ -891,7 +834,7 @@
 
   async function ccsRecover(){
     if(await ccsReallyOnline()){
-      if(ccsLibMissing()) location.reload();   // scripts load nahi hui thin
+      if(ccsLibMissing()) location.reload();
       else ccsHideOffline();
       return true;
     }
@@ -913,10 +856,9 @@
     }
   });
 
-  /* har 5 second mein check jab offline screen khuli ho */
   setInterval(()=>{ if(ccsOff && ccsOff.classList.contains("show")) ccsRecover(); }, 5000);
 
-  /* ---- Splash ---- */
+  /* ---- Splash (sirf percent, koi sound nahi) ---- */
   (function(){
     const splash = document.getElementById("ccSplash");
     if(!splash) return;
@@ -931,23 +873,17 @@
     document.body.style.overflow = "hidden";
     splash.style.setProperty("--ccs-time", (CCS_SPLASH_TIME/1000)+"s");
 
-    /* status text + percent */
-    const status = document.getElementById("ccsStatus");
     const pct = document.getElementById("ccsPercent");
-    const messages = ["Warming the oven…","Plating fresh bakes…","Yummmy! Almost ready…"];
     const t0 = performance.now();
     (function tick(now){
       const p = Math.min(1,(now-t0-300)/CCS_SPLASH_TIME);
-      const v = Math.max(0,Math.round(p*100));
-      if(pct) pct.textContent = v+"%";
-      if(status) status.textContent = messages[Math.min(messages.length-1,Math.floor(p*messages.length))];
+      if(pct) pct.textContent = Math.max(0,Math.round(p*100))+"%";
       if(p<1) requestAnimationFrame(tick);
     })(t0);
 
     setTimeout(async ()=>{
       splash.classList.add("hide");
       ccsSplashActive = false;
-      /* internet check: agar nahi hai to offline screen dikhao */
       const online = await ccsReallyOnline();
       if(!online || ccsLibMissing()) ccsShowOffline();
       else document.body.style.overflow = "";
@@ -956,12 +892,78 @@
     }, CCS_SPLASH_TIME);
   })();
 
-  /* agar splash session mein pehle dekh chuka hai aur internet nahi hai */
   window.addEventListener("load", async ()=>{
     if(!ccsSplashActive && (ccsLibMissing() || !(await ccsReallyOnline()))) ccsShowOffline();
   });
 
-  /* ================= CART TROLLEY (nav ke upar, side mein) ================= */
+  /* ================= INSTALL APP POPUP (logocity.png) ================= */
+  let ccDeferredPrompt = null;
+  const ccInst = document.getElementById("ccInstall");
+  const ccInstBtn = document.getElementById("ccInstBtn");
+  const ccInstText = document.getElementById("ccInstText");
+  const ccIsIOS = /iphone|ipad|ipod/i.test(navigator.userAgent) && !window.MSStream;
+
+  function ccIsStandalone(){
+    return (window.matchMedia && window.matchMedia("(display-mode: standalone)").matches) || navigator.standalone === true;
+  }
+  function ccInstDismissedRecently(){
+    try{ return Date.now() - (+localStorage.getItem("ccInstDismiss") || 0) < 3 * 864e5; }catch(e){ return false; }
+  }
+  function ccHideInstall(remember){
+    if(ccInst) ccInst.classList.remove("show");
+    if(remember){ try{ localStorage.setItem("ccInstDismiss", String(Date.now())); }catch(e){} }
+  }
+  function ccShowInstall(){
+    if(!ccInst || ccIsStandalone() || ccInstDismissedRecently()) return;
+    if(ccsOff && ccsOff.classList.contains("show")) return;
+    if(!ccDeferredPrompt && !ccIsIOS) return;
+    if(ccIsIOS && !ccDeferredPrompt){
+      ccInstText.innerHTML = 'Share <i class="fa-solid fa-arrow-up-from-bracket"></i> dabayein, phir <b>Add to Home Screen</b>.';
+      ccInstBtn.querySelector("span").textContent = "Got it";
+      ccInstBtn.querySelector("i").className = "fa-solid fa-check";
+    }
+    ccInst.classList.add("show");
+  }
+  function ccWhenReady(fn){
+    const t = setInterval(()=>{
+      if(!ccsSplashActive && !document.getElementById("ccSplash")){
+        clearInterval(t);
+        setTimeout(fn, 1200);
+      }
+    }, 400);
+  }
+
+  window.addEventListener("beforeinstallprompt", e=>{
+    e.preventDefault();
+    ccDeferredPrompt = e;
+    ccWhenReady(ccShowInstall);
+  });
+  window.addEventListener("appinstalled", ()=>{
+    ccDeferredPrompt = null;
+    ccHideInstall(false);
+    try{ showTopAlert("success","Installed","City Choice app install ho gayi!"); }catch(e){}
+  });
+
+  ccInstBtn?.addEventListener("click", async ()=>{
+    if(ccDeferredPrompt){
+      ccDeferredPrompt.prompt();
+      try{ await ccDeferredPrompt.userChoice; }catch(e){}
+      ccDeferredPrompt = null;
+      ccHideInstall(true);
+    }else{
+      ccHideInstall(true);
+    }
+  });
+  document.getElementById("ccInstClose")?.addEventListener("click", ()=>ccHideInstall(true));
+
+  if(ccIsIOS && !ccIsStandalone()) ccWhenReady(ccShowInstall);
+
+  /* ================= CART: trolley search bar ke andar -> products bag me ================= */
+  const CL_TROLLEY = '<svg viewBox="0 0 48 40" fill="none" stroke="#d10012" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'
+    + '<path d="M2 4h7l5 21h23l5-15H11"/><path d="M18 11l1.8 9M26 11v9M34 11l-1.8 9" stroke-width="2" opacity=".85"/>'
+    + '<g class="cl-wh"><circle cx="19" cy="33" r="4" fill="#d10012" stroke="none"/><path d="M16 33h6" stroke="#fff" stroke-width="1.6"/></g>'
+    + '<g class="cl-wh"><circle cx="34" cy="33" r="4" fill="#d10012" stroke="none"/><path d="M31 33h6" stroke="#fff" stroke-width="1.6"/></g></svg>';
+
   function ccAnimCount(el, to){
     const from = window._ccCount || 0;
     window._ccCount = to;
@@ -976,107 +978,95 @@
   }
 
   function updateCartBar(bump, item){
-    const bar = document.getElementById("ccCartBar");
-    if(!bar) return;
+    const track = document.getElementById("ccTrack");
+    const bagBtn = document.getElementById("ccBagBtn");
+    const box = document.querySelector(".search-input-box");
+    if(!track || !bagBtn) return;
+
     let cart = [];
     try{ cart = JSON.parse(localStorage.getItem("cart")) || []; }catch(e){}
     const num = v => parseFloat(String(v).replace(/[^\d.]/g,"")) || 0;
     const count = cart.reduce((s,p)=>s+(parseInt(p.qty)||1),0);
     const total = cart.reduce((s,p)=>s+num(p.price)*(parseInt(p.qty)||1),0);
-    if(!count){ bar.classList.remove("show"); window._ccCount = 0; window._ccSig = ""; return; }
 
-    bar.setAttribute("aria-label","View cart: "+count+(count===1?" item":" items")+", Total ₹"+total.toLocaleString("en-IN"));
-
-    /* bar ko Home button se Account button tak, nav ke upar rakho */
-    const nav = document.querySelector(".bottom-nav");
-    if(nav){
-      const r = nav.getBoundingClientRect();
-      const links = nav.querySelectorAll("a");
-      let left = 10, width = window.innerWidth - 20;
-      if(links.length > 1){
-        const fr = links[0].getBoundingClientRect();
-        const lr = links[links.length-1].getBoundingClientRect();
-        left = Math.max(8, fr.left);
-        width = Math.min(window.innerWidth - 16, lr.right - fr.left);
-      }
-      bar.style.left = left + "px";
-      bar.style.width = width + "px";
-      bar.style.bottom = Math.max(8, window.innerHeight - r.top + 8) + "px";
+    if(!count){
+      bagBtn.classList.remove("has-items");
+      track.classList.remove("on");
+      track.innerHTML = "";
+      if(box) box.classList.remove("has-cart");
+      window._ccCount = 0; window._ccSig = "";
+      const n0 = document.getElementById("ccCartN"); if(n0) n0.textContent = "0";
+      bagBtn.setAttribute("aria-label","View cart");
+      return;
     }
 
-    /* count animation */
+    bagBtn.setAttribute("aria-label","View cart: "+count+(count===1?" item":" items")+", Total ₹"+total.toLocaleString("en-IN"));
     ccAnimCount(document.getElementById("ccCartN"), count);
 
-    /* cart ke sab products trolley se bahar nikalte hain (newest pehle) */
-    const box = document.getElementById("ccItems");
-    if(box){
-      const maxSlots = Math.max(2, Math.floor((box.clientWidth + 6) / 40));
-      const list = cart.slice().reverse();
-      const sig = list.map(p => p.id + "|" + p.image).join(",") + "#" + maxSlots;
-      if(bump || sig !== window._ccSig){
-        window._ccSig = sig;
-        box.innerHTML = "";
-        const shown = list.length > maxSlots ? list.slice(0, maxSlots - 1) : list;
-        const newId = item ? item.id : null;
-        shown.forEach((p, i) => {
-          const th = document.createElement("span");
-          th.className = "cc-th" + (bump && p.id === newId ? " new" : "");
-          th.style.setProperty("--from", "-" + (i * 40 + 52) + "px");
-          th.style.setProperty("--to", (box.clientWidth - i * 40 + 30) + "px");
-          th.style.animationDelay = (i * 0.3) + "s";
-          const im = document.createElement("img");
-          im.alt = "";
-          im.onerror = function(){ this.onerror = null; this.src = "logo.png"; };
-          im.src = p.image || "logo.png";
-          th.appendChild(im);
-          box.appendChild(th);
-        });
-        if(list.length > shown.length){
-          const more = document.createElement("span");
-          more.className = "cc-th cc-more";
-          more.style.setProperty("--from", "-" + (shown.length * 40 + 52) + "px");
-          more.style.setProperty("--to", (box.clientWidth - shown.length * 40 + 30) + "px");
-          more.style.animationDelay = (shown.length * 0.3) + "s";
-          more.textContent = "+" + (list.length - shown.length);
-          box.appendChild(more);
-        }
-      }
-    }
+    track.classList.add("on");
+    if(box) box.classList.add("has-cart");
 
-    bar.classList.add("show");
-    if(bump){ bar.classList.remove("bump"); void bar.offsetWidth; bar.classList.add("bump"); }
+    const run = Math.max(0, track.clientWidth - 52);
+    const list = cart.slice().reverse();
+    const sig = list.map(p => p.id + "|" + p.image + "|" + p.qty).join(",") + "#" + run;
+
+    if(bump || sig !== window._ccSig){
+      window._ccSig = sig;
+      track.innerHTML = "";
+
+      const tr = track.getBoundingClientRect();
+      const bagSvg = bagBtn.querySelector(".cl-bagsvg");
+      const br = bagSvg.getBoundingClientRect();
+      const bagX = br.left + br.width / 2;
+      const bagY = br.top + br.height / 2;
+      const itemCY = tr.bottom - 36;
+
+      const cartEl = document.createElement("div");
+      cartEl.className = "cl-cart";
+      cartEl.style.setProperty("--run", run + "px");
+      cartEl.innerHTML = CL_TROLLEY;
+
+      /* cart ke sab products trolley me (zyada ho to +n) */
+      const MAX = 4;
+      const shown = list.length > MAX ? list.slice(0, MAX) : list;
+      const place = (el, i) => {
+        const left = 4 + i * 10;
+        el.style.left = left + "px";
+        el.style.zIndex = 10 - i;
+        el.style.setProperty("--tx", (bagX - (tr.left + run + left + 12)) + "px");
+        el.style.setProperty("--ty", (bagY - itemCY) + "px");
+        el.style.animationDelay = (i * 0.15) + "s";
+      };
+      shown.forEach((p, i) => {
+        const th = document.createElement("span");
+        th.className = "cl-it";
+        place(th, i);
+        const im = document.createElement("img");
+        im.alt = "";
+        im.onerror = function(){ this.onerror = null; this.src = "logo.png"; };
+        im.src = p.image || "logo.png";
+        th.appendChild(im);
+        cartEl.appendChild(th);
+      });
+      if(list.length > shown.length){
+        const more = document.createElement("span");
+        more.className = "cl-it more";
+        place(more, shown.length);
+        more.textContent = "+" + (list.length - shown.length);
+        cartEl.appendChild(more);
+      }
+      track.appendChild(cartEl);
+
+      /* bag ka lid/animation trolley ke saath restart (sync) */
+      bagBtn.classList.remove("has-items");
+      void bagBtn.offsetWidth;
+    }
+    bagBtn.classList.add("has-items");
   }
   updateCartBar();
   window.addEventListener("pageshow", ()=>updateCartBar());
   window.addEventListener("storage", ()=>updateCartBar());
-  window.addEventListener("resize", ()=>updateCartBar());
-
-  let locationList = [], index = 0;
-
-  async function loadHeaderLocation(){
-    try{
-      const {data:{user}} = await supabaseClient.auth.getUser();
-      const el = document.getElementById("headerLocation");
-      if(!el) return;
-      if(!user){ el.innerText="Please Login"; return; }
-
-      const {data} = await supabaseClient.from("users")
-        .select("location,pincode").eq("email",user.email).single();
-
-      if(!data){ el.innerText="No Location Found"; return; }
-
-      locationList=[data.location,"Pincode: "+data.pincode];
-      rotateLocation();
-    }catch(e){ console.log(e); }
-  }
-
-  function rotateLocation(){
-    const el=document.getElementById("headerLocation");
-    if(!el || !locationList.length) return;
-    el.innerText=locationList[index];
-    index=(index+1)%locationList.length;
-    setTimeout(rotateLocation,3000);
-  }
+  window.addEventListener("resize", ()=>updateCartBar(true));
 
   function openMenuBook(){document.getElementById("menuBook")?.classList.add("show-menu")}
   function closeMenuBook(){document.getElementById("menuBook")?.classList.remove("show-menu")}
@@ -1237,7 +1227,7 @@
     document.getElementById("alertTitle").innerText=title;
     document.getElementById("alertText").innerText=message;
     alertBox.classList.remove("success","error","show");
-    void alertBox.offsetWidth; /* restart progress bar animation */
+    void alertBox.offsetWidth;
 
     if(type==="success"){
       alertBox.classList.add("success");
@@ -1290,6 +1280,7 @@
     loadProducts();
     loadNewProducts();
     loadShopStatus();
+    updateCartBar();
 
     document.querySelectorAll(".category-card").forEach(card=>{
       card.addEventListener("click",()=>{
@@ -1328,7 +1319,6 @@
       });
     }
   });
-
 
   /* ================= NEW PRODUCTS SLIDER ================= */
   const NEW_COLORS=["c-berry","c-choco","c-pista","c-mango","c-grape"];
@@ -1471,7 +1461,7 @@
       if(!moved)return;
       const r=g.getBoundingClientRect();
       const x=(r.left+r.width/2<window.innerWidth/2)?12:window.innerWidth-g.offsetWidth-12;
-      g.style.left=x+"px";           /* edge par snap */
+      g.style.left=x+"px";
       try{localStorage.setItem("ccFabPos",JSON.stringify({x:x,y:r.top}))}catch(e){}
     }
     window.addEventListener("pointerup",end);
